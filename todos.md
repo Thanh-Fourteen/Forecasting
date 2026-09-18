@@ -468,7 +468,7 @@ Mọi hình sinh bằng dap-an/ve_hinh.py. Chạy thật, lấy số thật, r�
 | 10 Làm sạch & dữ liệu thiếu | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ 10 tr |
 | 11 Ngoại lai & điểm gãy | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ 10 tr |
 | 12 Khử nhiễu & miền tần số | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ 10 tr |
-| 13 Feature & chống rò rỉ | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
+| 13 Feature & chống rò rỉ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ 10 tr |
 | Dự án giữa chặng 1 | 🔲 | đề 🔲 | lỗi cài sẵn 🔲 | bộ chấm 🔲 | rubric 🔲 | 🔲 |
 
 Bắt buộc:
