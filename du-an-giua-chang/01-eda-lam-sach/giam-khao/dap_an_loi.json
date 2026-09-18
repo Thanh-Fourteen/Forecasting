@@ -1,0 +1,79 @@
+{
+  "seed": 2026,
+  "so_loi": 6,
+  "loi": [
+    {
+      "ma": "L1",
+      "loai": "doi_don_vi",
+      "tep": "noi-bai",
+      "cot": "temperature",
+      "tu": "2025-04-01",
+      "den": "2025-12-31",
+      "mo_ta": "nhiệt độ đổi sang °F từ 2025-04-01 (mức nhảy ~+45, biên độ ×1,8)",
+      "so_dong": 12840
+    },
+    {
+      "ma": "L2",
+      "loai": "cam_bien_dung_yen",
+      "tep": "tphcm",
+      "cot": "relative_humidity_2m",
+      "tu": "2024-08-05",
+      "den": "2024-08-14",
+      "mo_ta": "độ ẩm đứng yên ở 78,0% suốt 216 giờ",
+      "so_dong": 216
+    },
+    {
+      "ma": "L3",
+      "loai": "lech_mui_gio",
+      "tep": "ha-noi",
+      "cot": "*",
+      "tu": "2024-06-01",
+      "den": "2025-01-01",
+      "mo_ta": "mốc thời gian nhảy +7 giờ từ 2024-06-01 (đỉnh nhiệt độ ngày dịch pha)",
+      "so_dong": 5136
+    },
+    {
+      "ma": "L4",
+      "loai": "dong_trung_lap",
+      "tep": "noi-bai",
+      "cot": "*",
+      "tu": "2024-01-01",
+      "den": "2025-12-31",
+      "mo_ta": "400 mốc thời gian xuất hiện hai lần",
+      "so_dong": 400
+    },
+    {
+      "ma": "L5",
+      "loai": "ngay_gia_0",
+      "tep": "tphcm",
+      "cot": "temperature_2m",
+      "tu": "2023-03-17",
+      "den": "2024-11-27",
+      "mo_ta": "11 ngày có mọi số đo bằng 0 (0 °C ở TP.HCM là bất khả thi)",
+      "so_dong": 264,
+      "ngay": [
+        "2023-03-17",
+        "2023-05-02",
+        "2023-07-19",
+        "2023-09-28",
+        "2023-12-11",
+        "2024-01-23",
+        "2024-02-29",
+        "2024-05-14",
+        "2024-08-30",
+        "2024-10-06",
+        "2024-11-27"
+      ]
+    },
+    {
+      "ma": "L6",
+      "loai": "doi_nhan_thoi_gian",
+      "tep": "noi-bai",
+      "cot": "*",
+      "tu": "2024-09-10",
+      "den": "2024-10-05",
+      "mo_ta": "đoạn 25 ngày bị dời nhãn 1 ngày (tương quan với trạm khác tụt hẳn, đỉnh nhiệt lệch 24 giờ)",
+      "so_dong": 1190
+    }
+  ]
+}

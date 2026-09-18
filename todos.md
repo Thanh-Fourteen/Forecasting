@@ -469,11 +469,11 @@ Mọi hình sinh bằng dap-an/ve_hinh.py. Chạy thật, lấy số thật, r�
 | 11 Ngoại lai & điểm gãy | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ 10 tr |
 | 12 Khử nhiễu & miền tần số | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ 10 tr |
 | 13 Feature & chống rò rỉ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ 10 tr |
-| Dự án giữa chặng 1 | 🔲 | đề 🔲 | lỗi cài sẵn 🔲 | bộ chấm 🔲 | rubric 🔲 | 🔲 |
+| Dự án giữa chặng 1 | ✅ | đề ✅ | lỗi cài sẵn ✅ 6/6 | bộ chấm ✅ | rubric ✅ | ✅ |
 
 Bắt buộc:
 - Buổi 9: spectral entropy vs MASE seasonal naive có số tương quan thật; phân cụm DTW; ABC–XYZ
-- Buổi 10: **dữ liệu Việt Nam thật** (OpenAQ Hà Nội/TP.HCM) có đổi đơn vị/trạm đứng yên; so 6 phương
+- Buổi 10: **dữ liệu Việt Nam thật** (GHCNh Nội Bài + Open-Meteo Hà Nội/TP.HCM — OpenAQ đã bỏ); so 6 phương
   pháp điền trên **lỗ ngắn và lỗ dài** bằng che nhân tạo; ≥ 8 test cho `lam_sach.py`; cột cờ
 - Buổi 11: 3 cách xử lý COVID ra 3 kết quả dự báo; Hampel vs z-score; PELT có chọn penalty
 - Buổi 12: aliasing dựng thật; bảng 6 bộ lọc có cột "dùng tương lai?"; **test tự động bắt bộ lọc

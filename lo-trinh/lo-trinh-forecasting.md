@@ -620,9 +620,13 @@ mọi năm 2000–2035, và giải thích được mỗi feature "biết trướ
 
 Đặt sau buổi 13. Làm cá nhân, 1 tuần.
 
-**Đề:** nhận dữ liệu PM2.5 + thời tiết thật của **3 trạm ở Hà Nội và TP.HCM** (OpenAQ +
-Open-Meteo), 2 năm, chưa ai làm sạch. Giám khảo cài thêm 6 lỗi không báo trước (đổi đơn vị,
-trạm đứng yên, lệch múi giờ, trùng lặp, ngày giả 0, một đoạn dữ liệu bị dời 1 ngày).
+**Đề:** nhận dữ liệu khí tượng thật của **3 nguồn Việt Nam** — trạm quan trắc **Nội Bài**
+(NOAA GHCNh, 30 phút, 2024–2025) và tái phân tích ERA5 cho **Hà Nội** và **TP.HCM** (Open-Meteo,
+theo giờ, 2023–2024) — chưa ai làm sạch. *(Rà 2026-09-18: bỏ OpenAQ vì v3 bắt buộc API key cho mọi
+endpoint, v2 đã ngừng.)* Giám khảo cài thêm 6 lỗi không báo trước: đổi đơn vị (°C → °F giữa chừng),
+trạm đứng yên, lệch múi giờ (+7 giờ), 400 mốc trùng lặp, 11 ngày giả toàn 0, và một đoạn 25 ngày
+bị dời nhãn 1 ngày. Lỗi cuối **không tạo NaN, không tạo giá trị vô lý** — chỉ tương quan chéo giữa
+ba nguồn mới thấy, và phải sửa lỗi múi giờ TRƯỚC thì mới lộ ra.
 
 **Nộp:**
 - Báo cáo EDA (notebook + PDF): bộ biểu đồ chẩn đoán, phân rã, ACF, tương quan PM2.5 × gió/độ
@@ -631,8 +635,9 @@ trạm đứng yên, lệch múi giờ, trùng lặp, ngày giả 0, một đo�
 - Bộ feature đã qua kiểm rò rỉ
 - Nhật ký quyết định: mỗi bước làm sạch, vì sao, ảnh hưởng tới bao nhiêu dòng
 
-**Chấm (100):** phát hiện lỗi cài sẵn 30 · chất lượng EDA và lập luận 25 · pipeline + test 25 ·
-chống rò rỉ 10 · trình bày 10. **Cột mốc M1.**
+**Chấm (100):** phát hiện lỗi cài sẵn 30 (tự động, `giam-khao/cham_phat_hien.py`: 5 điểm/lỗi =
+3 đúng loại + 1 đúng tệp/cột + 1 đúng khoảng ±3 ngày; báo lỗi không có thật −2) · chất lượng EDA và
+lập luận 25 · pipeline + test 25 · chống rò rỉ 10 · trình bày 10. **Cột mốc M1.**
 
 ---
 

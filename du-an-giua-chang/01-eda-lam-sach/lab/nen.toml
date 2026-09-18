@@ -1,0 +1,8 @@
+# Dự án giữa chặng 1 — EDA và pipeline làm sạch. Nguồn của lab/00-nen/ (python tools/sinh_nen.py du-an-giua-chang/01-eda-lam-sach).
+thu_vien = ["matplotlib", "scipy", "statsmodels", "scikit-learn", "pyarrow"]
+du_lieu = ["ghcnh-noi-bai-2024", "ghcnh-noi-bai-2025", "open-meteo-ha-noi-2023-2024",
+           "open-meteo-tphcm-2023-2024"]
+khung_bo = []
+
+[cham]
+code_phai_do = true

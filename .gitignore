@@ -34,3 +34,6 @@ danh-gia/**/*.ipynb
 tools/nhat-ky-lab/
 tools/du-lieu/nhat-ky-tai/
 tools/du-lieu/mirror/
+
+# dữ liệu bẩn sinh cho dự án (giám khảo sinh lại bằng giam-khao/tiem_loi.py)
+du-an-*/**/phat/

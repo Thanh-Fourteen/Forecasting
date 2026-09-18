@@ -60,7 +60,9 @@ class LoiNen(Exception):
 
 def chon_buoi(tham_so: list[str], tat_ca: bool) -> list[Path]:
     if tat_ca:
-        return sorted(p for p in GOC.glob("buoi-*") if (p / "lab" / "nen.toml").is_file())
+        co_nen = [p for p in GOC.glob("buoi-*") if (p / "lab" / "nen.toml").is_file()]
+        co_nen += [p for p in GOC.glob("du-an-*/*") if (p / "lab" / "nen.toml").is_file()]
+        return sorted(co_nen)
     ra: list[Path] = []
     for t in tham_so:
         if re.fullmatch(r"\d+", t):
@@ -71,8 +73,12 @@ def chon_buoi(tham_so: list[str], tat_ca: bool) -> list[Path]:
                     ra.append(GOC / f"buoi-{n:02d}")
         elif t.rstrip("/").split("/")[-1].startswith("buoi-"):
             ra.append(GOC / t.rstrip("/").split("/")[-1])
+        elif (GOC / t.rstrip("/") / "lab" / "nen.toml").is_file():
+            # dự án (du-an-giua-chang/01-…, du-an-cuoi/…) cũng có nền như một buổi
+            ra.append(GOC / t.rstrip("/"))
         else:
-            raise LoiNen(f"không hiểu '{t}' — dùng 7, 4-8, buoi-00-thu hoặc --tat-ca")
+            raise LoiNen(f"không hiểu '{t}' — dùng 7, 4-8, buoi-00-thu, đường dẫn thư mục có "
+                         f"lab/nen.toml, hoặc --tat-ca")
     return list(dict.fromkeys(ra))
 
 

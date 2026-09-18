@@ -1,0 +1,79 @@
+# SINH TỰ ĐỘNG bởi tools/sinh_nen.py — KHÔNG SỬA TAY. Sửa tools/du-lieu/danh-muc.toml rồi chạy lại tool.
+# Dữ liệu của 01-eda-lam-sach: tải + kiểm sha256 bằng `bash 00-nen/chuan-bi.sh` (make up).
+
+phien_ban = 1
+
+[[bo]]
+ten = "ghcnh-noi-bai-2024"
+kieu = "http"
+tieu_de = "NOAA GHCNh — trạm Nội Bài (VMI0000VVNB), theo giờ năm 2024 (Parquet)"
+url = "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2024/parquet/GHCNh_VMI0000VVNB_2024.parquet"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/105db7d8d51c8ff1229ec06c363f641417124bf3/ghcnh-noi-bai-2024/GHCNh_VMI0000VVNB_2024.parquet"
+sha256 = "1c67048928d447f340d75fffb187e4618fddc3892f971e9e9b4cab2ce2e320e2"
+dung_luong = 802327
+ten_tep = "GHCNh_VMI0000VVNB_2024.parquet"
+giay_phep = "CC0 1.0 (NOAA)"
+link_giay_phep = "https://creativecommons.org/publicdomain/zero/1.0/"
+trang_nguon = "https://www.ncei.noaa.gov/products/global-historical-climatology-network-hourly"
+trich_giay_phep = "These data were produced by NOAA and are not subject to copyright protection in the United States."
+ghi_nguon = "Menne, M.J. et al. (2023). Global Historical Climatology Network-Hourly (GHCNh). NOAA NCEI. doi:10.25921/jp3d-3v19"
+mirror = true
+ly_do_mirror = "2026-09-18: metadata NOAA C01688 ghi rõ CC0-1.0 và tài liệu GHCNh v1.1.0 KHÔNG có điều khoản WMO Resolution 40 / hạn chế phân phối lại (agent kiểm: 0 lần xuất hiện 'Resolution 40', 'licen', 'redistribut') → được mirror"
+khoang_thoi_gian = ["2024-01-01", "2024-12-31"]
+ghi_chu = "Thay ISD 488200-99999 (ISD dừng trạm từ 2025-08-24; ISD ngoài Mỹ 'cannot be redistributed'). NOAA viết lại tệp năm cũ (Last-Modified 2026-07-11) → sha256 có thể đổi."
+
+[[bo]]
+ten = "ghcnh-noi-bai-2025"
+kieu = "http"
+tieu_de = "NOAA GHCNh — trạm Nội Bài (VMI0000VVNB), theo giờ năm 2025 (Parquet)"
+url = "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2025/parquet/GHCNh_VMI0000VVNB_2025.parquet"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/105db7d8d51c8ff1229ec06c363f641417124bf3/ghcnh-noi-bai-2025/GHCNh_VMI0000VVNB_2025.parquet"
+sha256 = "9556f95eefee0c77967c2c5c6844fb87955d2c74e5df5e1ebaab47a102f6345c"
+dung_luong = 789502
+ten_tep = "GHCNh_VMI0000VVNB_2025.parquet"
+giay_phep = "CC0 1.0 (NOAA)"
+link_giay_phep = "https://creativecommons.org/publicdomain/zero/1.0/"
+trang_nguon = "https://www.ncei.noaa.gov/products/global-historical-climatology-network-hourly"
+trich_giay_phep = "These data were produced by NOAA and are not subject to copyright protection in the United States."
+ghi_nguon = "Menne, M.J. et al. (2023). Global Historical Climatology Network-Hourly (GHCNh). doi:10.25921/jp3d-3v19"
+mirror = true
+ly_do_mirror = "như ghcnh-noi-bai-2024 (CC0 đã xác minh 2026-09-18)"
+khoang_thoi_gian = ["2025-01-01", "2025-12-31"]
+ghi_chu = "2025 nằm SAU giai đoạn huấn luyện AIFS (ERA5 1979–2022, fine-tune 2016–2022) — dùng kiểm chứng sạch."
+
+[[bo]]
+ten = "open-meteo-ha-noi-2023-2024"
+kieu = "http"
+tieu_de = "Open-Meteo Historical Weather (ERA5) — Hà Nội, theo giờ 2023–2024, UTC"
+url = "https://archive-api.open-meteo.com/v1/archive?latitude=21.0285&longitude=105.8542&start_date=2023-01-01&end_date=2024-12-31&hourly=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m,wind_direction_10m&timezone=UTC&models=era5&format=csv"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/105db7d8d51c8ff1229ec06c363f641417124bf3/open-meteo-ha-noi-2023-2024/open-meteo-ha-noi-2023-2024.csv"
+sha256 = "10146f74574963a69550ca45a868575e5b127148d01fd7ba4c0462b52e2459cd"
+dung_luong = 665227
+ten_tep = "open-meteo-ha-noi-2023-2024.csv"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://open-meteo.com/en/licence"
+trang_nguon = "https://open-meteo.com/en/docs/historical-weather-api"
+trich_giay_phep = "API data are offered under Attribution 4.0 International (CC BY 4.0) You are free to share: copy and redistribute the material in any medium or format and adapt: remix, transform, and build upon the material."
+ghi_nguon = "Weather data by Open-Meteo.com (https://open-meteo.com/), mô hình ERA5 (Copernicus Climate Change Service)."
+mirror = true
+ly_do_mirror = "nên mirror: API miễn phí chỉ cho mục đích phi thương mại và giới hạn 10.000 lượt/ngày; dữ liệu CC BY cho phép phân phối lại"
+khoang_thoi_gian = ["2023-01-01", "2024-12-31"]
+ghi_chu = "Toạ độ bị bắt vào ô lưới gần nhất; chốt models=era5 cho ổn định (mặc định 'best match' trộn nhiều mô hình). Ba dòng đầu CSV là metadata ô lưới."
+
+[[bo]]
+ten = "open-meteo-tphcm-2023-2024"
+kieu = "http"
+tieu_de = "Open-Meteo Historical Weather (ERA5) — TP. Hồ Chí Minh, theo giờ 2023–2024, UTC"
+url = "https://archive-api.open-meteo.com/v1/archive?latitude=10.8231&longitude=106.6297&start_date=2023-01-01&end_date=2024-12-31&hourly=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m,wind_direction_10m&timezone=UTC&models=era5&format=csv"
+sha256 = "aebd047f8dd768eb128c50eae35064c92ef03672b0161b5b7df20f2372bd1195"
+dung_luong = 668661
+ten_tep = "open-meteo-tphcm-2023-2024.csv"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://open-meteo.com/en/licence"
+trang_nguon = "https://open-meteo.com/en/docs/historical-weather-api"
+trich_giay_phep = "API data are offered under Attribution 4.0 International (CC BY 4.0) You are free to share: copy and redistribute the material in any medium or format and adapt: remix, transform, and build upon the material."
+ghi_nguon = "Weather data by Open-Meteo.com (https://open-meteo.com/), mô hình ERA5 (Copernicus Climate Change Service)."
+mirror = true
+ly_do_mirror = "nên mirror: API miễn phí chỉ cho mục đích phi thương mại và giới hạn 10.000 lượt/ngày; dữ liệu CC BY cho phép phân phối lại"
+khoang_thoi_gian = ["2023-01-01", "2024-12-31"]
+ghi_chu = "Toạ độ bị bắt vào ô lưới gần nhất; chốt models=era5 cho ổn định (mặc định 'best match' trộn nhiều mô hình). Ba dòng đầu CSV là metadata ô lưới."
