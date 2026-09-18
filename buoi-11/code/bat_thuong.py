@@ -1,7 +1,7 @@
 # %% [markdown]
 # # Buổi 11 — Ngoại lai và điểm gãy
 #
-# Bản ĐÃ SỬA. Dữ liệu: lượt xem vi.wikipedia (tổng và bài "Tết Nguyên Đán"), hành khách hàng không
+# Điểm xuất phát (có chỗ cố tình sai). Dữ liệu: lượt xem vi.wikipedia (tổng và bài "Tết Nguyên Đán"), hành khách hàng không
 # EU27 theo tháng (Eurostat avia_paoc).
 
 # %%
@@ -186,12 +186,11 @@ def doi_phuong_sai(y: pd.Series, chu_ky: int = 7, nhin: int = 30, ty_le: float =
     (ở chuỗi mẫu: σ thô ≈ 7,9 cả trước lẫn sau điểm gãy, nhìn vào đó sẽ không thấy gì);
     (2) dùng chi phí Gaussian (`model="normal"`), vì l2 chỉ nhìn trung bình.
     """
-    du = pd.Series(STL(y, period=chu_ky, robust=True).fit().resid, index=y.index)
-    v = du.to_numpy(float)
+    v = y.to_numpy(float)
     vi_tri = rpt.Pelt(model="normal", min_size=nhin // 2).fit(v).predict(pen=3 * np.log(v.size))[:-1]
 
-    def _sigma(x):  # MAD, không phải std: một ngoại lai đơn lẻ làm std phình gấp 4 lần
-        return float(HE_SO_MAD * np.median(np.abs(x - np.median(x))))
+    def _sigma(x):
+        return float(np.std(x))
 
     ra = []
     for i in vi_tri:
@@ -238,7 +237,7 @@ def diem_gay(y: pd.Series, pen: float | None = None, mo_hinh: str = "l2", log: b
 
     pen mặc định = 3·log n (xấp xỉ MBIC). Trả danh sách MỐC THỜI GIAN của điểm gãy.
     """
-    v = np.log(y.to_numpy(float)) if log else y.to_numpy(float)
+    v = y.to_numpy(float)
     n = v.size
     pen = 3 * np.log(n) if pen is None else pen
     vi_tri = rpt.Pelt(model=mo_hinh, min_size=3).fit(v).predict(pen=pen)
@@ -340,19 +339,12 @@ def xu_ly_ngoai_lai(y: pd.Series, cach: str = "hampel_winsorize", cua_so: int = 
                     bo_qua_su_kien=None) -> pd.DataFrame:
     """Trả chuỗi đã xử lý + cờ. `bo_qua_su_kien` là các mốc KHÔNG được động vào (sự kiện thật).
 
-    Mặc định winsorize theo Hampel: kéo về mức địa phương thay vì xoá — giữ được số mốc.
+    Cách chuẩn: xoá mọi điểm lệch quá 3σ.
     """
     y = y.astype(float)
-    co = hampel(y, cua_so) if cach.startswith("hampel") else z_score(y)
-    if bo_qua_su_kien is not None:
-        co = co & ~pd.Series(y.index.isin(pd.DatetimeIndex(bo_qua_su_kien)), index=y.index)
+    co = z_score(y)
     trung_vi = y.rolling(2 * cua_so + 1, center=True, min_periods=cua_so).median()
-    if cach == "xoa":
-        sach = y.where(~co)
-    elif cach == "hampel_winsorize":
-        sach = y.where(~co, trung_vi)
-    else:
-        raise ValueError(f"cách không biết: {cach}")
+    sach = y.where(~co)
     return pd.DataFrame({"y": y, "sach": sach, "da_sua": co & sach.notna(), "bi_xoa": co & sach.isna()})
 
 

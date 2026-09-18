@@ -132,7 +132,9 @@ xac_minh = "2026-09-17: giấy phép trên trang dataset; tải + sha256 bởi a
 kieu = "http"
 tieu_de = "UCI ElectricityLoadDiagrams20112014 (370 khách hàng Bồ Đào Nha, 15 phút)"
 url = "https://archive.ics.uci.edu/static/public/321/electricityloaddiagrams20112014.zip"
-cho_sha256 = "249 MB; đo 2026-09-17 tốc độ ~2,5 KB/s (hơn một ngày) — chỉ chốt khi có mirror; buổi học dùng monash-electricity-hourly"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/829f0fab55a5fb5a0b483976d60c402efb2e355a/uci-electricity-load/electricityloaddiagrams20112014.zip"
+sha256 = "f6c4d0e0df12ecdb9ea008dd6eef3518adb52c559d04a9bac2e1b81dcfc8d4e1"
+dung_luong = 261335609
 giai_nen = "zip"
 giay_phep = "CC BY 4.0"
 link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
@@ -143,7 +145,7 @@ mirror = true
 ly_do_mirror = "bắt buộc mirror khi có tài khoản Hugging Face của khoá — UCI tải chậm, không tiếp tục được khi đứt"
 khoang_thoi_gian = ["2011-01-01", "2015-01-01"]
 buoi = [29, 30, 32]
-xac_minh = "2026-09-17: giấy phép trên trang dataset; URL trả 200"
+xac_minh = "2026-09-18: tải đủ 261.335.609 byte từ UCI (~50 phút) và chốt sha256; đã mirror lên Hugging Face"
 
 # =========================================================================== Monash Time Series Forecasting Repository (Zenodo, CC BY 4.0)
 

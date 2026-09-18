@@ -296,13 +296,15 @@ Mọi buổi đều copy khung này vào `tv/` và đều tải dữ liệu qua 
 - [x] `tools/khung/du_lieu.py` — `doc_du_lieu(ten)` dạng dài (đọc .tsf Monash, hoặc khai `dang_dai` trong danh mục), `doc_tho`
 - [x] `tools/kiem_khung.py` — test khung ở 2 hồ sơ: pandas 3.0.5 (65 đạt, 3 bỏ qua) và pandas 2.3.3 + Nixtla (68 đạt)
 - [x] `lab/nen.toml` thêm `khung_bo` — buổi dạy tự viết công cụ không nhận lời giải trong `tv/`
-- [x] **`tools/du-lieu/danh-muc.toml`** — 48 bộ (46 đã chốt sha256; `uci-electricity-load` và `m5-kaggle` chờ có lý do) +
+- [x] **`tools/du-lieu/danh-muc.toml`** — 56 bộ (**55 đã chốt sha256**; chỉ còn `m5-kaggle` chờ chấp nhận luật Kaggle) +
       8 nguồn ghi rõ KHÔNG tải tự động (FRED, OpenAQ VN, ISD, BTS, METR-LA, Dominick's, Metaculus, fev/GIFT-Eval)
 - [x] **Rà giấy phép từng bộ** — trích nguyên văn trong NGHIEN-CUU.md mục B và trường `trich_giay_phep`
 - [x] **Mirror** bộ được phép lên Hugging Face Datasets — **XONG 2026-09-18**: `Tony2202/khoa-forecasting-du-lieu`
       (công khai), commit `105db7d8d51c8ff1229ec06c363f641417124bf3`, **49 bộ / 614 MB**, tệp giữ nguyên byte, thẻ dữ liệu
       ghi giấy phép + nguồn + sha256 từng bộ. 49 dòng `url_mirror` đã vào `danh-muc.toml`; `lay_du_lieu.py` thử mirror trước.
-      Kiểm trên cache trắng: 4/4 bộ khớp sha256 (Online Retail II 18,4 s qua mirror thay vì ~5 giờ từ UCI)
+      Kiểm trên cache trắng: 4/4 bộ khớp sha256 (Online Retail II 18,4 s qua mirror thay vì ~5 giờ từ UCI).
+      Lần đẩy thứ hai (commit `829f0fab55a5fb5a0b483976d60c402efb2e355a`) thêm `uci-electricity-load`:
+      đã tải đủ 261.335.609 byte từ UCI và **chốt sha256** — bộ cuối cùng còn treo từ Phase 1
 - [x] Bộ dự phòng mở cho mọi bộ bị hạn chế (M5 → Online Retail II / Car Parts; METR-LA → Traffic hourly; ISD → GHCNh;
       OpenAQ VN → UCI Beijing + Open-Meteo Hà Nội; Metaculus → ForecastBench; Dominick's → Online Retail II)
 - [x] `phu-luc/F-nguon-du-lieu.md` sinh từ danh mục (`tools/du-lieu/sinh_phu_luc_f.py`) + PDF

@@ -8,7 +8,7 @@ sha256. Nhật ký rà giấy phép đầy đủ: `tools/du-lieu/NGHIEN-CUU.md`.
 **Quy tắc:** CC BY / CC0 / public domain → được mirror (kèm ghi nguồn); giấy phép cấm phân phối lại → học
 viên tự tải bằng tài khoản của mình và luôn có bộ dự phòng mở; nguồn không có giấy phép rõ → không mirror.
 
-Danh mục có **56 bộ**, tổng dung lượng tải khoảng **1.2 GB** (không tính bộ chưa rõ dung lượng).
+Danh mục có **56 bộ**, tổng dung lượng tải khoảng **1.4 GB** (không tính bộ chưa rõ dung lượng).
 
 ## Bảng tổng quan
 
@@ -65,7 +65,7 @@ Danh mục có **56 bộ**, tổng dung lượng tải khoảng **1.2 GB** (khô
 | `uci-appliances-energy` | CC BY 4.0 | có | tải trực tiếp | 11.4 MB | 12 | đã chốt |
 | `uci-beijing-air` | CC BY 4.0 | có | tải trực tiếp | 7.8 MB | 10, 26, 32, 43 | đã chốt |
 | `uci-bike-sharing` | CC BY 4.0 | có | tải trực tiếp | 273.4 KB | 2, 4, 7, 27 | đã chốt |
-| `uci-electricity-load` | CC BY 4.0 | có | tải trực tiếp | ? | 29, 30, 32 | chờ sha256 |
+| `uci-electricity-load` | CC BY 4.0 | có | tải trực tiếp | 249.2 MB | 29, 30, 32 | đã chốt |
 | `uci-household-power` | CC BY 4.0 | có | tải trực tiếp | 19.7 MB | 1 | đã chốt |
 | `uci-online-retail-ii` | CC BY 4.0 | có | tải trực tiếp | 43.5 MB | 9, 13, 14, 22, 24, 39, 44 | đã chốt |
 | `wikipedia-vi-tet` | CC0 1.0 | có | tải trực tiếp | 553.5 KB | 11, 13 | đã chốt |
@@ -712,9 +712,9 @@ Danh mục có **56 bộ**, tổng dung lượng tải khoảng **1.2 GB** (khô
 - **Trích nguyên văn:** "This dataset is licensed under a Creative Commons Attribution 4.0 International (CC BY 4.0) license. This allows for the sharing and adaptation of the datasets for any purpose, provided that the appropriate credit is given."
 - **Mirror:** được — bắt buộc mirror khi có tài khoản Hugging Face của khoá — UCI tải chậm, không tiếp tục được khi đứt
 - **Khoảng thời gian cố định:** 2011-01-01 → 2015-01-01
-- **Chưa chốt sha256:** 249 MB; đo 2026-09-17 tốc độ ~2,5 KB/s (hơn một ngày) — chỉ chốt khi có mirror; buổi học dùng monash-electricity-hourly
+- **sha256:** `f6c4d0e0df12ecdb9ea008dd6eef3518adb52c559d04a9bac2e1b81dcfc8d4e1` (249.2 MB)
 - **Trích dẫn:** Trindade, A. (2015). ElectricityLoadDiagrams20112014 [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C58C86
-- **Xác minh:** 2026-09-17: giấy phép trên trang dataset; URL trả 200
+- **Xác minh:** 2026-09-18: tải đủ 261.335.609 byte từ UCI (~50 phút) và chốt sha256; đã mirror lên Hugging Face
 
 ### `uci-household-power` — UCI Individual Household Electric Power Consumption (Sceaux, Pháp, theo phút)
 
