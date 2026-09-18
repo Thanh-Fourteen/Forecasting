@@ -1,0 +1,10 @@
+# Bo cong cu cua repo (khong phai phu thuoc cua buoi hoc — moi buoi co pyproject.toml rieng)
+#   uv venv .venv && uv pip install -r tools/requirements.txt
+# Phien ban xac minh tren PyPI 2026-09-17 (tools/NGHIEN-CUU.md muc 1)
+markdown-it-py==4.2.0
+mdit-py-plugins==0.6.1
+weasyprint==70.0
+ziamath==0.13
+pypdf==6.19.0
+ruff==0.16.8
+jupytext==1.19.5

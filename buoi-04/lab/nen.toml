@@ -1,0 +1,8 @@
+# Buổi 04 — Đọc và vẽ biểu đồ. Nguồn của lab/00-nen/ (python tools/sinh_nen.py 4).
+thu_vien = ["matplotlib", "statsmodels"]
+du_lieu = ["uci-bike-sharing"]
+# học viên tự viết bộ biểu đồ chẩn đoán → không phát tv.ve
+khung_bo = ["ve"]
+
+[cham]
+code_phai_do = true

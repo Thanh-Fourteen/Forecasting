@@ -1,0 +1,55 @@
+# SINH TỰ ĐỘNG bởi tools/sinh_nen.py — KHÔNG SỬA TAY. Sửa tools/du-lieu/danh-muc.toml rồi chạy lại tool.
+# Dữ liệu của buoi-11: tải + kiểm sha256 bằng `bash 00-nen/chuan-bi.sh` (make up).
+
+phien_ban = 1
+
+[[bo]]
+ten = "wikipedia-vi-tet"
+kieu = "http"
+tieu_de = "Wikimedia Pageviews — bài 'Tết Nguyên Đán' Wikipedia tiếng Việt, theo ngày 2016–2025"
+url = "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/vi.wikipedia/all-access/user/T%E1%BA%BFt_Nguy%C3%AAn_%C4%90%C3%A1n/daily/2016010100/2025123100"
+sha256 = "8f9e15ea30553c66999c204119a99dd973c2c130bdd2e21acbfd642f0db9ca4e"
+dung_luong = 566798
+ten_tep = "tet-nguyen-dan-2016-2025.json"
+giay_phep = "CC0 1.0"
+link_giay_phep = "https://dumps.wikimedia.org/legal.html"
+trang_nguon = "https://wikimedia.org/api/rest_v1/"
+trich_giay_phep = "All Analytics datasets are available under the Creative Commons Zero (CC0) public domain dedication, unless otherwise specified."
+ghi_nguon = "Wikimedia Foundation, Pageviews API (truy cập 2026-09-17)."
+mirror = true
+khoang_thoi_gian = ["2016-01-01", "2025-12-31"]
+ghi_chu = "API cần User-Agent có thông tin liên hệ (chính sách Wikimedia); giới hạn 200 lượt/phút với UA hợp lệ."
+
+[[bo]]
+ten = "wikipedia-vi-tong"
+kieu = "http"
+tieu_de = "Wikimedia Pageviews — tổng lượt xem Wikipedia tiếng Việt (người dùng), theo ngày 2016–2025"
+url = "https://wikimedia.org/api/rest_v1/metrics/pageviews/aggregate/vi.wikipedia/all-access/user/daily/2016010100/2025123100"
+sha256 = "481d604d1b581efcb76c4a86d1dc6e5547271c6b8e2a772bcc53719b1fa1c3f3"
+dung_luong = 463933
+ten_tep = "vi-wikipedia-tong-2016-2025.json"
+giay_phep = "CC0 1.0"
+link_giay_phep = "https://dumps.wikimedia.org/legal.html"
+trang_nguon = "https://wikimedia.org/api/rest_v1/"
+trich_giay_phep = "All Analytics datasets are available under the Creative Commons Zero (CC0) public domain dedication, unless otherwise specified."
+ghi_nguon = "Wikimedia Foundation, Pageviews API (truy cập 2026-09-17)."
+mirror = true
+khoang_thoi_gian = ["2016-01-01", "2025-12-31"]
+
+[[bo]]
+ten = "eurostat-hanh-khach-hang-khong"
+kieu = "http"
+tieu_de = "Eurostat avia_paoc — hành khách hàng không EU27 theo tháng (chở có thu tiền, tổng chiều), 2008-01 → nay"
+url = "https://ec.europa.eu/eurostat/api/dissemination/sdmx/3.0/data/dataflow/ESTAT/avia_paoc/1.0/M.PAS.PAS_CRD.TOTAL.TOTAL.EU27_2020?format=csvdata&compress=false"
+sha256 = "6ce5178cf876ba9e58c47ed9e6c5c4207383e9041dab1fc9306693c691eff5d0"
+dung_luong = 18866
+ten_tep = "eurostat-avia-paoc-eu27.csv"
+giay_phep = "CC BY 4.0 (Eurostat)"
+link_giay_phep = "https://ec.europa.eu/eurostat/help/copyright-notice"
+trang_nguon = "https://ec.europa.eu/eurostat/databrowser/view/avia_paoc/default/table"
+trich_giay_phep = "Reuse of statistical data, metadata, publications, and other dissemination tools published on this website for commercial or non-commercial purposes is authorised provided the source is acknowledged."
+ghi_nguon = "Eurostat, Air passenger transport by type of schedule (avia_paoc), truy cập 2026-09-18."
+mirror = true
+ly_do_mirror = "BẮT BUỘC mirror: Eurostat sửa số liệu (revision) mỗi kỳ công bố nên sha256 chỉ đúng tới lần sửa kế tiếp"
+khoang_thoi_gian = ["2008-01", "2026-02"]
+ghi_chu = "Dùng endpoint SDMX 3.0: bản SDMX 2.1 có cột 'LAST UPDATE' đổi mỗi lần tải nên sha256 không ổn định. 218 tháng; cột TIME_PERIOD (YYYY-MM) và OBS_VALUE. Vỡ COVID rất rõ: 2020-01 66.046.231 → 2020-04 890.607 (−98,7%), hồi phục 2021-07 48.960.587. Thay US BTS T-100 (transtats chỉ có bảng HTML, data.bts.gov trả 403)."

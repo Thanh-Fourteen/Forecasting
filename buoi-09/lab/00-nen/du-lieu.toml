@@ -1,0 +1,39 @@
+# SINH TỰ ĐỘNG bởi tools/sinh_nen.py — KHÔNG SỬA TAY. Sửa tools/du-lieu/danh-muc.toml rồi chạy lại tool.
+# Dữ liệu của buoi-09: tải + kiểm sha256 bằng `bash 00-nen/chuan-bi.sh` (make up).
+
+phien_ban = 1
+
+[[bo]]
+ten = "monash-m4-monthly"
+kieu = "http"
+tieu_de = "M4 theo tháng (48.000 chuỗi) — Monash"
+url = "https://zenodo.org/records/4656480/files/m4_monthly_dataset.zip?download=1"
+sha256 = "473aa4fc814b625174be2b5615959f35f85f566fbed09c30acf44c350b2a1efe"
+dung_luong = 28235874
+giai_nen = "zip"
+chi_lay = ["m4_monthly_dataset.tsf"]
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://doi.org/10.5281/zenodo.4656480"
+trich_giay_phep = "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."
+ghi_nguon = "Godahewa et al. (2021). Monash Time Series Forecasting Archive. NeurIPS Datasets and Benchmarks Track."
+mirror = true
+khong_thoi_gian = true
+
+[[bo]]
+ten = "uci-online-retail-ii"
+kieu = "http"
+tieu_de = "UCI Online Retail II (bán lẻ trực tuyến Anh, 2009–2011)"
+url = "https://archive.ics.uci.edu/static/public/502/online+retail+ii.zip"
+sha256 = "572e36277c2390fbfde10664750731e0a86f55e33470d91919085f0408e67bfb"
+dung_luong = 45622418
+giai_nen = "zip"
+chi_lay = ["online_retail_II.xlsx"]
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://archive.ics.uci.edu/dataset/502/online+retail+ii"
+trich_giay_phep = "This dataset is licensed under a Creative Commons Attribution 4.0 International (CC BY 4.0) license. This allows for the sharing and adaptation of the datasets for any purpose, provided that the appropriate credit is given."
+ghi_nguon = "Chen, D. (2012). Online Retail II [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5CG6D"
+mirror = true
+khoang_thoi_gian = ["2009-12-01", "2011-12-09"]
+ghi_chu = "Excel hai sheet 'Year 2009-2010' (525.461 dòng) và 'Year 2010-2011' (541.910 dòng) — buổi dùng cần openpyxl. Là dự phòng mở cho M5."

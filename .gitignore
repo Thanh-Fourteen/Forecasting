@@ -1,0 +1,36 @@
+# moi truong
+.venv/
+**/.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.ruff_cache/
+
+# du lieu — khong bao gio commit, tai bang tools/lay_du_lieu.py
+**/du-lieu/raw/
+*.parquet
+*.csv.gz
+*.grib2
+*.nc
+.cache/
+
+# sinh ra
+phat-de/*.zip
+**/mlruns/
+**/outputs/
+
+# bi mat
+**/.env
+*.key
+kaggle.json
+
+# notebook sinh từ .py percent bằng jupytext — không commit (tools/NGHIEN-CUU.md mục 4)
+buoi-*/**/*.ipynb
+du-an-*/**/*.ipynb
+danh-gia/**/*.ipynb
+.pytest_cache/
+
+# nhật ký chạy thử lab (tools/kiem_tra_lab.py)
+tools/nhat-ky-lab/
+tools/du-lieu/nhat-ky-tai/
+tools/du-lieu/mirror/

@@ -1,0 +1,7 @@
+# Buổi 10 — Làm sạch và dữ liệu thiếu. Nguồn của lab/00-nen/ (python tools/sinh_nen.py 10).
+thu_vien = ["matplotlib", "scipy", "statsmodels", "pyarrow"]
+du_lieu = ["uci-beijing-air", "ghcnh-noi-bai-2024", "open-meteo-ha-noi-2023-2024"]
+khung_bo = []
+
+[cham]
+code_phai_do = true

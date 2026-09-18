@@ -1,0 +1,9 @@
+# Buổi 13 — Feature engineering và chống rò rỉ. Nguồn của lab/00-nen/ (python tools/sinh_nen.py 13).
+thu_vien = ["matplotlib", "scipy", "scikit-learn", "holidays", "openpyxl", "pyarrow"]
+du_lieu = ["uci-online-retail-ii", "wikipedia-vi-tet", "wikipedia-vi-tong",
+           "eia930-balance-2024-h1", "eia930-balance-2024-h2", "open-meteo-dallas-du-bao-luu-2024"]
+# học viên tự viết kiem_ro_ri → không phát tv.ro_ri
+khung_bo = ["ro_ri"]
+
+[cham]
+code_phai_do = true

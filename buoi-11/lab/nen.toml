@@ -1,0 +1,7 @@
+# Buổi 11 — Ngoại lai và điểm gãy. Nguồn của lab/00-nen/ (python tools/sinh_nen.py 11).
+thu_vien = ["matplotlib", "scipy", "statsmodels", "ruptures"]
+du_lieu = ["wikipedia-vi-tet", "wikipedia-vi-tong", "eurostat-hanh-khach-hang-khong"]
+khung_bo = []
+
+[cham]
+code_phai_do = true

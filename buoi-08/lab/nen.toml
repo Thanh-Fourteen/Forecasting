@@ -1,0 +1,8 @@
+# Buổi 08 — Tương quan giữa các chuỗi. Nguồn của lab/00-nen/ (python tools/sinh_nen.py 8).
+thu_vien = ["matplotlib", "scipy", "statsmodels", "scikit-learn"]
+du_lieu = ["eia930-balance-2024-h1", "eia930-balance-2024-h2", "open-meteo-dallas-2024", "open-meteo-houston-2024",
+           "bls-cpi-u", "bea-nipa-thang"]
+khung_bo = []
+
+[cham]
+code_phai_do = true

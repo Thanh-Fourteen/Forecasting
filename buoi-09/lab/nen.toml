@@ -1,0 +1,7 @@
+# Buổi 09 — Đặc trưng chuỗi và khả năng dự báo. Nguồn của lab/00-nen/ (python tools/sinh_nen.py 9).
+thu_vien = ["matplotlib", "scipy", "statsmodels", "scikit-learn", "dtaidistance", "openpyxl", "pyarrow"]
+du_lieu = ["monash-m4-monthly", "uci-online-retail-ii"]
+khung_bo = []
+
+[cham]
+code_phai_do = true

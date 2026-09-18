@@ -1,0 +1,1134 @@
+# Danh mục GỐC mọi bộ dữ liệu của khoá — nguồn của lab/00-nen/du-lieu.toml của từng buổi và của
+# phu-luc/F-nguon-du-lieu.md (sinh bằng tools/du-lieu/sinh_phu_luc_f.py). Nhật ký rà giấy phép: NGHIEN-CUU.md.
+#
+# Mỗi bộ là một bảng [bo.<ten>]. Trường:
+#   kieu            http | hf | kaggle | eia | openaq            (xem tools/lay_du_lieu.py)
+#   tieu_de         tên đầy đủ
+#   url             URL gốc (http)            url_mirror  bản mirror HF chốt commit (chỉ khi mirror = true)
+#   repo, revision, duong_dan                 (hf — revision là commit sha 40 ký tự)
+#   kaggle          "competition:<slug>" | "dataset:<owner>/<slug>" + tep_sha256 = { tệp = sha256 }
+#   route, tham_so  (eia)                     duong_dan, tham_so  (openaq)
+#   sha256          sha256 của tệp tải về (bắt buộc, trừ kaggle dùng tep_sha256, bộ truc_tiep, bộ cho_sha256)
+#   cho_sha256      lý do chưa chốt sha256 — được ở danh mục nhưng sinh_nen từ chối đưa vào buổi
+#   dung_luong      byte
+#   giai_nen        zip | tar.gz | gz | …      chi_lay  tệp cần trong tệp nén      giai_nen_long  tệp nén lồng
+#   ten_tep         tên lưu khi không giải nén
+#   giay_phep, link_giay_phep, trang_nguon, ghi_nguon — giấy phép ĐÃ ĐỌC từ trang gốc
+#   trich_giay_phep trích NGUYÊN VĂN điều khoản cho phân phối lại / sử dụng
+#   mirror          true nếu giấy phép cho phân phối lại bản sao; ly_do_mirror nếu cần giải thích
+#   du_phong        bộ mở thay thế — bắt buộc với bộ bị hạn chế
+#   khoang_thoi_gian ["bắt đầu", "kết thúc"] cố định   (khong_thoi_gian = true nếu không phải chuỗi thời gian)
+#   dang_dai        cách tv.du_lieu.doc_du_lieu đưa về unique_id, ds, y (tuỳ chọn)
+#   truc_tiep       true chỉ cho bài dự báo trực tiếp (kèm ly_do_truc_tiep) — bỏ kiểm sha256
+#   buoi            các buổi dùng (tra cứu)       ghi_chu    lưu ý khi dùng
+#   xac_minh        ngày đọc trang giấy phép + tải thử
+#
+# [ngoai_danh_muc.<ten>]: nguồn có trong lộ trình nhưng KHÔNG tải tự động (giấy phép / không có giấy phép).
+
+# =========================================================================== UCI (CC BY 4.0)
+
+[bo.uci-bike-sharing]
+kieu = "http"
+tieu_de = "UCI Bike Sharing Dataset (Capital Bikeshare, Washington D.C.)"
+url = "https://archive.ics.uci.edu/static/public/275/bike+sharing+dataset.zip"
+sha256 = "b70182d0d0508e9abbb79306ce5c0cec34869000f8220175ac83d11dbe845401"
+dung_luong = 279992
+giai_nen = "zip"
+chi_lay = ["Readme.txt", "day.csv", "hour.csv"]
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://archive.ics.uci.edu/dataset/275/bike+sharing+dataset"
+trich_giay_phep = "This dataset is licensed under a Creative Commons Attribution 4.0 International (CC BY 4.0) license. This allows for the sharing and adaptation of the datasets for any purpose, provided that the appropriate credit is given."
+ghi_nguon = "Fanaee-T, H. (2013). Bike Sharing [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5W894"
+mirror = true
+khoang_thoi_gian = ["2011-01-01", "2012-12-31"]
+dang_dai = { tep = "hour.csv", ds = "dteday", gio = "hr", y = "cnt", id = "bike-sharing" }
+buoi = [2, 4, 7, 27]
+ghi_chu = "Giờ theo giờ địa phương Washington D.C., không có thông tin múi giờ; tệp CSV xuống dòng CRLF. API metadata UCI báo 17.389 bản ghi nhưng hour.csv có 17.379 dòng — không kiểm số dòng theo metadata."
+xac_minh = "2026-09-17: trang UCI ghi CC BY 4.0; tải 2 lần cùng sha256; hour.csv 17.379 dòng, day.csv 731 dòng"
+
+[bo.uci-household-power]
+kieu = "http"
+tieu_de = "UCI Individual Household Electric Power Consumption (Sceaux, Pháp, theo phút)"
+url = "https://archive.ics.uci.edu/static/public/235/individual+household+electric+power+consumption.zip"
+sha256 = "9f84b46ade8a2d8e1286ec4b2b6c2987a45a755c59f263be3b3b3d10dfbda3ff"
+dung_luong = 20640916
+giai_nen = "zip"
+chi_lay = ["household_power_consumption.txt"]
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://archive.ics.uci.edu/dataset/235/individual+household+electric+power+consumption"
+trich_giay_phep = "This dataset is licensed under a Creative Commons Attribution 4.0 International (CC BY 4.0) license. This allows for the sharing and adaptation of the datasets for any purpose, provided that the appropriate credit is given."
+ghi_nguon = "Hebrail, G. & Berard, A. (2006). Individual Household Electric Power Consumption [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C58K54"
+mirror = true
+khoang_thoi_gian = ["2006-12-16", "2010-11-26"]
+buoi = [1]
+ghi_chu = "Tệp .txt phân cách ';', giá trị thiếu là '?'. 2.075.259 dòng dữ liệu."
+xac_minh = "2026-09-17: giấy phép trên trang dataset; tải + sha256 bởi agent research, tải lại khi chạy toàn danh mục"
+
+[bo.uci-beijing-air]
+kieu = "http"
+tieu_de = "UCI Beijing Multi-Site Air Quality (12 trạm, theo giờ)"
+url = "https://archive.ics.uci.edu/static/public/501/beijing+multi+site+air+quality+data.zip"
+sha256 = "b04da438b2f331ac0ffd45aebdfec0d20d2367feb5f6948c4b1f7ce1191e33c4"
+dung_luong = 8192212
+giai_nen = "zip"
+chi_lay = ["PRSA2017_Data_20130301-20170228.zip"]
+giai_nen_long = ["PRSA2017_Data_20130301-20170228.zip"]
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://archive.ics.uci.edu/dataset/501/beijing+multi+site+air+quality+data"
+trich_giay_phep = "This dataset is licensed under a Creative Commons Attribution 4.0 International (CC BY 4.0) license. This allows for the sharing and adaptation of the datasets for any purpose, provided that the appropriate credit is given."
+ghi_nguon = "Chen, S. (2017). Beijing Multi-Site Air Quality [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5RK5G"
+mirror = true
+khoang_thoi_gian = ["2013-03-01", "2017-02-28"]
+buoi = [10, 26, 32, 43]
+ghi_chu = "Zip ngoài chứa zip trong (12 CSV) và hai tệp data.csv/test.csv là giá cổ phiếu KHÔNG liên quan — chỉ lấy zip trong."
+xac_minh = "2026-09-17: giấy phép trên trang dataset; slug đúng có '+data'"
+
+[bo.uci-online-retail-ii]
+kieu = "http"
+tieu_de = "UCI Online Retail II (bán lẻ trực tuyến Anh, 2009–2011)"
+url = "https://archive.ics.uci.edu/static/public/502/online+retail+ii.zip"
+sha256 = "572e36277c2390fbfde10664750731e0a86f55e33470d91919085f0408e67bfb"
+dung_luong = 45622418
+giai_nen = "zip"
+chi_lay = ["online_retail_II.xlsx"]
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://archive.ics.uci.edu/dataset/502/online+retail+ii"
+trich_giay_phep = "This dataset is licensed under a Creative Commons Attribution 4.0 International (CC BY 4.0) license. This allows for the sharing and adaptation of the datasets for any purpose, provided that the appropriate credit is given."
+ghi_nguon = "Chen, D. (2012). Online Retail II [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5CG6D"
+mirror = true
+khoang_thoi_gian = ["2009-12-01", "2011-12-09"]
+buoi = [9, 13, 14, 22, 24, 39, 44]
+ghi_chu = "Excel hai sheet 'Year 2009-2010' (525.461 dòng) và 'Year 2010-2011' (541.910 dòng) — buổi dùng cần openpyxl. Là dự phòng mở cho M5."
+xac_minh = "2026-09-17: giấy phép trên trang dataset; tải + sha256 bởi agent research"
+
+[bo.uci-appliances-energy]
+kieu = "http"
+tieu_de = "UCI Appliances Energy Prediction (cảm biến trong nhà, 10 phút)"
+url = "https://archive.ics.uci.edu/static/public/374/appliances+energy+prediction.zip"
+sha256 = "2fccf354445d886e7917620b0195db1f3e3e34d5a067a93b844694a4c561255a"
+dung_luong = 11979507
+giai_nen = "zip"
+chi_lay = ["energydata_complete.csv"]
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://archive.ics.uci.edu/dataset/374/appliances+energy+prediction"
+trich_giay_phep = "This dataset is licensed under a Creative Commons Attribution 4.0 International (CC BY 4.0) license. This allows for the sharing and adaptation of the datasets for any purpose, provided that the appropriate credit is given."
+ghi_nguon = "Candanedo, L. (2017). Appliances Energy Prediction [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5VC8G"
+mirror = true
+khoang_thoi_gian = ["2016-01-11", "2016-05-27"]
+buoi = [12]
+xac_minh = "2026-09-17: giấy phép trên trang dataset; tải + sha256 bởi agent research (19.735 dòng)"
+
+[bo.uci-electricity-load]
+kieu = "http"
+tieu_de = "UCI ElectricityLoadDiagrams20112014 (370 khách hàng Bồ Đào Nha, 15 phút)"
+url = "https://archive.ics.uci.edu/static/public/321/electricityloaddiagrams20112014.zip"
+cho_sha256 = "249 MB; đo 2026-09-17 tốc độ ~2,5 KB/s (hơn một ngày) — chỉ chốt khi có mirror; buổi học dùng monash-electricity-hourly"
+giai_nen = "zip"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://archive.ics.uci.edu/dataset/321/electricityloaddiagrams20112014"
+trich_giay_phep = "This dataset is licensed under a Creative Commons Attribution 4.0 International (CC BY 4.0) license. This allows for the sharing and adaptation of the datasets for any purpose, provided that the appropriate credit is given."
+ghi_nguon = "Trindade, A. (2015). ElectricityLoadDiagrams20112014 [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C58C86"
+mirror = true
+ly_do_mirror = "bắt buộc mirror khi có tài khoản Hugging Face của khoá — UCI tải chậm, không tiếp tục được khi đứt"
+khoang_thoi_gian = ["2011-01-01", "2015-01-01"]
+buoi = [29, 30, 32]
+xac_minh = "2026-09-17: giấy phép trên trang dataset; URL trả 200"
+
+# =========================================================================== Monash Time Series Forecasting Repository (Zenodo, CC BY 4.0)
+
+[bo.monash-m4-hourly]
+kieu = "http"
+tieu_de = "M4 theo giờ (414 chuỗi) — Monash Time Series Forecasting Repository"
+url = "https://zenodo.org/records/4656589/files/m4_hourly_dataset.zip?download=1"
+sha256 = "18085bd3c34e41cdc07441aa61c5610dac9e916b9489a6a381f8e89fd01c8a66"
+dung_luong = 485448
+giai_nen = "zip"
+chi_lay = ["m4_hourly_dataset.tsf"]
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://doi.org/10.5281/zenodo.4656589"
+trich_giay_phep = "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."
+ghi_nguon = "Godahewa, R., Bergmeir, C., Webb, G. I., Hyndman, R. J. & Montero-Manso, P. (2021). Monash Time Series Forecasting Archive. NeurIPS Datasets and Benchmarks Track."
+mirror = true
+khong_thoi_gian = true
+buoi = [15]
+ghi_chu = "Định dạng .tsf — tv.du_lieu.doc_du_lieu() đọc thẳng ra dạng dài. Bản M4 gốc trên GitHub Mcompetitions/M4-methods không có giấy phép → dùng bản Zenodo."
+xac_minh = "2026-09-17: Zenodo API license cc-by-4.0; md5 Zenodo khớp"
+
+[bo.monash-m4-daily]
+kieu = "http"
+tieu_de = "M4 theo ngày (4.227 chuỗi) — Monash"
+url = "https://zenodo.org/records/4656548/files/m4_daily_dataset.zip?download=1"
+sha256 = "0f07fc3b67a93be1865de7853e06d8ad212f1a8cb8436ba859920cfe5625d889"
+dung_luong = 27963288
+giai_nen = "zip"
+chi_lay = ["m4_daily_dataset.tsf"]
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://doi.org/10.5281/zenodo.4656548"
+trich_giay_phep = "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."
+ghi_nguon = "Godahewa et al. (2021). Monash Time Series Forecasting Archive. NeurIPS Datasets and Benchmarks Track."
+mirror = true
+khong_thoi_gian = true
+buoi = [9, 14]
+xac_minh = "2026-09-17: Zenodo API license cc-by-4.0; md5 khớp"
+
+[bo.monash-m4-weekly]
+kieu = "http"
+tieu_de = "M4 theo tuần (359 chuỗi) — Monash"
+url = "https://zenodo.org/records/4656522/files/m4_weekly_dataset.zip?download=1"
+sha256 = "5144147e7e02830f6afb9543e798a06caa9e7dc10db00cc7502af23a51f45942"
+dung_luong = 1077913
+giai_nen = "zip"
+chi_lay = ["m4_weekly_dataset.tsf"]
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://doi.org/10.5281/zenodo.4656522"
+trich_giay_phep = "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."
+ghi_nguon = "Godahewa et al. (2021). Monash Time Series Forecasting Archive. NeurIPS Datasets and Benchmarks Track."
+mirror = true
+khong_thoi_gian = true
+buoi = [24]
+xac_minh = "2026-09-17: Zenodo API license cc-by-4.0; md5 khớp"
+
+[bo.monash-m4-monthly]
+kieu = "http"
+tieu_de = "M4 theo tháng (48.000 chuỗi) — Monash"
+url = "https://zenodo.org/records/4656480/files/m4_monthly_dataset.zip?download=1"
+sha256 = "473aa4fc814b625174be2b5615959f35f85f566fbed09c30acf44c350b2a1efe"
+dung_luong = 28235874
+giai_nen = "zip"
+chi_lay = ["m4_monthly_dataset.tsf"]
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://doi.org/10.5281/zenodo.4656480"
+trich_giay_phep = "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."
+ghi_nguon = "Godahewa et al. (2021). Monash Time Series Forecasting Archive. NeurIPS Datasets and Benchmarks Track."
+mirror = true
+khong_thoi_gian = true
+buoi = [9, 24]
+xac_minh = "2026-09-17: Zenodo API license cc-by-4.0; md5 khớp"
+
+[bo.monash-m4-quarterly]
+kieu = "http"
+tieu_de = "M4 theo quý (24.000 chuỗi) — Monash"
+url = "https://zenodo.org/records/4656410/files/m4_quarterly_dataset.zip?download=1"
+sha256 = "0a41bd81bd8d18ee51df83b29832d8909dc4edae9aeb2ac6f7ef21b7ef561a23"
+dung_luong = 7031886
+giai_nen = "zip"
+chi_lay = ["m4_quarterly_dataset.tsf"]
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://doi.org/10.5281/zenodo.4656410"
+trich_giay_phep = "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."
+ghi_nguon = "Godahewa et al. (2021). Monash Time Series Forecasting Archive. NeurIPS Datasets and Benchmarks Track."
+mirror = true
+khong_thoi_gian = true
+buoi = [9]
+xac_minh = "2026-09-17: Zenodo API license cc-by-4.0; md5 khớp"
+
+[bo.monash-m4-yearly]
+kieu = "http"
+tieu_de = "M4 theo năm (23.000 chuỗi) — Monash"
+url = "https://zenodo.org/records/4656379/files/m4_yearly_dataset.zip?download=1"
+sha256 = "4a260dc865e9b746dda7ea3a3168db4163c858f8eb494b502128e98a4175f6aa"
+dung_luong = 2785010
+giai_nen = "zip"
+chi_lay = ["m4_yearly_dataset.tsf"]
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://doi.org/10.5281/zenodo.4656379"
+trich_giay_phep = "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."
+ghi_nguon = "Godahewa et al. (2021). Monash Time Series Forecasting Archive. NeurIPS Datasets and Benchmarks Track."
+mirror = true
+khong_thoi_gian = true
+buoi = [9]
+xac_minh = "2026-09-17: Zenodo API license cc-by-4.0; md5 khớp"
+
+[bo.monash-tourism-monthly]
+kieu = "http"
+tieu_de = "Tourism monthly (366 chuỗi, cuộc thi Tourism Forecasting) — Monash"
+url = "https://zenodo.org/records/4656096/files/tourism_monthly_dataset.zip?download=1"
+sha256 = "6e434ad8a0ef6acb55ebee0e1d1ffe22707ea4e62c05e091326267f3a5b4a93c"
+dung_luong = 199791
+giai_nen = "zip"
+chi_lay = ["tourism_monthly_dataset.tsf"]
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://doi.org/10.5281/zenodo.4656096"
+trich_giay_phep = "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."
+ghi_nguon = "Godahewa et al. (2021). Monash Time Series Forecasting Archive; Athanasopoulos, G., Hyndman, R. J., Song, H. & Wu, D. C. (2011). The tourism forecasting competition. IJF 27(3). https://doi.org/10.1016/j.ijforecast.2010.04.009"
+mirror = false
+ly_do_mirror = "Zenodo ghi CC BY 4.0 nhưng dữ liệu gốc từ cuộc thi Kaggle 'tourism1' — chưa đọc được luật cuộc thi; Zenodo (DOI) đã là nguồn ổn định nên không cần mirror"
+khong_thoi_gian = true
+buoi = [16, 17]
+xac_minh = "2026-09-17: Zenodo API license cc-by-4.0; md5 khớp; luật Kaggle gốc CHƯA đọc được"
+
+[bo.monash-car-parts]
+kieu = "http"
+tieu_de = "Car Parts — nhu cầu phụ tùng ô tô theo tháng, có giá trị thiếu (2.674 chuỗi) — Monash"
+url = "https://zenodo.org/records/4656022/files/car_parts_dataset_with_missing_values.zip?download=1"
+sha256 = "80557703397c7dca6c007bd28930b0e213e529f428afd02e5af87804fdc38ee1"
+dung_luong = 39656
+giai_nen = "zip"
+chi_lay = ["car_parts_dataset_with_missing_values.tsf"]
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://doi.org/10.5281/zenodo.4656022"
+trich_giay_phep = "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."
+ghi_nguon = "Godahewa et al. (2021). Monash Time Series Forecasting Archive; dữ liệu gốc từ gói R expsmooth (Hyndman)."
+mirror = true
+khong_thoi_gian = true
+buoi = [19, 27, 40]
+ghi_chu = "Zenodo ghi nguồn 'extracted from R expsmooth package' (gói GPL). Dự phòng mở cho M5 ở bài nhu cầu gián đoạn."
+xac_minh = "2026-09-17: Zenodo API license cc-by-4.0; md5 khớp"
+
+[bo.monash-car-parts-khong-thieu]
+kieu = "http"
+tieu_de = "Car Parts — bản đã bỏ giá trị thiếu — Monash"
+url = "https://zenodo.org/records/4656021/files/car_parts_dataset_without_missing_values.zip?download=1"
+sha256 = "a0b1e87e2329098837e5cfd020e16a36e30efa9a29a1fae8d1bd3603dfefcfea"
+dung_luong = 39609
+giai_nen = "zip"
+chi_lay = ["car_parts_dataset_without_missing_values.tsf"]
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://doi.org/10.5281/zenodo.4656021"
+trich_giay_phep = "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."
+ghi_nguon = "Godahewa et al. (2021). Monash Time Series Forecasting Archive."
+mirror = true
+khong_thoi_gian = true
+buoi = [19, 23]
+xac_minh = "2026-09-17: Zenodo API license cc-by-4.0; md5 khớp"
+
+[bo.monash-web-traffic]
+kieu = "http"
+tieu_de = "Kaggle Web Traffic — lượt xem Wikipedia theo ngày, 145.063 chuỗi, không thiếu — Monash"
+url = "https://zenodo.org/records/4656075/files/kaggle_web_traffic_dataset_without_missing_values.zip?download=1"
+sha256 = "29912f202cb81c782a33b16691eac2afc70c2fb7c68592409c4d3358b25b0e48"
+dung_luong = 145140849
+giai_nen = "zip"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://doi.org/10.5281/zenodo.4656075"
+trich_giay_phep = "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."
+ghi_nguon = "Godahewa et al. (2021). Monash Time Series Forecasting Archive."
+mirror = false
+ly_do_mirror = "dữ liệu gốc từ cuộc thi Kaggle — chưa đọc được luật; Zenodo (DOI) đã ổn định"
+khong_thoi_gian = true
+buoi = [22, 42]
+xac_minh = "2026-09-17: Zenodo API license cc-by-4.0; tải + sha256 (tác giả)"
+
+[bo.monash-traffic-hourly]
+kieu = "http"
+tieu_de = "Traffic hourly — tỷ lệ chiếm dụng làn xe 862 cảm biến San Francisco (Caltrans PeMS) — Monash"
+url = "https://zenodo.org/records/4656132/files/traffic_hourly_dataset.zip?download=1"
+sha256 = "3db12ba866a9c9d3c8109b7b6d189a990c38d0e5002fa2617022157358d08299"
+dung_luong = 22868806
+giai_nen = "zip"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://doi.org/10.5281/zenodo.4656132"
+trich_giay_phep = "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."
+ghi_nguon = "Godahewa et al. (2021). Monash Time Series Forecasting Archive."
+mirror = true
+khong_thoi_gian = true
+buoi = [33]
+ghi_chu = "Dự phòng mở cho METR-LA (METR-LA không có giấy phép dữ liệu). Không kèm đồ thị cảm biến — buổi 33 dựng đồ thị từ tương quan."
+xac_minh = "2026-09-17: Zenodo license cc-by-4.0; tải + sha256 bởi agent research"
+
+[bo.monash-electricity-hourly]
+kieu = "http"
+tieu_de = "Electricity hourly — 321 khách hàng Bồ Đào Nha, theo giờ 2012–2014 (bản gộp của UCI ElectricityLoadDiagrams) — Monash"
+url = "https://zenodo.org/records/4656140/files/electricity_hourly_dataset.zip?download=1"
+sha256 = "eff447075dde68dca0105ab7e2851c5637967ae3bb21556fd8b931f196d5968c"
+dung_luong = 11823931
+giai_nen = "zip"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://doi.org/10.5281/zenodo.4656140"
+trich_giay_phep = "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."
+ghi_nguon = "Godahewa et al. (2021). Monash Time Series Forecasting Archive; dữ liệu gốc Trindade, A. (2015), UCI ElectricityLoadDiagrams20112014, https://doi.org/10.24432/C58C86; bản gộp theo Lai et al. (2017)."
+mirror = true
+khong_thoi_gian = true
+buoi = [29, 30, 32]
+ghi_chu = "Zenodo mô tả: 'an aggregated version of the original dataset used by Lai et al. (2017). It contains 321 hourly time series from 2012 to 2014.' Thay cho uci-electricity-load (UCI tải ~2,5 KB/s)."
+xac_minh = "2026-09-17: Zenodo API license cc-by-4.0; tải, md5 khớp Zenodo (18096614…)"
+
+# =========================================================================== bộ nghiên cứu khác
+
+[bo.ett-h1]
+kieu = "http"
+tieu_de = "ETDataset ETTh1 — nhiệt độ dầu máy biến áp, theo giờ"
+url = "https://raw.githubusercontent.com/zhouhaoyi/ETDataset/1d16c8f4f943005d613b5bc962e9eeb06058cf07/ETT-small/ETTh1.csv"
+sha256 = "f18de3ad269cef59bb07b5438d79bb3042d3be49bdeecf01c1cd6d29695ee066"
+dung_luong = 2589657
+ten_tep = "ETTh1.csv"
+giay_phep = "CC BY-ND 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by-nd/4.0/"
+trang_nguon = "https://github.com/zhouhaoyi/ETDataset"
+trich_giay_phep = "A. reproduce and Share the Licensed Material, in whole or in part; and B. produce and reproduce, but not Share, Adapted Material."
+ghi_nguon = "Zhou, H. et al. (2021). Informer: Beyond Efficient Transformer for Long Sequence Time-Series Forecasting. AAAI 35(12), 11106–11115."
+mirror = true
+ly_do_mirror = "chỉ bản sao NGUYÊN VẸN (NoDerivatives): không mirror bản đã resample/làm sạch — học viên tự tạo tại máy"
+khoang_thoi_gian = ["2016-07-01", "2018-06-26"]
+dang_dai = { tep = "ETTh1.csv", ds = "date", y = "OT", id = "ETTh1" }
+buoi = [31]
+xac_minh = "2026-09-17: LICENSE tại commit 1d16c8f (mới nhất); tải + sha256 bởi agent research"
+
+[bo.ett-m1]
+kieu = "http"
+tieu_de = "ETDataset ETTm1 — nhiệt độ dầu máy biến áp, 15 phút"
+url = "https://raw.githubusercontent.com/zhouhaoyi/ETDataset/1d16c8f4f943005d613b5bc962e9eeb06058cf07/ETT-small/ETTm1.csv"
+sha256 = "6ce1759b1a18e3328421d5d75fadcb316c449fcd7cec32820c8dafda71986c9e"
+dung_luong = 10360719
+ten_tep = "ETTm1.csv"
+giay_phep = "CC BY-ND 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by-nd/4.0/"
+trang_nguon = "https://github.com/zhouhaoyi/ETDataset"
+trich_giay_phep = "A. reproduce and Share the Licensed Material, in whole or in part; and B. produce and reproduce, but not Share, Adapted Material."
+ghi_nguon = "Zhou, H. et al. (2021). Informer. AAAI 35(12), 11106–11115."
+mirror = true
+ly_do_mirror = "chỉ bản sao nguyên vẹn (NoDerivatives)"
+khoang_thoi_gian = ["2016-07-01", "2018-06-26"]
+dang_dai = { tep = "ETTm1.csv", ds = "date", y = "OT", id = "ETTm1" }
+buoi = [31]
+xac_minh = "2026-09-17: LICENSE tại commit 1d16c8f; tải + sha256 bởi agent research"
+
+[bo.tourism-australia-tsibble]
+kieu = "http"
+tieu_de = "Tourism Australia theo quý — số đêm lưu trú theo bang × vùng × mục đích (dữ liệu 'tourism' của gói R tsibble)"
+url = "https://raw.githubusercontent.com/tidyverts/tsibble/e7a409f666e5a021123299171cf0c0bf99501199/data/tourism.rda"
+sha256 = "79262e8ee3beae8c7e91dac59ea9857314ae1c0102121571b4b75ff33847f9cb"
+dung_luong = 177920
+ten_tep = "tourism.rda"
+giay_phep = "GPL-3 (dữ liệu nằm trong gói tsibble)"
+link_giay_phep = "https://www.gnu.org/licenses/gpl-3.0.html"
+trang_nguon = "https://github.com/tidyverts/tsibble"
+trich_giay_phep = "License: GPL-3 (CRAN DESCRIPTION của tsibble); tài liệu dữ liệu chỉ ghi nguồn Tourism Research Australia (https://www.tra.gov.au)."
+ghi_nguon = "Wang, E., Cook, D. & Hyndman, R. J. tsibble (R package); Tourism Research Australia."
+mirror = true
+ly_do_mirror = "GPL-3 cho phép phân phối lại nguyên vẹn kèm văn bản giấy phép; giấy phép gốc của Tourism Research Australia CHƯA xác minh"
+khoang_thoi_gian = ["1998-01-01", "2017-12-31"]
+buoi = [28]
+ghi_chu = "Tệp .rda của R — buổi 28 đọc bằng gói Python đọc được .rda (chốt ở Phase 8). Bộ phân cấp dự phòng: tự dựng phân cấp từ UCI Online Retail II (quốc gia → sản phẩm)."
+du_phong = "uci-online-retail-ii"
+xac_minh = "2026-09-17: CRAN DESCRIPTION tsibble GPL-3; trang giấy phép TRA trả 404"
+
+[bo.prop99-smoking]
+kieu = "http"
+tieu_de = "Prop 99 California — tiêu thụ thuốc lá theo bang 1970–2000 (Abadie, Diamond & Hainmueller 2010)"
+url = "https://raw.githubusercontent.com/matheusfacure/python-causality-handbook/2edbd69f2e3629dd2f6ec805c72f0dbe651d713a/causal-inference-for-the-brave-and-true/data/smoking.csv"
+sha256 = "bae31804ce53635822a4bda2b2622d92b707f8c35cf017ea2918a8fdb6083b89"
+dung_luong = 101330
+ten_tep = "smoking.csv"
+giay_phep = "Không có giấy phép từ tác giả gốc; bản CSV nằm trong repo MIT"
+link_giay_phep = "https://github.com/matheusfacure/python-causality-handbook/blob/master/LICENSE.txt"
+trang_nguon = "https://github.com/matheusfacure/python-causality-handbook"
+trich_giay_phep = "Tác giả gốc không công bố giấy phép; bản sao phân phối trong các repo mã nguồn MIT (python-causality-handbook, Microsoft SparseSC) và gói Stata synth (SSC)."
+ghi_nguon = "Abadie, A., Diamond, A. & Hainmueller, J. (2010). Synthetic Control Methods for Comparative Case Studies. JASA 105(490), 493–505."
+mirror = false
+ly_do_mirror = "không có giấy phép từ tác giả gốc — tải từ repo GitHub chốt commit, không mirror"
+du_phong = "(dữ liệu mô phỏng có đáp án sinh trong buổi 38)"
+khoang_thoi_gian = ["1970", "2000"]
+buoi = [38]
+xac_minh = "2026-09-17: tải + sha256 bởi agent research; R Synth và pysyncon KHÔNG kèm Prop 99"
+
+[bo.forecastbench-cau-hoi]
+kieu = "http"
+tieu_de = "ForecastBench — bộ câu hỏi LLM ngày 2026-09-13"
+url = "https://raw.githubusercontent.com/forecastingresearch/forecastbench-datasets/a11ac3a9ba8812cdedab2b79ab3181a9c0825d62/datasets/question_sets/2026-09-13-llm.json"
+sha256 = "6bc6c460960077c944dfbcfedb9d103d4d5db13bc33270727aa77becbff5eb22"
+dung_luong = 1309851
+ten_tep = "2026-09-13-llm.json"
+giay_phep = "CC BY-SA 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by-sa/4.0/"
+trang_nguon = "https://github.com/forecastingresearch/forecastbench-datasets"
+trich_giay_phep = "The datasets in this repository are distributed under the CC BY-SA 4.0 license"
+ghi_nguon = "Karger, E. et al. (2025). ForecastBench: A Dynamic Benchmark of AI Forecasting Capabilities. ICLR 2025."
+mirror = true
+ly_do_mirror = "ShareAlike: bản mirror/chuyển đổi phải giữ CC BY-SA 4.0"
+khoang_thoi_gian = ["2026-09-13", "2026-09-13"]
+buoi = [37]
+ghi_chu = "Câu hỏi lấy từ Manifold, Metaculus… có thể kèm điều khoản riêng của nền tảng. Phase 10 chọn lại bộ câu hỏi theo mốc cắt kiến thức của model."
+xac_minh = "2026-09-17: LICENSE + README tại commit a11ac3a (mới nhất)"
+
+[bo.forecastbench-ket-qua]
+kieu = "http"
+tieu_de = "ForecastBench — bộ kết quả (resolution set) ngày 2026-08-30"
+url = "https://raw.githubusercontent.com/forecastingresearch/forecastbench-datasets/a11ac3a9ba8812cdedab2b79ab3181a9c0825d62/datasets/resolution_sets/2026-08-30_resolution_set.json"
+sha256 = "3e18daa756e81726884a08e8f307ecc80221b9ae88c2c75c2c410e95f083803f"
+dung_luong = 119251
+ten_tep = "2026-08-30_resolution_set.json"
+giay_phep = "CC BY-SA 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by-sa/4.0/"
+trang_nguon = "https://github.com/forecastingresearch/forecastbench-datasets"
+trich_giay_phep = "The datasets in this repository are distributed under the CC BY-SA 4.0 license"
+ghi_nguon = "Karger, E. et al. (2025). ForecastBench. ICLR 2025."
+mirror = true
+ly_do_mirror = "ShareAlike"
+khoang_thoi_gian = ["2026-08-30", "2026-08-30"]
+buoi = [37]
+xac_minh = "2026-09-17: cấu trúc repo tại commit a11ac3a"
+
+# =========================================================================== cơ quan chính phủ Mỹ
+
+[bo.eia930-balance-2024-h1]
+kieu = "http"
+tieu_de = "EIA-930 BALANCE 2024 tháng 1–6 — nhu cầu, dự báo day-ahead, phát điện theo giờ của mọi vùng điều độ Mỹ"
+url = "https://www.eia.gov/electricity/gridmonitor/sixMonthFiles/EIA930_BALANCE_2024_Jan_Jun.csv"
+sha256 = "26768c495c3ba987e29d79df2e40d4e741f9dbcff086f53c12ff774465756a10"
+dung_luong = 41742812
+ten_tep = "EIA930_BALANCE_2024_Jan_Jun.csv"
+giay_phep = "Public domain (U.S. government)"
+link_giay_phep = "https://www.eia.gov/about/copyrights_reuse.php"
+trang_nguon = "https://www.eia.gov/electricity/gridmonitor/"
+trich_giay_phep = "U.S. government publications are in the public domain and are not subject to copyright protection. You may use and/or distribute any of our data, files, databases, reports, graphs, charts, and other information products that are on our website"
+ghi_nguon = "Source: U.S. Energy Information Administration, Form EIA-930 Hourly Electric Grid Monitor (truy cập 2026-09-17)."
+mirror = true
+ly_do_mirror = "BẮT BUỘC mirror: mọi tệp sáu tháng được EIA dựng lại hằng ngày (Last-Modified 2026-09-16) và số liệu được sửa lùi tới 30 ngày"
+khoang_thoi_gian = ["2024-01-01", "2024-06-30"]
+buoi = [6, 8, 13, 15, 18, 25, 30, 31, 34, 35, 36, 43]
+ghi_chu = "Cột thời gian 'UTC Time at End of Hour' (nhãn là cuối giờ); 'Demand Forecast (MW)' là dự báo day-ahead của đơn vị điều độ. Từ 2024 H2 bảng cột thay đổi (tách nguồn mặt trời/gió/thuỷ điện)."
+xac_minh = "2026-09-17: trang reuse EIA; tải 2 lần cùng ngày cùng sha256 (13:05 và 13:25 UTC) — ổn định qua các ngày CHƯA kiểm"
+
+[bo.eia930-balance-2024-h2]
+kieu = "http"
+tieu_de = "EIA-930 BALANCE 2024 tháng 7–12"
+url = "https://www.eia.gov/electricity/gridmonitor/sixMonthFiles/EIA930_BALANCE_2024_Jul_Dec.csv"
+sha256 = "a602a8e577cfdd2fa3083413eaa4dd8ba7f0d2b26a2986f8f6d22917465ea49f"
+dung_luong = 47928993
+ten_tep = "EIA930_BALANCE_2024_Jul_Dec.csv"
+giay_phep = "Public domain (U.S. government)"
+link_giay_phep = "https://www.eia.gov/about/copyrights_reuse.php"
+trang_nguon = "https://www.eia.gov/electricity/gridmonitor/"
+trich_giay_phep = "U.S. government publications are in the public domain and are not subject to copyright protection. You may use and/or distribute any of our data, files, databases, reports, graphs, charts, and other information products that are on our website"
+ghi_nguon = "Source: U.S. Energy Information Administration, Form EIA-930 Hourly Electric Grid Monitor (truy cập 2026-09-17)."
+mirror = true
+ly_do_mirror = "BẮT BUỘC mirror: tệp dựng lại hằng ngày, số liệu sửa lùi"
+khoang_thoi_gian = ["2024-07-01", "2024-12-31"]
+buoi = [6, 13, 15, 18, 25, 30]
+xac_minh = "2026-09-17: tải + sha256"
+
+[bo.eia930-balance-2025-h1]
+kieu = "http"
+tieu_de = "EIA-930 BALANCE 2025 tháng 1–6"
+url = "https://www.eia.gov/electricity/gridmonitor/sixMonthFiles/EIA930_BALANCE_2025_Jan_Jun.csv"
+sha256 = "fac4bb991dfa1dab3b4b35300ccab54ac99be13a40ce91954db8ddafb2816242"
+dung_luong = 47565054
+ten_tep = "EIA930_BALANCE_2025_Jan_Jun.csv"
+giay_phep = "Public domain (U.S. government)"
+link_giay_phep = "https://www.eia.gov/about/copyrights_reuse.php"
+trang_nguon = "https://www.eia.gov/electricity/gridmonitor/"
+trich_giay_phep = "U.S. government publications are in the public domain and are not subject to copyright protection. You may use and/or distribute any of our data, files, databases, reports, graphs, charts, and other information products that are on our website"
+ghi_nguon = "Source: U.S. Energy Information Administration, Form EIA-930 Hourly Electric Grid Monitor (truy cập 2026-09-17)."
+mirror = true
+ly_do_mirror = "BẮT BUỘC mirror: tệp dựng lại hằng ngày, số liệu sửa lùi"
+khoang_thoi_gian = ["2025-01-01", "2025-06-30"]
+buoi = [15, 25, 34, 35]
+xac_minh = "2026-09-17: tải + sha256"
+
+[bo.eia930-balance-2025-h2]
+kieu = "http"
+tieu_de = "EIA-930 BALANCE 2025 tháng 7–12"
+url = "https://www.eia.gov/electricity/gridmonitor/sixMonthFiles/EIA930_BALANCE_2025_Jul_Dec.csv"
+sha256 = "1146158b972439db7c7f4cc7d0491e07644ddbf244d03b8ecb44cb2c833d10f1"
+dung_luong = 48256021
+ten_tep = "EIA930_BALANCE_2025_Jul_Dec.csv"
+giay_phep = "Public domain (U.S. government)"
+link_giay_phep = "https://www.eia.gov/about/copyrights_reuse.php"
+trang_nguon = "https://www.eia.gov/electricity/gridmonitor/"
+trich_giay_phep = "U.S. government publications are in the public domain and are not subject to copyright protection. You may use and/or distribute any of our data, files, databases, reports, graphs, charts, and other information products that are on our website"
+ghi_nguon = "Source: U.S. Energy Information Administration, Form EIA-930 Hourly Electric Grid Monitor (truy cập 2026-09-17)."
+mirror = true
+ly_do_mirror = "BẮT BUỘC mirror: tệp dựng lại hằng ngày, số liệu sửa lùi"
+khoang_thoi_gian = ["2025-07-01", "2025-12-31"]
+buoi = [34, 35]
+ghi_chu = "Sau mốc phát hành của nhiều foundation model — dùng đánh giá zero-shot sạch (kiểm lại mốc ở Phase 10)."
+xac_minh = "2026-09-17: tải + sha256"
+
+[bo.nyc-tlc-yellow-2024-01]
+kieu = "http"
+tieu_de = "NYC TLC Yellow Taxi Trip Records tháng 1/2024 (Parquet)"
+url = "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-01.parquet"
+sha256 = "c4d59da7bbc8abaeeeb1727947ee93d9891a71acb42854bd80db1571b2030510"
+dung_luong = 49961641
+ten_tep = "yellow_tripdata_2024-01.parquet"
+giay_phep = "NYC Open Data — không giới hạn sử dụng"
+link_giay_phep = "https://www.nyc.gov/opendata/get-started/FAQs"
+trang_nguon = "https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page"
+trich_giay_phep = "Open Data belongs to all New Yorkers. There are no restrictions on the use of Open Data."
+ghi_nguon = "NYC Taxi & Limousine Commission, TLC Trip Record Data, Yellow Taxi 2024-01 (truy cập 2026-09-17)."
+mirror = true
+khoang_thoi_gian = ["2024-01-01", "2024-01-31"]
+buoi = [3]
+ghi_chu = "TLC: 'The trip data was not created by the TLC, and TLC makes no representations as to the accuracy of these data.' TLC từng tải lại tệp (Last-Modified 2024-03-21) — sha256 có thể đổi."
+xac_minh = "2026-09-17: FAQ NYC Open Data + trang TLC; tải 2 lần (agent + tác giả) cùng sha256"
+
+[bo.nyc-tlc-zone-lookup]
+kieu = "http"
+tieu_de = "NYC TLC Taxi Zone Lookup (265 khu vực)"
+url = "https://d37ci6vzurychx.cloudfront.net/misc/taxi_zone_lookup.csv"
+sha256 = "1a99e105092230f8620f301edcca7f80d3080642ff404d28ed957d3fa222c8ed"
+dung_luong = 12331
+ten_tep = "taxi_zone_lookup.csv"
+giay_phep = "NYC Open Data — không giới hạn sử dụng"
+link_giay_phep = "https://www.nyc.gov/opendata/get-started/FAQs"
+trang_nguon = "https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page"
+trich_giay_phep = "Open Data belongs to all New Yorkers. There are no restrictions on the use of Open Data."
+ghi_nguon = "NYC Taxi & Limousine Commission, Taxi Zone Lookup Table (truy cập 2026-09-17)."
+mirror = true
+khong_thoi_gian = true
+buoi = [3]
+xac_minh = "2026-09-17: tải 2 lần cùng sha256"
+
+[bo.nyc-tlc-yellow-2024-03]
+kieu = "http"
+tieu_de = "NYC TLC Yellow Taxi Trip Records tháng 3/2024 (có ngày chuyển giờ mùa hè 10/3)"
+url = "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-03.parquet"
+sha256 = "2d4cdc8fb96726cdd3803b13b02d2e61e71d45720aff0ebc693a8bdd1f249823"
+dung_luong = 60078280
+ten_tep = "yellow_tripdata_2024-03.parquet"
+giay_phep = "NYC Open Data — không giới hạn sử dụng"
+link_giay_phep = "https://www.nyc.gov/opendata/get-started/FAQs"
+trang_nguon = "https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page"
+trich_giay_phep = "Open Data belongs to all New Yorkers. There are no restrictions on the use of Open Data."
+ghi_nguon = "NYC Taxi & Limousine Commission, TLC Trip Record Data, Yellow Taxi 2024-03 (truy cập 2026-09-17)."
+mirror = true
+khoang_thoi_gian = ["2024-03-01", "2024-03-31"]
+buoi = [3]
+ghi_chu = "3.582.628 chuyến; thời gian naive giờ địa phương New York (timestamp[us] không múi giờ); không có chuyến nào đón lúc 02:xx ngày 10/3; 21 chuyến có ngày đón ngoài tháng (2002-12, 2024-02)."
+xac_minh = "2026-09-17: agent research + tác giả tải cùng sha256"
+
+[bo.nyc-tlc-yellow-2024-11]
+kieu = "http"
+tieu_de = "NYC TLC Yellow Taxi Trip Records tháng 11/2024 (có ngày trả giờ mùa hè 3/11)"
+url = "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-11.parquet"
+sha256 = "5ef321876de5007a7c147a347389133fc94fd7ac28f82eb1d57d8f2cf05cfd3b"
+dung_luong = 60658709
+ten_tep = "yellow_tripdata_2024-11.parquet"
+giay_phep = "NYC Open Data — không giới hạn sử dụng"
+link_giay_phep = "https://www.nyc.gov/opendata/get-started/FAQs"
+trang_nguon = "https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page"
+trich_giay_phep = "Open Data belongs to all New Yorkers. There are no restrictions on the use of Open Data."
+ghi_nguon = "NYC Taxi & Limousine Commission, TLC Trip Record Data, Yellow Taxi 2024-11 (truy cập 2026-09-17)."
+mirror = true
+khoang_thoi_gian = ["2024-11-01", "2024-11-30"]
+buoi = [3]
+ghi_chu = "3.646.369 chuyến; giờ 01:xx ngày 3/11 gộp cả EDT và EST (9.869 chuyến, ~1,86× Chủ nhật sau); 1.001 chuyến 'trả khách trước khi đón' rơi vào giờ lặp đó."
+xac_minh = "2026-09-17: agent research + tác giả tải cùng sha256"
+
+[bo.open-meteo-new-york-2024-03-11]
+kieu = "http"
+tieu_de = "Open-Meteo Historical Weather (ERA5) — New York, theo giờ 2024-03-01 → 2024-11-30, UTC"
+url = "https://archive-api.open-meteo.com/v1/archive?latitude=40.7128&longitude=-74.006&start_date=2024-03-01&end_date=2024-11-30&hourly=temperature_2m,precipitation,rain,snowfall&timezone=UTC&models=era5&format=csv"
+sha256 = "fd75dc93e76dcd02fb2d8ec8e5491ff8c8f94616ede6dc5c54f2ef8cd287a75d"
+dung_luong = 242993
+ten_tep = "open-meteo-new-york-2024-03-11-utc.csv"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://open-meteo.com/en/licence"
+trang_nguon = "https://open-meteo.com/en/docs/historical-weather-api"
+trich_giay_phep = "API data are offered under Attribution 4.0 International (CC BY 4.0) You are free to share: copy and redistribute the material in any medium or format and adapt: remix, transform, and build upon the material."
+ghi_nguon = "Weather data by Open-Meteo.com (https://open-meteo.com/), mô hình ERA5."
+mirror = true
+khoang_thoi_gian = ["2024-03-01", "2024-11-30"]
+buoi = [3]
+ghi_chu = "Cố ý lấy timezone=UTC: với timezone=America/New_York API áp MỘT độ lệch cố định (giờ lúc gọi) cho cả khoảng — sai quanh DST (issue open-meteo #1764)."
+xac_minh = "2026-09-17: tải + sha256; hành vi timezone kiểm bởi agent research"
+
+[bo.open-meteo-dallas-2024]
+kieu = "http"
+tieu_de = "Open-Meteo Historical Weather (ERA5) — Dallas TX, nhiệt độ 2 m theo giờ năm 2024, UTC"
+url = "https://archive-api.open-meteo.com/v1/archive?latitude=32.7767&longitude=-96.797&start_date=2024-01-01&end_date=2024-12-31&hourly=temperature_2m&timezone=UTC&models=era5&format=csv"
+sha256 = "0a3b3942535b7d0537a1a8363a517697f4680e9f6aaf02c82b721e44a0680bb1"
+dung_luong = 192304
+ten_tep = "open-meteo-dallas-2024-utc.csv"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://open-meteo.com/en/licence"
+trang_nguon = "https://open-meteo.com/en/docs/historical-weather-api"
+trich_giay_phep = "API data are offered under Attribution 4.0 International (CC BY 4.0)… You must give appropriate credit, provide a link to the licence, and indicate if changes were made."
+ghi_nguon = "Weather data by Open-Meteo.com (https://open-meteo.com/), mô hình ERA5."
+mirror = true
+ly_do_mirror = "API miễn phí chỉ cho mục đích phi thương mại (https://open-meteo.com/en/terms) và ERA5T có thể sửa lùi — tác giả tải một lần, học viên lấy bản mirror"
+khoang_thoi_gian = ["2024-01-01", "2024-12-31"]
+buoi = [8]
+ghi_chu = "3 dòng đầu là metadata vị trí (ô lưới trả về 32.75, -96.75; cao 137 m); đọc bằng skiprows=3. 8.784 dòng, không thiếu. Nhiệt độ ERA5 là giá trị tức thời tại mốc; EIA-930 đánh mốc CUỐI giờ."
+xac_minh = "2026-09-18: agent research tải 2 lần cùng sha256; trang licence + terms"
+
+[bo.open-meteo-houston-2024]
+kieu = "http"
+tieu_de = "Open-Meteo Historical Weather (ERA5) — Houston TX, nhiệt độ 2 m theo giờ năm 2024, UTC"
+url = "https://archive-api.open-meteo.com/v1/archive?latitude=29.7604&longitude=-95.3698&start_date=2024-01-01&end_date=2024-12-31&hourly=temperature_2m&timezone=UTC&models=era5&format=csv"
+sha256 = "f583a8be1de70e6ccefa3e5b4f94dfa443d8650ca7ad7853ba5232fa8a63f0b0"
+dung_luong = 192819
+ten_tep = "open-meteo-houston-2024-utc.csv"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://open-meteo.com/en/licence"
+trang_nguon = "https://open-meteo.com/en/docs/historical-weather-api"
+trich_giay_phep = "API data are offered under Attribution 4.0 International (CC BY 4.0)… You must give appropriate credit, provide a link to the licence, and indicate if changes were made."
+ghi_nguon = "Weather data by Open-Meteo.com (https://open-meteo.com/), mô hình ERA5."
+mirror = true
+ly_do_mirror = "API miễn phí chỉ cho mục đích phi thương mại và ERA5T có thể sửa lùi — tác giả tải một lần, học viên lấy bản mirror"
+khoang_thoi_gian = ["2024-01-01", "2024-12-31"]
+buoi = [8]
+ghi_chu = "Ô lưới trả về 29.75, -95.25; cao 20 m; skiprows=3; 8.784 dòng."
+xac_minh = "2026-09-18: agent research tải 2 lần cùng sha256"
+
+[bo.open-meteo-dallas-du-bao-luu-2024]
+kieu = "http"
+tieu_de = "Open-Meteo Previous Runs — Dallas TX 2024: nhiệt độ THẬT (ERA5) và nhiệt độ ĐÃ DỰ BÁO trước 1 ngày / 3 ngày"
+url = "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=32.7767&longitude=-96.797&start_date=2024-01-01&end_date=2024-12-31&hourly=temperature_2m,temperature_2m_previous_day1,temperature_2m_previous_day3&timezone=UTC&format=csv"
+sha256 = "5c7b56f9f713647e61b80a63a078150093598fdf8effdddf075898f7f04340fd"
+dung_luong = 277984
+ten_tep = "open-meteo-dallas-du-bao-luu-2024.csv"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://open-meteo.com/en/licence"
+trang_nguon = "https://open-meteo.com/en/docs/previous-runs-api"
+trich_giay_phep = "The data obtained through the API is provided under the terms of the CC-BY 4.0 licence"
+ghi_nguon = "Weather data by Open-Meteo.com (https://open-meteo.com/), Previous Runs API."
+mirror = true
+ly_do_mirror = "API miễn phí chỉ cho mục đích phi thương mại (10.000 lượt/ngày); dữ liệu CC BY 4.0 cho phép phân phối lại"
+khoang_thoi_gian = ["2024-01-01", "2024-12-31"]
+buoi = [13]
+ghi_chu = "Cột `temperature_2m` là giá trị đã biết sau (ERA5 reanalysis, KHÔNG dùng làm feature ex-ante); `_previous_day1`/`_previous_day3` là giá trị dự báo trước 1 và 3 ngày — dùng làm feature hợp lệ. 8.784 dòng, 2 dòng metadata + 1 dòng trống ở đầu (đọc bằng skiprows=2). NaN ở các giờ đầu 2024-01 (chưa có lượt chạy trước đó). Lưu trữ previous-runs chỉ có từ 01/2024."
+xac_minh = "2026-09-18: tác giả tải 2 lần cùng sha256; docs API + trang licence"
+
+[bo.ghcnh-noi-bai-2024]
+kieu = "http"
+tieu_de = "NOAA GHCNh — trạm Nội Bài (VMI0000VVNB), theo giờ năm 2024 (Parquet)"
+url = "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2024/parquet/GHCNh_VMI0000VVNB_2024.parquet"
+sha256 = "1c67048928d447f340d75fffb187e4618fddc3892f971e9e9b4cab2ce2e320e2"
+dung_luong = 802327
+ten_tep = "GHCNh_VMI0000VVNB_2024.parquet"
+giay_phep = "CC0 1.0 (NOAA)"
+link_giay_phep = "https://creativecommons.org/publicdomain/zero/1.0/"
+trang_nguon = "https://www.ncei.noaa.gov/products/global-historical-climatology-network-hourly"
+trich_giay_phep = "These data were produced by NOAA and are not subject to copyright protection in the United States."
+ghi_nguon = "Menne, M.J. et al. (2023). Global Historical Climatology Network-Hourly (GHCNh). NOAA NCEI. doi:10.25921/jp3d-3v19"
+mirror = true
+ly_do_mirror = "2026-09-18: metadata NOAA C01688 ghi rõ CC0-1.0 và tài liệu GHCNh v1.1.0 KHÔNG có điều khoản WMO Resolution 40 / hạn chế phân phối lại (agent kiểm: 0 lần xuất hiện 'Resolution 40', 'licen', 'redistribut') → được mirror"
+khoang_thoi_gian = ["2024-01-01", "2024-12-31"]
+buoi = [10, 33, "du-an-1"]
+ghi_chu = "Thay ISD 488200-99999 (ISD dừng trạm từ 2025-08-24; ISD ngoài Mỹ 'cannot be redistributed'). NOAA viết lại tệp năm cũ (Last-Modified 2026-07-11) → sha256 có thể đổi."
+xac_minh = "2026-09-17: metadata C01688; tải 2 lần (agent + tác giả) cùng sha256"
+
+[bo.ghcnh-noi-bai-2025]
+kieu = "http"
+tieu_de = "NOAA GHCNh — trạm Nội Bài (VMI0000VVNB), theo giờ năm 2025 (Parquet)"
+url = "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2025/parquet/GHCNh_VMI0000VVNB_2025.parquet"
+sha256 = "9556f95eefee0c77967c2c5c6844fb87955d2c74e5df5e1ebaab47a102f6345c"
+dung_luong = 789502
+ten_tep = "GHCNh_VMI0000VVNB_2025.parquet"
+giay_phep = "CC0 1.0 (NOAA)"
+link_giay_phep = "https://creativecommons.org/publicdomain/zero/1.0/"
+trang_nguon = "https://www.ncei.noaa.gov/products/global-historical-climatology-network-hourly"
+trich_giay_phep = "These data were produced by NOAA and are not subject to copyright protection in the United States."
+ghi_nguon = "Menne, M.J. et al. (2023). Global Historical Climatology Network-Hourly (GHCNh). doi:10.25921/jp3d-3v19"
+mirror = true
+ly_do_mirror = "như ghcnh-noi-bai-2024 (CC0 đã xác minh 2026-09-18)"
+khoang_thoi_gian = ["2025-01-01", "2025-12-31"]
+buoi = [10, 33, "du-an-1"]
+ghi_chu = "2025 nằm SAU giai đoạn huấn luyện AIFS (ERA5 1979–2022, fine-tune 2016–2022) — dùng kiểm chứng sạch."
+xac_minh = "2026-09-17: tải + sha256"
+
+# =========================================================================== dịch vụ web mở
+
+[bo.open-meteo-ha-noi-2023-2024]
+kieu = "http"
+tieu_de = "Open-Meteo Historical Weather (ERA5) — Hà Nội, theo giờ 2023–2024, UTC"
+url = "https://archive-api.open-meteo.com/v1/archive?latitude=21.0285&longitude=105.8542&start_date=2023-01-01&end_date=2024-12-31&hourly=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m,wind_direction_10m&timezone=UTC&models=era5&format=csv"
+sha256 = "10146f74574963a69550ca45a868575e5b127148d01fd7ba4c0462b52e2459cd"
+dung_luong = 665227
+ten_tep = "open-meteo-ha-noi-2023-2024.csv"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://open-meteo.com/en/licence"
+trang_nguon = "https://open-meteo.com/en/docs/historical-weather-api"
+trich_giay_phep = "API data are offered under Attribution 4.0 International (CC BY 4.0) You are free to share: copy and redistribute the material in any medium or format and adapt: remix, transform, and build upon the material."
+ghi_nguon = "Weather data by Open-Meteo.com (https://open-meteo.com/), mô hình ERA5 (Copernicus Climate Change Service)."
+mirror = true
+ly_do_mirror = "nên mirror: API miễn phí chỉ cho mục đích phi thương mại và giới hạn 10.000 lượt/ngày; dữ liệu CC BY cho phép phân phối lại"
+khoang_thoi_gian = ["2023-01-01", "2024-12-31"]
+buoi = [10, 33]
+ghi_chu = "Toạ độ bị bắt vào ô lưới gần nhất; chốt models=era5 cho ổn định (mặc định 'best match' trộn nhiều mô hình). Ba dòng đầu CSV là metadata ô lưới."
+xac_minh = "2026-09-17: trang licence + terms; tải 2 lần (agent kiểm dạng tương tự, tác giả tải bản này)"
+
+[bo.open-meteo-new-york-2024-01]
+kieu = "http"
+tieu_de = "Open-Meteo Historical Weather (ERA5) — New York, theo giờ tháng 1/2024, UTC"
+url = "https://archive-api.open-meteo.com/v1/archive?latitude=40.7128&longitude=-74.006&start_date=2024-01-01&end_date=2024-01-31&hourly=temperature_2m,precipitation,rain,snowfall&timezone=UTC&models=era5&format=csv"
+sha256 = "117856cb5284ae37d680f254d3196feb9332373694573797ea6f65805d0aa569"
+dung_luong = 27216
+ten_tep = "open-meteo-new-york-2024-01.csv"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://open-meteo.com/en/licence"
+trang_nguon = "https://open-meteo.com/en/docs/historical-weather-api"
+trich_giay_phep = "API data are offered under Attribution 4.0 International (CC BY 4.0) You are free to share: copy and redistribute the material in any medium or format and adapt: remix, transform, and build upon the material."
+ghi_nguon = "Weather data by Open-Meteo.com (https://open-meteo.com/), mô hình ERA5."
+mirror = true
+khoang_thoi_gian = ["2024-01-01", "2024-01-31"]
+buoi = [3]
+xac_minh = "2026-09-17: tải + sha256"
+
+[bo.wikipedia-vi-tet]
+kieu = "http"
+tieu_de = "Wikimedia Pageviews — bài 'Tết Nguyên Đán' Wikipedia tiếng Việt, theo ngày 2016–2025"
+url = "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/vi.wikipedia/all-access/user/T%E1%BA%BFt_Nguy%C3%AAn_%C4%90%C3%A1n/daily/2016010100/2025123100"
+sha256 = "8f9e15ea30553c66999c204119a99dd973c2c130bdd2e21acbfd642f0db9ca4e"
+dung_luong = 566798
+ten_tep = "tet-nguyen-dan-2016-2025.json"
+giay_phep = "CC0 1.0"
+link_giay_phep = "https://dumps.wikimedia.org/legal.html"
+trang_nguon = "https://wikimedia.org/api/rest_v1/"
+trich_giay_phep = "All Analytics datasets are available under the Creative Commons Zero (CC0) public domain dedication, unless otherwise specified."
+ghi_nguon = "Wikimedia Foundation, Pageviews API (truy cập 2026-09-17)."
+mirror = true
+khoang_thoi_gian = ["2016-01-01", "2025-12-31"]
+buoi = [11, 13]
+ghi_chu = "API cần User-Agent có thông tin liên hệ (chính sách Wikimedia); giới hạn 200 lượt/phút với UA hợp lệ."
+xac_minh = "2026-09-17: trang legal dumps.wikimedia.org; agent tải 2 lần cùng sha (khoảng khác), tác giả tải bản này"
+
+[bo.wikipedia-vi-tong]
+kieu = "http"
+tieu_de = "Wikimedia Pageviews — tổng lượt xem Wikipedia tiếng Việt (người dùng), theo ngày 2016–2025"
+url = "https://wikimedia.org/api/rest_v1/metrics/pageviews/aggregate/vi.wikipedia/all-access/user/daily/2016010100/2025123100"
+sha256 = "481d604d1b581efcb76c4a86d1dc6e5547271c6b8e2a772bcc53719b1fa1c3f3"
+dung_luong = 463933
+ten_tep = "vi-wikipedia-tong-2016-2025.json"
+giay_phep = "CC0 1.0"
+link_giay_phep = "https://dumps.wikimedia.org/legal.html"
+trang_nguon = "https://wikimedia.org/api/rest_v1/"
+trich_giay_phep = "All Analytics datasets are available under the Creative Commons Zero (CC0) public domain dedication, unless otherwise specified."
+ghi_nguon = "Wikimedia Foundation, Pageviews API (truy cập 2026-09-17)."
+mirror = true
+khoang_thoi_gian = ["2016-01-01", "2025-12-31"]
+buoi = [11, 18, 38]
+xac_minh = "2026-09-17: tải + sha256"
+
+[bo.gdelt-events-20240101]
+kieu = "http"
+tieu_de = "GDELT 2.0 Events — lô 15 phút đầu tiên của 2024-01-01"
+url = "https://data.gdeltproject.org/gdeltv2/20240101000000.export.CSV.zip"
+sha256 = "c0d2c39bcf3b8d2b26a7a450a3c1cdc26ae2bbc8427f3ad69f6e84053fb1c13f"
+dung_luong = 74695
+giai_nen = "zip"
+giay_phep = "GDELT — sử dụng tự do, bắt buộc ghi nguồn"
+link_giay_phep = "https://www.gdeltproject.org/about.html#termsofuse"
+trang_nguon = "https://www.gdeltproject.org/"
+trich_giay_phep = "You may redistribute, rehost, republish, and mirror any of the GDELT datasets in any form. However, any use or redistribution of the data must include a citation to the GDELT Project and a link to this website (https://www.gdeltproject.org/)."
+ghi_nguon = "The GDELT Project, https://www.gdeltproject.org/"
+mirror = true
+khoang_thoi_gian = ["2024-01-01T00:00", "2024-01-01T00:15"]
+buoi = [36]
+ghi_chu = "Mẫu nhỏ để buổi 36 thử đọc định dạng; buổi chọn khoảng thời gian thật ở Phase 10. Dùng https (http trả 301)."
+xac_minh = "2026-09-17: trang about (qua công cụ đọc trang); agent + tác giả tải cùng sha256"
+
+[bo.binance-btcusdt-1d-2024-01]
+kieu = "http"
+tieu_de = "Binance Public Data — nến ngày BTCUSDT tháng 1/2024"
+url = "https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1d/BTCUSDT-1d-2024-01.zip"
+sha256 = "474c1ce6fbb09e42cfc7231fee249aecc58af2fb5918570ffeba37998926b4a4"
+dung_luong = 2190
+giai_nen = "zip"
+giay_phep = "Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường"
+link_giay_phep = "https://github.com/binance/binance-public-data"
+trang_nguon = "https://data.binance.vision/"
+trich_giay_phep = "Without written consent from Binance, the following commercial uses of Binance data are prohibited: … (2) Data feeding or streaming services that make use of any market data of Binance. (3) Any other websites/apps/services that charge for or otherwise profit from market data obtained from Binance. (trích qua nguồn thứ cấp 2021, bản hiện hành CHƯA xác minh)"
+ghi_nguon = "Binance Public Data, https://github.com/binance/binance-public-data"
+mirror = false
+ly_do_mirror = "không có giấy phép dữ liệu; điều khoản cấm các dịch vụ cung cấp lại dữ liệu thị trường — học viên tự tải, không mirror"
+khoang_thoi_gian = ["2024-01-01", "2024-01-31"]
+buoi = [21]
+ghi_chu = "Mẫu một tháng; Phase 6 chọn khoảng dài hơn. README: 'Archived files may be updated at a later date as a result of recently discovered issues.' Có tệp .CHECKSUM đi kèm. Lớp thu phí: kiểm lại điều khoản trước khi dùng."
+xac_minh = "2026-09-17: README repo; tải + sha256 (agent: .CHECKSUM khớp)"
+
+[bo.ecmwf-aifs-2t-20260101-24h]
+kieu = "http"
+tieu_de = "ECMWF Open Data AIFS single — nhiệt độ 2 m (2t), lượt 2026-01-01 00z, bước 24 h, lưới 0,25° (một bản tin GRIB2)"
+url = "https://storage.googleapis.com/ecmwf-open-data/20260101/00z/aifs-single/0p25/oper/20260101000000-24h-oper-fc.grib2"
+khoang_byte = [32917725, 546969]
+sha256 = "e9545ea339e58b031c1305ff602edfa93367229c09fe27a0b5ece033d3e22cdb"
+dung_luong = 546969
+ten_tep = "aifs-2t-20260101-00z-24h.grib2"
+giay_phep = "CC BY 4.0 + ECMWF Terms of Use"
+link_giay_phep = "https://www.ecmwf.int/en/forecasts/datasets/open-data"
+trang_nguon = "https://www.ecmwf.int/en/forecasts/datasets/open-data"
+trich_giay_phep = "Their use is governed by the Creative Commons CC-BY-4.0 licence and the ECMWF Terms of Use. This means that the data may be redistributed and used commercially, subject to appropriate attribution."
+ghi_nguon = "Copyright ECMWF. ECMWF Open Data, AIFS Single, CC BY 4.0."
+mirror = true
+khoang_thoi_gian = ["2026-01-02T00:00", "2026-01-02T00:00"]
+buoi = [33]
+ghi_chu = "Offset lấy từ tệp .index cùng tên (JSON dòng, _offset/_length). data.ecmwf.int chỉ giữ ~12 lượt gần nhất; lịch sử ở GCS (từ 2023-07) và AWS s3://ecmwf-forecasts. AIFS huấn luyện ERA5 1979–2022 + fine-tune 2016–2022 → kiểm chứng từ 2023. Phase 9 chọn tập bước/biến đầy đủ."
+xac_minh = "2026-09-17: trang open data ECMWF; agent tải theo Range 2 lần cùng sha256 trên GCS"
+
+# =========================================================================== kinh tế Mỹ từ CƠ QUAN GỐC (không qua FRED — xem NGHIEN-CUU.md B.5)
+# Các tệp "hiện hành" dưới đây được cơ quan ghi đè mỗi kỳ công bố → sha256 chỉ đúng tới lần công bố kế tiếp:
+# BẮT BUỘC mirror snapshot trước khi buổi học dùng.
+
+[bo.eurostat-hanh-khach-hang-khong]
+kieu = "http"
+tieu_de = "Eurostat avia_paoc — hành khách hàng không EU27 theo tháng (chở có thu tiền, tổng chiều), 2008-01 → nay"
+url = "https://ec.europa.eu/eurostat/api/dissemination/sdmx/3.0/data/dataflow/ESTAT/avia_paoc/1.0/M.PAS.PAS_CRD.TOTAL.TOTAL.EU27_2020?format=csvdata&compress=false"
+sha256 = "6ce5178cf876ba9e58c47ed9e6c5c4207383e9041dab1fc9306693c691eff5d0"
+dung_luong = 18866
+ten_tep = "eurostat-avia-paoc-eu27.csv"
+giay_phep = "CC BY 4.0 (Eurostat)"
+link_giay_phep = "https://ec.europa.eu/eurostat/help/copyright-notice"
+trang_nguon = "https://ec.europa.eu/eurostat/databrowser/view/avia_paoc/default/table"
+trich_giay_phep = "Reuse of statistical data, metadata, publications, and other dissemination tools published on this website for commercial or non-commercial purposes is authorised provided the source is acknowledged."
+ghi_nguon = "Eurostat, Air passenger transport by type of schedule (avia_paoc), truy cập 2026-09-18."
+mirror = true
+ly_do_mirror = "BẮT BUỘC mirror: Eurostat sửa số liệu (revision) mỗi kỳ công bố nên sha256 chỉ đúng tới lần sửa kế tiếp"
+khoang_thoi_gian = ["2008-01", "2026-02"]
+buoi = [11]
+ghi_chu = "Dùng endpoint SDMX 3.0: bản SDMX 2.1 có cột 'LAST UPDATE' đổi mỗi lần tải nên sha256 không ổn định. 218 tháng; cột TIME_PERIOD (YYYY-MM) và OBS_VALUE. Vỡ COVID rất rõ: 2020-01 66.046.231 → 2020-04 890.607 (−98,7%), hồi phục 2021-07 48.960.587. Thay US BTS T-100 (transtats chỉ có bảng HTML, data.bts.gov trả 403)."
+xac_minh = "2026-09-18: tác giả tải 2 lần cùng sha256; agent research tải trước đó cùng giá trị"
+
+[bo.bls-cpi-u]
+kieu = "http"
+tieu_de = "BLS CPI-U — mọi chuỗi 'All Items' (có CUSR0000SA0 = CPI-U đã điều chỉnh mùa vụ, tương đương CPIAUCSL)"
+url = "https://download.bls.gov/pub/time.series/cu/cu.data.1.AllItems"
+can_lien_he = true
+sha256 = "47507ab13d9366d6e9f6a85a50bbd863179c97fa51c92ecb737875455d6ddc0f"
+dung_luong = 2688415
+ten_tep = "cu.data.1.AllItems.tsv"
+giay_phep = "Public domain (U.S. government)"
+link_giay_phep = "https://www.bls.gov/opub/copyright-information.htm"
+trang_nguon = "https://download.bls.gov/pub/time.series/cu/"
+trich_giay_phep = "The Bureau of Labor Statistics (BLS) is a Federal government agency and everything that we publish, both in hard copy and electronically, is in the public domain, except for previously copyrighted photographs and illustrations. You are free to use our public domain material without specific permission, although we do ask that you cite the Bureau of Labor Statistics as the source."
+ghi_nguon = "U.S. Bureau of Labor Statistics, Consumer Price Index for All Urban Consumers (truy cập 2026-09-17)."
+mirror = true
+ly_do_mirror = "BẮT BUỘC mirror: tệp ghi đè mỗi tháng công bố CPI; BLS chặn User-Agent không có liên hệ"
+khoang_thoi_gian = ["1913-01", "2026-08"]
+buoi = [5]
+ghi_chu = "Tab + khoảng trắng đệm, xuống dòng CRLF; cột series_id, year, period (M01–M13, M13 = trung bình năm), value. Cần export KHOA_FORECASTING_LIEN_HE=<email> khi tải từ nguồn gốc."
+xac_minh = "2026-09-17: trang copyright BLS; agent tải 2 lần cùng sha, tác giả tải bản thứ 3 cùng sha"
+
+[bo.bea-nipa-quy]
+kieu = "http"
+tieu_de = "BEA NIPA — mọi chuỗi theo quý (có A191RX = GDP thực, tương đương GDPC1)"
+url = "https://apps.bea.gov/national/Release/TXT/NipaDataQ.txt"
+sha256 = "7fa7dfb39b765e5cebfb0561f1dd9cc97527f96e9d630fadc01083c30044de83"
+dung_luong = 35397935
+ten_tep = "NipaDataQ.txt"
+giay_phep = "Public domain (U.S. government)"
+link_giay_phep = "https://www.bea.gov/help/faq/145"
+trang_nguon = "https://apps.bea.gov/national/Release/TXT/"
+trich_giay_phep = "Unless stated otherwise, the information posted on the BEA web site is in the public domain and may be used or reproduced without specific permission. A citation such as \"Source: U.S. Bureau of Economic Analysis\" would be appreciated."
+ghi_nguon = "Source: U.S. Bureau of Economic Analysis, National Income and Product Accounts (truy cập 2026-09-17)."
+mirror = true
+ly_do_mirror = "BẮT BUỘC mirror: tệp ghi đè mỗi lần BEA công bố (Last-Modified 2026-08-26)"
+khoang_thoi_gian = ["1947Q1", "2026Q2"]
+buoi = [7, 20]
+ghi_chu = "CSV %SeriesCode,Period,Value; giá trị có dấu phẩy nghìn trong ngoặc kép. Tra nhãn/đơn vị ở bea-nipa-danh-muc-chuoi."
+xac_minh = "2026-09-17: FAQ 145 BEA; agent + tác giả tải cùng sha256"
+
+[bo.bea-nipa-thang]
+kieu = "http"
+tieu_de = "BEA NIPA — mọi chuỗi theo tháng (có B230RC = dân số giữa kỳ, tương đương POPTHM)"
+url = "https://apps.bea.gov/national/Release/TXT/NipaDataM.txt"
+sha256 = "dd14f325cc4b73c697d6f1de0eeeb5bc8a4c5f4f6ce61482d4225c14c4d371f3"
+dung_luong = 36732002
+ten_tep = "NipaDataM.txt"
+giay_phep = "Public domain (U.S. government)"
+link_giay_phep = "https://www.bea.gov/help/faq/145"
+trang_nguon = "https://apps.bea.gov/national/Release/TXT/"
+trich_giay_phep = "Unless stated otherwise, the information posted on the BEA web site is in the public domain and may be used or reproduced without specific permission. A citation such as \"Source: U.S. Bureau of Economic Analysis\" would be appreciated."
+ghi_nguon = "Source: U.S. Bureau of Economic Analysis, National Income and Product Accounts (truy cập 2026-09-17)."
+mirror = true
+ly_do_mirror = "BẮT BUỘC mirror: tệp ghi đè mỗi lần BEA công bố"
+khoang_thoi_gian = ["1959-01", "2026-07"]
+buoi = [5]
+xac_minh = "2026-09-17: FAQ 145 BEA; agent + tác giả tải cùng sha256"
+
+[bo.bea-nipa-danh-muc-chuoi]
+kieu = "http"
+tieu_de = "BEA NIPA SeriesRegister — nhãn, đơn vị, thang, bảng:dòng của mọi mã chuỗi"
+url = "https://apps.bea.gov/national/Release/TXT/SeriesRegister.txt"
+sha256 = "a4ea3f149ac201679f489e5e3ea42e40dd91cacccd317694795ab5de8e542cf9"
+dung_luong = 971461
+ten_tep = "SeriesRegister.txt"
+giay_phep = "Public domain (U.S. government)"
+link_giay_phep = "https://www.bea.gov/help/faq/145"
+trang_nguon = "https://apps.bea.gov/national/Release/TXT/"
+trich_giay_phep = "Unless stated otherwise, the information posted on the BEA web site is in the public domain and may be used or reproduced without specific permission."
+ghi_nguon = "Source: U.S. Bureau of Economic Analysis."
+mirror = true
+khong_thoi_gian = true
+buoi = [5, 7, 20]
+xac_minh = "2026-09-17: agent + tác giả tải cùng sha256"
+
+[bo.census-marts-ban-le]
+kieu = "http"
+tieu_de = "US Census Monthly Retail Trade (MARTS) — doanh số bán lẻ và dịch vụ ăn uống 1992 → 6/2026, chưa và đã điều chỉnh mùa vụ (bản lưu Wayback 2026-09-13)"
+url = "https://web.archive.org/web/20260913170508id_/https://www.census.gov/retail/mrts/www/mrtssales92-present.xlsx"
+sha256 = "2c58dce5119a7ff2acf08643a34f514d7b130b531fa989849470a7eeb075abee"
+dung_luong = 440847
+ten_tep = "mrtssales92-present.xlsx"
+giay_phep = "Public domain (U.S. government, 17 U.S.C. §105)"
+link_giay_phep = "https://www.law.cornell.edu/uscode/text/17/105"
+trang_nguon = "https://www.census.gov/retail/sales.html"
+trich_giay_phep = "Copyright protection under this title is not available for any work of the United States Government."
+ghi_nguon = "Source: U.S. Census Bureau, Monthly Retail Trade Survey (bản lưu Internet Archive 2026-09-13)."
+mirror = true
+ly_do_mirror = "BẮT BUỘC mirror: census.gov chặn IP Việt Nam (Cloudflare 403), API cần key; tệp gốc sửa số liệu 2026-09-28"
+khoang_thoi_gian = ["1992-01", "2026-06"]
+buoi = [5]
+ghi_chu = "35 sheet '2026'…'1992', triệu USD; mỗi sheet có khối NOT ADJUSTED và ADJUSTED(2). Chú thích (2): 'adjusted for seasonal variations and holiday and trading-day differences, but not for price changes'. Gãy chuỗi: trước kỳ benchmark 4/2025 có tính nonemployers. Đọc .xlsx cần openpyxl."
+xac_minh = "2026-09-18: agent research tải 2 lần cùng sha256 từ Wayback; census.gov 403"
+
+[bo.frb-g17-san-luong-cong-nghiep]
+kieu = "http"
+tieu_de = "Federal Reserve Board G.17 — chỉ số sản lượng công nghiệp tổng hợp (IP.B50001.S ≈ INDPRO), 2000–2024"
+url = "https://www.federalreserve.gov/datadownload/Output.aspx?rel=G17&series=403cc340ea3a19566b30770b9e4793ab&lastobs=&from=01/01/2000&to=12/31/2024&filetype=csv&label=include&layout=seriescolumn&type=package"
+sha256 = "3956c6626866f458434ee81dffb72374b4653e0fd183f6286b84a3da33421d15"
+dung_luong = 23364
+ten_tep = "g17-2000-2024.csv"
+giay_phep = "Public domain (Federal Reserve Board)"
+link_giay_phep = "https://www.federalreserve.gov/disclaimer.htm"
+trang_nguon = "https://www.federalreserve.gov/datadownload/Choose.aspx?rel=G17"
+trich_giay_phep = "Unless otherwise indicated, information on Board's website is in the public domain and may be copied and distributed without permission. Please cite to the Board as the source of the information."
+ghi_nguon = "Board of Governors of the Federal Reserve System, G.17 Industrial Production and Capacity Utilization (truy cập 2026-09-17)."
+mirror = true
+ly_do_mirror = "nên mirror: IP được sửa số liệu lùi hằng năm dù khoảng thời gian cố định"
+khoang_thoi_gian = ["2000-01", "2024-12"]
+buoi = [17]
+ghi_chu = "5 dòng nhãn rồi mới tới dòng tiêu đề 'Time Period'."
+xac_minh = "2026-09-17: trang disclaimer FRB; agent + tác giả tải cùng sha256"
+
+[bo.frb-h10-ty-gia]
+kieu = "http"
+tieu_de = "Federal Reserve Board H.10 — tỷ giá theo ngày (RXI$US_N.B.EU = USD/EUR ≈ DEXUSEU), 2000–2024"
+url = "https://www.federalreserve.gov/datadownload/Output.aspx?rel=H10&series=60f32914ab61dfab590e0e470153e3ae&lastobs=&from=01/01/2000&to=12/31/2024&filetype=csv&label=include&layout=seriescolumn&type=package"
+sha256 = "3464a2ae7db97f6448b0154aee9c75cdd9c48267763837e55f5e3308b06cc31c"
+dung_luong = 1180969
+ten_tep = "h10-2000-2024.csv"
+giay_phep = "Public domain (Federal Reserve Board)"
+link_giay_phep = "https://www.federalreserve.gov/disclaimer.htm"
+trang_nguon = "https://www.federalreserve.gov/datadownload/Choose.aspx?rel=H10"
+trich_giay_phep = "Unless otherwise indicated, information on Board's website is in the public domain and may be copied and distributed without permission. Please cite to the Board as the source of the information."
+ghi_nguon = "Board of Governors of the Federal Reserve System, H.10 Foreign Exchange Rates (truy cập 2026-09-17)."
+mirror = true
+khoang_thoi_gian = ["2000-01-03", "2024-12-31"]
+buoi = [21]
+xac_minh = "2026-09-17: trang disclaimer FRB; agent + tác giả tải cùng sha256"
+
+[bo.eia-gia-dau-wti]
+kieu = "http"
+tieu_de = "EIA — giá dầu WTI giao ngay theo ngày (RWTC ≈ DCOILWTICO), toàn bộ lịch sử"
+url = "https://www.eia.gov/dnav/pet/hist_xls/RWTCd.xls"
+sha256 = "00974b186543d1fa762ddf58d125ab8e2aa347fc80c7ecb12345fdd2f95a56ee"
+dung_luong = 470528
+ten_tep = "RWTCd.xls"
+giay_phep = "Public domain (U.S. government)"
+link_giay_phep = "https://www.eia.gov/about/copyrights_reuse.php"
+trang_nguon = "https://www.eia.gov/dnav/pet/hist/RWTCD.htm"
+trich_giay_phep = "U.S. government publications are in the public domain and are not subject to copyright protection. You may use and/or distribute any of our data, files, databases, reports, graphs, charts, and other information products that are on our website"
+ghi_nguon = "Source: U.S. Energy Information Administration, Cushing OK WTI Spot Price FOB (truy cập 2026-09-17)."
+mirror = true
+ly_do_mirror = "BẮT BUỘC mirror: tệp ghi đè mỗi tuần"
+khoang_thoi_gian = ["1986-01-02", "2026-09-08"]
+buoi = [20, 21]
+ghi_chu = "Excel định dạng cũ .xls — buổi dùng cần xlrd. Không có bản CSV."
+xac_minh = "2026-09-17: agent + tác giả tải cùng sha256"
+
+[bo.philly-fed-gdp-thuc-vintage]
+kieu = "http"
+tieu_de = "Philadelphia Fed Real-Time Data Set — GDP thực theo quý, mọi vintage (ROUTPUT, thay ALFRED)"
+url = "https://www.philadelphiafed.org/-/media/FRBP/Assets/Surveys-And-Data/real-time-data/data-files/xlsx/ROUTPUTQvQd.xlsx"
+sha256 = "bf0c4c1b6b902283bfb94fe7b7d94e003ff68fb926aebb0169504bbe213a055c"
+dung_luong = 243160
+ten_tep = "ROUTPUTQvQd.xlsx"
+giay_phep = "Điều khoản Philadelphia Fed — chỉ cho mục đích thông tin, giáo dục, nghiên cứu"
+link_giay_phep = "https://www.philadelphiafed.org/about-us/privacy-notice"
+trang_nguon = "https://www.philadelphiafed.org/surveys-and-data/real-time-data-research/real-time-data-set-for-macroeconomists"
+trich_giay_phep = "The content provided on this website may be used for informational, educational, and research purposes only."
+ghi_nguon = "Federal Reserve Bank of Philadelphia, Real-Time Data Set for Macroeconomists (Croushore & Stark)."
+mirror = false
+ly_do_mirror = "Philadelphia Fed không phải cơ quan chính phủ, trang ghi 'Copyright 2026. All rights reserved.' — không phân phối lại; học viên tải từ nguồn gốc (lớp thu phí: xin phép)"
+khoang_thoi_gian = ["1965Q4", "2026Q2"]
+buoi = [20]
+ghi_chu = "Mỗi cột là một vintage (ROUTPUT65Q4 …). Tệp ghi đè khi có vintage mới → sha256 đổi mỗi quý; buổi 20 cần kế hoạch khi sha lệch (tải bản mới và cắt tới vintage cố định)."
+xac_minh = "2026-09-17: trang terms Philadelphia Fed; agent + tác giả tải cùng sha256"
+
+# =========================================================================== bị hạn chế — học viên tự tải
+
+[bo.m5-kaggle]
+kieu = "kaggle"
+tieu_de = "M5 Forecasting — Accuracy (Walmart, 42.840 chuỗi phân cấp)"
+kaggle = "competition:m5-forecasting-accuracy"
+cho_sha256 = "cần tài khoản Kaggle đã chấp nhận luật cuộc thi để tải và chốt sha256 từng tệp — máy soạn khoá chưa có"
+dung_luong = 450472284
+giay_phep = "Subject to Competition Rules — chỉ phi thương mại, cấm phân phối lại"
+link_giay_phep = "https://www.kaggle.com/competitions/m5-forecasting-accuracy/rules"
+trang_nguon = "https://www.kaggle.com/competitions/m5-forecasting-accuracy"
+trich_giay_phep = "You agree not to transmit, duplicate, publish, redistribute or otherwise provide or make available the Competition Data to any party not participating in the Competition."
+mirror = false
+du_phong = "uci-online-retail-ii"
+khoang_thoi_gian = ["2011-01-29", "2016-06-19"]
+buoi = [23, 40, 44]
+ghi_chu = "Nixtla datasetsforecast tải M5 từ repo GitHub Nixtla/m5-forecasts không có giấy phép — KHÔNG dùng đường này. Dự phòng nhu cầu gián đoạn: monash-car-parts."
+xac_minh = "2026-09-17: luật §7A–7B đọc qua API Kaggle (Phase 0); tổng 450.472.284 byte chưa nén"
+
+# =========================================================================== ngoài danh mục tải tự động
+
+[ngoai_danh_muc.openaq-viet-nam]
+tieu_de = "OpenAQ — trạm Hà Nội / TP.HCM"
+trang_nguon = "https://docs.openaq.org/about/terms"
+trich_giay_phep = "OpenAQ users must therefore review and comply with any terms published by data providers… Attribution to OpenAQ as the source data is also required when using OpenAQ services for accessing the data."
+ly_do = "giấy phép theo từng nhà cung cấp chỉ tra được qua API có key (máy soạn chưa có key). Trạm đã thấy: Hanoi Air Quality Monitoring Network (giấy phép CHƯA xác minh; 2161292, 2161306, 4946812, 4946813 còn gửi dữ liệu 09/2026), AirNow 7441 Hà Nội (US Public Domain, dừng 2025-04-09), AirGradient 3276359 TP.HCM (CC BY 4.0 theo trang explore). Phase 4 chốt trạm + snapshot khi có key"
+du_phong = "uci-beijing-air (CC BY 4.0) + open-meteo-ha-noi-2023-2024"
+
+[ngoai_danh_muc.noaa-isd]
+tieu_de = "NOAA ISD / Global Hourly — trạm Nội Bài 488200-99999"
+trang_nguon = "https://www.ncei.noaa.gov/pub/data/noaa/readme.txt"
+trich_giay_phep = "IMPORTANT NOTE: The non-U.S. data in ISD are subject to WMO Resolution 40 restrictions, and cannot be redistributed to other users or customers."
+ly_do = "dữ liệu ngoài Mỹ cấm phân phối lại; trạm dừng từ 2025-08-24; ISD đang được thay bằng GHCNh"
+du_phong = "ghcnh-noi-bai-2024, ghcnh-noi-bai-2025"
+
+[ngoai_danh_muc.bts-hanh-khach]
+tieu_de = "US BTS — hành khách hàng không theo tháng (TranStats, T-100)"
+trang_nguon = "https://www.transtats.bts.gov/Data_Elements.aspx?Data=1"
+trich_giay_phep = "There are no copyright restrictions or charges for use of DOT publications. Please properly cite any use of DOT publications."
+ly_do = "chỉ có bảng HTML (không có tệp tải cố định; data.bts.gov trả 403) — cần công cụ trích bảng + mirror snapshot; làm ở Phase 4/5 khi có mirror"
+du_phong = "monash-tourism-monthly (buổi 16), wikipedia-vi-tong (buổi 11)"
+
+[ngoai_danh_muc.fred]
+tieu_de = "FRED / ALFRED / FRED-MD (Federal Reserve Bank of St. Louis)"
+trang_nguon = "https://fred.stlouisfed.org/legal/"
+trich_giay_phep = "Use the FRED® Services or FRED® Content in connection with the development or training of any software program or system or machine learning, including, but not limited to, large language models, deep learning, generative artificial intelligence…"
+ly_do = "điều khoản cấm dùng nội dung FRED cho phát triển/huấn luyện machine learning — khoá dạy chính việc đó; FRED-MD cùng ngân hàng, trang không có điều khoản riêng nên coi như chịu điều khoản FRED"
+du_phong = "bls-cpi-u, bea-nipa-quy, bea-nipa-thang, frb-g17-san-luong-cong-nghiep, frb-h10-ty-gia, eia-gia-dau-wti, philly-fed-gdp-thuc-vintage (Census bán lẻ và BLS thất nghiệp: chốt ở Phase 3)"
+
+[ngoai_danh_muc.metr-la]
+tieu_de = "METR-LA (tốc độ giao thông 207 cảm biến Los Angeles, DCRNN)"
+trang_nguon = "https://github.com/liyaguang/DCRNN"
+trich_giay_phep = "`metr-la.h5` and `pems-bay.h5`, are available at Google Drive or Baidu Yun — không kèm điều khoản dữ liệu; repo mã MIT"
+ly_do = "không có giấy phép dữ liệu; bản trên Hugging Face gắn giấy phép do người tải lên tự chọn"
+du_phong = "monash-traffic-hourly (CC BY 4.0)"
+
+[ngoai_danh_muc.dominicks]
+tieu_de = "Dominick's Finer Foods (Kilts Center, Chicago Booth)"
+trang_nguon = "https://www.chicagobooth.edu/research/kilts/research-data/dominicks"
+trich_giay_phep = "These data are for academic research purposes only. Users must acknowledge in their working papers and/or publications the Kilts Center for Marketing at the University of Chicago Booth School of Business."
+ly_do = "chỉ cho nghiên cứu học thuật, không có điều khoản phân phối lại"
+du_phong = "uci-online-retail-ii"
+
+[ngoai_danh_muc.metaculus]
+tieu_de = "Metaculus API"
+trang_nguon = "https://www.metaculus.com/terms-of-use/"
+trich_giay_phep = "No materials from the Service may be copied, reproduced, modified, republished, downloaded, uploaded, posted, transmitted, or distributed in any form or by any means without Metaculus's prior written permission"
+ly_do = "cấm sao chép/phân phối lại và cấm dùng để huấn luyện mô hình khi chưa có văn bản cho phép — học viên chỉ truy vấn trực tiếp bằng tài khoản mình"
+du_phong = "forecastbench-cau-hoi (CC BY-SA 4.0)"
+
+[ngoai_danh_muc.fev-gift-eval]
+tieu_de = "fev-bench (autogluon/fev_datasets) và GIFT-Eval (Salesforce/GiftEval) trên Hugging Face"
+trang_nguon = "https://huggingface.co/datasets/autogluon/fev_datasets"
+trich_giay_phep = "Please refer to the original sources for licensing and citation terms. We do not claim any rights to the original data. Unless otherwise specified, the datasets are provided only for research purposes."
+ly_do = "giấy phép 'other', từng bộ con theo nguồn gốc; GIFT-Eval 'for research purposes only' — Phase 10 chọn các bộ con có nguồn mở rõ và chốt revision (fev_datasets f71c0ff…, GiftEval 3084173…)"
+du_phong = "các bộ Monash CC BY 4.0 trong danh mục"

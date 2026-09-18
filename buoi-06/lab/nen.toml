@@ -1,0 +1,7 @@
+# Buổi 06 — Phân rã chuỗi thời gian. Nguồn của lab/00-nen/ (python tools/sinh_nen.py 6).
+thu_vien = ["matplotlib", "statsmodels"]
+du_lieu = ["eia930-balance-2024-h1", "eia930-balance-2024-h2"]
+khung_bo = []
+
+[cham]
+code_phai_do = true

@@ -1,0 +1,23 @@
+# SINH TỰ ĐỘNG bởi tools/sinh_nen.py — KHÔNG SỬA TAY. Sửa tools/du-lieu/danh-muc.toml rồi chạy lại tool.
+# Dữ liệu của buoi-04: tải + kiểm sha256 bằng `bash 00-nen/chuan-bi.sh` (make up).
+
+phien_ban = 1
+
+[[bo]]
+ten = "uci-bike-sharing"
+kieu = "http"
+tieu_de = "UCI Bike Sharing Dataset (Capital Bikeshare, Washington D.C.)"
+url = "https://archive.ics.uci.edu/static/public/275/bike+sharing+dataset.zip"
+sha256 = "b70182d0d0508e9abbb79306ce5c0cec34869000f8220175ac83d11dbe845401"
+dung_luong = 279992
+giai_nen = "zip"
+chi_lay = ["Readme.txt", "day.csv", "hour.csv"]
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://archive.ics.uci.edu/dataset/275/bike+sharing+dataset"
+trich_giay_phep = "This dataset is licensed under a Creative Commons Attribution 4.0 International (CC BY 4.0) license. This allows for the sharing and adaptation of the datasets for any purpose, provided that the appropriate credit is given."
+ghi_nguon = "Fanaee-T, H. (2013). Bike Sharing [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5W894"
+mirror = true
+khoang_thoi_gian = ["2011-01-01", "2012-12-31"]
+dang_dai = { "tep" = "hour.csv", "ds" = "dteday", "gio" = "hr", "y" = "cnt", "id" = "bike-sharing" }
+ghi_chu = "Giờ theo giờ địa phương Washington D.C., không có thông tin múi giờ; tệp CSV xuống dòng CRLF. API metadata UCI báo 17.389 bản ghi nhưng hour.csv có 17.379 dòng — không kiểm số dòng theo metadata."

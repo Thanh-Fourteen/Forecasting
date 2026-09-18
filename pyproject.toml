@@ -1,0 +1,41 @@
+# Cấu hình CÔNG CỤ dùng chung của repo (ruff, jupytext) — repo này KHÔNG phải một dự án Python.
+#
+# - Không có [project]. KHÔNG BAO GIỜ thêm [tool.uv.workspace]: uv sẽ gom mọi buổi vào một uv.lock
+#   chung ở gốc và phá tính độc lập của từng buổi (đã chạy thử — tools/NGHIEN-CUU.md mục 2).
+#   tools/kiem_tra_doc_lap.sh chặn điều này.
+# - Thư viện của bộ công cụ: tools/requirements.txt (venv .venv/ ở gốc).
+# - Thư viện của từng buổi: buoi-NN/lab/00-nen/pyproject.toml, sinh bằng tools/sinh_nen.py.
+#
+#   .venv/bin/ruff check .          lint toàn repo
+#   .venv/bin/ruff check buoi-07    lint một buổi
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"   # không có [project] nên ruff không tự đọc requires-python
+extend-exclude = ["**/.venv", "**/du-lieu/raw", "phat-de", "buoi-*/lab/00-nen"]  # 00-nen: bản sao sinh tự động, lint ở nguồn tools/
+
+[tool.ruff.lint]
+# ruff 0.16 bật 413 rule mặc định — chọn tường minh để kết quả không đổi khi nâng ruff
+select = [
+    "E4", "E7", "E9",  # pycodestyle: lỗi thật (import, câu lệnh, cú pháp)
+    "W",               # khoảng trắng thừa
+    "F",               # pyflakes: tên chưa định nghĩa, import thừa
+    "I",               # sắp xếp import
+    "B",               # bugbear: bẫy phổ biến (tham số mặc định mutable, except rỗng…)
+    "UP",              # cú pháp Python 3.12
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["tv"]   # thư viện trợ giúp của buổi (lab/00-nen/tv)
+
+[tool.ruff.lint.per-file-ignores]
+# Code bài học dạng percent (# %%): import giữa ô và biểu thức trần cuối ô để hiện kết quả là chủ ý
+"buoi-*/code/**" = ["E402", "B018"]
+"buoi-*/dap-an/**" = ["E402", "B018"]
+"du-an-*/**" = ["E402", "B018"]
+"*.ipynb" = ["E402", "B018"]
+
+[tool.jupytext]
+# Nguồn của notebook là .py dạng percent (diff được); .ipynb sinh ra, không commit (.gitignore).
+# Zip phát học viên không có tệp này — lab/Makefile gọi `jupytext --to ipynb` tường minh.
+formats = "ipynb,py:percent"

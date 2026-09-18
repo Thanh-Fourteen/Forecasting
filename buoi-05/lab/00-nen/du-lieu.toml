@@ -1,0 +1,74 @@
+# SINH TỰ ĐỘNG bởi tools/sinh_nen.py — KHÔNG SỬA TAY. Sửa tools/du-lieu/danh-muc.toml rồi chạy lại tool.
+# Dữ liệu của buoi-05: tải + kiểm sha256 bằng `bash 00-nen/chuan-bi.sh` (make up).
+
+phien_ban = 1
+
+[[bo]]
+ten = "census-marts-ban-le"
+kieu = "http"
+tieu_de = "US Census Monthly Retail Trade (MARTS) — doanh số bán lẻ và dịch vụ ăn uống 1992 → 6/2026, chưa và đã điều chỉnh mùa vụ (bản lưu Wayback 2026-09-13)"
+url = "https://web.archive.org/web/20260913170508id_/https://www.census.gov/retail/mrts/www/mrtssales92-present.xlsx"
+sha256 = "2c58dce5119a7ff2acf08643a34f514d7b130b531fa989849470a7eeb075abee"
+dung_luong = 440847
+ten_tep = "mrtssales92-present.xlsx"
+giay_phep = "Public domain (U.S. government, 17 U.S.C. §105)"
+link_giay_phep = "https://www.law.cornell.edu/uscode/text/17/105"
+trang_nguon = "https://www.census.gov/retail/sales.html"
+trich_giay_phep = "Copyright protection under this title is not available for any work of the United States Government."
+ghi_nguon = "Source: U.S. Census Bureau, Monthly Retail Trade Survey (bản lưu Internet Archive 2026-09-13)."
+mirror = true
+ly_do_mirror = "BẮT BUỘC mirror: census.gov chặn IP Việt Nam (Cloudflare 403), API cần key; tệp gốc sửa số liệu 2026-09-28"
+khoang_thoi_gian = ["1992-01", "2026-06"]
+ghi_chu = "35 sheet '2026'…'1992', triệu USD; mỗi sheet có khối NOT ADJUSTED và ADJUSTED(2). Chú thích (2): 'adjusted for seasonal variations and holiday and trading-day differences, but not for price changes'. Gãy chuỗi: trước kỳ benchmark 4/2025 có tính nonemployers. Đọc .xlsx cần openpyxl."
+
+[[bo]]
+ten = "bls-cpi-u"
+kieu = "http"
+tieu_de = "BLS CPI-U — mọi chuỗi 'All Items' (có CUSR0000SA0 = CPI-U đã điều chỉnh mùa vụ, tương đương CPIAUCSL)"
+url = "https://download.bls.gov/pub/time.series/cu/cu.data.1.AllItems"
+can_lien_he = true
+sha256 = "47507ab13d9366d6e9f6a85a50bbd863179c97fa51c92ecb737875455d6ddc0f"
+dung_luong = 2688415
+ten_tep = "cu.data.1.AllItems.tsv"
+giay_phep = "Public domain (U.S. government)"
+link_giay_phep = "https://www.bls.gov/opub/copyright-information.htm"
+trang_nguon = "https://download.bls.gov/pub/time.series/cu/"
+trich_giay_phep = "The Bureau of Labor Statistics (BLS) is a Federal government agency and everything that we publish, both in hard copy and electronically, is in the public domain, except for previously copyrighted photographs and illustrations. You are free to use our public domain material without specific permission, although we do ask that you cite the Bureau of Labor Statistics as the source."
+ghi_nguon = "U.S. Bureau of Labor Statistics, Consumer Price Index for All Urban Consumers (truy cập 2026-09-17)."
+mirror = true
+ly_do_mirror = "BẮT BUỘC mirror: tệp ghi đè mỗi tháng công bố CPI; BLS chặn User-Agent không có liên hệ"
+khoang_thoi_gian = ["1913-01", "2026-08"]
+ghi_chu = "Tab + khoảng trắng đệm, xuống dòng CRLF; cột series_id, year, period (M01–M13, M13 = trung bình năm), value. Cần export KHOA_FORECASTING_LIEN_HE=<email> khi tải từ nguồn gốc."
+
+[[bo]]
+ten = "bea-nipa-thang"
+kieu = "http"
+tieu_de = "BEA NIPA — mọi chuỗi theo tháng (có B230RC = dân số giữa kỳ, tương đương POPTHM)"
+url = "https://apps.bea.gov/national/Release/TXT/NipaDataM.txt"
+sha256 = "dd14f325cc4b73c697d6f1de0eeeb5bc8a4c5f4f6ce61482d4225c14c4d371f3"
+dung_luong = 36732002
+ten_tep = "NipaDataM.txt"
+giay_phep = "Public domain (U.S. government)"
+link_giay_phep = "https://www.bea.gov/help/faq/145"
+trang_nguon = "https://apps.bea.gov/national/Release/TXT/"
+trich_giay_phep = "Unless stated otherwise, the information posted on the BEA web site is in the public domain and may be used or reproduced without specific permission. A citation such as \"Source: U.S. Bureau of Economic Analysis\" would be appreciated."
+ghi_nguon = "Source: U.S. Bureau of Economic Analysis, National Income and Product Accounts (truy cập 2026-09-17)."
+mirror = true
+ly_do_mirror = "BẮT BUỘC mirror: tệp ghi đè mỗi lần BEA công bố"
+khoang_thoi_gian = ["1959-01", "2026-07"]
+
+[[bo]]
+ten = "bea-nipa-danh-muc-chuoi"
+kieu = "http"
+tieu_de = "BEA NIPA SeriesRegister — nhãn, đơn vị, thang, bảng:dòng của mọi mã chuỗi"
+url = "https://apps.bea.gov/national/Release/TXT/SeriesRegister.txt"
+sha256 = "a4ea3f149ac201679f489e5e3ea42e40dd91cacccd317694795ab5de8e542cf9"
+dung_luong = 971461
+ten_tep = "SeriesRegister.txt"
+giay_phep = "Public domain (U.S. government)"
+link_giay_phep = "https://www.bea.gov/help/faq/145"
+trang_nguon = "https://apps.bea.gov/national/Release/TXT/"
+trich_giay_phep = "Unless stated otherwise, the information posted on the BEA web site is in the public domain and may be used or reproduced without specific permission."
+ghi_nguon = "Source: U.S. Bureau of Economic Analysis."
+mirror = true
+khong_thoi_gian = true

@@ -1,0 +1,7 @@
+# Buổi 02 — Xác suất và thống kê cho dự báo. Nguồn của lab/00-nen/ (python tools/sinh_nen.py 2).
+thu_vien = ["matplotlib", "scipy", "statsmodels"]
+du_lieu = ["uci-bike-sharing"]
+khung_bo = []
+
+[cham]
+code_phai_do = true

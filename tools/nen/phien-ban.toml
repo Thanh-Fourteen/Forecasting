@@ -1,0 +1,102 @@
+# Bảng phiên bản CHUNG cho nền của mọi buổi — nguồn của lab/00-nen/pyproject.toml.
+#
+# Mọi buổi dùng cùng phiên bản trực tiếp + cùng mốc exclude-newer, nên 44 uv.lock không lệch nhau
+# (rủi ro lớn nhất của thiết kế độc lập, xem todos.md). Buổi cần phiên bản khác thì khai [ghi_de]
+# trong lab/nen.toml kèm lý do — không sửa tay pyproject.toml của buổi.
+#
+# Phiên bản dưới đây là bản mới nhất trên PyPI ngày 2026-09-17 (tools/NGHIEN-CUU.md mục 1).
+# Tương thích giữa các gói chỉ được kiểm khi `uv lock` của buổi dùng chúng — mỗi phase rà lại.
+# Đổi một dòng ở đây → chạy lại `python tools/sinh_nen.py` cho mọi buổi đã có.
+
+python = "3.12"
+
+# uv chỉ xét gói phát hành trước mốc này (mốc CỐ ĐỊNH, không dùng "1 week" — không tái lập)
+exclude_newer = "2026-09-17T00:00:00Z"
+
+# backend build để cài tv/ thành package editable trong venv của buổi
+uv_build = ">=0.12.15,<0.13"
+
+# Nhóm phụ thuộc có trong MỌI buổi (PEP 735, uv cài mặc định cả hai nhóm)
+[nhom]
+dev = ["pytest", "ruff"]
+notebook = ["jupyterlab", "jupytext", "ipykernel"]
+
+# Luôn thêm vào dependencies: zoneinfo cần tzdata trên máy không có CSDL múi giờ IANA;
+# numpy + pandas vì mọi module của tv/ cần (tv.ve cần thêm matplotlib, tv.backtest.diebold_mariano cần scipy)
+[luon_co]
+goi = ["tzdata", "numpy", "pandas"]
+
+[thu_vien]
+# công cụ lab
+pytest = "9.1.1"
+ruff = "0.16.8"
+jupyterlab = "4.6.3"
+jupytext = "1.19.5"
+ipykernel = "7.3.0"
+tzdata = "2026.4"
+pytz = "2026.3.post1"   # DuckDB cần khi trả TIMESTAMPTZ về pandas 3 (pandas 3 bỏ phụ thuộc pytz)
+kagglehub = "1.0.2"
+holidays = "0.104"   # lễ Việt Nam (có Tết, Giỗ Tổ, nghỉ bù) — bản mới nhất PyPI 2026-09-07, xác minh 2026-09-18
+
+# dữ liệu
+numpy = "2.5.3"
+pandas = "3.0.5"
+polars = "1.44.2"
+duckdb = "1.5.5"
+pyarrow = "25.0.1"
+openpyxl = "3.1.5"   # đọc .xlsx (Census MARTS, buổi 5) — bản mới nhất PyPI 2024-06-28, xác minh 2026-09-18
+
+# thống kê, biểu đồ
+scipy = "1.18.1"
+statsmodels = "0.15.0"
+matplotlib = "3.11.2"
+seaborn = "0.13.2"
+plotly = "7.1.0"
+scikit-learn = "1.9.1"
+dtaidistance = "2.5.1"   # DTW nhanh (C extension, có wheel manylinux) cho phân cụm chuỗi, buổi 9 — xác minh 2026-09-18
+
+# Nixtla và mô hình
+statsforecast = "2.1.1"
+utilsforecast = "0.2.16"
+mlforecast = "1.1.0"
+neuralforecast = "3.2.2"
+hierarchicalforecast = "1.5.1"
+lightgbm = "4.7.0"
+optuna = "5.0.0"
+ruptures = "1.1.10"
+PyWavelets = "1.10.0"
+mapie = "1.5.0"
+pymc = "6.3.2"
+pymc-extras = "0.15.1"
+scoringrules = "0.11.0"
+shap = "0.52.0"
+torch = "2.14.0"
+chronos-forecasting = "2.3.2"
+timesfm = "3.0.2"
+"autogluon.timeseries" = "1.6.2"
+
+# production
+pandera = "0.33.1"
+prefect = "3.8.6"
+mlflow = "3.16.1"
+
+# Ràng buộc tự động: buổi dùng gói trong `khi_dung` thì phiên bản trong `dat` THAY bảng [thu_vien]
+# (kể cả khi buổi không khai trực tiếp gói đó — ghi thành constraint-dependencies của uv).
+# Thứ tự ưu tiên: [ghi_de] của buổi > [[rang_buoc]] > [thu_vien]. Kiểm bằng `uv pip compile` ngày ghi.
+
+[[rang_buoc]]
+khi_dung = ["statsforecast", "utilsforecast", "mlforecast", "autogluon.timeseries"]
+dat = { pandas = "2.3.3" }
+ly_do = """statsforecast 2.1.1, utilsforecast 0.2.16, mlforecast 1.1.0 yêu cầu pandas<3.0; autogluon.timeseries
+1.6.2 yêu cầu pandas<2.4 (uv pip compile 2026-09-17). pandas 2.3.3 là bản 2.x mới nhất; cả nhóm resolve
+được với numpy 2.5.3. Gỡ ràng buộc khi Nixtla hỗ trợ pandas 3."""
+
+[[rang_buoc]]
+khi_dung = ["autogluon.timeseries"]
+dat = { torch = "2.13.0" }
+ly_do = "autogluon.timeseries 1.6.2 kéo torch 2.13.0 (<2.14) — uv pip compile 2026-09-17"
+
+# Gói phải lấy từ index riêng. torch bản CPU theo docs.astral.sh/uv/guides/integration/pytorch/
+[index.pytorch-cpu]
+url = "https://download.pytorch.org/whl/cpu"
+goi = ["torch", "torchvision"]

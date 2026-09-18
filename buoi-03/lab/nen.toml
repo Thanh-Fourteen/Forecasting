@@ -1,0 +1,9 @@
+# Buổi 03 — Dữ liệu thời gian với pandas, polars, DuckDB. Nguồn của lab/00-nen/ (python tools/sinh_nen.py 3).
+# pytz: pandas 3 không còn kéo theo pytz, nhưng DuckDB cần nó khi trả cột TIMESTAMPTZ về Python.
+thu_vien = ["polars", "duckdb", "pyarrow", "matplotlib", "pytz"]
+du_lieu = ["nyc-tlc-yellow-2024-03", "nyc-tlc-yellow-2024-11", "nyc-tlc-zone-lookup", "open-meteo-new-york-2024-03-11",
+           "nyc-tlc-yellow-2024-01", "open-meteo-new-york-2024-01"]  # hai bộ cuối cho bài tập 2
+khung_bo = []
+
+[cham]
+code_phai_do = true

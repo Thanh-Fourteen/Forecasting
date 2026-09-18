@@ -1,0 +1,104 @@
+# SINH TỰ ĐỘNG bởi tools/sinh_nen.py — KHÔNG SỬA TAY. Sửa tools/du-lieu/danh-muc.toml rồi chạy lại tool.
+# Dữ liệu của buoi-03: tải + kiểm sha256 bằng `bash 00-nen/chuan-bi.sh` (make up).
+
+phien_ban = 1
+
+[[bo]]
+ten = "nyc-tlc-yellow-2024-03"
+kieu = "http"
+tieu_de = "NYC TLC Yellow Taxi Trip Records tháng 3/2024 (có ngày chuyển giờ mùa hè 10/3)"
+url = "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-03.parquet"
+sha256 = "2d4cdc8fb96726cdd3803b13b02d2e61e71d45720aff0ebc693a8bdd1f249823"
+dung_luong = 60078280
+ten_tep = "yellow_tripdata_2024-03.parquet"
+giay_phep = "NYC Open Data — không giới hạn sử dụng"
+link_giay_phep = "https://www.nyc.gov/opendata/get-started/FAQs"
+trang_nguon = "https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page"
+trich_giay_phep = "Open Data belongs to all New Yorkers. There are no restrictions on the use of Open Data."
+ghi_nguon = "NYC Taxi & Limousine Commission, TLC Trip Record Data, Yellow Taxi 2024-03 (truy cập 2026-09-17)."
+mirror = true
+khoang_thoi_gian = ["2024-03-01", "2024-03-31"]
+ghi_chu = "3.582.628 chuyến; thời gian naive giờ địa phương New York (timestamp[us] không múi giờ); không có chuyến nào đón lúc 02:xx ngày 10/3; 21 chuyến có ngày đón ngoài tháng (2002-12, 2024-02)."
+
+[[bo]]
+ten = "nyc-tlc-yellow-2024-11"
+kieu = "http"
+tieu_de = "NYC TLC Yellow Taxi Trip Records tháng 11/2024 (có ngày trả giờ mùa hè 3/11)"
+url = "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-11.parquet"
+sha256 = "5ef321876de5007a7c147a347389133fc94fd7ac28f82eb1d57d8f2cf05cfd3b"
+dung_luong = 60658709
+ten_tep = "yellow_tripdata_2024-11.parquet"
+giay_phep = "NYC Open Data — không giới hạn sử dụng"
+link_giay_phep = "https://www.nyc.gov/opendata/get-started/FAQs"
+trang_nguon = "https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page"
+trich_giay_phep = "Open Data belongs to all New Yorkers. There are no restrictions on the use of Open Data."
+ghi_nguon = "NYC Taxi & Limousine Commission, TLC Trip Record Data, Yellow Taxi 2024-11 (truy cập 2026-09-17)."
+mirror = true
+khoang_thoi_gian = ["2024-11-01", "2024-11-30"]
+ghi_chu = "3.646.369 chuyến; giờ 01:xx ngày 3/11 gộp cả EDT và EST (9.869 chuyến, ~1,86× Chủ nhật sau); 1.001 chuyến 'trả khách trước khi đón' rơi vào giờ lặp đó."
+
+[[bo]]
+ten = "nyc-tlc-zone-lookup"
+kieu = "http"
+tieu_de = "NYC TLC Taxi Zone Lookup (265 khu vực)"
+url = "https://d37ci6vzurychx.cloudfront.net/misc/taxi_zone_lookup.csv"
+sha256 = "1a99e105092230f8620f301edcca7f80d3080642ff404d28ed957d3fa222c8ed"
+dung_luong = 12331
+ten_tep = "taxi_zone_lookup.csv"
+giay_phep = "NYC Open Data — không giới hạn sử dụng"
+link_giay_phep = "https://www.nyc.gov/opendata/get-started/FAQs"
+trang_nguon = "https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page"
+trich_giay_phep = "Open Data belongs to all New Yorkers. There are no restrictions on the use of Open Data."
+ghi_nguon = "NYC Taxi & Limousine Commission, Taxi Zone Lookup Table (truy cập 2026-09-17)."
+mirror = true
+khong_thoi_gian = true
+
+[[bo]]
+ten = "open-meteo-new-york-2024-03-11"
+kieu = "http"
+tieu_de = "Open-Meteo Historical Weather (ERA5) — New York, theo giờ 2024-03-01 → 2024-11-30, UTC"
+url = "https://archive-api.open-meteo.com/v1/archive?latitude=40.7128&longitude=-74.006&start_date=2024-03-01&end_date=2024-11-30&hourly=temperature_2m,precipitation,rain,snowfall&timezone=UTC&models=era5&format=csv"
+sha256 = "fd75dc93e76dcd02fb2d8ec8e5491ff8c8f94616ede6dc5c54f2ef8cd287a75d"
+dung_luong = 242993
+ten_tep = "open-meteo-new-york-2024-03-11-utc.csv"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://open-meteo.com/en/licence"
+trang_nguon = "https://open-meteo.com/en/docs/historical-weather-api"
+trich_giay_phep = "API data are offered under Attribution 4.0 International (CC BY 4.0) You are free to share: copy and redistribute the material in any medium or format and adapt: remix, transform, and build upon the material."
+ghi_nguon = "Weather data by Open-Meteo.com (https://open-meteo.com/), mô hình ERA5."
+mirror = true
+khoang_thoi_gian = ["2024-03-01", "2024-11-30"]
+ghi_chu = "Cố ý lấy timezone=UTC: với timezone=America/New_York API áp MỘT độ lệch cố định (giờ lúc gọi) cho cả khoảng — sai quanh DST (issue open-meteo #1764)."
+
+[[bo]]
+ten = "nyc-tlc-yellow-2024-01"
+kieu = "http"
+tieu_de = "NYC TLC Yellow Taxi Trip Records tháng 1/2024 (Parquet)"
+url = "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-01.parquet"
+sha256 = "c4d59da7bbc8abaeeeb1727947ee93d9891a71acb42854bd80db1571b2030510"
+dung_luong = 49961641
+ten_tep = "yellow_tripdata_2024-01.parquet"
+giay_phep = "NYC Open Data — không giới hạn sử dụng"
+link_giay_phep = "https://www.nyc.gov/opendata/get-started/FAQs"
+trang_nguon = "https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page"
+trich_giay_phep = "Open Data belongs to all New Yorkers. There are no restrictions on the use of Open Data."
+ghi_nguon = "NYC Taxi & Limousine Commission, TLC Trip Record Data, Yellow Taxi 2024-01 (truy cập 2026-09-17)."
+mirror = true
+khoang_thoi_gian = ["2024-01-01", "2024-01-31"]
+ghi_chu = "TLC: 'The trip data was not created by the TLC, and TLC makes no representations as to the accuracy of these data.' TLC từng tải lại tệp (Last-Modified 2024-03-21) — sha256 có thể đổi."
+
+[[bo]]
+ten = "open-meteo-new-york-2024-01"
+kieu = "http"
+tieu_de = "Open-Meteo Historical Weather (ERA5) — New York, theo giờ tháng 1/2024, UTC"
+url = "https://archive-api.open-meteo.com/v1/archive?latitude=40.7128&longitude=-74.006&start_date=2024-01-01&end_date=2024-01-31&hourly=temperature_2m,precipitation,rain,snowfall&timezone=UTC&models=era5&format=csv"
+sha256 = "117856cb5284ae37d680f254d3196feb9332373694573797ea6f65805d0aa569"
+dung_luong = 27216
+ten_tep = "open-meteo-new-york-2024-01.csv"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://open-meteo.com/en/licence"
+trang_nguon = "https://open-meteo.com/en/docs/historical-weather-api"
+trich_giay_phep = "API data are offered under Attribution 4.0 International (CC BY 4.0) You are free to share: copy and redistribute the material in any medium or format and adapt: remix, transform, and build upon the material."
+ghi_nguon = "Weather data by Open-Meteo.com (https://open-meteo.com/), mô hình ERA5."
+mirror = true
+khoang_thoi_gian = ["2024-01-01", "2024-01-31"]
