@@ -7,7 +7,9 @@ nâng cao. Không phụ thuộc repo nào khác — mọi thứ cần cho một 
 + 4 bất định + 5 deep learning + 4 foundation model & LLM + 3 nhân quả & quyết định
 + 3 production + buổi 44 (dự án cuối). Kèm 2 dự án giữa chặng (sau buổi 13 và 24).
 
-Kế hoạch xây khoá và tiến độ: `todos.md` — **luôn đọc trước, tìm phase đầu tiên còn 🔲**.
+Kế hoạch xây khoá và tiến độ: `todos.md` — **luôn đọc trước, tìm phase đầu tiên còn 🔲**. `todos.md` chỉ giữ
+tiêu đề/trạng thái + prompt của mọi phase. Quy ước (giao thức research, chuẩn dễ hiểu, DoD, bảng chỗ hở): `todos/quy-uoc.md`;
+tiến độ/rủi ro: `todos/tong-quan.md`; chi tiết từng phase: `todos/phase-NN.md`.
 Nội dung từng buổi: `lo-trinh/lo-trinh-forecasting.md`.
 
 ## Người dùng ưu tiên gì
@@ -16,6 +18,7 @@ Nội dung từng buổi: `lo-trinh/lo-trinh-forecasting.md`.
   đây là phần phải làm kỹ nhất, không được lướt
 - **Dự án phải thực tế**: dữ liệu bẩn thật, baseline thật để vượt, chấm trên dữ liệu tương lai
 - **Kiến thức đầy đủ và cập nhật** — mọi phase bắt đầu bằng research (xem dưới)
+- **Dễ hiểu cho người tự học** — đọc tài liệu xong không phải đi hỏi ChatGPT (quy tắc 14)
 
 ## Repository Map
 
@@ -30,7 +33,9 @@ Nội dung từng buổi: `lo-trinh/lo-trinh-forecasting.md`.
 | `du-an-cuoi/` | 3 đề thực tế, rubric 100+20, bộ chấm, "ngày dữ liệu hỏng" |
 | `danh-gia/` | Ngân hàng câu hỏi, đề thực hành, đề đọc biểu đồ, đề tìm rò rỉ |
 | `phat-de/` | Sinh ra: `buoi-NN.zip` phát cho học viên (gitignore) |
-| `tools/` | `xuat_pdf.py`, `sinh_nen.py`, `lay_du_lieu.py`, `kiem_tra_doc_lap.sh`, `kiem_tra_lab.py`, `dong_goi.py`, `khung/` (nguồn của `tv/`), `nen/phien-ban.toml` (phiên bản chung), `du-lieu/danh-muc.toml`, `khuon-buoi/`, `NGHIEN-CUU.md` |
+| `tools/` | `CHUAN-DE-HIEU.md` (chuẩn dễ hiểu + prompt đọc thử), `kiem_de_hieu.py`, `xuat_pdf.py`, `sinh_nen.py`, `lay_du_lieu.py`, `kiem_tra_doc_lap.sh`, `kiem_tra_lab.py`, `dong_goi.py`, `khung/` (nguồn của `tv/`), `nen/phien-ban.toml` (phiên bản chung), `du-lieu/danh-muc.toml`, `khuon-buoi/`, `NGHIEN-CUU.md` |
+| `todos.md`, `todos/` | `todos.md`: tiêu đề phase + prompt (autoclick theo dõi); `todos/quy-uoc.md`, `todos/tong-quan.md`, `todos/phase-NN.md`. Xong phase → đổi 🔲→✅ ở `todos.md` VÀ `todos/phase-NN.md` |
+| `phan-hoi-hoc-vien.md` | Người học ghi đoạn khó hiểu — đọc trước khi soạn/viết lại buổi |
 | `MOI-TRUONG.md`, `pyproject.toml` | Hướng dẫn cài cho học viên; cấu hình ruff + jupytext (repo **không** phải dự án uv — cấm `[tool.uv.workspace]`) |
 
 ## Research trước khi soạn (CRITICAL)
@@ -39,7 +44,7 @@ Lĩnh vực đổi rất nhanh; lộ trình chỉ đúng tới ngày rà soát g
 buổi nào**: WebSearch/WebFetch tài liệu chính thức + bài báo mới nhất cho từng chủ đề, xác minh
 phiên bản thư viện, API, dataset (URL + giấy phép), model mới; ghi vào `buoi-NN/NGHIEN-CUU.md`
 có nguồn và ngày. Lệch lớn so với lộ trình → cập nhật `lo-trinh` + `todos.md` và báo người dùng
-**trước** khi soạn. Giao thức đầy đủ: mục "Giao thức research" trong `todos.md`.
+**trước** khi soạn. Giao thức đầy đủ: mục "Giao thức research" trong `todos/quy-uoc.md`.
 
 ## Quy tắc soạn nội dung (CRITICAL)
 
@@ -55,7 +60,7 @@ có nguồn và ngày. Lệch lớn so với lộ trình → cập nhật `lo-tr
    Buổi dạy học viên TỰ VIẾT một công cụ của khung thì khai `khung_bo = ["ro_ri"]` trong `lab/nen.toml`
    (buổi 4: `ve`, 13: `ro_ri`, 14: `danh_gia`, 15: `backtest`) — không phát lời giải qua `tv/`.
    Sửa `tools/khung/` thì chạy `python tools/kiem_khung.py` (test ở cả pandas 3 và pandas 2.3.3 + Nixtla).
-3. **Chỗ hở cố ý.** `code/` phải sai đúng chỗ bài học hôm đó sửa (bảng trong `todos.md`). Chỗ hở
+3. **Chỗ hở cố ý.** `code/` phải sai đúng chỗ bài học hôm đó sửa (bảng trong `todos/quy-uoc.md`). Chỗ hở
    phổ biến nhất: **rò rỉ tương lai** và **đánh giá không trung thực** — `code/` cho kết quả đẹp
    giả tạo để học viên tự phát hiện. Đừng sửa trước giờ dạy.
 4. **Mọi lệnh và mọi con số trong tài liệu phải lấy từ lần chạy thật** (ghi seed). Không có
@@ -79,18 +84,35 @@ có nguồn và ngày. Lệch lớn so với lộ trình → cập nhật `lo-tr
 11. **Khung tài liệu 9 mục, bắt buộc đủ:** Mục tiêu → Nhắc lại buổi trước → **Trạng thái đầu
     buổi** → Lý thuyết → Lab từng bước → Lỗi thường gặp & cách chẩn đoán → Bài tập về nhà →
     Tiêu chí "Xong khi" → Đọc thêm.
-    - *Lý thuyết* theo nhịp: **trực giác → hình → công thức → tự viết bằng NumPy → thư viện**
+    - *Lý thuyết* mở đầu bằng bảng "Từ mới trong buổi"; ≤ 6 khái niệm chính; mỗi khái niệm theo khuôn:
+      **vấn đề → trực giác → ví dụ số nhỏ tính tay → hình → công thức → nói bằng lời có thay số → NumPy →
+      thư viện → dữ liệu thật → tóm lại**
     - *Nhắc lại buổi trước* viết đủ để **không cần** mở lại buổi trước
     - *Trạng thái đầu buổi* là bảng: dữ liệu (file, số dòng, khoảng thời gian, sha256 rút gọn),
       môi trường, `code/` có gì, **cái gì đang cố tình sai và triệu chứng**
 12. **Công thức** viết LaTeX: `$...$` trong dòng, `$$...$$` khối riêng — `xuat_pdf.py` render ra SVG.
     **Hình** sinh bằng `dap-an/ve_hinh.py` → `hinh/*.png`, không vẽ tay; tiêu đề hình nói kết luận.
-13. **Độ dài:** `tai-lieu.md` 2.500–4.000 chữ, PDF 10–16 trang (`python tools/xuat_pdf.py --kiem`).
+13. **Độ dài:** `tai-lieu.md` 3.500–6.500 chữ ngoài bảng/code (`kiem_de_hieu.py`), PDF 10–18 trang (`python tools/xuat_pdf.py --kiem`)
+    — số chốt ở Phase 7. Giới hạn thật là số khái niệm (≤ 6) — thừa thì bỏ bớt/chuyển "Nâng cao", **không nén chữ,
+    không độn chữ**.
+14. **Dễ hiểu là tiêu chí nghiệm thu** (bài học 2026-09-18: người dùng học buổi 1–13 phải hỏi ChatGPT mới
+    hiểu). Người đọc: biết Python + toán phổ thông, chưa học thống kê đại học, tự học một mình — **đọc xong
+    không phải tra ngoài**. Quy tắc D1–D13 ở mục "Chuẩn dễ hiểu" của `todos/quy-uoc.md` (chi tiết + mẫu chuẩn:
+    `tools/CHUAN-DE-HIEU.md`). Tóm tắt: định nghĩa mọi từ mới ngay lần đầu; chưa dạy thì chưa dùng (hoặc hộp
+    "Mượn trước"); không chen trích tiếng Anh; không nói lửng ("thiếu" so với cái gì, đơn vị gì); công thức
+    luôn kèm câu nói bằng lời có thay số (PDF copy ra mất công thức); ≤ 3 con số/đoạn; mỗi hình có "Cách đọc
+    hình", mỗi bảng có "Đọc bảng"; quiz giải thích vì sao. Đọc `phan-hoi-hoc-vien.md` trước khi soạn.
+15. **Dễ hiểu nhưng GỌN** (D13, bài học 2026-09-18: bản viết lại buổi 1–3 dễ hiểu hơn nhưng dài dòng). Mỗi ý nói
+    một lần (không lặp giữa thân bài, "Tóm lại", Lab, "Lỗi thường gặp"); không câu rỗng/rào đón; một ví dụ đủ thì
+    không thêm; khuôn D2 là trần, không phải sàn; sửa chỗ khó bằng viết lại câu, không chèn thêm đoạn.
 
 ## Definition of Done cho mỗi buổi
 
 - `NGHIEN-CUU.md` có nguồn + ngày + phiên bản đã xác minh
 - `tai-lieu.md` đủ 9 mục; công thức và hình hiển thị đúng trong PDF
+- Đạt chuẩn dễ hiểu + gọn: `tools/kiem_de_hieu.py NN` sạch + **rà gọn** bằng subagent biên tập viên (≤ 3 chỗ thừa)
+  + **đọc thử** bằng subagent học viên mới theo prompt trong
+  `tools/CHUAN-DE-HIEU.md` (0 chỗ chặn, ≤ 5 chỗ khó, quiz ≥ 9/10 chỉ bằng tài liệu), ghi mục "Đọc thử" trong `NGHIEN-CUU.md`
 - `code/` chạy được, có chỗ hở cố ý, kèm `README.md` ngắn
 - `dap-an/` là bản đã sửa, `make check` xanh; `code/` thì `make check` đỏ đúng chỗ hở
 - `lab/00-nen/` dựng đúng nền **từ venv trắng** (`uv sync --frozen` + dữ liệu qua sha256)
@@ -98,7 +120,7 @@ có nguồn và ngày. Lệch lớn so với lộ trình → cập nhật `lo-tr
 - `kiem-tra.md` 10 câu (4 nhắc lại, 4 vận dụng, 2 đọc biểu đồ/bảng kết quả tìm chỗ sai), đáp án trong `<details>`
 - `ruff check` sạch; notebook sinh từ `.py` bằng jupytext, không commit output
 - `tools/kiem_tra_doc_lap.sh` xanh
-- PDF sinh ra, mở kiểm tra bảng, khối code, công thức, ảnh; 10–16 trang
+- PDF sinh ra, mở kiểm tra bảng, khối code, công thức, ảnh; 10–18 trang
 - Chạy thử toàn bộ lab trên **venv trắng** một lần rồi mới tick ✅ trong `todos.md`
 
 ## Công cụ
@@ -116,6 +138,7 @@ cp -r tools/khuon-buoi buoi-07                        # buổi mới từ khuôn
 .venv/bin/python tools/kiem_tra_lab.py [7]            # down→up→check dap-an (xanh)→check code (đỏ)→down  (--may-trang)
 .venv/bin/python tools/dong_goi.py 7                  # phat-de/buoi-07.zip, lọc đáp án  (--liet-ke)
 .venv/bin/ruff check .                                # lint toàn repo
+python3 tools/kiem_de_hieu.py [7] [--chi-tiet]        # kiểm máy chuẩn dễ hiểu D1–D13 (test: tools/test_kiem_de_hieu.py)
 .venv/bin/python tools/kiem_khung.py                  # test tools/khung/ ở hồ sơ pandas3 + nixtla
 .venv/bin/python tools/du-lieu/tai_danh_muc.py --may-trang   # tải TOÀN BỘ danh mục, kiểm sha256
 .venv/bin/python tools/du-lieu/sinh_phu_luc_f.py      # Phụ lục F từ danh mục (không sửa tay)
