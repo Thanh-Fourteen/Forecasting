@@ -343,7 +343,6 @@ def xu_ly_ngoai_lai(y: pd.Series, cach: str = "hampel_winsorize", cua_so: int = 
     """
     y = y.astype(float)
     co = z_score(y)
-    trung_vi = y.rolling(2 * cua_so + 1, center=True, min_periods=cua_so).median()
     sach = y.where(~co)
     return pd.DataFrame({"y": y, "sach": sach, "da_sua": co & sach.notna(), "bi_xoa": co & sach.isna()})
 

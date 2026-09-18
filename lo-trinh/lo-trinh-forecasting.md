@@ -525,14 +525,20 @@ làm dữ liệu cũ hết giá trị.
 
 **Lab:**
 1. Tổng lượt xem Wikipedia tiếng Việt: Hampel bắt đỉnh tin tức, so với z-score toàn chuỗi
-   *(Phase 4 đo: 3σ chỉ gắn cờ 16/3.653 ngày, Hampel k=15 gắn 121 — masking do biên độ xu hướng)*
+   *(Phase 4 đo: 3σ chỉ gắn cờ 16/3.653 ngày, Hampel k=15 gắn 121 — masking do biên độ xu hướng;
+   thêm một điểm cực lớn làm 3σ tụt từ 16 xuống 5 ngày, Hampel không đổi)*
 2. Hành khách hàng không **EU27 theo tháng 2008–2026 (Eurostat avia_paoc)**: PELT tìm điểm gãy COVID và
-   điểm hồi phục *(2020-04 giảm 98,7% so với 2020-01; PELT ra 2020-04 và 2021-06 ổn định qua pen 2–10·log n;
-   chạy trên mức thô chưa log thì ra 32 điểm gãy giả)* — thay US BTS T-100 (chỉ có bảng HTML, data.bts.gov 403)
-3. Xoá mọi điểm > 3σ trên lượt xem bài "Tết Nguyên Đán" → mất đỉnh Tết (54/54 cờ rơi vào tháng 01/02/12);
-   **STL không cứu được** vì Tết là lễ âm lịch, ngày dương xê dịch ±3 tuần → cách sửa đúng là biến giả lịch âm
-   (nối buổi 13); STL robust chỉ dùng cho mùa vụ cố định theo lịch dương (minh hoạ bằng mùa vụ tuần)
-4. Dự báo 2024 bằng 3 cách xử lý COVID (giữ, dummy, cắt), so sai số
+   điểm hồi phục *(2020-04 giảm 98,65% so với 2020-01; PELT trên log ra **2020-02 và 2021-05**, ổn định qua
+   pen **1–4·log n** — từ 5·log n trở lên ra 0 điểm gãy; chạy trên mức thô chưa log thì ra **43** điểm gãy giả)*
+   — thay US BTS T-100 (chỉ có bảng HTML, data.bts.gov 403)
+3. Xoá mọi điểm > 3σ trên lượt xem bài "Tết Nguyên Đán" → mất đỉnh Tết (54/54 cờ rơi vào tháng 01/02/12).
+   *(Phase 4 đo: **cả 5 phương pháp — kể cả Hampel và STL robust — đều gắn cờ 10/10 đỉnh Tết**; đỉnh rơi vào
+   ngày thứ 22–47 của năm dương, xê dịch 25 ngày.)* Kết luận của lab: **không ngưỡng thống kê nào phân biệt được
+   'lỗi đo' với 'sự kiện thật'** — phải có nhật ký sự kiện / biến giả lịch âm (nối buổi 13); STL robust chỉ dùng
+   cho mùa vụ cố định theo lịch dương (minh hoạ bằng mùa vụ tuần)
+4. Dự báo 2023 bằng 3 cách xử lý COVID (giữ, coi là thiếu rồi nội suy, cắt), so sai số
+   *(Phase 4 đo: MAPE 24,01% / **8,71%** / 18,11% — khớp khuyến nghị của Hyndman & Rostami-Tabar 2024 cho
+   trường hợp chỉ cần dự báo SAU giai đoạn gián đoạn)*
 
 **Dữ liệu:** Wikimedia Pageviews API (CC0) — tổng lượt xem vi.wikipedia và bài "Tết Nguyên Đán";
 Eurostat avia_paoc (CC BY 4.0). Thư viện: `ruptures` (không có CROPS → học viên tự quét penalty và vẽ elbow).

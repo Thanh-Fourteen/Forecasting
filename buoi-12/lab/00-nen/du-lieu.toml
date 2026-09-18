@@ -8,6 +8,7 @@ ten = "uci-appliances-energy"
 kieu = "http"
 tieu_de = "UCI Appliances Energy Prediction (cảm biến trong nhà, 10 phút)"
 url = "https://archive.ics.uci.edu/static/public/374/appliances+energy+prediction.zip"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/105db7d8d51c8ff1229ec06c363f641417124bf3/uci-appliances-energy/appliances+energy+prediction.zip"
 sha256 = "2fccf354445d886e7917620b0195db1f3e3e34d5a067a93b844694a4c561255a"
 dung_luong = 11979507
 giai_nen = "zip"
