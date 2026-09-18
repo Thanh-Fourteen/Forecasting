@@ -60,7 +60,7 @@ def du_bao_tuan_truoc(lich_su: pd.Series, tam: int = TAM) -> np.ndarray:
     return lich_su.iloc[-TAM:].to_numpy()[:tam]
 
 
-def du_bao_tb_4_tuan(lich_su: pd.Series, tam: int = TAM) -> np.ndarray:
+def du_bao_trung_binh_4_tuan(lich_su: pd.Series, tam: int = TAM) -> np.ndarray:
     """Baseline: trung bình cùng giờ của 4 tuần gần nhất."""
     return lich_su.iloc[-4 * TAM:].to_numpy().reshape(4, TAM).mean(axis=0)[:tam]
 
@@ -93,7 +93,7 @@ def du_bao_cuon(chuoi: pd.Series, moc: str = MOC, tam: int = TAM) -> pd.DataFram
             "goc": goc,
             "y": chuoi.reindex(thoi_gian).to_numpy(),
             "bảng lịch": du_bao_bang_lich(bang_lich(lich_su), thoi_gian),
-            "TB 4 tuần": du_bao_tb_4_tuan(lich_su_day_du, tam),
+            "trung bình 4 tuần": du_bao_trung_binh_4_tuan(lich_su_day_du, tam),
             "tuần trước": du_bao_tuan_truoc(lich_su_day_du, tam),
             "trung bình": du_bao_trung_binh(lich_su, tam),
             "giờ trước": du_bao_gio_truoc(lich_su_day_du, tam),

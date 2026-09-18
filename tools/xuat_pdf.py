@@ -4,7 +4,7 @@
     python xuat_pdf.py            # trang le (lo trinh, phu luc, de du an) + ca 44 buoi
     python xuat_pdf.py 5 6        # rieng buoi 05 va 06
     python xuat_pdf.py lo-trinh   # rieng cac trang le co chuoi "lo-trinh" trong duong dan
-    python xuat_pdf.py --kiem     # dem so trang moi PDF da sinh, bao buoi ngoai 10-16 trang
+    python xuat_pdf.py --kiem     # dem so trang moi PDF da sinh, bao buoi ngoai 12-24 trang
 
 Can:  pip install -r tools/requirements.txt
       (markdown-it-py, mdit-py-plugins, weasyprint, ziamath, pypdf)
@@ -111,8 +111,8 @@ TRANG_LE = [
      "Phụ lục F — nguồn dữ liệu và giấy phép", False),
 ]
 
-# So trang cho phep cua PDF moi buoi (CLAUDE.md, quy tac do dai)
-TRANG_TOI_THIEU, TRANG_TOI_DA = 10, 16
+# So trang cho phep cua PDF moi buoi (CLAUDE.md quy tac 13 — doi 2026-09-18 theo chuan de hieu)
+TRANG_TOI_THIEU, TRANG_TOI_DA = 12, 24
 
 
 CSS = """
@@ -155,6 +155,16 @@ img { max-width: 100%; }
 p > img:only-child { display: block; margin: 6pt auto; }
 .cong-thuc-khoi { text-align: center; margin: 8pt 0; page-break-inside: avoid; }
 .cong-thuc-khoi img { max-width: 100%; }
+/* LaTeX gốc nằm trong lớp chữ vô hình ngay sau ảnh công thức: copy từ PDF ra vẫn còn công thức */
+.latex-an { font-size: 0.1pt; color: rgba(0, 0, 0, 0); }
+
+/* Hộp của chuẩn dễ hiểu (tools/CHUAN-DE-HIEU.md) — phân biệt được cả khi in đen trắng */
+blockquote.muon-truoc { border: 1.5px dashed #00695C; border-left-width: 4px; background: #f1f8f6; }
+blockquote.nang-cao { border-left: 4px double #8894a3; background: #f5f6f8; color: #333; font-size: 9pt; }
+p.tom-lai { border: 1.5px solid #0A2540; background: #eef2f7; padding: 6px 9px; page-break-inside: avoid; }
+p.nhan { border-left: 3px solid #FFB300; padding-left: 7px; }
+.dap-an { margin: 4pt 0 8pt 14pt; padding: 2pt 0 2pt 8pt; border-left: 1px dotted #8894a3;
+          font-size: 9pt; color: #333; }
 
 .bia { page: bia; page-break-after: always; height: 240mm; display: flex;
        flex-direction: column; justify-content: center; }
@@ -174,11 +184,14 @@ p > img:only-child { display: block; margin: 6pt auto; }
 
 
 def mo_details(van_ban):
-    """Bung khối <details> thành mục thường — PDF không bấm mở được."""
+    """Bung khối <details> thành khối đáp án thụt lề — PDF không bấm mở được.
+
+    Không đổi thành heading: "Tự kiểm tra" nằm giữa mục lý thuyết, heading "Đáp án" sẽ cắt mục làm đôi.
+    """
     van_ban = re.sub(r"<summary>\s*(.*?)\s*</summary>",
-                     lambda m: "### " + re.sub(r"</?b>", "", m.group(1)),
+                     lambda m: f"**{re.sub(r'</?b>', '', m.group(1))}** *(tự làm trước rồi mới đọc)*",
                      van_ban, flags=re.S)
-    return van_ban.replace("<details>", "").replace("</details>", "")
+    return van_ban.replace("<details>", "<div class='dap-an'>\n").replace("</details>", "\n</div>")
 
 
 def thoat_gach_dung_trong_bang(van_ban):
@@ -201,15 +214,16 @@ def _svg_img(latex, co_chu, khoi):
         return f"<code>{html.escape(latex)}</code>"
 
     du_lieu = base64.b64encode(svg.encode()).decode()
+    an = f"<span class='latex-an'> ${'$' if khoi else ''}{html.escape(latex)}${'$' if khoi else ''} </span>"
     if khoi:
         return (f"<div class='cong-thuc-khoi'>"
-                f"<img src='data:image/svg+xml;base64,{du_lieu}'></div>\n")
+                f"<img src='data:image/svg+xml;base64,{du_lieu}'>{an}</div>\n")
 
     # viewBox="x y w h": y âm là phần nằm trên đường chân chữ, phần còn lại (h + y) nằm dưới
     m = re.search(r'viewBox="([-\d.]+) ([-\d.]+) ([-\d.]+) ([-\d.]+)"', svg)
     ha_xuong = float(m.group(4)) + float(m.group(2)) if m else 0.0
     return (f"<img src='data:image/svg+xml;base64,{du_lieu}' "
-            f"style='vertical-align: -{ha_xuong:.2f}px'>")
+            f"style='vertical-align: -{ha_xuong:.2f}px'>{an}")
 
 
 def _tao_markdown():
@@ -224,6 +238,20 @@ def _tao_markdown():
     md.add_render_rule("math_block", lambda s, t, i, o, e: _svg_img(t[i].content, 15, True))
     md.add_render_rule("math_block_label", lambda s, t, i, o, e: _svg_img(t[i].content, 15, True))
     return md
+
+
+NHAN_DOAN = ("Cách đọc hình", "Đọc bảng", "Nói bằng lời", "Tự kiểm tra", "Ví dụ số nhỏ", "Mục đích",
+             "Đọc kết quả")
+
+
+def gan_lop_hop(than):
+    """Gắn class cho các hộp của chuẩn dễ hiểu dựa vào nhãn in đậm đầu đoạn."""
+    than = re.sub(r"<blockquote>(\s*<p><strong>Mượn trước)", r"<blockquote class='muon-truoc'>\1", than)
+    than = re.sub(r"<blockquote>(\s*<p><strong>Nâng cao)", r"<blockquote class='nang-cao'>\1", than)
+    than = than.replace("<p><strong>Tóm lại.", "<p class='tom-lai'><strong>Tóm lại.")
+    for nhan in NHAN_DOAN:
+        than = than.replace(f"<p><strong>{nhan}", f"<p class='nhan'><strong>{nhan}")
+    return than
 
 
 def slug_github(chu):
@@ -295,7 +323,7 @@ def xuat(duong_dan_md, duong_dan_pdf, tieu_de, bia=False):
                f"<div class='phu'>Xuất ngày {date.today():%d/%m/%Y}</div></section>"
                + _dung_muc_luc(muc))
     than = md.renderer.render(tokens, md.options, {})
-    than = re.sub(r"<p>\s*</p>", "", than)
+    than = gan_lop_hop(re.sub(r"<p>\s*</p>", "", than))
     trang = (f"<html><head><meta charset='utf-8'><title>{html.escape(tieu_de)}</title>"
              f"</head><body>{dau}{than}</body></html>")
 
@@ -314,7 +342,7 @@ def xuat_buoi(buoi):
 
 
 def kiem_so_trang():
-    """In số trang mọi PDF đã sinh; buổi nằm ngoài 10–16 trang bị đánh dấu."""
+    """In số trang mọi PDF đã sinh; buổi nằm ngoài TRANG_TOI_THIEU–TRANG_TOI_DA bị đánh dấu."""
     from pypdf import PdfReader
 
     vi_pham = 0
@@ -325,7 +353,7 @@ def kiem_so_trang():
         so = len(PdfReader(duong_dan).pages)
         dat = TRANG_TOI_THIEU <= so <= TRANG_TOI_DA
         vi_pham += not dat
-        print(f"  buoi-{buoi:02d}/{ten_pdf:<36} {so:>3} trang  {'' if dat else '<-- ngoài 10–16'}")
+        print(f"  buoi-{buoi:02d}/{ten_pdf:<36} {so:>3} trang  {'' if dat else f'<-- ngoài {TRANG_TOI_THIEU}–{TRANG_TOI_DA}'}")
     for _, ten_pdf, _, _ in TRANG_LE:
         duong_dan = os.path.join(GOC, ten_pdf)
         if os.path.exists(duong_dan):

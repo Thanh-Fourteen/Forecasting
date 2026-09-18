@@ -41,6 +41,7 @@ def hinh_mot_duong(s: pd.Series) -> None:
         ax.axvspan(pd.Timestamp(f"{nam}-08-01"), pd.Timestamp(f"{nam}-08-31"), color=ve.MAU["phu"], alpha=0.08)
     ax.text(pd.Timestamp("2008-08-03"), 72, "tháng 8", color=ve.MAU["phu"], fontsize=8)
     ax.set_ylabel("kWh / ngày")
+    ax.set_xlabel("ngày, 12/2006–11/2010")
     ax.set_title("Một hộ ở Sceaux, 12/2006–11/2010: mùa đông cao, tháng 8 gần như vắng nhà, năm sau giống năm trước")
     ax.legend(fontsize=8, loc="upper right")
     ve.luu_hinh(fig, HINH / "mot-duong.png")
@@ -76,9 +77,10 @@ def hinh_mot_tuan(s: pd.Series, cuon: pd.DataFrame) -> str:
     ax.plot(d.index, d["ao"], color=ve.MAU["phu"], linewidth=1, label=f"bảng lịch khớp cả 2010 (MAE {dg.mae(d['y'], d['ao']):.2f})".replace(".", ","))
     ax.plot(d.index, d["bảng lịch"], color=ve.MAU["chinh"], linewidth=1,
             label=f"bảng lịch chỉ từ trước gốc (MAE {dg.mae(d['y'], d['bảng lịch']):.2f})".replace(".", ","))
-    ax.plot(d.index, d["TB 4 tuần"], color=ve.MAU["ba"], linewidth=1, linestyle="--",
-            label=f"TB 4 tuần (MAE {dg.mae(d['y'], d['TB 4 tuần']):.2f})".replace(".", ","))
+    ax.plot(d.index, d["trung bình 4 tuần"], color=ve.MAU["ba"], linewidth=1, linestyle="--",
+            label=f"trung bình 4 tuần (MAE {dg.mae(d['y'], d['trung bình 4 tuần']):.2f})".replace(".", ","))
     ax.set_ylabel("kWh / giờ")
+    ax.set_xlabel("giờ trong tuần, từ 00:00 thứ Hai (vạch chia: 00:00 mỗi ngày)")
     ax.set_title(f"Tuần {goc:%d/%m/%Y}: đường cam 'trúng' hơn vì 1/4 số liệu của mỗi ô bảng là chính tuần này")
     ax.set_ylim(0, 4.3)
     ax.legend(fontsize=8, loc="upper left", ncols=2)
@@ -87,15 +89,16 @@ def hinh_mot_tuan(s: pd.Series, cuon: pd.DataFrame) -> str:
 
 
 def hinh_tong_tuan(cuon: pd.DataFrame) -> None:
-    tuan = cuon.groupby("goc")[["y", "TB 4 tuần", "tuần trước", "bảng lịch"]].sum(min_count=1)
+    tuan = cuon.groupby("goc")[["y", "trung bình 4 tuần", "tuần trước", "bảng lịch"]].sum(min_count=1)
     du = cuon.groupby("goc")["y"].apply(lambda x: x.notna().all())
     tuan.loc[~du, "y"] = np.nan
     fig, ax = plt.subplots(figsize=(10, 3.2))
     ax.plot(tuan.index, tuan["y"], color="black", marker="o", markersize=3, label="thực tế (tuần đủ số đo)")
-    for cot, mau in (("bảng lịch", ve.MAU["chinh"]), ("TB 4 tuần", ve.MAU["ba"]), ("tuần trước", ve.MAU["xam"])):
+    for cot, mau in (("bảng lịch", ve.MAU["chinh"]), ("trung bình 4 tuần", ve.MAU["ba"]), ("tuần trước", ve.MAU["xam"])):
         ax.plot(tuan.index, tuan[cot], color=mau, linewidth=1.2,
                 label=f"{cot} (MAE {dg.mae(tuan['y'], tuan[cot]):.1f} kWh/tuần)".replace(".", ","))
     ax.set_ylabel("kWh / tuần")
+    ax.set_xlabel("tuần của năm 2010 (mỗi chấm là một tuần, tính từ thứ Hai)")
     ax.set_title("Cộng lên TỔNG TUẦN thì thứ hạng đảo: bảng lịch nhớ kỳ nghỉ tháng 8, hai baseline thì không")
     ax.legend(fontsize=8, loc="lower left")
     ve.luu_hinh(fig, HINH / "tong-tuan.png")
@@ -103,22 +106,22 @@ def hinh_tong_tuan(cuon: pd.DataFrame) -> None:
 
 def hinh_chi_phi(s: pd.Series, cuon: pd.DataFrame) -> dict[str, float]:
     c09 = dg.du_bao_cuon(s[s.index < pd.Timestamp(dg.MOC)], moc="2009-01-05")
-    loi = (c09["y"] - c09["TB 4 tuần"]).dropna()
+    loi = (c09["y"] - c09["trung bình 4 tuần"]).dropna()
     q = float(loi.quantile(CU / (CU + CO)))
     cong = np.round(np.arange(0, 1.01, 0.05), 2)
-    y, f = cuon["y"].to_numpy(), cuon["TB 4 tuần"].to_numpy()
+    y, f = cuon["y"].to_numpy(), cuon["trung bình 4 tuần"].to_numpy()
     cp = [chi_phi(y, f + k) for k in cong]
     sai = [dg.mae(y, f + k) for k in cong]
     fig, (a, b) = plt.subplots(1, 2, figsize=(10, 3.2))
     a.plot(cong, cp, marker="o", markersize=3, color=ve.MAU["chinh"])
     a.axvline(q, color=ve.MAU["phu"], linestyle="--", linewidth=1)
-    a.text(q + 0.02, max(cp) * 0.97, f"quantile 0,8 sai số 2009 = {q:.3f}".replace(".", ","), fontsize=8)
-    a.set_xlabel("kWh cộng thêm vào dự báo TB 4 tuần")
-    a.set_ylabel("chi phí trung bình / giờ")
-    a.set_title(f"Chi phí (thiếu {CU} : thừa {CO}) — thấp nhất khi đặt cao hơn")
+    a.text(q + 0.02, max(cp) * 0.97, f"quantile 0,8 của sai số 2009 = {q:.3f} kWh".replace(".", ","), fontsize=8)
+    a.set_xlabel("kWh cộng thêm vào dự báo trung bình 4 tuần")
+    a.set_ylabel("chi phí trung bình (đồng / giờ)")
+    a.set_title(f"Chi phí (thiếu {CU} đồng/kWh, thừa {CO} đồng/kWh) — thấp nhất khi đặt dư")
     b.plot(cong, sai, marker="o", markersize=3, color=ve.MAU["ba"])
     b.axvline(q, color=ve.MAU["phu"], linestyle="--", linewidth=1)
-    b.set_xlabel("kWh cộng thêm vào dự báo TB 4 tuần")
+    b.set_xlabel("kWh cộng thêm vào dự báo trung bình 4 tuần")
     b.set_ylabel("MAE (kWh / giờ)")
     b.set_title("Cùng lúc đó MAE tăng đều")
     fig.suptitle("Năm 2010: con số tốt nhất theo MAE không phải con số tốt nhất cho quyết định có chi phí lệch",

@@ -18,7 +18,22 @@ def chuan_hoa_thoi_gian(df: pd.DataFrame, cot_thoi_gian: str, cot_gia_tri: str, 
                         mui_gio_nguon: str = "UTC", cot_id: str | None = None, gop: str = "sum",
                         mo_ho="raise", dien: float | None = None, bo_trung: bool | None = None,
                         khoang: tuple | None = None) -> pd.DataFrame:
-    """Dữ liệu thô → bảng dạng dài `unique_id, ds, y` theo tần suất `tan_suat`."""
+    """Dữ liệu thô → bảng dạng dài `unique_id, ds, y`: ds là UTC có múi giờ, đủ mọi mốc, không trùng.
+
+    ĐẶC TẢ (bản trong code/ chưa làm đúng — xem tai-lieu.md, Lab bước 4):
+    tan_suat: tần suất kết quả, mã pandas ("h", "D"…).
+    mui_gio_nguon: múi giờ của cột thời gian KHI nó không ghi múi giờ (naive); cột đã có offset thì bỏ qua.
+    cot_id: cột tên chuỗi; None = một chuỗi tên "chuoi".
+    gop: "sum"/"count" cho số lượng/sự kiện (số chuyến, kWh), "mean"/"last" cho trạng thái (nhiệt độ).
+    mo_ho: xử lý giờ lặp khi trả giờ mùa hè — "raise", "infer", "NaT", hoặc mảng bool (True = giờ mùa hè).
+    dien: giá trị cho mốc không có dữ liệu; None = 0 với sum/count, NaN với mean/last. Mốc UTC mà dòng
+        giờ mơ hồ (mo_ho="NaT") có thể thuộc về luôn là NaN — "không biết", khác "không có".
+    bo_trung: bỏ dòng trùng hệt (cùng chuỗi, cùng thời điểm, cùng giá trị); None = bật cho mean/last,
+        tắt cho sum/count (hai chuyến cùng giây là hai chuyến thật).
+    khoang: (bắt đầu, kết thúc) UTC — mọi chuỗi dùng CHUNG lưới [bắt đầu, kết thúc); None = mỗi chuỗi từ
+        mốc đầu tới mốc cuối của chính nó.
+    df.attrs của kết quả ghi số dòng bị bỏ vì giờ không tồn tại/mơ hồ và số dòng trùng.
+    """
     bang = pd.DataFrame({
         "unique_id": df[cot_id].astype(str).to_numpy() if cot_id else "chuoi",
         "ds": pd.to_datetime(df[cot_thoi_gian]).to_numpy(),

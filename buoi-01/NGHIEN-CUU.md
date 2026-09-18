@@ -133,3 +133,61 @@ không có trích dẫn nguyên văn; bài Foresight về "dự báo bị biến
 | Lab bước 4 "đoán bằng mắt" không kiểm được tự động | thiết kế | Ghi vào phiếu trên giấy; tài liệu đưa số thật của 3 tuần cuối để học viên đối chiếu |
 | M7 chưa có nguồn chính thức | nhỏ | Không nhắc M7 |
 | Bốn kết luận "đơn giản không thua phức tạp…" là của M1 (M3 xác nhận), không phải phát hiện mới của M3 | nhỏ | Bảng M1–M6 ghi đúng: M1 đưa ra, M3 ủng hộ |
+
+## Research viết lại (Phase 6, 2026-09-18)
+
+Mục đích: viết lại phần chữ theo chuẩn dễ hiểu D1–D12. Nguồn sư phạm chung (worked example, cognitive load, newsvendor,
+bảng hiểu lầm theo buổi) dùng lại từ `tools/NGHIEN-CUU-SU-PHAM.md`. Nguồn mới theo từng khái niệm:
+
+| Khái niệm (mục) | Nguồn (truy cập 2026-09-18) | Cách giải thích lấy vào | Hiểu lầm phổ biến → cách phòng |
+|---|---|---|---|
+| Dự báo / mục tiêu / kế hoạch (4.1) | FPP3 §1.2 https://otexts.com/fpp3/planning.html | ba định nghĩa: dự báo = "dự đoán tương lai chính xác nhất với mọi thông tin đang có"; mục tiêu = điều muốn xảy ra; kế hoạch = hành động để dự báo khớp mục tiêu | sửa dự báo cho khớp mục tiêu → ví dụ số 2.500 − 1.900 = 600 ly thừa |
+| Baseline, ký hiệu $T$, $h$, $\hat y_{T+h}$ (4.3) | FPP3 §5.2 https://otexts.com/fpp3/simple-methods.html | ký hiệu $\hat y_{T+h\vert T}$, $\bar y$, $y_{T+h-m(k+1)}$; "mọi phương pháp mới được so với các phương pháp đơn giản này" | phức tạp mặc nhiên hơn đơn giản (Hewamalage et al. 2023, https://arxiv.org/abs/2203.10716) → luôn đặt baseline cạnh mô hình; baseline dùng số chưa có tại gốc → phép tính $T+100-24 = T+76 > T$ |
+| MAE (4.3) | FPP3 §5.8 https://otexts.com/fpp3/accuracy.html | MAE dễ hiểu, cùng đơn vị; "phương pháp làm MAE nhỏ nhất cho dự báo trung vị" | dùng câu này để giải thích "MAE nhắm trung vị" bằng trường hợp thiếu = thừa = 1 của 4.6 |
+| Phần dư vs sai số dự báo, dự báo cuốn (4.4) | FPP3 §5.8 (như trên); FPP3 §5.10 https://otexts.com/fpp3/tscv.html | phần dư tính trên dữ liệu huấn luyện, sai số dự báo trên dữ liệu chưa dùng; "gốc dự báo cuộn tới theo thời gian", không dùng quan sát tương lai | phần dư nhỏ = dự báo tốt; hình dự báo đè thực tế "trông khớp" là bằng chứng (Hewamalage 2023) → ví dụ tay ô bảng lịch 1,2 vs 1,4 |
+| Độ chi tiết (4.5) | Athanasopoulos, Hyndman, Kourentzes, Petropoulos (2017), *Forecasting with temporal hierarchies*, https://robjhyndman.com/papers/temporalhierarchies.pdf (đọc tóm tắt qua kết quả tìm kiếm) | đặc tính chuỗi đổi theo mức gộp nên phương pháp tốt nhất đổi theo, dẫn tới quyết định khác | "MAE giờ nhỏ thì tổng tuần cũng chính xác" → ví dụ tay +1/−1 triệt tiêu |
+| Chi phí lệch, quantile (4.6) | giữ bài mẫu Phase 5 (nguồn đã ghi ở `tools/NGHIEN-CUU-SU-PHAM.md`) | — | — |
+
+**Quyết định cấu trúc (≤ 6 khái niệm chính):**
+
+- 4.1 = cũ 4.1 + 4.2 (dự báo là gì + cái gì dự báo được): cùng trả lời "con số này là gì, kỳ vọng tới đâu".
+- 4.2 = cũ 4.3 (phiếu 6 ô) + cũ 4.4 (nhìn dữ liệu): nhìn dữ liệu là để trả lời ô 2 (đơn vị kW→kWh) và ô 5 (giờ trống);
+  bảng 34 con số của bản cũ bỏ, giữ hình + "Cách đọc hình" + năm câu hỏi.
+- 4.3 = baseline + ký hiệu thời gian + MAE (MAE chuyển từ mục 2 sang đây vì cần ví dụ số và ký hiệu $n$, $\sum$).
+- 4.4 = sai số ảo + dự báo cuốn; 4.5 = độ chi tiết; 4.6 = cũ 4.8 (bài mẫu Phase 5, chỉ đổi số mục tham chiếu và
+  thêm 3 câu giải thích "MAE nhắm trung vị").
+- Cũ 4.9 (M1–M6) và 4.10 (bản đồ cách tiếp cận) → mục 9 "Đọc thêm", viết lại bằng tiếng Việt, bỏ trích nguyên văn.
+- Bỏ khỏi Mục tiêu: "kể được bài học M1–M6" (không còn là khái niệm chính).
+- Quiz câu 4 cũ (M1–M6) thay bằng câu đọc ký hiệu $T + h$; câu 9 sửa "1/4" thành 22%.
+
+**Số mới [CHẠY]** — `dap-an/vi_du_nho.py` (không ngẫu nhiên):
+
+- ví dụ tay: kW→kWh 1,2; MAE 0,5; bốn baseline cho $h = 44$ (0,6 / 1,1 / 1,8 / 1,5); $T+100$ = 03:00 thứ Sáu 8/1/2010,
+  $T+76$ = 03:00 thứ Năm 7/1; ô nhìn trộm 1,2 → 1,4; cách A/B 1 vs 0,5 và 0 vs −2.
+- dữ liệu thật: 46 gốc × 168 = 7.728 giờ, 293 giờ trống, 7.435 giờ chấm; 41 tuần đủ 168/168 giờ, 5 tuần thiếu;
+  `resample("D").sum(min_count=20)` để trống 21 ngày; ô (tuần 43, thứ Hai, 19h) có giờ của 2007, 2008, 2009, 2010;
+  (3,82 − 2,99)/3,82 = 0,217 (bản cũ ghi "khoảng 1/4", sửa thành 22%; riêng tuần 25/10/2010 đúng là 1/4).
+- Lab bước 4: tổng tuần 8 tuần trước 15/11/2010 = NaN, NaN, 198,0, 184,3, 234,6, 161,1, 194,0, 224,4 kWh (hai tuần đầu
+  thiếu 44 và 43 giờ).
+- `dap-an/ve_hinh.py` chạy lại sau khi đổi nhãn "TB 4 tuần" → "trung bình 4 tuần" và thêm nhãn trục ngang: in
+  q 0,4551; chi phí 1,2132/0,9871; mae_q 0,6731; thiếu 0,4399/0,2013 — khớp bản cũ.
+
+**Đổi tên trong code/đáp án/bộ chấm:** cột và nhãn "TB 4 tuần" → "trung bình 4 tuần"; hàm `du_bao_tb_4_tuan` →
+`du_bao_trung_binh_4_tuan` (code/, dap-an/, lab/cham/). Hành vi giữ nguyên: `kiem_tra_lab.py 1` dap-an 8/8 xanh, code
+4 hỏng / 4 qua như trước.
+
+**Độ dài:** `wc -w` 8.9 nghìn (vượt trần 7.000). Lý do: bài mẫu 4.6 giữ nguyên đã chiếm ~2.350; năm khái niệm còn lại
+mỗi cái 500–1.100 theo khuôn D2. PDF 18 trang (trong 12–24). Chưa cắt thêm vì phần còn lại đều là chỗ chặn/khó của
+baseline đọc thử.
+
+## Đọc thử (Phase 6, 2026-09-18)
+
+Subagent mới mỗi vòng, prompt nguyên văn ở `tools/CHUAN-DE-HIEU.md`, chỉ mở `tai-lieu.md` + `kiem-tra.md` đã bỏ đáp án.
+
+| Vòng | Bản | Chặn | Khó | Nhỏ | Quiz | Ghi chú |
+|---|---|---|---|---|---|---|
+| 0 | bản cũ (trước Phase 5) | 9 | 21 | 30 | 10/10 | baseline — `tools/NGHIEN-CUU-SU-PHAM.md` |
+| 1 | viết lại (Phase 6) | 0 | 6 | 21 | 10/10 | khó: 34.464 giờ không khớp 2.075.259 phút (thiếu giải thích cắt chuỗi); ô 1 "chiều Chủ nhật" mâu thuẫn ô 5 "23:59"; 10 vs 21 ngày trống; chữ $p$ dùng cho hai thứ; bước tổng quát $C_u/(C_u+C_o)$ bị nhảy; "chính là quantile 0,8" nói quá |
+| 2 | sửa 6 chỗ trên | **0** | **5** | 20 | 10/10 | **đạt**. Không số nào sai. Sau vòng này sửa thêm 2 chỗ khó: định nghĩa $C_u$, $C_o$ trước khi dùng + chuyển vế từng bước; nói thẳng vì sao trung bình 4 tuần xuống cuối khi chấm tổng tuần (lệch cùng chiều kéo dài quanh tháng 8) |
+
+`kiem_de_hieu.py 1`: 67 → 0 vi phạm. Độ dài 6.790 chữ ngoài bảng/code; PDF 19 trang.

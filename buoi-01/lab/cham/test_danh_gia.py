@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-BASELINE = {"TB 4 tuần", "tuần trước", "trung bình", "giờ trước"}
+BASELINE = {"trung bình 4 tuần", "tuần trước", "trung bình", "giờ trước"}
 
 
 @pytest.fixture(scope="module")
@@ -37,7 +37,7 @@ def test_doc_du_lieu(chuoi):
 def test_baseline_dung_cong_thuc(m):
     s = _gia_lap(5)
     assert np.allclose(m.du_bao_tuan_truoc(s), s.iloc[-168:].to_numpy())
-    assert np.allclose(m.du_bao_tb_4_tuan(s), s.iloc[-672:].to_numpy().reshape(4, 168).mean(axis=0))
+    assert np.allclose(m.du_bao_trung_binh_4_tuan(s), s.iloc[-672:].to_numpy().reshape(4, 168).mean(axis=0))
 
 
 def test_mae_bo_qua_gio_thieu(m):
@@ -74,5 +74,5 @@ def test_so_that_bang_lich_khong_dep_nhu_trong_mau(m, chuoi):
 
 def test_so_that_baseline_thang(m, chuoi):
     kq = m.danh_gia(chuoi)
-    assert kq.index[0] == "TB 4 tuần"
-    assert kq["TB 4 tuần"] == pytest.approx(0.4905, abs=0.002)
+    assert kq.index[0] == "trung bình 4 tuần"
+    assert kq["trung bình 4 tuần"] == pytest.approx(0.4905, abs=0.002)

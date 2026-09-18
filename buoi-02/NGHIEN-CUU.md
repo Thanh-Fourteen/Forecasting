@@ -97,3 +97,162 @@
 | `scipy.stats.fit` ép n nguyên cho âm nhị thức | nhỏ | Lab khớp bằng MLE tự viết (n liên tục) và đối chiếu statsmodels; nêu trong Lỗi thường gặp |
 | Hai công thức chuẩn hoá nhiệt độ mâu thuẫn trong tài liệu UCI | nhỏ | Không dùng cột nhiệt độ ở buổi 2 |
 | arch có block bootstrap sẵn | nhỏ | Không đưa vào nền buổi (mục tiêu là tự viết); nhắc trong Đọc thêm |
+
+## Research viết lại (Phase 6, 2026-09-18)
+
+Mục tiêu: viết lại phần chữ theo chuẩn dễ hiểu D1–D12 (`tools/CHUAN-DE-HIEU.md`) và dạy kỹ khối thống kê nền mà đọc
+thử buổi 1, 7, 12 báo chặn: phân phối, quantile, trung vị, phương sai, độ lệch chuẩn, tương quan, kiểm định.
+Nguồn sư phạm chung (worked example, concreteness fading, hiểu lầm theo buổi): `tools/NGHIEN-CUU-SU-PHAM.md`.
+
+### Nguồn mới (truy cập 2026-09-18)
+
+| # | Nguồn | Dùng cho |
+|---|---|---|
+| 12 | FPP3 §5.5 https://otexts.com/fpp3/prediction-intervals.html | 1,96 là hệ số của khoảng 95% **khi giả định phân phối chuẩn**; bảng 80% → 1,28, 90% → 1,64, 95% → 1,96, 99% → 2,58. FPP không giải vì sao 1,96 → tài liệu giải bằng quantile 0,975 của phân phối chuẩn, kiểm bằng `norm.ppf` |
+| 13 | FPP3 §7.8 https://otexts.com/fpp3/causality.html | tương quan ≠ nhân quả; kem–đuối nước (biến gây nhiễu: trời nóng); biến không gây ra $y$ vẫn giúp dự báo $y$ |
+| 14 | OpenIntro Statistics https://www.openintro.org/book/os/ | trình tự dạy: kiểm định bằng **xáo ngẫu nhiên** (chương 2) trước lý thuyết kiểm định (chương 5) → mục 4.5 mở bằng đồng xu rồi permutation test tự viết |
+| 15 | Applied Biostats, ch. 17 "Shuffling labels to generate a null" https://bookdown.org/ybrandvain/Applied-Biostats/perm1.html | các bước permutation test; p = tỷ lệ lần xáo lệch bằng/hơn quan sát; hai phía dùng trị tuyệt đối; **cảnh báo**: xáo giả định quan sát độc lập — dữ liệu phụ thuộc thì xáo trong nhóm |
+| 16 | Phipson & Smyth (2010), "Permutation p-values should never be zero", arXiv:1603.05766 | công thức $(k+1)/(B+1)$ |
+| 17 | Wasserstein & Lazar (2016), ASA statement on p-values, *Am. Stat.* 70(2) https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108 | p-value là xác suất của dữ liệu khi giả sử $H_0$, **không** là xác suất $H_0$ đúng; p không đo độ lớn hiệu ứng |
+| 18 | Seeing Theory https://seeing-theory.brown.edu/probability-distributions/index.html | CLT: "trung bình mẫu của đủ nhiều biến i.i.d. xấp xỉ chuẩn"; dạy bằng mô phỏng → mục 4.6 kiểm $1/\sqrt n$ bằng rút mẫu thật |
+| 19 | `scipy.stats.permutation_test` (scipy 1.18.1, chạy trong nền buổi) | đối chiếu hàm tự viết |
+
+Hiểu lầm phổ biến đưa vào tài liệu (mục "Tự kiểm tra", "Lỗi thường gặp", quiz): quantile 0,8 = "80% của số lớn nhất";
+trung bình luôn là con số an toàn nhất; chỉ nhìn tỷ lệ phủ tổng; $r \approx 0$ = không liên quan; tương quan = nhân quả;
+p = xác suất $H_0$ đúng; không bác bỏ = chứng minh $H_0$; có ý nghĩa thống kê = khác biệt lớn; quên căn bậc hai khi
+nối $n_{\text{eff}}$ với độ rộng.
+
+### Quyết định cấu trúc (≤ 6 khái niệm)
+
+| Mục | Nội dung | Lý do gộp |
+|---|---|---|
+| 4.1 | phân phối, histogram, đường tích luỹ, quantile, trung vị | cùng một ví dụ 9 số; quantile đếm tay khớp buổi 1, nội suy của `np.quantile` là "cách của máy" |
+| 4.2 | trung bình, phương sai, độ lệch chuẩn, hệ số lệch + chọn con số theo hàm phạt | mức và độ phân tán đi cùng; ba hàm phạt dùng lại đúng 9 số |
+| 4.3 | 1,96 và phân phối chuẩn, tỷ lệ phủ hai đuôi, khoảng dự báo vs khoảng tin cậy, trong/ngoài mẫu | 1,96 chỉ có nghĩa khi đi với khoảng |
+| 4.4 | tương quan $r$ (mới) + hộp "Mượn trước" tự tương quan, biến gây nhiễu | |
+| 4.5 | kiểm định giả thuyết (mới): đồng xu, permutation test tự viết | khuôn đọc cho ADF, Ljung–Box, Diebold–Mariano |
+| 4.6 | i.i.d., luật số lớn, CLT, $1/\sqrt n$, AR(1), $n_{\text{eff}}$, bootstrap, block bootstrap | CLT/i.i.d. chỉ cần để hiểu vì sao bootstrap i.i.d. hỏng |
+
+**Bỏ khỏi bài** (đưa một dòng vào "Đọc thêm"): chọn phân phối cho dữ liệu đếm (Poisson, âm nhị thức, MLE, AIC, QQ-plot)
+và thang log. Hai phần này chiếm nhiều chỗ chặn của bản cũ, không cần cho mục nào sau, và có buổi 5 (biến đổi) và buổi
+19 (dữ liệu đếm) dạy. Lab Bước "khớp ba phân phối" bỏ theo. Hình `phan-phoi-luot-thue.png`, `khoang-2011-2012.png`,
+`ty-le-phu-kich-ban.png` vẫn sinh bởi `ve_hinh.py` nhưng tài liệu không còn dùng (bảng số trong mục 4.3 đủ).
+
+### Con số mới [CHẠY] — `dap-an/vi_du_nho.py` (seed ghi trong code), hình mới `ve_hinh.py moi`
+
+Chạy: `cd lab && env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python ../dap-an/vi_du_nho.py`
+
+- Ví dụ 9 giờ `8, 2, 36, 5, 12, 3, 18, 6, 9`: đếm tay q0,25 / q0,5 / q0,8 / q0,9 = 5 / 8 / 18 / 36; `np.quantile` nội
+  suy = 5 / 8 / 14,4 / 21,6; `inverted_cdf` khớp đếm tay. CDF(8) = 5/9, CDF(12) = 7/9. Trung bình 11, tổng bình phương
+  độ lệch 894, phương sai 111,75, độ lệch chuẩn 10,5712; hệ số lệch 1,611 (scipy mặc định; pandas 1,953); số 36 góp
+  1,754. Phạt trung bình với c = 8 / 11 / 18: tuyệt đối 6,556 / 7,333 / 11,000; bình phương 108,33 / 99,33 / 148,33;
+  pinball 0,8: 4,178 / 3,667 / 3,400. Lưới c 0–40 bước 0,5: đáy đúng 8, 11, 18. ±1,96s = [−9,72; 31,72].
+- 1,96: `norm.ppf(0.975)` = 1,95996; P(|Z| ≤ 1) = 0,6827, ≤ 1,96 = 0,9500, ≤ 2 = 0,9545; 100.000 số chuẩn seed 0 →
+  0,9498. Tỷ lệ phủ ví dụ [4; 20] trên 10 số: 0,6 / 0,2 / 0,2.
+- Khoảng chung không tách giờ: từ 2011 (TB 143,79, s 133,80) → [−118,4; 406,0]; từ cả 2011–2012 (TB 189,46, s 181,39)
+  → [−166,1; 545,0]. **Giải quyết mâu thuẫn baseline:** −118,4 là của năm 2011, −166,1 (quiz câu 9) là của cả hai năm;
+  tài liệu ghi rõ cả hai.
+- Tương quan: ví dụ 5 cặp → tổng tích 850, 250, 3.400, r = 0,9220. Dữ liệu thật: r(temp, cnt) mọi giờ 0,405; lúc 17h
+  (730 ngày) 0,588; r(hum, cnt) −0,323 / 17h −0,253; r(hr, cnt) 0,394. Độ ẩm trung bình 4h 0,74, 15h 0,49. Cột `temp`
+  chuẩn hoá tuyến tính (hai công thức UCI mâu thuẫn nhưng đều tuyến tính) nên r không phụ thuộc công thức nào đúng.
+  Tự tương quan 1, 3, 1, 3 trễ 1 = −0,75; lượt thuê giờ trễ 1 = 0,844; lượt thuê ngày 2012 trễ 1 = 0,748.
+- Kiểm định: P(≥ 9 ngửa/10) = 11/1024 = 0,0107 (mô phỏng seed 1: 0,0106); hai phía 22/1024 = 0,0215; ≥ 7 ngửa 176/1024 =
+  0,1719. Ví dụ 6 ngày: 20 cách chia, 2 cách |chênh| ≥ 3 → p = 0,10. Day 2012, 9.999 lần xáo, seed 2026: làm việc −
+  nghỉ (250/116 ngày) chênh 456,4, k = 253, p = 0,0254 (scipy `permutation_test` seed 2026: 0,0232); thứ Bảy − Chủ nhật
+  (52/53) chênh 695,2, k = 774, p = 0,0775.
+- $1/\sqrt n$ (rút i.i.d. seed 5, 20.000 lần): n = 25 / 100 / 400 → độ lệch chuẩn trung bình 36,08 / 18,24 / 9,06, σ/√n =
+  36,28 / 18,14 / 9,07, tỷ lệ trong ±1,96σ/√n 0,954 / 0,949 / 0,950. n_eff(200; 0,7) = 35,3, √(n/n_eff) = 2,38;
+  n_eff(365; 0,5) = 121,7, √ = 1,732. Block bootstrap tay khối 2 seed 2: bắt đầu 3, 1, 0 → 30, 14, 15, 11, 12, trung bình
+  16,4. Chuỗi AR(1) seed 7: trung bình mẫu −0,467.
+
+### Kiểm máy `kiem_de_hieu.py 02` — vi phạm còn lại và lý do
+
+- `muon_truoc` ×4 ("kiểm định", "p-value", "mức ý nghĩa", "giả thuyết không"): Phụ lục E ghi các thuật ngữ này thuộc buổi
+  4/7 nhưng từ Phase 6 buổi 2 **dạy** chúng (mục 4.5), không mượn trước. "kiểm định" còn khớp nhầm dòng *validation*
+  ("tập kiểm định", buổi 3) của E. Cần sửa cột "Buổi" trong Phụ lục E (đã báo trong báo cáo Phase 6).
+- `nhieu_so` ×33: các đoạn còn lại là phép tính từng bước, dãy dữ liệu của ví dụ nhỏ, hoặc tham số thí nghiệm (seed, $n$,
+  số lần lặp) mà bộ đếm không nhận ra là phép tính (dùng "/", "chia", ngoặc). Không đoạn nào dồn quá 3 con số **kết
+  quả**; mọi bảng kết quả đã tách thành bảng có "Đọc bảng".
+
+### Độ dài
+
+`wc -w tai-lieu.md` ≈ 9.800 (trong đó khoảng 650 là code, công thức khối và dấu `|` của bảng; phần chữ ≈ 8.800). Trần
+mới 9.000. Đã bỏ hẳn hai phần không cần cho mục sau (chọn phân phối, thang log), một hình, một bước lab, một bài tập.
+Phần còn lại là khuôn D2 đủ bước cho 6 khái niệm, trong đó hai khái niệm mới (tương quan, kiểm định).
+
+### Sửa sau đọc thử bản mới, vòng 1 (2026-09-18: 0 chặn / 21 khó / 17 nhỏ, quiz 10/10)
+
+- **Lỗi nội dung đã sửa:** hệ số lệch theo đúng lời tài liệu (chia $s$ = 10,57) là **1,35** (số 36 góp 1,47), không phải
+  1,61 (1,61 là quy ước của scipy, chia $\sigma$ = 9,97; pandas 1,95). Bảng tỷ lệ phủ theo độ dài khối (60,3% … 81,3%)
+  đưa lại vào mục 4.6 cho Lab bước 5 dẫn tới.
+- **Giải thích "vì sao không đạt 95%" sửa lại.** Bản trước nói do $n_{\text{eff}} \approx 35$ khiến khoảng percentile hẹp.
+  Kiểm: bootstrap i.i.d. trên dữ liệu độc lập $n$ = 35 (seed 2026, 300 lần) vẫn phủ 94,7%, nên lập luận đó không đứng.
+  Giải thích mới: đánh đổi chỗ nối khối / số khối; [CHẠY] $\rho$ = 0,7, $n$ = 2.000, khối 13 phủ **94,0%**
+  (`vi_du_nho.py`). Quiz câu 10 sửa theo.
+- Thêm: đoạn "mẫu và tổng thể", quy ước $s$ / $\sigma$ và vì sao chia $n - 1$; lý do bằng lời vì sao mỗi hàm phạt chọn
+  một con số; báo rõ hình hàm mất mát dùng $\tau$ = 0,9, thêm bảng đáy; trung vị khi $n$ chẵn (đếm tay 2, `np.median` 2,5);
+  vì sao máy dùng $(n-1)q$; định nghĩa seed, `ppf`, quantile của phân phối liên tục; tách bảng tỷ lệ phủ 4.3 thành bảng
+  trong mẫu (hai đuôi) và ngoài mẫu (chỉ phủ), bình luận dòng tháng 5–8 → tháng 9 và vì sao quantile ngoài mẫu kém hơn
+  ±1,96σ; vì sao tự tương quan 1, 3, 1, 3 ra −0,75; đếm tổ hợp 120 + 45 + 10 + 1 = 176; trực giác $\sigma/\sqrt n$ và
+  $n_{\text{eff}}$; "percentile"; code block bootstrap viết lại bằng vòng lặp (ví dụ seed 2 cho [3, 4, 1, 2, 0], khớp ví
+  dụ tay); các nhỏ khác (FPP viết đầy đủ, 730 ngày có số liệu lúc 17h — ngày 29/10/2012 thiếu giờ 17, hai chiều của biến
+  gây nhiễu, `~`, import trong Lab).
+- Độ dài theo `kiem_de_hieu.py` (cột do_dai, chữ ngoài bảng/code): 8.506, trong trần 4.000–9.000.
+
+### Sửa sau đọc thử bản mới, vòng 2 (2026-09-18: 1 chặn / 15 khó / 15 nhỏ, quiz 10/10)
+
+- **Chặn đã sửa:** 4.6 thêm "Vì sao cách này đúng?" (mẫu là bức ảnh thu nhỏ của tổng thể). [CHẠY, seed 11] coi 8.734 giờ
+  2012 là tổng thể, một mẫu 100 giờ: độ lệch chuẩn của 5.000 trung bình rút mới từ tổng thể 21,2; bootstrap từ chính mẫu
+  21,0 (σ/√100 = 20,89).
+- 4.3 "Dữ liệu thật": một câu nói cách dựng khoảng theo giờ; một bảng chính (2 cách × trong mẫu 2011 / 2012, cột
+  phủ–dưới–trên); các phép thử khác và "khoảng chung" chuyển vào hộp Nâng cao; bỏ dòng tháng 5–8 → 9 khỏi tài liệu.
+- 4.3 thêm trực giác "đường cong = histogram cột hẹp, diện tích = tỷ lệ"; ví dụ "20 lần lấy mẫu" [CHẠY, seed 12]: 19/20
+  khoảng chứa trung bình thật 234,7; khoảng thứ 20 [148,1; 231,8] trượt.
+- 4.6: ví dụ 4 đồng xu ±1 (độ lệch chuẩn tổng = 2 = √4); bảng 1/√n bỏ cột tỷ lệ, nói rõ rút có hoàn lại, quanh trung
+  bình thật 189,5; bước nối √(n/n_eff) viết ra; vì sao khối 40 hẹp [CHẠY, cùng seed bảng 4.6]: độ rộng trung bình 0,751
+  (khối 10), 0,780 (20), 0,727 (40); tâm lệch 0,028 / 0,046 / 0,066; giải thích ô phải (mùa vụ, xu hướng).
+- 4.2: công thức hệ số lệch dạng trung bình (độ lệch/s)³, liệt kê 9 số hạng (âm −1,37, dương 13,52 → 1,35); chọn **s**
+  cho mọi công thức, gọi cách dựng khoảng là "±1,96s" (thay cả trong quiz); lập luận "nhích c" cho phạt bình phương
+  (tổng (y−8)² = 975 → (y−9)² = 930, bớt 2 × 27 − 9 = 45); 452 vs 451 do lưới bước 2.
+- 4.1 code quantile thành hàm đầy đủ; 4.5 C(6,3) = 20 và vì sao chỉ 2 cách (tổng ≥ 18 hoặc ≤ 9), True/False cộng vào số,
+  "dừng", hình hoán vị ô trái/phải; các nhỏ khác (mục 2, 3, bảng Từ mới, đổi đơn vị không đổi r, cột độ ẩm, Lab bước 1).
+- Để giữ trần 9.000: bỏ bài tập "khoảng theo giờ và loại ngày", rút gọn Mục tiêu, Đọc thêm, vài đoạn "Đọc kết quả".
+  Độ dài theo `kiem_de_hieu.py`: 8.996.
+
+### Sửa sau đọc thử vòng 3 (2026-09-18: 0 chặn / 13 khó / 15 nhỏ) — cắt bớt, trỏ Phụ lục B
+
+- 4.2: định nghĩa ba cách phạt ngay trước bảng; lập luận "nhích c" chi tiết thay bằng một câu trực giác mỗi cách +
+  "Phụ lục B, mục 8"; hệ số lệch bỏ liệt kê 9 số lập phương, giữ ý + 1,35 / 1,61 / 1,95, trỏ mục 6; lý do chia n−1 nối
+  với "trung bình làm tổng bình phương nhỏ nhất" + trỏ mục 5.
+- 4.3: ví dụ diện tích (rộng 10 × cao 0,02 = 20%); 1,96 dùng cho mọi phân phối chuẩn; ví dụ 20 khoảng (seed 12) chuyển
+  xuống 4.6, sau khi đã có công thức trung bình ± 1,96 s/√n (thay σ bằng s vì không biết σ); so hai cận trên lúc 17h
+  (678 so với 604); bỏ bullet "một khoảng chung cho mọi giờ" (−118,4 / −166,1; quiz câu 9 tự đủ số).
+- 4.4: trung bình 20 / 70 nêu trước bảng; "nhiễu" → "che mất quan hệ".
+- 4.6: phương sai tổng 4 đồng xu (64/16 = 4); trục "thang nhân"; khối dài chỉ còn một cơ chế (khối liền kề gần trùng →
+  mẫu lại giống nhau → khoảng hẹp); ô phải một lý do (xu hướng); bỏ 0,78/0,73, điểm hai đầu chuỗi, khối 21; n^{1/3}
+  diễn đạt thành "quy tắc kinh nghiệm: căn bậc ba".
+- Nhỏ: 17.379 so với 17.544 giờ (thiếu 165); "mức q" vs "vị trí"; ngày 29/10/2012 thiếu giờ 17; Ljung–Box "phần sai số
+  mô hình để lại"; scipy hai phía = nhân đôi p một phía nhỏ hơn; `env -u VIRTUAL_ENV`, `--no-sync`.
+- Độ dài (`kiem_de_hieu.py`, chữ ngoài bảng/code): 8.996 → 8.916.
+
+## Đọc thử (Phase 6, 2026-09-18)
+
+Subagent mới mỗi vòng, prompt nguyên văn ở `tools/CHUAN-DE-HIEU.md`, chỉ mở `tai-lieu.md` + `kiem-tra.md` đã bỏ đáp án.
+
+| Vòng | Bản | Chặn | Khó | Nhỏ | Quiz | Ghi chú |
+|---|---|---|---|---|---|---|
+| 0 | bản cũ | 11 | 25 | 16 | 9/10 | chặn: AIC, i.i.d., AR(1), độ lệch chuẩn/1,96, QQ-plot, likelihood, CLT, tự tương quan, $n_{\text{eff}}$ |
+| 1 | viết lại (6 khái niệm, thêm tương quan + kiểm định) | 0 | 21 | 17 | 10/10 | lỗi nội dung: hệ số lệch 1,61 ≠ 1,35 theo lời tài liệu; Lab bước 5 trỏ bảng không tồn tại |
+| 2 | + "mẫu và tổng thể", quy ước s/σ | 1 | 15 | 15 | 10/10 | chặn: vì sao bootstrap đúng; tự sửa lời giải thích "vì sao không đạt 95%" (bản cũ sai) |
+| 3 | + nguyên lý bootstrap (bảng 21,2 vs 21,0), rút 4.3 về một bảng | 0 | 13 | 15 | 10/10 | chạm trần chữ — đổi hướng: cắt bớt, trỏ Phụ lục B |
+| 4 | cắt chi tiết, trỏ Phụ lục B mục 5, 6, 8 | 0 | 7 | 15 | 10/10 | thiếu phụ lục vẫn theo được ý chính |
+| 5 | sửa σ, khoảng tin cậy, khối dài, ô phải | 0 | 7 | 11 | 10/10 | giải thích "khối dài làm hẹp" chưa thuyết phục |
+| 6 | phương sai của tổng, $n_{\text{eff}}$ trực giác, khối dài nói thật "cần toán ngoài buổi" | **0** | **4** | 12 | 10/10 | **đạt**. Không số nào sai (agent kiểm cả `default_rng`) |
+
+Sau vòng 6 sửa thêm 2 chỗ khó: lập luận cân hai bên cho pinball → quantile $\tau$; ví dụ hoán vị nói rõ hai phía
+(một phía thì p = 1/20 = 0,05, vẫn không nhỏ hơn 0,05). `kiem_de_hieu.py 2`: độ dài trong trần; còn các cờ `nhieu_so`
+là phép tính tay/dãy dữ liệu ví dụ (lý do ghi ở mục "Sửa sau đọc thử" phía trên). PDF 22 trang.
+
+Bài học cho Phase 7–8: buổi dạy nhiều khái niệm nền thì mỗi vòng đọc thử lại tìm ra chỗ mới; thêm giải thích làm
+chạm trần chữ. Cách hiệu quả là **cắt chi tiết chứng minh sang phụ lục** và nói thẳng giới hạn ("cần toán ngoài buổi
+này") thay vì giải thích nửa vời.

@@ -107,9 +107,51 @@ def hinh_bam_gio() -> None:
     ve.luu_hinh(fig, HINH / "bam-gio.png")
 
 
+def hinh_truc_thoi_gian() -> None:
+    """Đồng hồ New York theo trục UTC ở hai ngày đổi giờ 2024 — số liệu tính bằng pandas, không gõ tay."""
+    fig, truc = plt.subplots(1, 2, figsize=(10, 3.8), sharey=True)
+    for ax, (ngay, tieu_de, dai, mau_dai, chu_dai) in zip(truc, (
+        ("2024-03-10", "10/3/2024: đồng hồ nhảy từ 01:59 lên 03:00", (2, 3), ve.MAU["phu"],
+         "02:00–02:59 không có\nthời điểm UTC nào"),
+        ("2024-11-03", "3/11/2024: đồng hồ lùi từ 01:59 về 01:00", (1, 2), ve.MAU["vang"],
+         "01:00–01:59 ứng với\nhai khoảng UTC"),
+    ), strict=True):
+        utc = pd.date_range(f"{ngay} 04:00", f"{ngay} 09:00", freq="1min", tz="UTC")
+        dp = utc.tz_convert("America/New_York")
+        x = (utc - utc[0]).total_seconds().to_numpy() / 3600 + 4
+        y = (dp.hour + dp.minute / 60).to_numpy().astype(float)
+        y[y > 20] -= 24                       # 23:00 ngày hôm trước vẽ thành -1
+        nhay = np.flatnonzero(np.abs(np.diff(y)) > 0.5)
+        y_ve = y.copy()
+        y_ve[nhay] = np.nan                   # không nối qua chỗ đồng hồ nhảy
+        ax.axhspan(*dai, color=mau_dai, alpha=0.18, lw=0)
+        ax.text(8.95, -0.9, "vùng tô: " + chu_dai, ha="right", va="center", fontsize=8,
+                color="#8A3A00" if ngay.endswith("03-10") else "#8A5A00")
+        ax.plot(x, y_ve, color=ve.MAU["chinh"], lw=2)
+        for gio in range(4, 10):
+            o = pd.Timestamp(f"{ngay} {gio:02d}:00", tz="UTC").tz_convert("America/New_York")
+            yy = o.hour + o.minute / 60 - (24 if o.hour > 20 else 0)
+            ax.plot(gio, yy, "o", color=ve.MAU["chinh"], ms=4)
+            ax.annotate(f"{o:%H:%M} {o:%Z}", (gio, yy), textcoords="offset points", xytext=(4, -12), fontsize=7)
+        ax.set_xticks(range(4, 10), [f"{g:02d}:00Z" for g in range(4, 10)])
+        ax.set_yticks(range(-1, 6), ["23:00", "00:00", "01:00", "02:00", "03:00", "04:00", "05:00"])
+        ax.set_ylim(-1.6, 5.5)
+        ax.set_xlabel("thời điểm UTC (giờ)")
+        ax.set_title(tieu_de, fontsize=9)
+    truc[0].set_ylabel("đồng hồ treo tường New York (giờ)")
+    fig.suptitle("Giờ UTC chạy đều; đồng hồ New York mất một giờ ngày 10/3 và lặp một giờ ngày 3/11",
+                 fontweight="bold", fontsize=10)
+    fig.tight_layout()
+    ve.luu_hinh(fig, HINH / "truc-thoi-gian.png")
+
+
 if __name__ == "__main__":
+    import sys
+
+    # `python ve_hinh.py truc` chỉ sinh hình trục thời gian (không cần dữ liệu tải về)
+    chon = sys.argv[1:] or ["dst", "nong", "bam", "truc"]
+    ham = {"dst": hinh_dst, "nong": hinh_gio_nong, "bam": hinh_bam_gio, "truc": hinh_truc_thoi_gian}
     with ve.phong_cach():
-        hinh_dst()
-        hinh_gio_nong()
-        hinh_bam_gio()
+        for ten in chon:
+            ham[ten]()
     print("xong:", sorted(p.name for p in HINH.glob("*.png")))

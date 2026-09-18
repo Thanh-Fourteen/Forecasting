@@ -190,8 +190,100 @@ def hinh_ty_le_phu() -> None:
     ve.luu_hinh(fig, HINH / "ty-le-phu-kich-ban.png")
 
 
+def hinh_histogram_cdf() -> None:
+    """Mục 4.1: histogram và đường tỷ lệ tích luỹ (CDF thực nghiệm) của lượt thuê theo giờ, kèm vài quantile."""
+    y = xs.doc_luot_thue()["cnt"].to_numpy(float)
+    q = {0.5: np.quantile(y, 0.5), 0.9: np.quantile(y, 0.9)}
+    fig, (a, b) = plt.subplots(1, 2, figsize=(10, 3.6))
+    a.hist(y, bins=np.arange(0, 1000, 25), color=ve.MAU["nhat"], edgecolor="white")
+    a.axvline(y.mean(), color=ve.MAU["phu"], linewidth=1.5, label=f"trung bình {y.mean():.0f}")
+    a.axvline(q[0.5], color=ve.MAU["chinh"], linestyle="--", linewidth=1.5, label=f"trung vị {q[0.5]:.0f}")
+    a.set_xlabel("lượt thuê trong một giờ (lượt)")
+    a.set_ylabel("số giờ")
+    a.set_title("Histogram: đuôi dài bên phải")
+    a.legend(fontsize=8)
+    s = np.sort(y)
+    b.plot(s, np.arange(1, s.size + 1) / s.size, color=ve.MAU["chinh"])
+    for p_, v in q.items():
+        b.plot([0, v, v], [p_, p_, 0], color=ve.MAU["phu"], linestyle=":", linewidth=1)
+        b.text(v + 15, p_ - 0.07, f"quantile {str(p_).replace('.', ',')} = {v:.0f}", fontsize=8)
+    b.set_xlim(0, 1000)
+    b.set_ylim(0, 1.02)
+    b.set_xlabel("mốc y (lượt)")
+    b.set_ylabel("tỷ lệ số giờ có lượt thuê ≤ y")
+    b.set_title("Đường tích luỹ: đọc quantile từ trục dọc sang")
+    fig.suptitle(f"17.379 giờ: trung bình {y.mean():.0f} lớn hơn trung vị {q[0.5]:.0f} vì vài giờ rất đông kéo lên",
+                 fontweight="bold", fontsize=10)
+    fig.tight_layout()
+    ve.luu_hinh(fig, HINH / "histogram-tich-luy.png")
+
+
+def hinh_tuong_quan() -> None:
+    """Mục 4.4: nhiệt độ × lượt thuê lúc 17h (quan hệ gần thẳng) và giờ × lượt thuê (quan hệ cong, r thấp)."""
+    h = xs.doc_luot_thue()
+    g = h[h["hr"] == 17]
+    r1 = np.corrcoef(g["temp"], g["cnt"])[0, 1]
+    r2 = np.corrcoef(h["hr"], h["cnt"])[0, 1]
+    fig, (a, b) = plt.subplots(1, 2, figsize=(10, 3.6))
+    a.plot(g["temp"], g["cnt"], ".", markersize=3, color=ve.MAU["chinh"], alpha=0.6)
+    a.set_xlabel("nhiệt độ đã chuẩn hoá (0 = lạnh nhất, 1 = nóng nhất)")
+    a.set_ylabel("lượt thuê lúc 17h (lượt)")
+    a.set_title(f"Mỗi chấm một ngày, lúc 17h: r = {r1:.2f}".replace(".", ","))
+    tb = h.groupby("hr")["cnt"].mean()
+    b.plot(h["hr"] + np.random.default_rng(0).uniform(-0.3, 0.3, len(h)), h["cnt"], ".", markersize=1,
+           color=ve.MAU["xam"], alpha=0.25)
+    b.plot(tb.index, tb.to_numpy(), marker="o", color=ve.MAU["phu"], label="trung bình từng giờ")
+    b.set_xticks(range(0, 24, 3))
+    b.set_xlabel("giờ trong ngày (0–23)")
+    b.set_ylabel("lượt thuê trong giờ (lượt)")
+    b.set_title(f"Giờ và lượt thuê: quan hệ rất rõ nhưng cong, r chỉ {r2:.2f}".replace(".", ","))
+    b.legend(fontsize=8)
+    fig.suptitle("r đo quan hệ THẲNG: nhiệt độ cho r vừa phải, giờ trong ngày quan hệ mạnh mà r vẫn thấp",
+                 fontweight="bold", fontsize=10)
+    fig.tight_layout()
+    ve.luu_hinh(fig, HINH / "tuong-quan.png")
+
+
+def hinh_hoan_vi() -> None:
+    """Mục 4.5: phân phối chênh lệch khi xáo nhãn (permutation test), hai phép so trên lượt thuê ngày 2012."""
+    import pandas as pd
+
+    spec2 = importlib.util.spec_from_file_location("vdn", DAY / "vi_du_nho.py")
+    vdn = importlib.util.module_from_spec(spec2)
+    spec2.loader.exec_module(vdn)
+    d = pd.read_csv(xs.tv.THU_MUC_DU_LIEU / "uci-bike-sharing" / "day.csv")
+    n12 = d[d["yr"] == 1]
+    ct = n12[n12["weekday"].isin([0, 6])]
+    phep = [("Ngày làm việc − ngày nghỉ (250 và 116 ngày)", n12["cnt"], n12["workingday"] == 1),
+            ("Thứ Bảy − Chủ nhật (52 và 53 ngày)", ct["cnt"], ct["weekday"] == 6)]
+    fig, truc = plt.subplots(1, 2, figsize=(10, 3.6), sharey=True)
+    for ax, (ten, y, nhom) in zip(truc, phep, strict=True):
+        qs, xao, p, _ = vdn.hoan_vi(y, nhom, 9999, 2026)
+        ax.hist(xao, bins=60, color=ve.MAU["nhat"], edgecolor="white")
+        ax.axvline(qs, color=ve.MAU["phu"], linewidth=2, label=f"chênh thật {qs:.0f}")
+        ax.axvline(-qs, color=ve.MAU["phu"], linewidth=1, linestyle="--", label="đối xứng (tính cả hai phía)")
+        ax.set_title(f"{ten}: p = {p:.4f}".replace(".", ","), fontsize=9)
+        ax.set_xlabel("chênh lệch trung bình lượt thuê/ngày khi xáo nhãn (lượt)")
+        ax.legend(fontsize=7, loc="upper left")
+    truc[0].set_ylabel("số lần xáo (trên 9.999)")
+    fig.suptitle("Chênh 456 lượt vẫn hiếm khi xáo ngẫu nhiên (p ≈ 0,025); chênh 695 lượt với ít ngày thì không (p ≈ 0,08)",
+                 fontweight="bold", fontsize=10)
+    fig.tight_layout()
+    ve.luu_hinh(fig, HINH / "hoan-vi.png")
+
+
 if __name__ == "__main__":
+    import sys
+
     with ve.phong_cach():
+        if sys.argv[1:] == ["moi"]:          # chỉ sinh ba hình thêm ở Phase 6, không đụng hình cũ
+            hinh_histogram_cdf()
+            hinh_tuong_quan()
+            hinh_hoan_vi()
+            raise SystemExit
+        hinh_histogram_cdf()
+        hinh_tuong_quan()
+        hinh_hoan_vi()
         hinh_phan_phoi()
         hinh_khoang()
         hinh_bootstrap()

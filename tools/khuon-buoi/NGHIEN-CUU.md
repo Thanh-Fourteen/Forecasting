@@ -1,6 +1,6 @@
 # Nhật ký research — Buổi NN: Tên chủ đề
 
-<!-- BƯỚC 0 của giao thức research (todos.md). KHÔNG vào zip phát học viên. -->
+<!-- BƯỚC 0 của giao thức research (todos/quy-uoc.md). KHÔNG vào zip phát học viên. -->
 
 - **Ngày research:** YYYY-MM-DD
 - **Người/phiên:** …

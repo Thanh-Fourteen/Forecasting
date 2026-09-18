@@ -12,9 +12,12 @@
 <details>
 <summary>Đáp án</summary>
 
-**B.** Ngày 3/11/2024 đồng hồ New York lùi từ 01:59 EDT về 01:00 EST, nên 01:30 xảy ra hai lần: 01:30 EDT (UTC−4) = 05:30Z và
-01:30 EST (UTC−5) = 06:30Z. C là tình huống của 02:30 ngày 10/3. D sai vì giá trị naive không mặc định là UTC — nó chỉ là con
-số, người dùng phải nói múi giờ. A là thứ DuckDB `timezone()` chọn một cách im lặng.
+**B.** Ngày 3/11/2024, lúc đồng hồ New York sắp chỉ 02:00 EDT, người ta vặn nó lùi về 01:00 EST. Vì vậy 01:30 xảy ra hai
+lần. Lần đầu là EDT (UTC−4): 01:30 + 4 = 05:30Z. Lần sau là EST (UTC−5): 01:30 + 5 = 06:30Z.
+
+- **A sai**: 06:30Z chỉ là một trong hai đáp án. Đó chính là thứ DuckDB `timezone()` tự chọn mà không báo.
+- **C sai**: "không tồn tại" là tình huống của 02:30 ngày 10/3/2024, khi đồng hồ nhảy từ 01:59 lên 03:00.
+- **D sai**: giá trị naive không mặc định là UTC. Nó chỉ là một con số giờ; người dùng phải nói nó thuộc múi giờ nào.
 
 </details>
 
@@ -28,8 +31,13 @@ số, người dùng phải nói múi giờ. A là thứ DuckDB `timezone()` ch�
 <details>
 <summary>Đáp án</summary>
 
-**B.** Lưu lượng (số chuyến, kWh) cộng lại mới ra tổng trong giờ. Nhiệt độ là trạng thái — cộng 60 lần đo nhiệt độ không mang
-ý nghĩa vật lý. A đổi "số chuyến mỗi giờ" thành "số chuyến trung bình mỗi phút" mà không ai biết.
+**B.** Số chuyến là số lượng: cộng lại mới ra tổng số chuyến trong giờ. Nhiệt độ là trạng thái: con số đại diện cho giờ
+là trung bình các lần đo, hoặc lần đo cuối.
+
+- **A sai** ở số chuyến: trung bình biến "số chuyến mỗi giờ" thành "số chuyến trung bình mỗi phút", tức đổi đơn vị mà
+  không ai hay.
+- **C sai** ở nhiệt độ: cộng 60 lần đo 25 °C ra 1.500, không mang ý nghĩa gì.
+- **D sai** cả hai chỗ, là đảo ngược của B.
 
 </details>
 
@@ -43,8 +51,13 @@ số, người dùng phải nói múi giờ. A là thứ DuckDB `timezone()` ch�
 <details>
 <summary>Đáp án</summary>
 
-**C.** "Không có chuyến" (0) khác "không đo" (NaN) và khác "không biết thuộc giờ nào" (NaN — giờ lặp DST). `ffill` giả định
-giá trị không đổi — chỉ hợp lý với một số biến trạng thái và phải là quyết định có chủ đích (buổi 10).
+**C.** Ba tình huống khác nhau. "Không có chuyến" là 0 thật. "Không đo nhiệt độ" là không biết, nên NaN. "Có chuyến nhưng
+không biết thuộc giờ UTC nào" (giờ lặp ngày 3/11/2024) cũng là không biết, nên NaN.
+
+- **A sai**: điền 0 cho nhiệt độ là bịa ra "0 độ", một nhiệt độ thật. Điền 0 cho giờ lặp là bịa ra một giờ vắng khách.
+- **B sai**: với đếm sự kiện, giờ không có chuyến nào thì số chuyến đúng là 0, không phải "không biết".
+- **D sai**: `ffill` (điền tiếp giá trị trước) giả định giá trị không đổi. Nó chỉ hợp lý với một số biến trạng thái, và phải
+  là quyết định có chủ đích (buổi 10). Với số chuyến, chép số của giờ trước là bịa ra chuyến.
 
 </details>
 
@@ -58,8 +71,12 @@ giá trị không đổi — chỉ hợp lý với một số biến trạng th�
 <details>
 <summary>Đáp án</summary>
 
-**B.** Backward = giá trị gần nhất trong **quá khứ** (kể cả đúng lúc, trừ khi `allow_exact_matches=False`). C là `forward` —
-kéo giá trị tương lai về, gây rò rỉ. A là `nearest`, cũng có thể lấy tương lai. D là `merge` thường.
+**B.** `backward` nhìn về **quá khứ**: lấy giá trị gần nhất đã có, kể cả đúng lúc (trừ khi `allow_exact_matches=False`).
+Ví dụ bên trái 10:00, bên phải 09:30 và 10:30: lấy 09:30.
+
+- **A sai**: đó là `direction="nearest"`. Nó có thể chọn 10:30, tức lấy giá trị tương lai.
+- **C sai**: đó là `direction="forward"`, kéo giá trị tương lai về, gây rò rỉ.
+- **D sai**: đó là `merge` thường, chỉ ghép khi thời điểm bằng nhau đúng từng giây.
 
 </details>
 
@@ -71,8 +88,15 @@ York (04:00Z). Lưới đủ mốc có bao nhiêu giờ?
 <details>
 <summary>Đáp án</summary>
 
-**743.** Tháng 3 có 31 × 24 = 744 giờ đồng hồ, nhưng ngày 10/3 mất một giờ (01:59 → 03:00). Theo UTC: từ 05:00Z ngày 1/3 tới
-04:00Z ngày 1/4 là 743 giờ. Chính bộ chấm của buổi kiểm con số này trên dữ liệu thật.
+**743.** Tính từng bước:
+
+1. Tháng 3 có 31 ngày, nếu ngày nào cũng 24 giờ thì 31 × 24 = 744 giờ.
+2. Ngày 10/3/2024 đồng hồ nhảy từ 01:59 lên 03:00, nên ngày đó chỉ có 23 giờ: 744 − 1 = 743.
+3. Kiểm theo UTC: từ 05:00Z ngày 1/3 tới 04:00Z ngày 1/4 dài 743 giờ. Lưới [05:00Z, 04:00Z) có mốc đầu, không có mốc
+   cuối, nên có đúng 743 mốc.
+
+Nhầm hay gặp: trả lời 744 vì quên ngày đổi giờ, hoặc vì tính cả mốc cuối 04:00Z ngày 1/4 (mốc đó thuộc tháng 4).
+Bộ chấm của buổi kiểm con số này trên dữ liệu thật.
 
 </details>
 
@@ -82,20 +106,26 @@ thích và sửa.
 <details>
 <summary>Đáp án</summary>
 
-Tệp có 23 chuyến đón ngoài tháng 3 (sớm nhất `2002-12-31 22:17:10`, có chuyến tháng 2 và tháng 4) — mỗi giờ lạ tạo một nhóm.
-Sửa: lọc theo khoảng tháng của tệp trước khi gộp (và vẫn còn vấn đề giờ 02:00 ảo — xem câu 1).
+Tệp có 23 chuyến đón ngoài tháng 3 (sớm nhất `2002-12-31 22:17:10`, có cả chuyến tháng 2 và tháng 4). Chúng rơi vào 4 giờ
+lạ, mỗi giờ lạ là một nhóm. Phần trong tháng có 743 nhóm (giờ 02:00 ngày 10/3 không tồn tại nên không có dòng), nên
+743 + 4 = 747. Nhầm hay gặp: lấy 747 − 744 = 3 giờ lạ. Sửa: lọc theo khoảng tháng của tệp trước khi gộp. Lọc xong vẫn phải
+đổi giờ sang UTC trước khi gộp, vì giờ naive còn vấn đề ngày đổi giờ (câu 1, câu 9).
 
 </details>
 
 **Câu 7.** Bạn ghép số chuyến theo giờ (giờ địa phương New York, naive) với thời tiết Open-Meteo (tải `timezone=UTC`, cột `time`
-naive) bằng `merge(on="ds")`. Tháng 3–11/2024 hai bảng lệch nhau mấy giờ, theo hướng nào? Một phép thử nhanh để phát hiện?
+naive) bằng `merge(on="ds")`. Từ 10/3/2024 đến 3/11/2024, hai bảng lệch nhau mấy giờ, theo hướng nào? Nêu một phép thử
+nhanh để phát hiện.
 
 <details>
 <summary>Đáp án</summary>
 
-**Lệch 4 giờ** (EDT = UTC−4): dòng taxi "15:00" (giờ New York) được ghép với thời tiết 15:00Z = 11:00 New York — thời tiết
-bị gắn **sớm hơn** 4 giờ so với thực tế của dòng đó. Phép thử: giờ nóng nhất trung bình theo "giờ" của bảng ghép — ra 20h
-(vô lý) thay vì 16h. Mùa đông (EST) lệch 5 giờ.
+**Lệch 4 giờ**, vì trong khoảng đó New York là EDT (UTC−4). Tính một dòng: dòng taxi "15:00" (giờ New York) được ghép với
+thời tiết 15:00Z. Mà 15:00Z là 15 − 4 = 11, tức 11:00 giờ New York. Vậy mỗi dòng taxi nhận thời tiết **sớm hơn** 4 giờ.
+Nhìn theo chiều ngược lại, mọi giá trị thời tiết bị đẩy **muộn** 4 giờ trên trục giờ New York.
+
+Phép thử: tính giờ nóng nhất trung bình theo cột giờ của bảng ghép. Ghép lệch ra 20h (vô lý), ghép đúng ra 16h. Ngoài khoảng
+10/3–3/11 (EST) thì lệch 5 giờ.
 
 </details>
 
@@ -105,10 +135,14 @@ cần kết quả trong vài giây. Nêu một rủi ro về múi giờ riêng c
 <details>
 <summary>Đáp án</summary>
 
-Hợp lý: polars `scan_parquet` (lazy, chỉ đọc cột cần) hoặc DuckDB SQL thẳng trên các tệp — không nạp mọi cột vào pandas. Rủi
-ro: polars `replace_time_zone` báo lỗi ở giờ lặp/không tồn tại nếu không khai `ambiguous`/`non_existent`; DuckDB `timezone()`
-**im lặng** dời giờ không tồn tại tới giờ hợp lệ kế tiếp và chọn EST cho giờ lặp, còn `TimeZone` mặc định lấy theo máy.
-Trên máy soạn khoá, tệp tháng 3: polars lazy 0,026 s, DuckDB 0,045 s, pandas chỉ đọc cột cần 0,074 s (4 nhân).
+Hợp lý: polars `scan_parquet` (lazy: xem cả chuỗi lệnh rồi mới chạy, chỉ đọc cột cần) hoặc DuckDB SQL thẳng trên các tệp.
+Không nên nạp mọi cột vào pandas. Rủi ro:
+
+- polars: `replace_time_zone` báo lỗi ở giờ lặp hay giờ không tồn tại nếu không khai `ambiguous` / `non_existent`.
+- DuckDB: `timezone()` **im lặng** dời giờ không tồn tại tới giờ hợp lệ kế tiếp và chọn EST cho giờ lặp. `TimeZone` mặc
+  định lấy theo máy, nên phải `SET TimeZone = 'UTC'`.
+
+Tham khảo: trên máy soạn khoá, tệp tháng 3, giới hạn 4 nhân, polars lazy mất 0,026 giây và DuckDB mất 0,045 giây.
 
 </details>
 
@@ -125,9 +159,10 @@ Báo cáo kết luận "sự cố hệ thống đặt xe lúc 2 giờ sáng Ch�
 <details>
 <summary>Đáp án</summary>
 
-Không có sự cố: 02:00–02:59 ngày 10/3/2024 **không tồn tại** ở New York (đồng hồ nhảy 01:59 → 03:00). Ô 0 do `resample` trên
-giờ địa phương naive tạo ra. Dấu hiệu kiểm: ngày đổi giờ mùa hè (Chủ nhật thứ hai của tháng 3 ở Mỹ); chuyển sang UTC thì dãy
-giờ liền nhau không có ô 0.
+Không có sự cố. Ở New York, các giờ 02:00–02:59 ngày 10/3/2024 **không tồn tại**: đồng hồ nhảy từ 01:59 lên 03:00. Ô 0
+do `resample` trên giờ địa phương naive tạo ra: pandas dựng đủ lưới giờ đồng hồ, kể cả giờ không có thật, rồi điền 0.
+Dấu hiệu kiểm: ngày đó là ngày đổi giờ mùa hè (Chủ nhật thứ hai của tháng 3 ở Mỹ). Đổi sang UTC thì dãy giờ liền nhau
+(05:00Z, 06:00Z, 07:00Z, 08:00Z) và không có ô 0.
 
 </details>
 
@@ -144,8 +179,10 @@ Bản nào đáng tin, vì sao, và bản kia sai ở bước nào?
 <details>
 <summary>Đáp án</summary>
 
-**Bản B.** Bản A cho New York nóng nhất lúc 20h — không phù hợp nhịp nhiệt độ ngày, dấu hiệu thời tiết bị ghép lệch 4 giờ
-(giờ địa phương naive của taxi ghép với giờ UTC của thời tiết). Khi lệch, mưa bị gắn vào giờ khác nên tương quan đổi dấu.
-Sửa ở bước ghép: đưa cả hai bảng về UTC có múi giờ rồi mới `merge`. (Tương quan dương cũng chưa chứng minh nhân quả — buổi 8.)
+**Bản B.** Bản A cho New York nóng nhất lúc 20h, trái với nhịp ngày (buổi chiều nóng hơn buổi tối). Đó là dấu hiệu thời
+tiết bị ghép lệch khoảng 4 giờ: giờ địa phương naive của taxi ghép với giờ UTC của thời tiết. Khi lệch, mưa bị gắn vào
+những giờ khác với giờ nó thật sự rơi, nên tương quan có thể đổi dấu. Bản A sai ở bước ghép; sửa bằng cách đưa cả hai
+bảng về UTC có múi giờ rồi mới `merge`. Lưu ý: tương quan dương của bản B cũng chưa chứng minh mưa **gây ra** tăng khách
+(buổi 8).
 
 </details>

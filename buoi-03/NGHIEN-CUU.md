@@ -93,3 +93,61 @@
 | Lộ trình "263 khu vực" | nhỏ | Bảng tra có 265 khu vực, tháng 3 có 259 khu vực đón khách — dùng số thật |
 | Open-Meteo `timezone=` sai quanh DST | nhỏ (thêm vào Lỗi thường gặp) | Luôn tải UTC; nêu trong tài liệu |
 | Giờ lặp DST của dữ liệu sự kiện không khôi phục được EDT/EST | thiết kế | `chuan_hoa_thoi_gian` đánh dấu mốc UTC liên quan là NaN ("không biết"), ghi số dòng bỏ vào `attrs` (9.869) |
+
+## Research viết lại (Phase 6, 2026-09-18)
+
+Mục tiêu: viết lại phần chữ theo chuẩn dễ hiểu D1–D12 (baseline đọc thử bản cũ: chặn 4 / khó 23 / nhỏ 18, quiz 10/10).
+
+| # | Nguồn | Truy cập | Dùng cho |
+|---|---|---|---|
+| R1 | Python docs — `zoneinfo`, https://docs.python.org/3/library/zoneinfo.html | 2026-09-18 | cách giải thích giờ lặp bằng ví dụ cụ thể (1:00 ngày 1/11/2020 Los Angeles xảy ra hai lần, thuộc tính `fold`); đổi từ UTC sang giờ địa phương thì không mơ hồ |
+| R2 | pandas User Guide — Time series, https://pandas.pydata.org/docs/user_guide/timeseries.html | 2026-09-18 | `closed`/`label` (ví dụ `5Min`), mặc định phải cho `ME`/`YE`/`QE`/`BME`/`BYE`/`BQE`/`W` và cảnh báo "nhìn trước" (ví dụ tần suất `B`: giá trị Chủ nhật bị kéo về thứ Sáu); `tz_localize` `ambiguous` (`raise`/`infer`/`NaT`/mảng bool) và `nonexistent` (`raise`/`shift_forward`/`shift_backward`/`NaT`) |
+| R3 | "Falsehoods programmers believe about time" (gist tổng hợp), https://gist.github.com/timvisee/fcda9bbdff88d45cc9061606b4b923ca ; Zain Rizvi, https://zainrizvi.io/blog/falsehoods-programmers-believe-about-time-zones/ | 2026-09-18 | hiểu lầm người mới: "ngày nào cũng 24 giờ", "giờ địa phương mỗi giờ xảy ra một lần", "offset cố định cả năm", "giờ không ghi múi giờ là UTC" → đưa vào Tự kiểm tra, quiz câu 1/7 |
+| R4 | Giải thích hậu tố Z (ISO 8601, "Zulu"), https://mehmetbaykar.com/posts/iso-8601-what-the-z-in-your-timestamp-means/ | 2026-09-18 | định nghĩa "Z = UTC = +00:00" bằng lời thường |
+| R5 | FPP3 §2.1 tsibble, https://otexts.com/fpp3/tsibbles.html | 2026-09-18 | cách giải thích "một bảng chứa nhiều chuỗi, mỗi chuỗi nhận diện bằng khoá" → dạng dài; ví dụ sổ bán hàng |
+| R6 | Nixtla statsforecast — getting started, https://nixtlaverse.nixtla.io/statsforecast/docs/getting-started/getting_started_short.html | 2026-09-18 | nghĩa `unique_id` (tên chuỗi), `ds` (datestamp), `y` (giá trị cần dự báo) |
+| R7 | `tools/NGHIEN-CUU-SU-PHAM.md` (dòng "3 · DST") | 2026-09-18 | hiểu lầm "mỗi giờ địa phương xảy ra đúng một lần" → ví dụ 01:30 xảy ra hai lần, lưu UTC |
+
+**Quyết định viết lại.**
+
+- Lý thuyết 7 mục → 5 khái niệm chính: 4.1 UTC/múi giờ/giờ mùa hè; 4.2 giờ mùa hè trong dữ liệu taxi; 4.3 đổi tần suất
+  (`closed`/`label`, cách gộp, giờ trống); 4.4 ghép hai nguồn (UTC trước, `merge_asof`); 4.5 dạng dài. So sánh ba công cụ,
+  pandas 2 vs 3, benchmark → mục "Nâng cao" (heading chứa "Nâng cao" + hộp nhãn; bảng để ngoài blockquote vì bộ kiểm gộp
+  blockquote thành một đoạn). "Năm câu hỏi" (4.7 cũ) → Lab bước 2. Bảng bấm giờ + hình `bam-gio.png` → Lab bước 1.
+- Sửa lỗi nội dung bản cũ: "lệch 4 giờ (tháng 3–11, EDT)" sai — EDT năm 2024 chỉ từ 10/3 đến 3/11; tháng 3 có 9 ngày đầu
+  EST. Bảng `asfreq` bản cũ ghi dưới cột "00:00" giá trị ở 00:10 → bảng mới có cột "các mốc ra".
+- Hình mới `hinh/truc-thoi-gian.png` (đồng hồ New York theo trục UTC, hai ngày đổi giờ) sinh bằng
+  `dap-an/ve_hinh.py truc` (thêm tham số chọn hình để không phải sinh lại hình cần dữ liệu); ba hình cũ không đổi.
+- Con số mới đều từ `dap-an/vi_du_nho.py` [CHẠY 2026-09-18, pandas 3.0.5, không có phần ngẫu nhiên nên không cần seed]:
+  bảng đối chiếu New York ↔ UTC 00:00–04:00 hai ngày; 23/25 giờ; NumPy `datetime64` trừ offset; `closed`/`label`
+  (ví dụ 9:00, 9:40, 10:00, 10:20 → {9:00: 2, 10:00: 2} và {9:00: 1, 10:00: 2, 11:00: 1}); giờ trống sum/mean/asfreq/
+  reindex; `merge_asof` [9, 11] / [10, 11] / [9, 10]; tương quan ví dụ 8 giờ: ghép đúng r = 1, lệch 4 giờ r = −0,333;
+  lưới 743 (tính cả mốc cuối: 744); dạng dài 2 × 3; `value_counts().value_counts()` {3: 2, 2: 1}. Kiểm lại 747 nhóm giờ
+  và 23 chuyến ngoài tháng 3 trên dữ liệu thật.
+- Ví dụ tay mới (thời lượng 01:50 EST → 03:05 EDT = 15 phút thật, 75 phút naive; 01:50 EDT → 01:10 EST = 20 phút thật,
+  −40 phút naive; tự kiểm tra 01:45 → 03:10 = 25 phút) tính từ bảng đối chiếu, kiểm bằng pandas.
+
+**Vi phạm `kiem_de_hieu.py` còn lại:** 0 (sau khi viết lại).
+
+**Độ dài.** `wc -w tai-lieu.md` = 9.769 (chỉ tiêu nới thành 4.000–9.000 ngày 2026-09-18; khoảng 1.750 "chữ" nằm trong bảng, mỗi dấu `|` wc cũng đếm). `wc -w` đếm từng âm tiết tiếng Việt và cả bảng, code; bài
+mẫu buổi 1 hiện là 11.006. Đã bỏ trùng lặp (bảng bấm giờ, bảng ba công cụ ở 4.1) nhưng không nén chữ các mục bắt buộc
+(bảng đối chiếu, định nghĩa UTC/Z/`closed`/`label`, Mượn trước tương quan/khử mùa vụ/rò rỉ, đặc tả tham số Lab bước 4).
+PDF 20 trang (trong 12–24). Đã bỏ: ví dụ 30 phút ở 4.3, bảng pandas 2/3 và benchmark ở Nâng cao, khối code polars ở Lab bước 6 (thay bằng bảng kết quả), hai dòng trùng ở mục 6.
+
+## Đọc thử (Phase 6, 2026-09-18)
+
+Subagent mới mỗi vòng, prompt nguyên văn ở `tools/CHUAN-DE-HIEU.md`, chỉ mở `tai-lieu.md` + `kiem-tra.md` đã bỏ đáp án.
+
+| Vòng | Bản | Chặn | Khó | Nhỏ | Quiz | Ghi chú |
+|---|---|---|---|---|---|---|
+| 0 | bản cũ | 4 | 23 | 18 | 10/10 | chặn: UTC, hậu tố "Z", `closed`/`label`, tương quan + khử mùa vụ ở 4.4 |
+| 1 | viết lại (Phase 6) | **0** | **5** | 13 | 10/10 | **đạt**. Không số nào sai |
+
+Sau vòng 1 sửa thêm 3 chỗ khó:
+- Bước 1: bảng đếm 747 nhóm = 743 giờ trong tháng + 4 giờ lạ của 23 chuyến ngoài tháng (chạy thật: 3.582.628 chuyến,
+  3.582.605 trong tháng). Không có 744 vì giờ 02:00 ngày 10/3 không có dòng nào. Đáp án quiz câu 6 sửa theo.
+- 4.3: câu cảnh báo "nhìn trước" nói rõ là về mặc định đóng trái, nhãn trái.
+- 4.4: thêm công thức tương quan trong hộp "Mượn trước" để tự tính lại $r$.
+- Định nghĩa "trung vị" ở chỗ bấm giờ.
+
+`kiem_de_hieu.py 3`: 56 → 0 vi phạm. Độ dài 7.360 chữ ngoài bảng/code; PDF 21 trang.

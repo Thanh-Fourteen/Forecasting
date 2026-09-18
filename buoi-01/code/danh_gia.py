@@ -60,7 +60,7 @@ def du_bao_tuan_truoc(lich_su: pd.Series, tam: int = TAM) -> np.ndarray:
     return lich_su.iloc[-TAM:].to_numpy()[:tam]
 
 
-def du_bao_tb_4_tuan(lich_su: pd.Series, tam: int = TAM) -> np.ndarray:
+def du_bao_trung_binh_4_tuan(lich_su: pd.Series, tam: int = TAM) -> np.ndarray:
     """Trung bình cùng giờ của 4 tuần gần nhất."""
     return lich_su.iloc[-4 * TAM:].to_numpy().reshape(4, TAM).mean(axis=0)[:tam]
 

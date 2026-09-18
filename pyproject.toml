@@ -34,6 +34,8 @@ known-first-party = ["tv"]   # thư viện trợ giúp của buổi (lab/00-nen/
 "buoi-*/dap-an/**" = ["E402", "B018"]
 "du-an-*/**" = ["E402", "B018"]
 "*.ipynb" = ["E402", "B018"]
+# Script ghi lại phép tính của Phụ lục A, B — viết gọn, không phải code bài học
+"phu-luc/ma-vi-du/**" = ["E702", "B905", "E741", "E731", "E402"]
 
 [tool.jupytext]
 # Nguồn của notebook là .py dạng percent (diff được); .ipynb sinh ra, không commit (.gitignore).

@@ -2,6 +2,9 @@
 KHUÔN kiem-tra.md — 10 câu: 4 nhắc lại khái niệm, 4 vận dụng (tính / chọn phương pháp),
 2 đọc biểu đồ hoặc bảng kết quả để tìm chỗ sai. Đáp án trong <details>, có giải thích vì sao
 các lựa chọn khác sai. Tệp này KHÔNG vào zip phát học viên (tools/dong_goi.py lọc).
+CHUẨN DỄ HIỂU (D12, tools/CHUAN-DE-HIEU.md): đáp án nói VÌ SAO ĐÚNG bằng lời thường (không chỉ trích nguồn tiếng Anh),
+và VÌ SAO TỪNG lựa chọn khác sai; câu tính toán ghi từng bước và kiểm lại bằng Python (quiz buổi 7 từng có đáp án sai);
+trả lời được chỉ bằng tai-lieu.md của buổi. Kiểm: python3 tools/kiem_de_hieu.py NN (cột quiz).
 -->
 
 # Kiểm tra buổi NN — Tên chủ đề
@@ -18,7 +21,7 @@ các lựa chọn khác sai. Tệp này KHÔNG vào zip phát học viên (tools
 <details>
 <summary>Đáp án</summary>
 
-**B.** … Vì sao A, C, D sai: …
+**B.** Vì … (lời thường, có ví dụ số nếu được). **A sai** vì … **C sai** vì … **D sai** vì …
 
 </details>
 
