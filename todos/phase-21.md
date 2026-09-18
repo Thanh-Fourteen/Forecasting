@@ -18,6 +18,6 @@ Làm trên **máy trắng** hoặc container sạch, đóng vai học viên.
 - [ ] Mọi `NGHIEN-CUU.md` có ngày; buổi nào research > 6 tháng (giai đoạn 5–6) hoặc > 12 tháng (còn lại) → đánh dấu cần rà
 - [ ] Nhờ **một người ngoài** làm thử buổi 8, buổi 13, buổi 26 và dự án giữa chặng 1, ghi lại chỗ họ tắc
 - [ ] **Đọc thử toàn khoá**: `tools/kiem_de_hieu.py` cả 44 buổi sạch; mọi `NGHIEN-CUU.md` có mục "Đọc thử" đạt;
-      mọi mục trong `phan-hoi-hoc-vien.md` đã xử lý (ghi buổi/commit sửa); đọc thử lại 6 buổi ngẫu nhiên bằng subagent mới
+      mọi mục trong `phan-hoi-hoc-vien.md` đã xử lý (ghi buổi/commit sửa); tự đọc thử lại (không subagent) 6 buổi ngẫu nhiên
 - [ ] **Mạch khái niệm**: không buổi nào dùng khái niệm của buổi sau mà thiếu hộp "Mượn trước"; bảng "Từ mới" của
       44 buổi gộp lại khớp Phụ lục E

@@ -110,9 +110,9 @@ có nguồn và ngày. Lệch lớn so với lộ trình → cập nhật `lo-tr
 
 - `NGHIEN-CUU.md` có nguồn + ngày + phiên bản đã xác minh
 - `tai-lieu.md` đủ 9 mục; công thức và hình hiển thị đúng trong PDF
-- Đạt chuẩn dễ hiểu + gọn: `tools/kiem_de_hieu.py NN` sạch + **rà gọn** bằng subagent biên tập viên (≤ 3 chỗ thừa)
-  + **đọc thử** bằng subagent học viên mới theo prompt trong
-  `tools/CHUAN-DE-HIEU.md` (0 chỗ chặn, ≤ 5 chỗ khó, quiz ≥ 9/10 chỉ bằng tài liệu), ghi mục "Đọc thử" trong `NGHIEN-CUU.md`
+- Đạt chuẩn dễ hiểu + gọn: `tools/kiem_de_hieu.py NN` sạch + **tự đọc thử** (vai học viên mới) và **tự rà gọn** (vai
+  biên tập viên) — hai lượt đọc riêng, **không dùng subagent**, theo checklist trong `tools/CHUAN-DE-HIEU.md` (0 chỗ chặn,
+  ≤ 5 chỗ khó, mọi câu quiz có căn cứ trong tài liệu, ≤ 3 chỗ thừa), ghi mục "Đọc thử" trong `NGHIEN-CUU.md`
 - `code/` chạy được, có chỗ hở cố ý, kèm `README.md` ngắn
 - `dap-an/` là bản đã sửa, `python lab.py check --dap-an` xanh; `code/` thì `python lab.py check` đỏ đúng chỗ hở
 - `lab/00-nen/` dựng đúng nền **từ venv trắng** (`uv sync --frozen` + dữ liệu qua sha256)

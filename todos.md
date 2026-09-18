@@ -20,6 +20,8 @@ Repo: `/home/tony/Tony/Forecasting/` — repo độc lập, mọi đường dẫ
 - Bỏ `make` → `python lab.py up | check | notebook | down` (chạy cả Windows); phát sẵn `code/lab.ipynb`; conda/pip được qua
   `python lab.py up --pip` (`00-nen/requirements.txt` sinh từ `uv.lock`); uv vẫn là cách chính.
 - Prompt phase ngắn: yêu cầu chung ở KHỐI CHUNG (`todos/quy-uoc.md`), prompt chỉ ghi phần riêng.
+- **Không dùng subagent**: đọc thử và rà gọn do chính người làm phase tự làm, hai lượt đọc riêng theo checklist trong
+  `tools/CHUAN-DE-HIEU.md`; tiêu chí đạt giữ nguyên.
 
 Xong phase: đổi 🔲 → ✅ ở **cả hai** tiêu đề (ở đây và trong `todos/phase-NN.md`), rồi cập nhật Progress Summary
 trong `todos/tong-quan.md`.
@@ -346,7 +348,7 @@ Research (thay R): thư viện/model/dataset nào đổi kể từ ngày trong t
 TRƯỚC khi chạy (tách lỗi nội dung với lỗi môi trường).
 Bài 1 (quan trọng nhất): copy ngẫu nhiên 6 thư mục buổi sang máy trắng, không có phần còn lại của repo, chạy
 python lab.py up && python lab.py check (cả đường --pip trong môi trường conda); thêm bài CPU-only (29–35) và không API key (36–37).
-Bài 2: kiem_de_hieu.py cả 44 buổi (kể cả do_dai, cau_rong, lap_y) + đọc thử và rà gọn 6 buổi ngẫu nhiên (subagent mới);
+Bài 2: kiem_de_hieu.py cả 44 buổi (kể cả do_dai, cau_rong, lap_y) + tự đọc thử và tự rà gọn 6 buổi ngẫu nhiên (không subagent; KHỐI CHUNG Đ);
 phan-hoi-hoc-vien.md đã xử lý hết.
 Báo cáo bảng: buổi xanh/hỏng, hỏng ở bước nào, thời gian chạy. Không sửa lấy được — nêu rõ trước.
 ```
@@ -359,5 +361,5 @@ Forecasting 44 buổi | /home/tony/Tony/Forecasting | Đọc todos.md, làm phas
 (theo KHỐI CHUNG trong todos/quy-uoc.md + todos/phase-NN.md). Tóm tắt ràng buộc cứng (chi tiết ở CLAUDE.md, quy-uoc):
 research trước khi viết, lệch lớn báo trước; buổi tự chứa tuyệt đối; chỗ hở cố ý (rò rỉ tương lai, đánh giá không trung
 thực); mọi số từ lần chạy thật; chốt phiên bản; CPU chạy được; dữ liệu có giấy phép; dap-an/NGHIEN-CUU/lời giải không vào
-zip; DỄ HIỂU NHƯNG GỌN (tường minh quá cũng là khó hiểu); đọc thử + rà gọn bằng subagent mới trước khi tick ✅.
+zip; DỄ HIỂU NHƯNG GỌN (tường minh quá cũng là khó hiểu); tự đọc thử + tự rà gọn (không subagent) trước khi tick ✅.
 ```

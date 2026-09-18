@@ -426,26 +426,22 @@ Kết quả đọc thử (subagent mới, 2026-09-18): **0 chặn** (bản cũ 5
 | Chỗ vướng mức **chặn** | **0** |
 | Chỗ vướng mức **khó** | ≤ 5 mỗi buổi |
 | Mục B "giải thích lại" | không khái niệm chính nào "KHÔNG GIẢI THÍCH ĐƯỢC" |
-| Quiz chỉ bằng tài liệu | ≥ 9/10 — **điều kiện cần, không đủ**: bản cũ buổi 1, 7, 12 đều 10/10 dù 9–12 chỗ chặn |
+| Quiz chỉ bằng tài liệu | mọi câu có căn cứ trong tài liệu (chỉ ra câu/mục) — **điều kiện cần, không đủ**: bản cũ buổi 1, 7, 12 đều làm được quiz dù 9–12 chỗ chặn |
 | `tools/kiem_de_hieu.py NN` | 0 vi phạm, hoặc mỗi vi phạm còn lại có lý do ghi trong `NGHIEN-CUU.md` |
 
-Chưa đạt → sửa → đọc thử lại bằng subagent **mới** (agent đã đọc bản cũ sẽ "nhớ" và dễ dãi hơn). Đọc thử cũng
-bắt được lỗi nội dung thật (đáp án sai ở quiz buổi 7, câu sai số học trong bài mẫu), nên mọi con số subagent nghi
-ngờ đều phải kiểm lại.
+**Không dùng subagent (từ 2026-09-18).** Người làm phase tự đọc thử: một lượt đọc riêng, TOÀN BỘ file, theo checklist
+"Prompt đọc thử" dưới đây như thể mình là học viên đó. Người viết dễ dãi với bài của mình, nên bù bằng:
+- tại mỗi đoạn chỉ dùng những gì tài liệu đã viết **trước** đoạn đó; hiểu được nhờ kiến thức ngoài tài liệu = chỗ vướng;
+- grep vị trí định nghĩa đầu tiên của mỗi thuật ngữ so với vị trí dùng đầu tiên;
+- tính lại **mọi** con số và đáp án quiz bằng Python/output thật (đọc thử từng bắt đáp án sai ở quiz buổi 7, câu sai số
+  học trong bài mẫu, và 3 lỗi do chính việc cắt gây ra ở Phase 7);
+- mục B: giải thích lại bằng ví dụ số **mới** tự nghĩ, không chép ví dụ của bài;
+- mục C: với từng câu quiz, chỉ ra câu/mục chứa căn cứ; không có thì câu hỏi hoặc tài liệu hỏng.
+Chưa đạt → sửa → tự đọc thử lại một lượt mới, toàn bộ file.
 
-### Chuẩn bị
+Chỉ sửa một mục: vẫn đọc lại từ đầu tới hết mục đó (phần trước là ngữ cảnh), chấm riêng mục đó.
 
-```bash
-S=<thư mục scratchpad>/doc-thu/bNN && mkdir -p $S
-cp buoi-NN/tai-lieu.md $S/
-python3 -c "import re,sys; s=open('buoi-NN/kiem-tra.md',encoding='utf-8').read(); \
-open('$S/kiem-tra-khong-dap-an.md','w',encoding='utf-8').write(re.sub(r'<details>.*?</details>\s*','',s,flags=re.S))"
-```
-
-Chỉ đọc lại một mục: cắt `tai-lieu.md` tới hết mục đó (giữ phần trước để có ngữ cảnh), và dặn subagent chỉ chấm
-mục đó.
-
-### Prompt đọc thử (dán nguyên văn cho subagent, kèm đường dẫn hai file)
+### Prompt đọc thử (checklist cho lượt tự đọc — trước đây dán cho subagent)
 
 ```text
 Bạn đóng vai MỘT HỌC VIÊN MỚI đang tự học một buổi của khoá "Forecasting in AI" (tiếng Việt).
@@ -506,8 +502,8 @@ Liệt kê tối đa 5 đoạn bạn thấy nói lại điều đã hiểu, ho�
 
 ### Chấm và ghi
 
-1. So mục C với đáp án thật trong `kiem-tra.md`. Câu nào subagent làm "sai" thì kiểm lại cả đáp án của ta (quiz buổi
-   7 câu 5 có đáp án sai).
+1. Mục C: tính lại đáp án thật trong `kiem-tra.md` bằng Python/tài liệu; đáp án của ta cũng có thể sai (quiz buổi 7
+   câu 5).
 2. Ghi vào `buoi-NN/NGHIEN-CUU.md` mục "Đọc thử": ngày, vòng, số chặn/khó/nhỏ, quiz, khái niệm "không giải thích
    được", các chỗ chặn và đã sửa thế nào.
 
@@ -515,18 +511,19 @@ Liệt kê tối đa 5 đoạn bạn thấy nói lại điều đã hiểu, ho�
 
 ## BƯỚC CUỐI — Rà gọn (D13)
 
-Chạy **sau khi đọc thử đạt**, bằng một subagent **mới** (không phải agent đọc thử). Người đọc thử tìm chỗ *thiếu*;
-biên tập viên tìm chỗ *thừa*. Hai vai tách riêng vì một agent làm cả hai sẽ nghiêng về một phía.
+Chạy **sau khi đọc thử đạt**, bằng một lượt tự đọc **riêng** (không subagent) trong vai biên tập viên, theo checklist
+"Prompt biên tập gọn" dưới đây. Lượt đọc thử tìm chỗ *thiếu*; lượt rà gọn tìm chỗ *thừa*. Tách hai lượt vì làm cả hai
+cùng lúc sẽ nghiêng về một phía.
 
 ### Tiêu chí đạt
 
 | Tiêu chí | Ngưỡng |
 |---|---|
-| Chỗ thừa **đáng kể** (≥ 30 chữ bớt được, hoặc lặp cả một ý) biên tập viên còn tìm thấy | ≤ 3 |
+| Chỗ thừa **đáng kể** (≥ 30 chữ bớt được, hoặc lặp cả một ý) lượt rà cuối còn tìm thấy | ≤ 3 |
 | `kiem_de_hieu.py NN`: `do_dai`, `cau_rong`, `lap_y` | 0 |
-| Đọc thử lại sau khi cắt (subagent mới) | vẫn 0 chặn, ≤ 5 khó, quiz ≥ 9/10 |
+| Tự đọc thử lại sau khi cắt | vẫn 0 chặn, ≤ 5 khó, mọi câu quiz có căn cứ |
 
-### Prompt biên tập gọn (dán nguyên văn cho subagent, kèm đường dẫn file)
+### Prompt biên tập gọn (checklist cho lượt tự rà — trước đây dán cho subagent)
 
 ```text
 Bạn là BIÊN TẬP VIÊN của một giáo trình tiếng Việt tự học ("Forecasting in AI"). Người đọc: biết Python cơ bản
@@ -569,8 +566,8 @@ Xếp theo thứ tự trong file. Đề xuất phải làm được ngay (viết
 
 ### Chấm và ghi
 
-Tác giả tự quyết từng đề xuất (không bắt buộc nhận hết). Sau khi cắt: `kiem_de_hieu.py`, rồi đọc thử lại bằng subagent
-mới, rồi một biên tập viên **mới** rà lần cuối. Ghi vào `NGHIEN-CUU.md` mục "Đọc thử": số chữ trước → sau, số chỗ
+Tự quyết từng đề xuất (không bắt buộc nhận hết). Sau khi cắt: `kiem_de_hieu.py`, rồi tự đọc thử lại, rồi một lượt rà
+gọn cuối. Ghi vào `NGHIEN-CUU.md` mục "Đọc thử": số chữ trước → sau, số chỗ
 thừa lượt đầu → lượt cuối.
 
 ---

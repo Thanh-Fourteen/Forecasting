@@ -98,19 +98,24 @@ BƯỚC CUỐI — ĐỌC THỬ NHƯ HỌC VIÊN MỚI (bắt buộc trước kh
 1. Đọc phan-hoi-hoc-vien.md — mọi đoạn người dùng đã báo khó hiểu của buổi này phải được sửa.
 2. Tự rà tai-lieu.md theo D1–D13 (todos/quy-uoc.md mục "Chuẩn dễ hiểu", tools/CHUAN-DE-HIEU.md) và
    chạy tools/kiem_de_hieu.py NN; sửa hết.
-3. Giao tai-lieu.md + kiem-tra.md (đã bỏ đáp án) cho một subagent đóng vai học viên mới — dùng
-   NGUYÊN VĂN "Prompt đọc thử" trong tools/CHUAN-DE-HIEU.md (biết Python + toán phổ thông, chưa học
-   thống kê đại học, KHÔNG tra web, giả vờ không biết gì ngoài tài liệu). Nó trả về: (A) mọi chỗ
-   vướng kèm mức chặn/khó/nhỏ; (B) giải thích lại từng khái niệm chính có ví dụ số; (C) làm quiz.
-4. Đạt khi: 0 chỗ CHẶN; ≤ 5 chỗ KHÓ; mục B không có "KHÔNG GIẢI THÍCH ĐƯỢC"; quiz ≥ 9/10 (quiz chỉ
-   là điều kiện cần — bản cũ buổi 1, 7, 12 đều 10/10 dù 9–12 chỗ chặn). Số nào subagent nghi sai thì
-   kiểm lại bằng Python (đọc thử đã bắt được đáp án sai và câu sai số học thật).
-   Chưa đạt → sửa → đọc thử lại bằng subagent MỚI (không dùng lại agent đã đọc bản cũ).
+3. TỰ ĐỌC THỬ (không dùng subagent) — một lượt riêng, đọc lại TOÀN BỘ tai-lieu.md bằng Read từ đầu tới cuối,
+   đóng vai học viên mới theo đúng checklist "Prompt đọc thử" trong tools/CHUAN-DE-HIEU.md (biết Python + toán
+   phổ thông, chưa học thống kê đại học; tại mỗi đoạn chỉ được dùng những gì tài liệu đã viết TRƯỚC đoạn đó; mọi
+   ý dựa vào hiểu biết ngoài tài liệu là chỗ vướng). Ghi ra: (A) bảng chỗ vướng chặn/khó/nhỏ; (B) giải thích lại
+   từng khái niệm chính bằng một ví dụ số MỚI tự nghĩ; (C) với từng câu quiz, chỉ ra câu/mục tài liệu chứa căn cứ
+   trả lời (không có căn cứ = câu hỏng); (E) chỗ thấy dài/lặp.
+   Chống thiên vị của người viết: tính lại MỌI con số và đáp án quiz bằng Python/output thật (đọc thử đã bắt được
+   đáp án sai, câu sai số học, và 3 lỗi do chính việc cắt gây ra); với từng thuật ngữ, grep vị trí định nghĩa
+   đầu tiên so với vị trí dùng đầu tiên; không đánh giá "hiểu được" dựa trên việc mình đã biết.
+4. Đạt khi: 0 chỗ CHẶN; ≤ 5 chỗ KHÓ; mục B không khái niệm nào giải thích không nổi; mọi câu quiz có căn cứ
+   trong tài liệu (quiz là điều kiện cần — bản cũ buổi 1, 7, 12 đều làm được quiz dù 9–12 chỗ chặn).
+   Chưa đạt → sửa → tự đọc thử lại một lượt MỚI, toàn bộ tài liệu (không chỉ chỗ vừa sửa).
    Sửa chỗ vướng bằng cách viết lại câu cho rõ, KHÔNG chèn thêm đoạn (D13).
-5. RÀ GỌN (D13) — sau khi đọc thử đạt, giao tai-lieu.md cho một subagent MỚI dùng NGUYÊN VĂN "Prompt biên
-   tập gọn" trong tools/CHUAN-DE-HIEU.md. Nó liệt kê đoạn lặp ý / câu rỗng / ví dụ thừa / bước khuôn D2 thừa,
-   mỗi chỗ kèm đề xuất cắt. Cắt xong: kiem_de_hieu.py sạch (kể cả trần độ dài), rồi đọc thử lại bằng subagent
-   MỚI để chắc cắt không làm hỏng hiểu. Đạt khi: biên tập viên còn ≤ 3 chỗ thừa đáng kể VÀ đọc thử vẫn đạt bước 4.
+5. TỰ RÀ GỌN (D13) — sau khi đọc thử đạt, một lượt đọc RIÊNG với vai biên tập viên theo checklist "Prompt biên
+   tập gọn" trong tools/CHUAN-DE-HIEU.md: liệt kê đoạn lặp ý / câu rỗng / ví dụ thừa / bước khuôn D2 thừa /
+   giải thích điều đã biết, mỗi chỗ kèm đề xuất cắt; tôn trọng danh sách KHÔNG được cắt. Cắt xong:
+   kiem_de_hieu.py sạch (kể cả trần độ dài), rồi tự đọc thử lại (bước 3) để chắc cắt không làm hỏng hiểu.
+   Đạt khi: lượt rà cuối còn ≤ 3 chỗ thừa đáng kể VÀ đọc thử vẫn đạt bước 4.
 6. Ghi vào buoi-NN/NGHIEN-CUU.md mục "Đọc thử": ngày, số vòng, chặn/khó/nhỏ, quiz, số chữ trước/sau rà gọn,
    đã sửa thế nào.
 ```
@@ -148,12 +153,14 @@ Học viên chạy `python lab.py up [--pip] | check [--dap-an] | notebook | dow
 `code/lab.ipynb` (soạn bằng `tools/nb.py`, commit không output); tài liệu trỏ "ô bước N" + output cần đọc, không chép code dài,
 không giải thích cờ lệnh. Viết lại: GIỮ NGUYÊN chỗ hở, `cham/`, `00-nen/`, dữ liệu, số cũ.
 
-**Đ — Đọc thử + rà gọn (BƯỚC CUỐI; không tick ✅ khi chưa đạt).** Chạy khối "BƯỚC CUỐI" ở mục "Chuẩn dễ hiểu": đọc thử
-(subagent MỚI mỗi vòng, prompt nguyên văn) đạt 0 chặn, ≤ 5 khó, quiz ≥ 9/10, không khái niệm "không giải thích được"; rồi rà gọn
-(biên tập viên MỚI) ≤ 3 chỗ thừa đáng kể. **Mọi lượt cắt/sửa sau đó → đọc thử lại** (Phase 7: 3 lỗi do chính việc cắt gây ra).
-Số nào subagent nghi → kiểm bằng Python/output thật. Cắt lặp, câu rỗng thì an toàn; cắt mắt xích "vì sao" thì đọc thử bắt lại.
-Văn bản không phải buổi (đề, rubric, câu hỏi, README): subagent (đã học tới buổi tương ứng, không tra web) nói lại đúng "làm gì,
-nộp gì, chấm thế nào", 0 chỗ mơ hồ; rà gọn ≤ 3; không lặp giữa đề/rubric/hướng dẫn.
+**Đ — Tự đọc thử + tự rà gọn (BƯỚC CUỐI; KHÔNG dùng subagent; không tick ✅ khi chưa đạt).** Chạy khối "BƯỚC CUỐI" ở mục
+"Chuẩn dễ hiểu": lượt đọc riêng vai học viên mới theo checklist "Prompt đọc thử" → 0 chặn, ≤ 5 khó, mọi câu quiz có căn cứ trong
+tài liệu, không khái niệm giải thích không nổi; rồi lượt đọc riêng vai biên tập viên theo "Prompt biên tập gọn" → ≤ 3 chỗ thừa
+đáng kể. Mỗi lượt đọc lại TOÀN BỘ file, chỉ dùng những gì tài liệu đã viết trước chỗ đang đọc; tính lại mọi con số/đáp án bằng
+Python/output thật. **Mọi lượt cắt/sửa sau đó → tự đọc thử lại** (Phase 7: 3 lỗi do chính việc cắt gây ra). Cắt lặp, câu rỗng
+thì an toàn; cắt mắt xích "vì sao" thì đọc thử bắt lại. Văn bản không phải buổi (đề, rubric, câu hỏi, README): tự đọc trong vai
+học viên đã học tới buổi tương ứng, viết lại được đúng "làm gì, nộp gì, chấm thế nào", 0 chỗ mơ hồ; rà gọn ≤ 3; không lặp giữa
+đề/rubric/hướng dẫn.
 
 **X — Xong phase.** `ruff check .` → `kiem_de_hieu.py NN` (0 vi phạm hoặc có lý do) → `kiem_tra_lab.py NN` (đáp án xanh, `code/`
 đỏ đúng chỗ, `lab.ipynb` chạy hết; check < 10 phút CPU 4 nhân) → `kiem_tra_doc_lap.sh` → `xuat_pdf.py NN` + `--kiem` → ghi
@@ -282,8 +289,8 @@ nộp gì, chấm thế nào", 0 chỗ mơ hồ; rà gọn ≤ 3; không lặp g
 
 - [ ] **`NGHIEN-CUU.md`** — BƯỚC 0 đã chạy: nguồn có ngày, phiên bản đã xác minh, điểm lệch
 - [ ] `tai-lieu.md` đủ **9 mục**, có "Trạng thái đầu buổi", công thức render đúng trong PDF
-- [ ] **Đạt D1–D13** (`tools/kiem_de_hieu.py NN` sạch, trong trần độ dài) và **rà gọn đạt** (≤ 3 chỗ thừa) và **đọc thử đạt**: subagent học viên mới 0 chỗ chặn, ≤ 5
-      chỗ khó, không khái niệm nào "không giải thích được", quiz ≥ 9/10 chỉ bằng tài liệu; ghi mục "Đọc thử" trong
+- [ ] **Đạt D1–D13** (`tools/kiem_de_hieu.py NN` sạch, trong trần độ dài) và **rà gọn đạt** (≤ 3 chỗ thừa) và **đọc thử đạt** (tự đọc, không subagent): 0 chỗ chặn, ≤ 5
+      chỗ khó, không khái niệm nào giải thích không nổi, mọi câu quiz có căn cứ trong tài liệu; ghi mục "Đọc thử" trong
       `NGHIEN-CUU.md`; đã xử lý `phan-hoi-hoc-vien.md`
 - [ ] `code/` chạy được, có chỗ hở cố ý, có `README.md` ngắn
 - [ ] `dap-an/` là bản đã sửa, `python lab.py check --dap-an` xanh

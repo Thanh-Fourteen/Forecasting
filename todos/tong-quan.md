@@ -79,7 +79,7 @@ kê hoàn chỉnh (M0–M3). Các cụm khác xem bảng "Học theo cụm" tron
 - **Dự án giữa chặng 2 và dự án cuối phụ thuộc lịch dữ liệu thật** — lên lịch trước, có phương án dùng
   holdout giám khảo giữ nếu nguồn ngừng cập nhật
 - **Dễ hiểu kéo dài chữ** (phát hiện 2026-09-18, sau Phase 6): mỗi vòng đọc thử chỉ thêm giải thích → buổi 1–3 dài
-  dòng. Chống bằng D13 + bước "Rà gọn" (subagent biên tập viên) + trần `do_dai` — làm ở Phase 7, áp dụng từ Phase 8
+  dòng. Chống bằng D13 + bước "Rà gọn" (lượt đọc vai biên tập viên) + trần `do_dai` — làm ở Phase 7, áp dụng từ Phase 8
 - **pandas 3 vs hệ Nixtla** (phát hiện Phase 0): statsforecast/utilsforecast/mlforecast/autogluon chưa hỗ trợ
   pandas 3 → hai dòng pandas song song trong khoá. Mỗi phase rà lại; khi Nixtla hỗ trợ thì gỡ `[[rang_buoc]]`
   và chạy lại `sinh_nen.py --tat-ca --nang-cap`
