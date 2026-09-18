@@ -11,7 +11,7 @@
 | [4](phase-04.md) | Buổi 9–13 chuẩn bị dữ liệu | 5 buổi + dự án giữa chặng 1 · M1 | ✅ (chưa đạt chuẩn dễ hiểu → Phase 9) |
 | **[5](phase-05.md)** | **Chuẩn dễ hiểu** | CHUAN-DE-HIEU.md + kiem_de_hieu.py + khuôn buổi + Phụ lục E + mẫu chuẩn | ✅ |
 | **[6](phase-06.md)** | **Viết lại buổi 1–3** | 3 buổi + Phụ lục A, B — đọc thử đạt | ✅ |
-| **[7](phase-07.md)** | **Rút gọn buổi 1–3** | chuẩn "gọn" D13 + công cụ kiểm + buổi 1–3, Phụ lục A, B cắt thừa — đọc thử vẫn đạt | 🔲 |
+| **[7](phase-07.md)** | **Rút gọn buổi 1–3** | chuẩn "gọn" D13 + công cụ kiểm + buổi 1–3, Phụ lục A, B cắt thừa — đọc thử vẫn đạt; bỏ make → `lab.py`, `code/lab.ipynb`, conda qua `--pip` | ✅ |
 | **[8](phase-08.md)** | **Viết lại buổi 4–8** | 5 buổi + Phụ lục C — đọc thử đạt | 🔲 |
 | **[9](phase-09.md)** | **Viết lại buổi 9–13** | 5 buổi + đề dự án giữa chặng 1 + Phụ lục D — đọc thử đạt | 🔲 |
 | [10](phase-10.md) | Buổi 14–17 đánh giá, ETS, ARIMA | 4 buổi + Phụ lục D | 🔲 |
@@ -26,7 +26,7 @@
 | [19](phase-19.md) | Đánh giá | ngân hàng 440 câu + 2 đề thực hành + đề đọc biểu đồ + đề tìm rò rỉ | 🔲 |
 | [20](phase-20.md) | Xuất bản & đóng gói | 44 PDF + 44 zip + README | 🔲 |
 | [21](phase-21.md) | Kiểm định chất lượng | báo cáo chạy thử toàn khoá + bài kiểm tra độc lập/CPU/không API key + đọc thử | 🔲 |
-| | **TỔNG** | **44 buổi · 44 PDF · 2 dự án giữa chặng · 1 dự án cuối** | **7/22 phase** |
+| | **TỔNG** | **44 buổi · 44 PDF · 2 dự án giữa chặng · 1 dự án cuối** | **8/22 phase** |
 
 ## Thứ tự làm bắt buộc
 Phase 0 → 1 trước tiên (mọi buổi đều dựa vào: `sinh_nen.py`, `lay_du_lieu.py`, `kiem_ro_ri`,

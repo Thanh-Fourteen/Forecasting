@@ -30,3 +30,5 @@ Bắt buộc:
   bằng tương quan, trích `filtfilt`/SavGol/Hamilton tiếng Anh; "10 cấu hình" bộ lọc chưa liệt kê)
 - **Gọn (D13)**: viết gọn ngay từ đầu theo bài học Phase 7 — mỗi ý một lần, khuôn D2 là trần, sửa chỗ vướng bằng viết lại câu
   chứ không chèn đoạn; 3.500–6.500 chữ ngoài bảng/code, PDF 10–18 trang; rà gọn bằng biên tập viên (≤ 3 chỗ thừa)
+- **Notebook Lab**: tạo `code/lab.ipynb` (soạn bằng `tools/nb.py`, như buổi 1–3), tài liệu chỉ trỏ "ô bước N" + output cần
+  đọc; lệnh dùng `python lab.py …`, không giải thích cờ lệnh. `kiem_tra_lab.py` phải chạy notebook xanh

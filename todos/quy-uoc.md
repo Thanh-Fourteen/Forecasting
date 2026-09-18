@@ -75,6 +75,12 @@ Sau Phase 6, buổi 1–3 có 6.900–9.000 chữ ngoài bảng/code (19–22 tr
 - **Không giải thích cái người đọc đã biết** (Python cơ bản, toán phổ thông) hay cái buổi này không dùng.
 - **Sửa chỗ khó bằng cách viết lại câu đó cho rõ, không chèn thêm đoạn.** Mỗi lần thêm chữ sau đọc thử phải tìm chỗ bỏ bù.
 - **Phép thử mỗi đoạn**: "Bỏ đoạn này thì học viên mất gì?" — không mất gì → xoá; mất một câu → giữ đúng một câu đó.
+- **Tường minh quá cũng là khó hiểu** (người dùng, 2026-09-18). Giải thích mọi cờ lệnh, mọi ngoại lệ, mọi chi tiết phụ
+  làm ý chính chìm mất. Chỉ viết cái người đọc cần để hiểu ý chính hoặc làm bước tiếp theo; chi tiết còn lại để trong
+  code/comment hoặc bỏ.
+- **Công cụ phải giải thích dài thì sửa công cụ, không viết thêm.** Ví dụ: lệnh `env -u VIRTUAL_ENV uv run --no-sync
+  --project 00-nen python …` cần 4 gạch giải thích → thay bằng `python lab.py chay …`; Makefile + jupytext → `lab.py`
+  + `code/lab.ipynb` phát sẵn.
 
 **Độ dài mới** (từ Phase 7, thay 4.000–9.000): `tai-lieu.md` **3.500–6.500 chữ** ngoài bảng/code, PDF **10–18 trang**; phụ lục
 ≤ 18 trang. Phase 7 đo lại trên buổi 1–3 đã rút gọn rồi chốt số trong `kiem_de_hieu.py` + `xuat_pdf.py --kiem`.
@@ -108,6 +114,51 @@ BƯỚC CUỐI — ĐỌC THỬ NHƯ HỌC VIÊN MỚI (bắt buộc trước kh
 6. Ghi vào buoi-NN/NGHIEN-CUU.md mục "Đọc thử": ngày, số vòng, chặn/khó/nhỏ, quiz, số chữ trước/sau rà gọn,
    đã sửa thế nào.
 ```
+
+## KHỐI CHUNG — mọi prompt phase trong `todos.md` chạy theo khối này (2026-09-18)
+
+Prompt từng phase chỉ ghi phần **riêng**; mọi yêu cầu chung nằm ở đây. Đọc trước: `CLAUDE.md`, mục này, `todos/phase-NN.md`
+(checklist + "Bắt buộc"), `phan-hoi-hoc-vien.md`, `tools/CHUAN-DE-HIEU.md`. Phase viết lại: đọc thêm mục "Đọc thử"/"Rút gọn"
+trong `NGHIEN-CUU.md` buổi 1–3 (chỗ đã sửa, đã cắt).
+
+**R — Research (BƯỚC 0, không bỏ qua).** Buổi mới: đủ 6 bước "Giao thức research" (trên) + "Research riêng" trong prompt.
+Viết lại: research sư phạm — mỗi khái niệm chính 2–3 cách giải thích tốt + hiểu lầm phổ biến, ghi `NGHIEN-CUU.md` mục
+"Research viết lại" (nguồn + ngày); chỉ rà phiên bản khi đổi code. Lệch lớn so với lộ trình → cập nhật lo-trinh + todos và
+**báo người dùng TRƯỚC** khi soạn.
+
+**V — Viết, từng buổi.**
+1. Viết lại: đọc thử bản cũ trước (baseline chỗ vướng + quiz).
+2. ≤ 6 khái niệm chính; thừa → "Nâng cao"/"Đọc thêm"/bỏ. Không nén chữ, không độn chữ.
+3. D1–D13 ngay từ đầu: bảng "Từ mới"; ví dụ số nhỏ tính tay TRƯỚC dữ liệu thật; công thức + ký hiệu + "Nói bằng lời" có thay
+   số; mỗi hình "Cách đọc hình" 5 bước (bước 5 là câu kết luận thật, không "như tiêu đề"); mỗi bảng số "Đọc bảng" (so gì →
+   kết luận, không kể lại ô); mỗi mục "Tóm lại" ≤ 3 câu + "Tự kiểm tra"; chưa dạy → "Mượn trước".
+4. **Dễ hiểu nhưng gọn**: mỗi ý một lần; khuôn D2 là trần; không câu rỗng. **Tường minh quá cũng là khó hiểu**: chỉ viết cái
+   cần để hiểu ý chính hoặc làm bước kế, không giải thích mọi cờ/ngoại lệ. **Công cụ cần giải thích dài → sửa công cụ.** Sửa
+   chỗ vướng bằng viết lại câu, không chèn đoạn. Không bỏ ngày/số cụ thể chỉ để qua bộ đếm.
+5. Trần 3.500–6.500 chữ ngoài bảng/code, PDF 10–18 trang. Chỉ vượt khi đọc thử chứng minh cắt thêm làm khó hiểu lại — ghi lý do
+   trong `NGHIEN-CUU.md` (tiền lệ: buổi 2, +44 chữ).
+6. `kiem-tra.md` 10 câu (4 nhắc lại, 4 vận dụng, 2 đọc biểu đồ/bảng tìm chỗ sai); đáp án nói vì sao đúng + vì sao lựa chọn
+   khác sai; trả lời được chỉ bằng tài liệu buổi đó.
+
+**L — Lab.** Theo `CLAUDE.md` "Quy tắc soạn nội dung": buổi tự chứa; nền sinh bằng `sinh_nen.py` (không sửa tay `00-nen/`,
+`lab/lab.py`); chỗ hở cố ý đúng bảng cuối file — `code/` sai đúng chỗ, `dap-an/` sửa; từ buổi 12 `cham/` có test rò rỉ; mọi
+số từ lần chạy thật (seed); hình sinh bằng `dap-an/ve_hinh.py`; chốt phiên bản/revision; CPU chạy được; dữ liệu có giấy phép
+trong danh mục; mọi mô hình so seasonal naive trên backtest rolling origin; foundation model/LLM chỉ đánh giá sau mốc cắt.
+Học viên chạy `python lab.py up [--pip] | check [--dap-an] | notebook | down` (conda/pip qua `--pip`). Code Lab trong
+`code/lab.ipynb` (soạn bằng `tools/nb.py`, commit không output); tài liệu trỏ "ô bước N" + output cần đọc, không chép code dài,
+không giải thích cờ lệnh. Viết lại: GIỮ NGUYÊN chỗ hở, `cham/`, `00-nen/`, dữ liệu, số cũ.
+
+**Đ — Đọc thử + rà gọn (BƯỚC CUỐI; không tick ✅ khi chưa đạt).** Chạy khối "BƯỚC CUỐI" ở mục "Chuẩn dễ hiểu": đọc thử
+(subagent MỚI mỗi vòng, prompt nguyên văn) đạt 0 chặn, ≤ 5 khó, quiz ≥ 9/10, không khái niệm "không giải thích được"; rồi rà gọn
+(biên tập viên MỚI) ≤ 3 chỗ thừa đáng kể. **Mọi lượt cắt/sửa sau đó → đọc thử lại** (Phase 7: 3 lỗi do chính việc cắt gây ra).
+Số nào subagent nghi → kiểm bằng Python/output thật. Cắt lặp, câu rỗng thì an toàn; cắt mắt xích "vì sao" thì đọc thử bắt lại.
+Văn bản không phải buổi (đề, rubric, câu hỏi, README): subagent (đã học tới buổi tương ứng, không tra web) nói lại đúng "làm gì,
+nộp gì, chấm thế nào", 0 chỗ mơ hồ; rà gọn ≤ 3; không lặp giữa đề/rubric/hướng dẫn.
+
+**X — Xong phase.** `ruff check .` → `kiem_de_hieu.py NN` (0 vi phạm hoặc có lý do) → `kiem_tra_lab.py NN` (đáp án xanh, `code/`
+đỏ đúng chỗ, `lab.ipynb` chạy hết; check < 10 phút CPU 4 nhân) → `kiem_tra_doc_lap.sh` → `xuat_pdf.py NN` + `--kiem` → ghi
+`NGHIEN-CUU.md` mục "Đọc thử" (vòng, chặn/khó/nhỏ, quiz, chữ/trang trước → sau) → 🔲→✅ ở `todos.md` + `phase-NN.md` +
+`tong-quan.md` → báo người dùng bảng trước/sau.
 
 ## Cấu trúc thư mục đích
 
@@ -145,10 +196,10 @@ BƯỚC CUỐI — ĐỌC THỬ NHƯ HỌC VIÊN MỚI (bắt buộc trước kh
 │   │   │   ├── du-lieu.toml        URL + sha256 + giấy phép + khoảng thời gian cố định
 │   │   │   ├── tv/                 thư viện trợ giúp COPY từ tools/khung/, cài editable — `import tv`
 │   │   │   ├── lay_du_lieu.py      BẢN SAO tools/lay_du_lieu.py
-│   │   │   └── chuan-bi.sh         uv sync --frozen + tải dữ liệu + kiểm sha256
+│   │   │   └── requirements.txt    cùng phiên bản, cho người dùng conda/pip (lab.py up --pip)
 │   │   ├── du-lieu/raw/            dữ liệu đã kiểm sha256, chỉ đọc (gitignore)
-│   │   ├── cham/                   test_*.py — bộ chấm của `make check`
-│   │   └── Makefile                up / check / down / notebook
+│   │   ├── cham/                   test_*.py — bộ chấm của `python lab.py check`
+│   │   └── lab.py                  SINH TỰ ĐỘNG: up [--pip] / check [--dap-an] / chay / notebook / down
 │   └── kiem-tra.md                 10 câu quiz + đáp án trong <details>
 ├── du-an-giua-chang/
 │   ├── 01-eda-lam-sach/            đề, rubric, bộ chấm, lỗi cài sẵn (giám khảo giữ)
@@ -156,7 +207,7 @@ BƯỚC CUỐI — ĐỌC THỬ NHƯ HỌC VIÊN MỚI (bắt buộc trước kh
 ├── du-an-cuoi/                     3 đề A/B/C, rubric 100+20, bộ chấm, "ngày dữ liệu hỏng"
 ├── danh-gia/                       ngân hàng câu hỏi, đề giữa khoá, đề cuối khoá
 ├── phat-de/                        sinh ra: buoi-NN.zip (gitignore)
-├── pyproject.toml                  cấu hình ruff + jupytext (KHÔNG phải dự án, KHÔNG workspace)
+├── pyproject.toml                  cấu hình ruff (KHÔNG phải dự án, KHÔNG workspace)
 └── tools/
     ├── NGHIEN-CUU.md               research Phase 0
     ├── CHUAN-DE-HIEU.md            chuẩn dễ hiểu D1–D13, ví dụ trước/sau, mẫu chuẩn, prompt đọc thử + biên tập gọn
@@ -169,7 +220,7 @@ BƯỚC CUỐI — ĐỌC THỬ NHƯ HỌC VIÊN MỚI (bắt buộc trước kh
     ├── sinh_nen.py                 sinh buoi-NN/lab/00-nen/ từ tools/khung/ + danh mục dữ liệu
     ├── lay_du_lieu.py              tải theo du-lieu.toml, kiểm sha256, cache ~/.cache/khoa-forecasting/
     ├── kiem_tra_doc_lap.sh         CHẶN tham chiếu chéo, phụ thuộc không chốt, dữ liệu không sha256
-    ├── kiem_tra_lab.py             chạy make up/check/down mọi buổi, in bảng kết quả
+    ├── kiem_tra_lab.py             chạy lab.py up/check/down + code/lab.ipynb mọi buổi, in bảng
     ├── kiem_ro_ri.py               kiểm rò rỉ tương lai tự động (dùng trong cham/ của mọi buổi)
     ├── khung/                      NGUỒN của tv/: ve.py, danh_gia.py, backtest.py, ro_ri.py, du_lieu.py
     └── du-lieu/danh-muc.toml       danh mục gốc mọi bộ dữ liệu của khoá
@@ -203,7 +254,7 @@ BƯỚC CUỐI — ĐỌC THỬ NHƯ HỌC VIÊN MỚI (bắt buộc trước kh
    - Không commit dữ liệu vào git. Ghi đủ ở Phụ lục F
 8. **Chạy được bằng CPU** — mọi lab có nhánh CPU. GPU chỉ làm nhanh hơn. Buổi 36–37: nhánh model
    mở chạy local + **bản ghi phản hồi LLM** (`ghi-am/`) để chấm lại không cần API key.
-9. **Tái lập** — seed cố định, `make check` chạy hai lần ra cùng kết quả (DL/LLM: cho phép sai số
+9. **Tái lập** — seed cố định, `python lab.py check` chạy hai lần ra cùng kết quả (DL/LLM: cho phép sai số
    nhỏ có ghi ngưỡng trong test).
 10. **Tài liệu tiếng Việt, thuật ngữ kỹ thuật giữ nguyên tiếng Anh** (backtest, seasonal naive,
     quantile, drift...). Thuật ngữ thống nhất theo Phụ lục E.
@@ -214,7 +265,7 @@ BƯỚC CUỐI — ĐỌC THỬ NHƯ HỌC VIÊN MỚI (bắt buộc trước kh
       tay → hình → công thức ($$...$$) → nói bằng lời → NumPy → thư viện → dữ liệu thật → tóm lại**; mở đầu bằng
       bảng "Từ mới trong buổi"; ≤ 6 khái niệm chính
     - *Nhắc lại buổi trước* đủ để **không cần** mở lại buổi trước
-    - *Trạng thái đầu buổi* là bảng liệt kê chính xác sau `make up`: dữ liệu nào (file, số dòng,
+    - *Trạng thái đầu buổi* là bảng liệt kê chính xác sau `python lab.py up`: dữ liệu nào (file, số dòng,
       khoảng thời gian, sha256 rút gọn), môi trường (Python + thư viện chính), `code/` có gì,
       **cái gì đang cố tình sai và triệu chứng nhìn thấy**
     - *Đọc thêm* trỏ chương FPP tương ứng (bảng đối chiếu trong lộ trình) + bài báo gốc
@@ -235,13 +286,13 @@ BƯỚC CUỐI — ĐỌC THỬ NHƯ HỌC VIÊN MỚI (bắt buộc trước kh
       chỗ khó, không khái niệm nào "không giải thích được", quiz ≥ 9/10 chỉ bằng tài liệu; ghi mục "Đọc thử" trong
       `NGHIEN-CUU.md`; đã xử lý `phan-hoi-hoc-vien.md`
 - [ ] `code/` chạy được, có chỗ hở cố ý, có `README.md` ngắn
-- [ ] `dap-an/` là bản đã sửa, `make check` xanh
+- [ ] `dap-an/` là bản đã sửa, `python lab.py check --dap-an` xanh
 - [ ] `lab/00-nen/` dựng đúng nền **từ máy trắng** (`uv sync --frozen` + dữ liệu qua sha256)
-- [ ] `lab/Makefile` có `up` / `check` / `down`; `up` < 10 phút khi đã có cache, `check` < 10 phút trên CPU 4 nhân
+- [ ] `lab/lab.py` chạy `up` / `check` / `down` (và `up --pip`); `up` < 10 phút khi đã có cache, `check` < 10 phút trên CPU 4 nhân
 - [ ] `lab/cham/` có **test rò rỉ** (dùng `kiem_ro_ri`) cho mọi buổi từ 12 trở đi
 - [ ] `kiem-tra.md` 10 câu: 4 nhắc lại khái niệm, 4 vận dụng (tính/chọn phương pháp), **2 đọc
       biểu đồ/bảng kết quả tìm chỗ sai**; đáp án trong `<details>`
-- [ ] `ruff check` sạch; notebook sinh từ `.py` bằng jupytext, không commit output
+- [ ] `ruff check` sạch; `code/lab.ipynb` phát sẵn, commit không output, chạy hết không lỗi
 - [ ] `tools/kiem_tra_doc_lap.sh` xanh
 - [ ] PDF sinh ra, mở kiểm tra bảng, khối code, **công thức**, ảnh; 10–18 trang
 - [ ] Chạy thử toàn bộ lab trên **máy/venv trắng** một lần trước khi tick ✅
