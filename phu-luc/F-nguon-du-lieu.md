@@ -8,7 +8,7 @@ sha256. Nhật ký rà giấy phép đầy đủ: `tools/du-lieu/NGHIEN-CUU.md`.
 **Quy tắc:** CC BY / CC0 / public domain → được mirror (kèm ghi nguồn); giấy phép cấm phân phối lại → học
 viên tự tải bằng tài khoản của mình và luôn có bộ dự phòng mở; nguồn không có giấy phép rõ → không mirror.
 
-Danh mục có **48 bộ**, tổng dung lượng tải khoảng **1.0 GB** (không tính bộ chưa rõ dung lượng).
+Danh mục có **56 bộ**, tổng dung lượng tải khoảng **1.2 GB** (không tính bộ chưa rõ dung lượng).
 
 ## Bảng tổng quan
 
@@ -19,6 +19,7 @@ Danh mục có **48 bộ**, tổng dung lượng tải khoảng **1.0 GB** (khô
 | `bea-nipa-thang` | Public domain (U.S. government) | có | tải trực tiếp | 35.0 MB | 5 | đã chốt |
 | `binance-btcusdt-1d-2024-01` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 2.1 KB | 21 | đã chốt |
 | `bls-cpi-u` | Public domain (U.S. government) | có | tải trực tiếp | 2.6 MB | 5 | đã chốt |
+| `census-marts-ban-le` | Public domain (U.S. government, 17 U.S.C. §105) | có | tải trực tiếp | 430.5 KB | 5 | đã chốt |
 | `ecmwf-aifs-2t-20260101-24h` | CC BY 4.0 + ECMWF Terms of Use | có | tải trực tiếp | 534.1 KB | 33 | đã chốt |
 | `eia-gia-dau-wti` | Public domain (U.S. government) | có | tải trực tiếp | 459.5 KB | 20, 21 | đã chốt |
 | `eia930-balance-2024-h1` | Public domain (U.S. government) | có | tải trực tiếp | 39.8 MB | 6, 8, 13, 15, 18, 25, 30, 31, 34, 35, 36, 43 | đã chốt |
@@ -27,13 +28,14 @@ Danh mục có **48 bộ**, tổng dung lượng tải khoảng **1.0 GB** (khô
 | `eia930-balance-2025-h2` | Public domain (U.S. government) | có | tải trực tiếp | 46.0 MB | 34, 35 | đã chốt |
 | `ett-h1` | CC BY-ND 4.0 | có | tải trực tiếp | 2.5 MB | 31 | đã chốt |
 | `ett-m1` | CC BY-ND 4.0 | có | tải trực tiếp | 9.9 MB | 31 | đã chốt |
+| `eurostat-hanh-khach-hang-khong` | CC BY 4.0 (Eurostat) | có | tải trực tiếp | 18.4 KB | 11 | đã chốt |
 | `forecastbench-cau-hoi` | CC BY-SA 4.0 | có | tải trực tiếp | 1.2 MB | 37 | đã chốt |
 | `forecastbench-ket-qua` | CC BY-SA 4.0 | có | tải trực tiếp | 116.5 KB | 37 | đã chốt |
 | `frb-g17-san-luong-cong-nghiep` | Public domain (Federal Reserve Board) | có | tải trực tiếp | 22.8 KB | 17 | đã chốt |
 | `frb-h10-ty-gia` | Public domain (Federal Reserve Board) | có | tải trực tiếp | 1.1 MB | 21 | đã chốt |
 | `gdelt-events-20240101` | GDELT — sử dụng tự do, bắt buộc ghi nguồn | có | tải trực tiếp | 72.9 KB | 36 | đã chốt |
-| `ghcnh-noi-bai-2024` | CC0 1.0 (NOAA) | không | tải trực tiếp | 783.5 KB | 33 | đã chốt |
-| `ghcnh-noi-bai-2025` | CC0 1.0 (NOAA) | không | tải trực tiếp | 771.0 KB | 33 | đã chốt |
+| `ghcnh-noi-bai-2024` | CC0 1.0 (NOAA) | có | tải trực tiếp | 783.5 KB | 10, 33, du-an-1 | đã chốt |
+| `ghcnh-noi-bai-2025` | CC0 1.0 (NOAA) | có | tải trực tiếp | 771.0 KB | 10, 33, du-an-1 | đã chốt |
 | `m5-kaggle` | Subject to Competition Rules — chỉ phi thương mại, cấm phân phối lại | không | Kaggle — tự đăng nhập | 429.6 MB | 23, 40, 44 | chờ sha256 |
 | `monash-car-parts` | CC BY 4.0 | có | tải trực tiếp | 38.7 KB | 19, 27, 40 | đã chốt |
 | `monash-car-parts-khong-thieu` | CC BY 4.0 | có | tải trực tiếp | 38.7 KB | 19, 23 | đã chốt |
@@ -48,9 +50,15 @@ Danh mục có **48 bộ**, tổng dung lượng tải khoảng **1.0 GB** (khô
 | `monash-traffic-hourly` | CC BY 4.0 | có | tải trực tiếp | 21.8 MB | 33 | đã chốt |
 | `monash-web-traffic` | CC BY 4.0 | không | tải trực tiếp | 138.4 MB | 22, 42 | đã chốt |
 | `nyc-tlc-yellow-2024-01` | NYC Open Data — không giới hạn sử dụng | có | tải trực tiếp | 47.6 MB | 3 | đã chốt |
+| `nyc-tlc-yellow-2024-03` | NYC Open Data — không giới hạn sử dụng | có | tải trực tiếp | 57.3 MB | 3 | đã chốt |
+| `nyc-tlc-yellow-2024-11` | NYC Open Data — không giới hạn sử dụng | có | tải trực tiếp | 57.8 MB | 3 | đã chốt |
 | `nyc-tlc-zone-lookup` | NYC Open Data — không giới hạn sử dụng | có | tải trực tiếp | 12.0 KB | 3 | đã chốt |
+| `open-meteo-dallas-2024` | CC BY 4.0 | có | tải trực tiếp | 187.8 KB | 8 | đã chốt |
+| `open-meteo-dallas-du-bao-luu-2024` | CC BY 4.0 | có | tải trực tiếp | 271.5 KB | 13 | đã chốt |
 | `open-meteo-ha-noi-2023-2024` | CC BY 4.0 | có | tải trực tiếp | 649.6 KB | 10, 33 | đã chốt |
+| `open-meteo-houston-2024` | CC BY 4.0 | có | tải trực tiếp | 188.3 KB | 8 | đã chốt |
 | `open-meteo-new-york-2024-01` | CC BY 4.0 | có | tải trực tiếp | 26.6 KB | 3 | đã chốt |
+| `open-meteo-new-york-2024-03-11` | CC BY 4.0 | có | tải trực tiếp | 237.3 KB | 3 | đã chốt |
 | `philly-fed-gdp-thuc-vintage` | Điều khoản Philadelphia Fed — chỉ cho mục đích thông tin, giáo dục, nghiên cứu | không | tải trực tiếp | 237.5 KB | 20 | đã chốt |
 | `prop99-smoking` | Không có giấy phép từ tác giả gốc; bản CSV nằm trong repo MIT | không | tải trực tiếp | 99.0 KB | 38 | đã chốt |
 | `tourism-australia-tsibble` | GPL-3 (dữ liệu nằm trong gói tsibble) | có | tải trực tiếp | 173.8 KB | 28 | đã chốt |
@@ -126,6 +134,19 @@ Danh mục có **48 bộ**, tổng dung lượng tải khoảng **1.0 GB** (khô
 - **Trích dẫn:** U.S. Bureau of Labor Statistics, Consumer Price Index for All Urban Consumers (truy cập 2026-09-17).
 - **Ghi chú:** Tab + khoảng trắng đệm, xuống dòng CRLF; cột series_id, year, period (M01–M13, M13 = trung bình năm), value. Cần export KHOA_FORECASTING_LIEN_HE=<email> khi tải từ nguồn gốc.
 - **Xác minh:** 2026-09-17: trang copyright BLS; agent tải 2 lần cùng sha, tác giả tải bản thứ 3 cùng sha
+
+### `census-marts-ban-le` — US Census Monthly Retail Trade (MARTS) — doanh số bán lẻ và dịch vụ ăn uống 1992 → 6/2026, chưa và đã điều chỉnh mùa vụ (bản lưu Wayback 2026-09-13)
+
+- **Nguồn:** <https://www.census.gov/retail/sales.html>
+- **Tệp tải:** `https://web.archive.org/web/20260913170508id_/https://www.census.gov/retail/mrts/www/mrtssales92-present.xlsx`
+- **Giấy phép:** Public domain (U.S. government, 17 U.S.C. §105) — <https://www.law.cornell.edu/uscode/text/17/105>
+- **Trích nguyên văn:** "Copyright protection under this title is not available for any work of the United States Government."
+- **Mirror:** được — BẮT BUỘC mirror: census.gov chặn IP Việt Nam (Cloudflare 403), API cần key; tệp gốc sửa số liệu 2026-09-28
+- **Khoảng thời gian cố định:** 1992-01 → 2026-06
+- **sha256:** `2c58dce5119a7ff2acf08643a34f514d7b130b531fa989849470a7eeb075abee` (430.5 KB)
+- **Trích dẫn:** Source: U.S. Census Bureau, Monthly Retail Trade Survey (bản lưu Internet Archive 2026-09-13).
+- **Ghi chú:** 35 sheet '2026'…'1992', triệu USD; mỗi sheet có khối NOT ADJUSTED và ADJUSTED(2). Chú thích (2): 'adjusted for seasonal variations and holiday and trading-day differences, but not for price changes'. Gãy chuỗi: trước kỳ benchmark 4/2025 có tính nonemployers. Đọc .xlsx cần openpyxl.
+- **Xác minh:** 2026-09-18: agent research tải 2 lần cùng sha256 từ Wayback; census.gov 403
 
 ### `ecmwf-aifs-2t-20260101-24h` — ECMWF Open Data AIFS single — nhiệt độ 2 m (2t), lượt 2026-01-01 00z, bước 24 h, lưới 0,25° (một bản tin GRIB2)
 
@@ -227,6 +248,19 @@ Danh mục có **48 bộ**, tổng dung lượng tải khoảng **1.0 GB** (khô
 - **Trích dẫn:** Zhou, H. et al. (2021). Informer. AAAI 35(12), 11106–11115.
 - **Xác minh:** 2026-09-17: LICENSE tại commit 1d16c8f; tải + sha256 bởi agent research
 
+### `eurostat-hanh-khach-hang-khong` — Eurostat avia_paoc — hành khách hàng không EU27 theo tháng (chở có thu tiền, tổng chiều), 2008-01 → nay
+
+- **Nguồn:** <https://ec.europa.eu/eurostat/databrowser/view/avia_paoc/default/table>
+- **Tệp tải:** `https://ec.europa.eu/eurostat/api/dissemination/sdmx/3.0/data/dataflow/ESTAT/avia_paoc/1.0/M.PAS.PAS_CRD.TOTAL.TOTAL.EU27_2020?format=csvdata&compress=false`
+- **Giấy phép:** CC BY 4.0 (Eurostat) — <https://ec.europa.eu/eurostat/help/copyright-notice>
+- **Trích nguyên văn:** "Reuse of statistical data, metadata, publications, and other dissemination tools published on this website for commercial or non-commercial purposes is authorised provided the source is acknowledged."
+- **Mirror:** được — BẮT BUỘC mirror: Eurostat sửa số liệu (revision) mỗi kỳ công bố nên sha256 chỉ đúng tới lần sửa kế tiếp
+- **Khoảng thời gian cố định:** 2008-01 → 2026-02
+- **sha256:** `6ce5178cf876ba9e58c47ed9e6c5c4207383e9041dab1fc9306693c691eff5d0` (18.4 KB)
+- **Trích dẫn:** Eurostat, Air passenger transport by type of schedule (avia_paoc), truy cập 2026-09-18.
+- **Ghi chú:** Dùng endpoint SDMX 3.0: bản SDMX 2.1 có cột 'LAST UPDATE' đổi mỗi lần tải nên sha256 không ổn định. 218 tháng; cột TIME_PERIOD (YYYY-MM) và OBS_VALUE. Vỡ COVID rất rõ: 2020-01 66.046.231 → 2020-04 890.607 (−98,7%), hồi phục 2021-07 48.960.587. Thay US BTS T-100 (transtats chỉ có bảng HTML, data.bts.gov trả 403).
+- **Xác minh:** 2026-09-18: tác giả tải 2 lần cùng sha256; agent research tải trước đó cùng giá trị
+
 ### `forecastbench-cau-hoi` — ForecastBench — bộ câu hỏi LLM ngày 2026-09-13
 
 - **Nguồn:** <https://github.com/forecastingresearch/forecastbench-datasets>
@@ -296,7 +330,7 @@ Danh mục có **48 bộ**, tổng dung lượng tải khoảng **1.0 GB** (khô
 - **Tệp tải:** `https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2024/parquet/GHCNh_VMI0000VVNB_2024.parquet`
 - **Giấy phép:** CC0 1.0 (NOAA) — <https://creativecommons.org/publicdomain/zero/1.0/>
 - **Trích nguyên văn:** "These data were produced by NOAA and are not subject to copyright protection in the United States."
-- **Mirror:** không — CC0 theo metadata NOAA, nhưng chưa xác minh ghi chú WMO Resolution 40 có còn áp dụng cho trạm ngoài Mỹ trong GHCNh — chưa mirror
+- **Mirror:** được — 2026-09-18: metadata NOAA C01688 ghi rõ CC0-1.0 và tài liệu GHCNh v1.1.0 KHÔNG có điều khoản WMO Resolution 40 / hạn chế phân phối lại (agent kiểm: 0 lần xuất hiện 'Resolution 40', 'licen', 'redistribut') → được mirror
 - **Khoảng thời gian cố định:** 2024-01-01 → 2024-12-31
 - **sha256:** `1c67048928d447f340d75fffb187e4618fddc3892f971e9e9b4cab2ce2e320e2` (783.5 KB)
 - **Trích dẫn:** Menne, M.J. et al. (2023). Global Historical Climatology Network-Hourly (GHCNh). NOAA NCEI. doi:10.25921/jp3d-3v19
@@ -309,7 +343,7 @@ Danh mục có **48 bộ**, tổng dung lượng tải khoảng **1.0 GB** (khô
 - **Tệp tải:** `https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2025/parquet/GHCNh_VMI0000VVNB_2025.parquet`
 - **Giấy phép:** CC0 1.0 (NOAA) — <https://creativecommons.org/publicdomain/zero/1.0/>
 - **Trích nguyên văn:** "These data were produced by NOAA and are not subject to copyright protection in the United States."
-- **Mirror:** không — như ghcnh-noi-bai-2024
+- **Mirror:** được — như ghcnh-noi-bai-2024 (CC0 đã xác minh 2026-09-18)
 - **Khoảng thời gian cố định:** 2025-01-01 → 2025-12-31
 - **sha256:** `9556f95eefee0c77967c2c5c6844fb87955d2c74e5df5e1ebaab47a102f6345c` (771.0 KB)
 - **Trích dẫn:** Menne, M.J. et al. (2023). Global Historical Climatology Network-Hourly (GHCNh). doi:10.25921/jp3d-3v19
@@ -478,6 +512,32 @@ Danh mục có **48 bộ**, tổng dung lượng tải khoảng **1.0 GB** (khô
 - **Ghi chú:** TLC: 'The trip data was not created by the TLC, and TLC makes no representations as to the accuracy of these data.' TLC từng tải lại tệp (Last-Modified 2024-03-21) — sha256 có thể đổi.
 - **Xác minh:** 2026-09-17: FAQ NYC Open Data + trang TLC; tải 2 lần (agent + tác giả) cùng sha256
 
+### `nyc-tlc-yellow-2024-03` — NYC TLC Yellow Taxi Trip Records tháng 3/2024 (có ngày chuyển giờ mùa hè 10/3)
+
+- **Nguồn:** <https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page>
+- **Tệp tải:** `https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-03.parquet`
+- **Giấy phép:** NYC Open Data — không giới hạn sử dụng — <https://www.nyc.gov/opendata/get-started/FAQs>
+- **Trích nguyên văn:** "Open Data belongs to all New Yorkers. There are no restrictions on the use of Open Data."
+- **Mirror:** được
+- **Khoảng thời gian cố định:** 2024-03-01 → 2024-03-31
+- **sha256:** `2d4cdc8fb96726cdd3803b13b02d2e61e71d45720aff0ebc693a8bdd1f249823` (57.3 MB)
+- **Trích dẫn:** NYC Taxi & Limousine Commission, TLC Trip Record Data, Yellow Taxi 2024-03 (truy cập 2026-09-17).
+- **Ghi chú:** 3.582.628 chuyến; thời gian naive giờ địa phương New York (timestamp[us] không múi giờ); không có chuyến nào đón lúc 02:xx ngày 10/3; 21 chuyến có ngày đón ngoài tháng (2002-12, 2024-02).
+- **Xác minh:** 2026-09-17: agent research + tác giả tải cùng sha256
+
+### `nyc-tlc-yellow-2024-11` — NYC TLC Yellow Taxi Trip Records tháng 11/2024 (có ngày trả giờ mùa hè 3/11)
+
+- **Nguồn:** <https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page>
+- **Tệp tải:** `https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-11.parquet`
+- **Giấy phép:** NYC Open Data — không giới hạn sử dụng — <https://www.nyc.gov/opendata/get-started/FAQs>
+- **Trích nguyên văn:** "Open Data belongs to all New Yorkers. There are no restrictions on the use of Open Data."
+- **Mirror:** được
+- **Khoảng thời gian cố định:** 2024-11-01 → 2024-11-30
+- **sha256:** `5ef321876de5007a7c147a347389133fc94fd7ac28f82eb1d57d8f2cf05cfd3b` (57.8 MB)
+- **Trích dẫn:** NYC Taxi & Limousine Commission, TLC Trip Record Data, Yellow Taxi 2024-11 (truy cập 2026-09-17).
+- **Ghi chú:** 3.646.369 chuyến; giờ 01:xx ngày 3/11 gộp cả EDT và EST (9.869 chuyến, ~1,86× Chủ nhật sau); 1.001 chuyến 'trả khách trước khi đón' rơi vào giờ lặp đó.
+- **Xác minh:** 2026-09-17: agent research + tác giả tải cùng sha256
+
 ### `nyc-tlc-zone-lookup` — NYC TLC Taxi Zone Lookup (265 khu vực)
 
 - **Nguồn:** <https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page>
@@ -488,6 +548,32 @@ Danh mục có **48 bộ**, tổng dung lượng tải khoảng **1.0 GB** (khô
 - **sha256:** `1a99e105092230f8620f301edcca7f80d3080642ff404d28ed957d3fa222c8ed` (12.0 KB)
 - **Trích dẫn:** NYC Taxi & Limousine Commission, Taxi Zone Lookup Table (truy cập 2026-09-17).
 - **Xác minh:** 2026-09-17: tải 2 lần cùng sha256
+
+### `open-meteo-dallas-2024` — Open-Meteo Historical Weather (ERA5) — Dallas TX, nhiệt độ 2 m theo giờ năm 2024, UTC
+
+- **Nguồn:** <https://open-meteo.com/en/docs/historical-weather-api>
+- **Tệp tải:** `https://archive-api.open-meteo.com/v1/archive?latitude=32.7767&longitude=-96.797&start_date=2024-01-01&end_date=2024-12-31&hourly=temperature_2m&timezone=UTC&models=era5&format=csv`
+- **Giấy phép:** CC BY 4.0 — <https://open-meteo.com/en/licence>
+- **Trích nguyên văn:** "API data are offered under Attribution 4.0 International (CC BY 4.0)… You must give appropriate credit, provide a link to the licence, and indicate if changes were made."
+- **Mirror:** được — API miễn phí chỉ cho mục đích phi thương mại (https://open-meteo.com/en/terms) và ERA5T có thể sửa lùi — tác giả tải một lần, học viên lấy bản mirror
+- **Khoảng thời gian cố định:** 2024-01-01 → 2024-12-31
+- **sha256:** `0a3b3942535b7d0537a1a8363a517697f4680e9f6aaf02c82b721e44a0680bb1` (187.8 KB)
+- **Trích dẫn:** Weather data by Open-Meteo.com (https://open-meteo.com/), mô hình ERA5.
+- **Ghi chú:** 3 dòng đầu là metadata vị trí (ô lưới trả về 32.75, -96.75; cao 137 m); đọc bằng skiprows=3. 8.784 dòng, không thiếu. Nhiệt độ ERA5 là giá trị tức thời tại mốc; EIA-930 đánh mốc CUỐI giờ.
+- **Xác minh:** 2026-09-18: agent research tải 2 lần cùng sha256; trang licence + terms
+
+### `open-meteo-dallas-du-bao-luu-2024` — Open-Meteo Previous Runs — Dallas TX 2024: nhiệt độ THẬT (ERA5) và nhiệt độ ĐÃ DỰ BÁO trước 1 ngày / 3 ngày
+
+- **Nguồn:** <https://open-meteo.com/en/docs/previous-runs-api>
+- **Tệp tải:** `https://previous-runs-api.open-meteo.com/v1/forecast?latitude=32.7767&longitude=-96.797&start_date=2024-01-01&end_date=2024-12-31&hourly=temperature_2m,temperature_2m_previous_day1,temperature_2m_previous_day3&timezone=UTC&format=csv`
+- **Giấy phép:** CC BY 4.0 — <https://open-meteo.com/en/licence>
+- **Trích nguyên văn:** "The data obtained through the API is provided under the terms of the CC-BY 4.0 licence"
+- **Mirror:** được — API miễn phí chỉ cho mục đích phi thương mại (10.000 lượt/ngày); dữ liệu CC BY 4.0 cho phép phân phối lại
+- **Khoảng thời gian cố định:** 2024-01-01 → 2024-12-31
+- **sha256:** `5c7b56f9f713647e61b80a63a078150093598fdf8effdddf075898f7f04340fd` (271.5 KB)
+- **Trích dẫn:** Weather data by Open-Meteo.com (https://open-meteo.com/), Previous Runs API.
+- **Ghi chú:** Cột `temperature_2m` là giá trị đã biết sau (ERA5 reanalysis, KHÔNG dùng làm feature ex-ante); `_previous_day1`/`_previous_day3` là giá trị dự báo trước 1 và 3 ngày — dùng làm feature hợp lệ. 8.784 dòng, 2 dòng metadata + 1 dòng trống ở đầu (đọc bằng skiprows=2). NaN ở các giờ đầu 2024-01 (chưa có lượt chạy trước đó). Lưu trữ previous-runs chỉ có từ 01/2024.
+- **Xác minh:** 2026-09-18: tác giả tải 2 lần cùng sha256; docs API + trang licence
 
 ### `open-meteo-ha-noi-2023-2024` — Open-Meteo Historical Weather (ERA5) — Hà Nội, theo giờ 2023–2024, UTC
 
@@ -502,6 +588,19 @@ Danh mục có **48 bộ**, tổng dung lượng tải khoảng **1.0 GB** (khô
 - **Ghi chú:** Toạ độ bị bắt vào ô lưới gần nhất; chốt models=era5 cho ổn định (mặc định 'best match' trộn nhiều mô hình). Ba dòng đầu CSV là metadata ô lưới.
 - **Xác minh:** 2026-09-17: trang licence + terms; tải 2 lần (agent kiểm dạng tương tự, tác giả tải bản này)
 
+### `open-meteo-houston-2024` — Open-Meteo Historical Weather (ERA5) — Houston TX, nhiệt độ 2 m theo giờ năm 2024, UTC
+
+- **Nguồn:** <https://open-meteo.com/en/docs/historical-weather-api>
+- **Tệp tải:** `https://archive-api.open-meteo.com/v1/archive?latitude=29.7604&longitude=-95.3698&start_date=2024-01-01&end_date=2024-12-31&hourly=temperature_2m&timezone=UTC&models=era5&format=csv`
+- **Giấy phép:** CC BY 4.0 — <https://open-meteo.com/en/licence>
+- **Trích nguyên văn:** "API data are offered under Attribution 4.0 International (CC BY 4.0)… You must give appropriate credit, provide a link to the licence, and indicate if changes were made."
+- **Mirror:** được — API miễn phí chỉ cho mục đích phi thương mại và ERA5T có thể sửa lùi — tác giả tải một lần, học viên lấy bản mirror
+- **Khoảng thời gian cố định:** 2024-01-01 → 2024-12-31
+- **sha256:** `f583a8be1de70e6ccefa3e5b4f94dfa443d8650ca7ad7853ba5232fa8a63f0b0` (188.3 KB)
+- **Trích dẫn:** Weather data by Open-Meteo.com (https://open-meteo.com/), mô hình ERA5.
+- **Ghi chú:** Ô lưới trả về 29.75, -95.25; cao 20 m; skiprows=3; 8.784 dòng.
+- **Xác minh:** 2026-09-18: agent research tải 2 lần cùng sha256
+
 ### `open-meteo-new-york-2024-01` — Open-Meteo Historical Weather (ERA5) — New York, theo giờ tháng 1/2024, UTC
 
 - **Nguồn:** <https://open-meteo.com/en/docs/historical-weather-api>
@@ -513,6 +612,19 @@ Danh mục có **48 bộ**, tổng dung lượng tải khoảng **1.0 GB** (khô
 - **sha256:** `117856cb5284ae37d680f254d3196feb9332373694573797ea6f65805d0aa569` (26.6 KB)
 - **Trích dẫn:** Weather data by Open-Meteo.com (https://open-meteo.com/), mô hình ERA5.
 - **Xác minh:** 2026-09-17: tải + sha256
+
+### `open-meteo-new-york-2024-03-11` — Open-Meteo Historical Weather (ERA5) — New York, theo giờ 2024-03-01 → 2024-11-30, UTC
+
+- **Nguồn:** <https://open-meteo.com/en/docs/historical-weather-api>
+- **Tệp tải:** `https://archive-api.open-meteo.com/v1/archive?latitude=40.7128&longitude=-74.006&start_date=2024-03-01&end_date=2024-11-30&hourly=temperature_2m,precipitation,rain,snowfall&timezone=UTC&models=era5&format=csv`
+- **Giấy phép:** CC BY 4.0 — <https://open-meteo.com/en/licence>
+- **Trích nguyên văn:** "API data are offered under Attribution 4.0 International (CC BY 4.0) You are free to share: copy and redistribute the material in any medium or format and adapt: remix, transform, and build upon the material."
+- **Mirror:** được
+- **Khoảng thời gian cố định:** 2024-03-01 → 2024-11-30
+- **sha256:** `fd75dc93e76dcd02fb2d8ec8e5491ff8c8f94616ede6dc5c54f2ef8cd287a75d` (237.3 KB)
+- **Trích dẫn:** Weather data by Open-Meteo.com (https://open-meteo.com/), mô hình ERA5.
+- **Ghi chú:** Cố ý lấy timezone=UTC: với timezone=America/New_York API áp MỘT độ lệch cố định (giờ lúc gọi) cho cả khoảng — sai quanh DST (issue open-meteo #1764).
+- **Xác minh:** 2026-09-17: tải + sha256; hành vi timezone kiểm bởi agent research
 
 ### `philly-fed-gdp-thuc-vintage` — Philadelphia Fed Real-Time Data Set — GDP thực theo quý, mọi vintage (ROUTPUT, thay ALFRED)
 

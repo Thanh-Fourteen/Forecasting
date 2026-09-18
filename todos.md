@@ -277,7 +277,7 @@ dữ liệu qua sha256 → make down, rồi xoá buoi-00-thu/. Phụ lục xuấ
 
 ---
 
-## Phase 1 — Khung trợ giúp và danh mục dữ liệu 🟡 (xong trừ mirror Hugging Face — chờ tài khoản của chủ khoá)
+## Phase 1 — Khung trợ giúp và danh mục dữ liệu ✅
 Mọi buổi đều copy khung này vào `tv/` và đều tải dữ liệu qua danh mục này. Sai ở đây là sửa 44 lần.
 
 - [x] **Research Phase 1** — `tools/du-lieu/NGHIEN-CUU.md` (2026-09-17): giấy phép trích nguyên văn ~30 nguồn, công thức
@@ -299,14 +299,19 @@ Mọi buổi đều copy khung này vào `tv/` và đều tải dữ liệu qua 
 - [x] **`tools/du-lieu/danh-muc.toml`** — 48 bộ (46 đã chốt sha256; `uci-electricity-load` và `m5-kaggle` chờ có lý do) +
       8 nguồn ghi rõ KHÔNG tải tự động (FRED, OpenAQ VN, ISD, BTS, METR-LA, Dominick's, Metaculus, fev/GIFT-Eval)
 - [x] **Rà giấy phép từng bộ** — trích nguyên văn trong NGHIEN-CUU.md mục B và trường `trich_giay_phep`
-- [ ] **Mirror** bộ được phép lên Hugging Face Datasets — **CHẶN: cần tài khoản/token HF và đồng ý công bố của chủ khoá**.
-      `tools/du-lieu/mirror_hf.py --chuan-bi` dựng sẵn thư mục + thẻ dữ liệu; `--day-len` in `url_mirror` để chép vào danh mục.
-      Ưu tiên: EIA-930 (dựng lại hằng ngày), BLS/BEA/EIA WTI (ghi đè mỗi kỳ), UCI (tải ~3–6 KB/s)
+- [x] **Mirror** bộ được phép lên Hugging Face Datasets — **XONG 2026-09-18**: `Tony2202/khoa-forecasting-du-lieu`
+      (công khai), commit `105db7d8d51c8ff1229ec06c363f641417124bf3`, **49 bộ / 614 MB**, tệp giữ nguyên byte, thẻ dữ liệu
+      ghi giấy phép + nguồn + sha256 từng bộ. 49 dòng `url_mirror` đã vào `danh-muc.toml`; `lay_du_lieu.py` thử mirror trước.
+      Kiểm trên cache trắng: 4/4 bộ khớp sha256 (Online Retail II 18,4 s qua mirror thay vì ~5 giờ từ UCI)
 - [x] Bộ dự phòng mở cho mọi bộ bị hạn chế (M5 → Online Retail II / Car Parts; METR-LA → Traffic hourly; ISD → GHCNh;
       OpenAQ VN → UCI Beijing + Open-Meteo Hà Nội; Metaculus → ForecastBench; Dominick's → Online Retail II)
 - [x] `phu-luc/F-nguon-du-lieu.md` sinh từ danh mục (`tools/du-lieu/sinh_phu_luc_f.py`) + PDF
-- [ ] Còn cho phase sau: nguồn Census bán lẻ + BLS thất nghiệp (Phase 3); trạm OpenAQ VN + key (Phase 4); công cụ trích
-      bảng BTS (Phase 4/5); bộ con fev-bench (Phase 10); tài khoản Kaggle để chốt sha256 M5
+- [ ] Còn cho phase sau: công cụ trích bảng BTS (Phase 4/5); bộ con fev-bench (Phase 10).
+      **Đã giải quyết:** Census bán lẻ + BLS thất nghiệp (Phase 3, đã vào danh mục); OpenAQ VN → BỎ (v3 bắt buộc key cho
+      mọi endpoint, v2 HTTP 410 — Phase 4 thay bằng GHCNh Nội Bài + Open-Meteo).
+      **Còn chặn:** M5 — tài khoản Kaggle `thanh14` đã có key nhưng **chưa chấp nhận luật cuộc thi**
+      (`403` từ kagglehub 2026-09-18); cần bấm Join tại kaggle.com/competitions/m5-forecasting-accuracy/rules rồi chạy
+      `tools/lay_du_lieu.py` cho buổi 23 để chốt sha256
 - [x] **Test: tải toàn bộ danh mục trên cache trắng (`tai_danh_muc.py --may-trang`) — 46/46 bộ đã chốt khớp sha256 (100%)**;
       tải về 666 MB (đặt vào lab ~1,29 GB sau giải nén); nhóm thường 18,2 phút, nhóm UCI 3,5 phút (lần chạy trước UCI
       đứt kết nối giữa chừng → thêm thử lại khi đang truyền). Bỏ qua đúng 2 bộ `cho_sha256`
