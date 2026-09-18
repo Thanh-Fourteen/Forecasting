@@ -459,7 +459,7 @@ Mọi hình sinh bằng dap-an/ve_hinh.py. Chạy thật, lấy số thật, r�
 
 ---
 
-## Phase 4 — Buổi 9–13 · Chuẩn bị dữ liệu + dự án giữa chặng 1 🔲
+## Phase 4 — Buổi 9–13 · Chuẩn bị dữ liệu + dự án giữa chặng 1 ✅
 **Phase trọng tâm thứ hai**: làm sạch, ngoại lai, khử nhiễu, feature, chống rò rỉ.
 
 | Buổi | Research | Tài liệu | Code | Lab | Quiz | PDF |
