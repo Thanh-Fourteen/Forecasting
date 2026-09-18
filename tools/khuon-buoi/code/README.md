@@ -11,13 +11,12 @@ Code **chạy được** nhưng **cố tình sai** đúng chỗ bài học hôm 
 **Đang cố tình sai** (triệu chứng nhìn thấy, không nói nguyên nhân):
 - …
 
-Chạy:
+Lệnh (trong `lab/`):
 
 ```bash
-cd lab && make up          # một lần: môi trường + dữ liệu
-make check                 # bộ chấm — lúc đầu buổi sẽ ĐỎ, cuối buổi phải XANH
-make notebook              # mở các tệp .py dưới dạng notebook
+python lab.py up           # một lần: môi trường + dữ liệu
+python lab.py notebook     # mở code/lab.ipynb
+python lab.py check        # bộ chấm — đầu buổi ĐỎ, cuối buổi phải XANH
 ```
 
-Tệp `.py` viết dạng *percent* (`# %%` tách ô): chạy được như script, mở được như notebook.
-Mỗi tệp chỉ định nghĩa hàm ở mức module; phần chạy thử đặt trong `if __name__ == "__main__":`.
+Bạn sửa **tệp `.py`**; notebook `lab.ipynb` nạp lại nó tự động. Dùng conda: `python lab.py up --pip`.

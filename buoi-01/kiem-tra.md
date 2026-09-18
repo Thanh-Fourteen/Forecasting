@@ -12,10 +12,9 @@
 <details>
 <summary>Đáp án</summary>
 
-**B — mục tiêu.** Mục tiêu là điều ta *muốn* xảy ra, và câu "phải bán 12.000" nói đúng mong muốn đó (mục 4.1).
-**A sai**: dự báo là điều *sẽ* xảy ra với thông tin đang có; nó không được sửa cho khớp mong muốn. **C sai**: kế hoạch
-là việc làm để kéo kết quả về gần mục tiêu, ví dụ tuyển thêm người bán, chạy khuyến mãi; 12.000 không phải việc làm.
-**D sai**: baseline là một cách dự báo đơn giản để so, ví dụ "quý tới bằng quý này", không phải con số áp đặt.
+**B — mục tiêu**: "phải bán 12.000" là điều ta *muốn* (mục 4.1). **A sai**: dự báo là điều *sẽ* xảy ra, không sửa cho
+khớp mong muốn. **C sai**: kế hoạch là việc làm (tuyển người, khuyến mãi), không phải con số. **D sai**: baseline là
+cách dự báo đơn giản để so, như "quý tới bằng quý này".
 
 </details>
 
@@ -29,9 +28,8 @@ là việc làm để kéo kết quả về gần mục tiêu, ví dụ tuyển 
 <details>
 <summary>Đáp án</summary>
 
-**C.** Bốn yếu tố (mục 4.1) là A, B, D và "tương lai giống quá khứ tới đâu". Cả bốn là tính chất của *thứ được dự báo*.
-Số tham số là lựa chọn của người làm mô hình. Bảng lịch 8.904 tham số của buổi học còn thua một baseline không có tham
-số nào đáng kể. **A, B, D sai** vì chúng đều nằm trong danh sách: A là yếu tố 1, B là yếu tố 2, D là yếu tố 4.
+**C.** Bốn yếu tố (mục 4.1) là tính chất của *thứ được dự báo*; số tham số là lựa chọn của người làm mô hình (bảng
+lịch 8.904 tham số còn thua một baseline). **A, B, D sai** vì chúng là yếu tố 1, 2 và 4.
 
 </details>
 
@@ -45,9 +43,9 @@ số nào đáng kể. **A, B, D sai** vì chúng đều nằm trong danh sách:
 <details>
 <summary>Đáp án</summary>
 
-**B** (mục 4.4). **A sai**: hai thứ đo trên hai loại dữ liệu khác nhau, nên cho số khác nhau. **C sai**, thật ra
-ngược lại: phần dư thường *nhỏ hơn*, vì mô hình đã thấy dữ liệu đó. Ở buổi học, bảng lịch chấm kiểu nhìn trộm được
-0,380, chấm trung thực được 0,508 kWh/giờ. **D sai**: buổi học chấm sai số dự báo cho cả 168 giờ sau mỗi gốc.
+**B** (mục 4.4). **A sai**: hai thứ đo trên hai loại dữ liệu nên cho số khác nhau. **C sai**: phần dư thường *nhỏ
+hơn* vì mô hình đã thấy dữ liệu (nhìn trộm 0,380, trung thực 0,508). **D sai**: sai số dự báo tính cho cả 168 giờ
+sau mỗi gốc.
 
 </details>
 
@@ -61,9 +59,8 @@ ngược lại: phần dư thường *nhỏ hơn*, vì mô hình đã thấy d�
 <details>
 <summary>Đáp án</summary>
 
-**A.** $T + 1$ là 00:00 thứ Hai, nên $T + 20$ là 19:00 thứ Hai (mục 4.3). Kiểm lại: từ 23:00 tới 24:00 là 1 giờ, cộng
-thêm 19 giờ là 19:00. **B sai**: đó là đếm 20 giờ từ gốc 00:00, tức nhầm $T + 1$ với $T$; nhầm này hay gặp nhất.
-**C sai**: $h$ tính về phía tương lai, không lùi lại. **D sai**: 20:00 thứ Ba cách $T$ tới 45 giờ.
+**A.** $T + 1$ là 00:00 thứ Hai, nên $T + 20$ là 19:00 thứ Hai (mục 4.3). **B sai**: đếm 20 giờ từ 00:00, tức nhầm
+$T + 1$ với $T$ (nhầm hay gặp nhất). **C sai**: $h$ tính về tương lai. **D sai**: 20:00 thứ Ba cách $T$ tới 45 giờ.
 
 </details>
 
@@ -80,8 +77,7 @@ Bước 1: thiếu mất $C_u$ = 30.000 đ/kg, thừa mất $C_o$ = 10.000 đ/kg
 Bước 2: $p^\ast = C_u/(C_u + C_o) = 30/(30 + 10) = $ **0,75** (mục 4.6).
 Bước 3: quantile 0,75 lớn hơn trung vị (quantile 0,5), nên đặt **cao hơn** 200 kg.
 
-Vì sao: thiếu đắt gấp 3 lần thừa, nên chấp nhận thừa để ít khi thiếu. Nhầm hay gặp là đảo $C_u$ và $C_o$, ra
-10/(10 + 30) = 0,25 và đặt thấp hơn trung vị.
+Thiếu đắt gấp 3 lần thừa nên chấp nhận thừa để ít khi thiếu. Nhầm hay gặp là đảo $C_u$ và $C_o$, ra 0,25.
 
 </details>
 
@@ -93,10 +89,9 @@ biết.
 <details>
 <summary>Đáp án</summary>
 
-**(c).** Gọi $T$ là 23:00 Chủ nhật. "Cùng giờ hôm qua" lấy số ở $T + h - 24$. Với $h = 25$ trở đi, giờ đó là $T + 1$ trở
-đi, tức *sau* gốc. Ví dụ $h = 31$ là 06:00 thứ Ba; hôm qua cùng giờ là 06:00 thứ Hai $= T + 7$, lúc ra dự báo chưa có.
-**(a)** lùi 168 giờ và **(b)** lùi 168–672 giờ, luôn trước gốc vì $h \le 168$, nên hợp lệ. **(d)** dùng đúng giờ $T$,
-hợp lệ dù kém (MAE 0,770 kWh/giờ, kém nhất bảng ở mục 4.4).
+**(c).** "Cùng giờ hôm qua" lấy số ở $T + h - 24$; với $h \ge 25$ giờ đó nằm *sau* gốc (ví dụ $h = 31$ cần 06:00 thứ
+Hai $= T + 7$, lúc ra dự báo chưa có). **(a)** và **(b)** lùi ít nhất 168 giờ, luôn trước gốc vì $h \le 168$, nên hợp
+lệ. **(d)** dùng đúng giờ $T$, hợp lệ dù kém nhất (MAE 0,770 kWh/giờ).
 
 </details>
 
@@ -130,9 +125,8 @@ thêm ít nhất ba điều gì trước khi đồng ý?
 3. **Chấm có đúng độ chi tiết của quyết định không?** Ở buổi học, chấm theo giờ và theo tổng tuần cho thứ hạng ngược
    nhau (mục 4.5).
 
-Hỏi thêm được: chênh 0,6 có ổn định qua nhiều gốc không (trung bình 4 tuần chỉ thắng bảng lịch 30 trên 46 tuần); quyết
-định có chi phí thiếu, thừa lệch nhau không (MAE nhắm trung vị, mục 4.6). Trả lời "B tốt hơn vì 11,4 < 12,0" là thiếu
-cả ba câu hỏi.
+Hỏi thêm được: chênh 0,6 có ổn định qua nhiều gốc không; chi phí thiếu, thừa có lệch nhau không (mục 4.6). Trả lời
+"B tốt hơn vì 11,4 < 12,0" là thiếu cả ba câu hỏi.
 
 </details>
 
@@ -171,9 +165,8 @@ Một bạn kết luận: "Bảng có mâu thuẫn, chắc code tính tổng tu�
 <details>
 <summary>Đáp án</summary>
 
-Không mâu thuẫn: thứ hạng phụ thuộc **độ chi tiết được chấm** (mục 4.5). Theo giờ, nhiễu lớn làm bảng lịch lệch lúc
-lên lúc xuống. Cộng lên tuần, các lệch đó bù trừ nhau, như ví dụ +1 và −1 cộng lại bằng 0. Còn lại là phần bảng lịch
-làm tốt: nó nhớ kỳ nghỉ tháng 8, trong khi trung bình 4 tuần chỉ hạ xuống sau khi kỳ nghỉ đã bắt đầu.
+Không mâu thuẫn: thứ hạng phụ thuộc **độ chi tiết được chấm** (mục 4.5). Cộng lên tuần, lệch lên xuống do nhiễu bù
+trừ nhau; còn lại là phần bảng lịch làm tốt: nhớ kỳ nghỉ tháng 8, trong khi trung bình 4 tuần hạ xuống muộn.
 
 Chọn theo **ô 4 của phiếu**: mua điện theo giờ thì chọn trung bình 4 tuần; mua một khối cả tuần thì chọn bảng lịch.
 Kết luận "code sai" là nhầm hay gặp: nó mặc định một phương pháp phải thắng ở mọi mức chấm.

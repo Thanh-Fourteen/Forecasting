@@ -21,7 +21,7 @@ Sau buổi này bạn:
 
 ## 3. Trạng thái đầu buổi
 
-Sau `cd lab && make up`:
+Sau `cd lab && python lab.py up`:
 
 | Hạng mục | Trạng thái |
 |---|---|
@@ -31,7 +31,7 @@ Sau `cd lab && make up`:
 | `code/tuong_quan.py` | `doc_tai_dien`, `doc_nhiet_do`, `ghep_tai_nhiet`, `doc_kinh_te`, `cdd_hdd`, `tuong_quan`, `thong_tin_tuong_ho`, `kiem_y_nghia_mi`, `hoi_quy_don`, `tuong_quan_chuoi`, `ccf_tu_viet`, `loc_prewhiten`, `do_tre_dan_dat`, `tuong_quan_truot`, `granger_hai_chieu` |
 | **Đang cố tình sai** | `tuong_quan_chuoi` chỉ tính trên **mức**; `do_tre_dan_dat` dùng **CCF thô**; `granger_hai_chieu` kết luận "x gây ra y" |
 | **Triệu chứng** | CPI và dân số "quan hệ mạnh" (r = 0,974); độ trễ dẫn dắt ra 1 giờ; và "tải điện gây ra nhiệt độ" |
-| `make check` lúc này | ĐỎ: 3/10 test hỏng |
+| `python lab.py check` lúc này | ĐỎ: 3/10 test hỏng |
 
 ## 4. Lý thuyết
 
@@ -245,9 +245,9 @@ Granger chỉ là **một** bằng chứng trong bước 4–5, và luôn viết
 ### Bước 1 — Chạy code đầu buổi
 
 ```bash
-cd lab && make up
-env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python ../code/tuong_quan.py
-make check                    # 3/10 đỏ
+cd lab && python lab.py up
+python lab.py chay ../code/tuong_quan.py
+python lab.py check                    # 3/10 đỏ
 ```
 
 ```text
@@ -275,8 +275,8 @@ Vẽ tương quan trượt 30 và 90 ngày. Sửa `granger_hai_chieu`: chạy **
 nhiễu chung, không phải nhân quả.
 
 ```bash
-make check                    # 10/10 xanh
-env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python ../code/tuong_quan.py
+python lab.py check                    # 10/10 xanh
+python lab.py chay ../code/tuong_quan.py
 ```
 
 ```text
@@ -319,7 +319,7 @@ So với đầu buổi: dòng 1 thêm hai bằng chứng (sai phân, DW) và đ�
 
 ## 8. Tiêu chí "Xong khi"
 
-- [ ] `make check` xanh 10/10.
+- [ ] `python lab.py check` xanh 10/10.
 - [ ] Với một cặp chuỗi lạ, trả lời đủ 4 câu kèm số: (a) tương quan có giả không (r mức, r sai phân, DW); (b) tuyến tính hay phi tuyến (scatter, MI,
       $R^2$ hai mô hình); (c) độ trễ dẫn dắt sau prewhitening là bao nhiêu; (d) biến đó có biết trước giá trị tương lai không.
 - [ ] Giải thích được vì sao Granger hai chiều cùng có ý nghĩa trên cặp nhiệt độ–tải điện.

@@ -8,7 +8,7 @@
 # Các kiểm tra (mã in trong báo cáo):
 #   K1  tham chiếu chéo: ../buoi-…, buoi-XX/ của buổi khác, đường dẫn thoát khỏi buổi (../../../)
 #   K2  dùng tools/ từ trong buổi: import tools/khung, sys.path tới tools, lệnh gọi tools/*.py
-#   K3  nền: có lab/nen.toml, lab/Makefile (up/check/down), 00-nen khớp nguồn (sinh_nen.py --kiem),
+#   K3  nền: có lab/nen.toml, lab/lab.py, 00-nen khớp nguồn (sinh_nen.py --kiem), không còn Makefile cũ,
 #       uv.lock còn khớp pyproject (uv lock --check)
 #   K4  dữ liệu: mọi bộ trong du-lieu.toml có sha256 + giấy phép + khoảng thời gian (luật của lay_du_lieu.kiem_bo)
 #   K5  đường dẫn tuyệt đối tới máy tác giả (/home/, /Users/, C:\Users)
@@ -16,7 +16,8 @@
 #       thiếu revision=; tên model kiểu "latest"
 #   K7  cài đặt ngoài lock: pip install / uv add / uv pip install trong code của buổi
 #   K8  code/ hoặc lab/cham/ trỏ tới dap-an/ (lộ đáp án, và dap-an/ không có trong zip)
-#   K9  git đang theo dõi dữ liệu hoặc notebook (.csv .parquet .zip .ipynb …, tệp > 2 MB) trong buổi
+#   K9  git đang theo dõi dữ liệu (.csv .parquet .zip …, tệp > 2 MB) trong buổi; notebook chỉ được là
+#       code/*.ipynb và phải sạch output (không outputs, không execution_count)
 #   K10 pyproject.toml gốc có [tool.uv.workspace] hoặc [project] (uv sẽ nuốt uv.lock của buổi)
 set -euo pipefail
 GOC="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -26,6 +27,7 @@ PY="$GOC/.venv/bin/python"
     || { echo "cần Python ≥ 3.11 (tomllib) — tạo venv công cụ: xem CLAUDE.md"; exit 2; }
 exec "$PY" - "$GOC" "$@" <<'PY'
 import ast
+import json
 import os
 import re
 import shutil
@@ -44,7 +46,7 @@ from lay_du_lieu import kiem_bo  # noqa: E402
 BO_QUA_THU_MUC = {".venv", "__pycache__", ".ipynb_checkpoints", ".pytest_cache", ".ruff_cache"}
 DUOI_VAN_BAN = {".py", ".sh", ".md", ".toml", ".txt", ".cfg", ".ini", ".yaml", ".yml", ".json", ".ipynb"}
 DUOI_DU_LIEU = {".csv", ".parquet", ".zip", ".gz", ".xlsx", ".xls", ".feather", ".nc", ".grib2",
-                ".pkl", ".pickle", ".h5", ".hdf5", ".npz", ".npy", ".db", ".sqlite", ".duckdb", ".ipynb"}
+                ".pkl", ".pickle", ".h5", ".hdf5", ".npz", ".npy", ".db", ".sqlite", ".duckdb"}
 HAM_CAN_REVISION = {"from_pretrained", "hf_hub_download", "snapshot_download", "load_dataset", "pipeline"}
 
 vi_pham: list[tuple[str, str, str]] = []  # (mã, buổi, mô tả)
@@ -115,7 +117,7 @@ def kiem_buoi(buoi: Path) -> None:
     for p in cac_tep(buoi):
         rel = p.relative_to(buoi).as_posix()
         vi_tri = f"{rel}"
-        trong_nen_sinh = rel.startswith("lab/00-nen/")
+        trong_nen_sinh = rel.startswith("lab/00-nen/") or rel == "lab/lab.py"
 
         if not la_van_ban(p):
             continue
@@ -199,14 +201,12 @@ def kiem_buoi(buoi: Path) -> None:
     # K3 — nền
     if not (buoi / "lab" / "nen.toml").is_file():
         bao("K3", ten, "thiếu lab/nen.toml (khuôn: tools/khuon-buoi/lab/nen.toml)")
-    mk = buoi / "lab" / "Makefile"
-    if not mk.is_file():
-        bao("K3", ten, "thiếu lab/Makefile")
-    else:
-        dich = set(re.findall(r"^([\w-]+):", doc(mk), flags=re.M))
-        if thieu := {"up", "check", "down"} - dich:
-            bao("K3", ten, f"lab/Makefile thiếu target {sorted(thieu)}")
-    for tep_nen in ("pyproject.toml", "uv.lock", "du-lieu.toml", "chuan-bi.sh", "lay_du_lieu.py"):
+    if not (buoi / "lab" / "lab.py").is_file():
+        bao("K3", ten, f"thiếu lab/lab.py — chạy: python tools/sinh_nen.py {ten}")
+    for cu in ("lab/Makefile", "lab/00-nen/chuan-bi.sh"):
+        if (buoi / cu).exists():
+            bao("K3", ten, f"còn {cu} (bỏ từ 2026-09-18, thay bằng lab/lab.py) — chạy lại sinh_nen.py")
+    for tep_nen in ("pyproject.toml", "uv.lock", "requirements.txt", "du-lieu.toml", "lay_du_lieu.py"):
         if not (nen / tep_nen).is_file():
             bao("K3", ten, f"thiếu lab/00-nen/{tep_nen} — chạy: python tools/sinh_nen.py {ten}")
     if (buoi / "lab" / "nen.toml").is_file():
@@ -243,8 +243,19 @@ def kiem_buoi(buoi: Path) -> None:
             p = GOC / rel
             if not p.is_file():
                 continue
-            if p.suffix.lower() in DUOI_DU_LIEU:
-                bao("K9", ten, f"git theo dõi {rel} — dữ liệu tải qua du-lieu.toml, notebook sinh từ .py")
+            if p.suffix.lower() == ".ipynb":
+                if not re.fullmatch(rf"{re.escape(ten)}/code/[^/]+\.ipynb", rel):
+                    bao("K9", ten, f"git theo dõi notebook ngoài code/: {rel}")
+                else:
+                    try:
+                        o = [c for c in json.loads(p.read_text(encoding="utf-8"))["cells"]
+                             if c.get("outputs") or c.get("execution_count")]
+                    except (ValueError, KeyError):
+                        o = ["?"]
+                    if o:
+                        bao("K9", ten, f"{rel} còn output — xoá output trước khi commit")
+            elif p.suffix.lower() in DUOI_DU_LIEU:
+                bao("K9", ten, f"git theo dõi {rel} — dữ liệu tải qua du-lieu.toml")
             elif p.stat().st_size > 2_000_000 and p.suffix.lower() not in {".pdf", ".png"}:
                 bao("K9", ten, f"git theo dõi tệp lớn {rel} ({p.stat().st_size // 1_000_000} MB)")
 

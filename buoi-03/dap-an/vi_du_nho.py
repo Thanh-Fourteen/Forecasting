@@ -2,7 +2,7 @@
 # # Buổi 3 — in mọi con số của các ví dụ nhỏ trong tai-lieu.md (không cần dữ liệu tải về)
 #
 # Chạy trong nền của buổi:
-#   cd buoi-03/lab && env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python ../dap-an/vi_du_nho.py
+#   cd buoi-03/lab && python lab.py chay ../dap-an/vi_du_nho.py
 # Không có phần ngẫu nhiên nên không cần seed.
 
 # %%

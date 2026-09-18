@@ -22,7 +22,7 @@ Sau buổi này bạn:
 
 ## 3. Trạng thái đầu buổi
 
-Sau `cd lab && make up`:
+Sau `cd lab && python lab.py up`:
 
 | Hạng mục | Trạng thái |
 |---|---|
@@ -34,7 +34,7 @@ Sau `cd lab && make up`:
 | `code/lam_sach.py` | `doc_noi_bai`, `cot_rong`, `luoi_day_du`, `thong_ke_thieu`, `do_phan_giai`, `doan_mac_ket`, `doan_tra_hinh`, `co_nghi_ngo`, `bao_cao_chat_luong`, 7 hàm `dien_*`, `che_diem`, `che_khoi`, `so_sanh_dien`, `lam_sach`, `mo_phong_mnar` |
 | **Đang cố tình sai** | `doc_noi_bai` giữ nguyên kiểu dữ liệu của parquet; `so_sanh_dien` chỉ che ngẫu nhiên từng điểm; `lam_sach` điền **mọi** lỗ bằng nội suy hai phía |
 | **Triệu chứng** | Báo cáo ghi độ ẩm `min = 100, max = 94`; bảng xếp hạng kết luận "nội suy tuyến tính luôn tốt nhất"; sau làm sạch "còn thiếu: 0" — sạch một cách đáng ngờ |
-| `make check` lúc này | ĐỎ: 7/12 test qua, 5 test hỏng |
+| `python lab.py check` lúc này | ĐỎ: 7/12 test qua, 5 test hỏng |
 
 ## 4. Lý thuyết
 
@@ -268,9 +268,9 @@ quan trên phần hai bên cùng có dữ liệu** — nếu r thấp, bạn đa
 ### Bước 1 — Nhìn lỗ hổng trước khi làm gì khác
 
 ```bash
-cd lab && make up
-env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python ../code/lam_sach.py
-make check                 # 5/12 đỏ
+cd lab && python lab.py up
+python lab.py chay ../code/lam_sach.py
+python lab.py check                 # 5/12 đỏ
 ```
 
 Vẽ heatmap thiếu cho 12 trạm Bắc Kinh. Trả lời: trạm nào không dùng được cho giai đoạn nào?
@@ -289,7 +289,7 @@ Sửa `so_sanh_dien` để chạy **cả** `che_diem` và `che_khoi`. Lập bả
 Sửa `lam_sach`: chỉ điền lỗ ≤ `gioi_han`, dùng phương pháp **nhân quả**, sinh đủ ba cờ. Chạy lại bài kiểm rò rỉ với mốc cắt nằm trong lỗ.
 
 ```bash
-make check                 # 12/12 xanh
+python lab.py check                 # 12/12 xanh
 ```
 
 ## 6. Lỗi thường gặp & cách chẩn đoán
@@ -320,7 +320,7 @@ make check                 # 12/12 xanh
 
 ## 8. Tiêu chí "Xong khi"
 
-- [ ] `make check` xanh 12/12.
+- [ ] `python lab.py check` xanh 12/12.
 - [ ] Nộp báo cáo chất lượng dữ liệu tự sinh cho trạm Nội Bài: thiếu mốc, cột rỗng, mã trá hình, độ phân giải, cờ chất lượng.
 - [ ] Bảng so sánh 7 cách điền trên **hai** kiểu che, kèm một câu giải thích vì sao thứ hạng đảo.
 - [ ] Pipeline có `da_dien`, `nghi_ngo`, `lo_dai_bo_trong`; lỗ > 3 giờ vẫn là NaN.

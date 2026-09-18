@@ -31,7 +31,7 @@ Trừ điểm: mỗi kết luận không có bằng chứng −1 (tối đa −6
 
 | Tiêu chí | Điểm | Đạt khi |
 |---|---|---|
-| `make check` xanh | 10 | bộ chấm tối thiểu của dự án (xem `lab/cham/`) |
+| `python lab.py check` xanh | 10 | bộ chấm tối thiểu của dự án (xem `lab/cham/`) |
 | Test riêng cho từng quy tắc | 10 | ≥ 8 test, mỗi quy tắc làm sạch có ít nhất một test; test **thất bại được** (thử phá dữ liệu để chứng minh) |
 | Đánh giá cách điền bằng che nhân tạo | 5 | so ≥ 4 phương pháp trên **cả** che điểm và che khối; chọn theo độ dài lỗ, không chọn một cách cho mọi lỗ |
 

@@ -1,7 +1,7 @@
 # %% [markdown]
 # # Buổi 2 — mọi con số của ví dụ nhỏ và các con số MỚI trên dữ liệu thật (Phase 6)
 #
-# Chạy trong lab/:  env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python ../dap-an/vi_du_nho.py
+# Chạy trong lab/:  python lab.py chay ../dap-an/vi_du_nho.py
 # Seed ghi cạnh từng phép ngẫu nhiên. Ví dụ nhỏ không cần dữ liệu; phần "dữ liệu thật" đọc Bike Sharing.
 
 # %%

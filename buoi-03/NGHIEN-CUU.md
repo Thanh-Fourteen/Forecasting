@@ -151,3 +151,18 @@ Sau vòng 1 sửa thêm 3 chỗ khó:
 - Định nghĩa "trung vị" ở chỗ bấm giờ.
 
 `kiem_de_hieu.py 3`: 56 → 0 vi phạm. Độ dài 7.360 chữ ngoài bảng/code; PDF 21 trang.
+
+## Rút gọn (Phase 7, 2026-09-18)
+
+| Vòng | Bản | Chặn | Khó | Nhỏ | Quiz | Ghi chú |
+|---|---|---|---|---|---|---|
+| biên tập 1 | bản Phase 6 (7.485 chữ) | — | — | — | — | 37 chỗ thừa ≈ 1.000 chữ (13%) |
+| cắt | 5.597 chữ | | | | | Nâng cao còn polars lazy + bẫy DuckDB; "Kết luận: như tiêu đề hình" và bỏ ngày cụ thể để né bộ đếm số — **tác giả từ chối, viết lại** |
+| đọc 1 | sau cắt | 0 | 7 | 15 | 10/10 | 3 chỗ khó do cắt quá tay: cơ chế NaN, `timezone()` DuckDB, quiz 8 cần ý đã cắt |
+| đọc 2 | sửa 7 chỗ | 0 | 5 | 17 | 10/10 | đạt; câu nối "cũ hơn / muộn" tác giả thêm lại làm rối hơn — viết lại một chiều "đẩy sang phải 4 giờ" |
+| đọc 3 | + Lab mới (notebook, bỏ `make`) | 0 | 4 | 12 | 10/10 | đạt. Nghi mốc 2002-12-31 22:17 chép nhầm: kiểm output notebook — đúng, hai tệp lệch vài giây |
+| biên tập cuối | | — | — | — | — | 10 chỗ thừa đáng kể: nhận 12 đề xuất (bỏ NumPy 4.1 chỉ lặp phép trừ, đoạn Open-Meteo → bảng Lỗi, Bẫy DuckDB trùng bảng Lỗi, Đọc bảng dạng dài lặp bảng Từ mới…) |
+| đọc 4 | sau cắt cuối | **0** | **4** | 16 | 10/10 | **đạt**; sửa thêm 4 chỗ khó (lưới `asfreq` bắt đầu 00:10, 743 của `groupby` naive khác 744 của `resample`, cách lọc dòng mơ hồ, Open-Meteo là gì) |
+
+Cuối: **5.502 chữ (−26%)**, PDF **21 → 17 trang**, `kiem_de_hieu` 0 vi phạm. Lab: `python lab.py up/check`,
+`code/lab.ipynb` chạy hết (`kiem_tra_lab.py 3`: đáp án xanh 11/11, code đỏ đúng chỗ).

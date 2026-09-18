@@ -19,5 +19,5 @@ khung_bo = []
 # ly_do = "statsforecast 2.1.1 chưa hỗ trợ numpy 2.5 — issue #…"
 
 [cham]
-# make check trên code/ phải ĐỎ (chỗ hở cố ý còn nguyên). Buổi không có chỗ hở (44) thì đặt false.
+# python lab.py check trên code/ phải ĐỎ (chỗ hở cố ý còn nguyên). Buổi không có chỗ hở (44) thì đặt false.
 code_phai_do = true

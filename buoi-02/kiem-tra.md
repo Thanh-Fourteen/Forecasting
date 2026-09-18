@@ -62,8 +62,8 @@ hơn mức ý nghĩa 0,05 thì bác bỏ $H_0$.
 
 - **A sai**: p-value không phải xác suất $H_0$ đúng. Nó là xác suất của dữ liệu khi giả sử $H_0$ đúng.
 - **C sai**: "có ý nghĩa thống kê" không có nghĩa là khác biệt lớn. Với rất nhiều dữ liệu, một chênh rất nhỏ cũng cho p nhỏ.
-- **D sai**: p = 0,30 chỉ cho phép nói "không bác bỏ". Không bác bỏ không phải chứng minh; có thể dữ liệu quá ít. Ví dụ
-  thứ Bảy − Chủ nhật ở mục 4.5 chênh 695 lượt mà vẫn không bác bỏ được.
+- **D sai**: p = 0,30 chỉ cho phép nói "không bác bỏ", không phải chứng minh; thứ Bảy − Chủ nhật ở mục 4.5 chênh 695
+  lượt mà vẫn không bác bỏ được.
 
 </details>
 
@@ -127,8 +127,8 @@ dưới 0,1%, đuôi trên 27,4%. Đồng nghiệp đề xuất đổi ±1,96s s
 **Không.** Gần như toàn bộ phần rơi ra nằm ở **đuôi trên**: mức lượt thuê 2012 tăng (trung bình 143,8 → 234,7). Đó là
 **dịch mức**, không phải lỗi hình dạng. Chạy thật, khoảng quantile cho 70,1%, không khá hơn.
 
-Cách khác: dựng khoảng từ lịch sử gần hơn (tháng 1–6/2012 chấm tháng 7–12/2012 phủ 88,8–91,5%), hoặc mô hình hoá mức
-tăng rồi mới dựng khoảng. Khoảng quantile chỉ sửa được hình dạng: trong mẫu, hai đuôi từ 0,3% / 3,3% thành 2,2% / 2,6%.
+Cách khác: dựng khoảng từ lịch sử gần hơn, hoặc mô hình hoá mức tăng rồi mới dựng khoảng (bảng mục 6). Khoảng quantile
+chỉ sửa được hình dạng: trong mẫu, hai đuôi từ 0,3% / 3,3% thành 2,2% / 2,6%.
 
 </details>
 
@@ -182,11 +182,10 @@ vẫn dưới 95%?
 <details>
 <summary>Đáp án</summary>
 
-**Sai vì tỷ lệ tụt lại ở khối 40.** Với $n$ = 200, khối 40 thì mỗi lần chỉ rút được 200/40 = 5 khối, quá ít để thấy hết
-độ dao động. Có sự đánh đổi: khối ngắn phá tự tương quan (khoảng quá hẹp), khối dài thì quá ít khối.
+**Sai vì tỷ lệ tụt lại ở khối 40.** Với $n$ = 200, khối 40 thì mỗi lần chỉ rút được 200/40 = 5 khối, và hai đầu chuỗi
+bị rút ít: khoảng lại hẹp. Khối ngắn thì nhiều chỗ nối cắt đứt phụ thuộc, khoảng cũng hẹp.
 
-Khối tốt nhất vẫn dưới 95% vì với $n$ = 200 không độ dài nào tránh được cả hai cái hại cùng lúc: khối ngắn thì nhiều
-chỗ nối (mỗi chỗ nối cắt đứt phụ thuộc), khối dài thì quá ít khối. Chuỗi dài hơn thì đỡ: mục 4.6 cho thấy $n$ = 2.000,
-khối 13 phủ 94,0%. Block bootstrap sửa phần lớn, không hoàn toàn.
+Với $n$ = 200 không độ dài nào tránh được cả hai cái hại, nên khối tốt nhất vẫn dưới 95%. Chuỗi dài hơn thì đỡ: mục 4.6
+cho thấy $n$ = 2.000, khối 13 phủ 94,0%.
 
 </details>

@@ -21,7 +21,7 @@ Sau buổi này bạn:
 
 ## 3. Trạng thái đầu buổi
 
-Sau `cd lab && make up`:
+Sau `cd lab && python lab.py up`:
 
 | Hạng mục | Trạng thái |
 |---|---|
@@ -31,7 +31,7 @@ Sau `cd lab && make up`:
 | `code/bien_doi.py` | `doc_ban_le`, `doc_cpi`, `doc_dan_so`, `theo_ngay`, `so_sanh_thang`, `gia_thuc`, `tang_truong*`, `boxcox`, `boxcox_nguoc`, `guerrero`, `du_bao_log`, `danh_gia_bias` |
 | **Đang cố tình sai** | `so_sanh_thang` so tổng tháng **không chia số ngày**; `tang_truong_thuc_dau_nguoi` trả tăng trưởng danh nghĩa; `boxcox_nguoc` bỏ qua `sigma2` |
 | **Triệu chứng** | "tháng 2/2023 giảm 3,4% so với tháng 1"; "bán lẻ tăng 316% từ 1993"; dự báo đổi ngược từ log luôn thấp hơn thực tế |
-| `make check` lúc này | ĐỎ: 5/8 test hỏng |
+| `python lab.py check` lúc này | ĐỎ: 5/8 test hỏng |
 
 ## 4. Lý thuyết
 
@@ -223,9 +223,9 @@ biến không biết trước); (3) nếu chia số ngày thì dự báo là "m�
 ### Bước 1 — Chạy code đầu buổi
 
 ```bash
-cd lab && make up
-env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python ../code/bien_doi.py
-make check                 # 5/8 đỏ
+cd lab && python lab.py up
+python lab.py chay ../code/bien_doi.py
+python lab.py check                 # 5/8 đỏ
 ```
 
 ### Bước 2 — Điều chỉnh lịch
@@ -278,7 +278,7 @@ hai câu: khi nào nên bật, khi nào không.
 Ở gốc này σ² = 0,00041 → hiệu chỉnh chỉ **+0,021%**. Trên toàn bộ 1.008 dự báo: `{'trung_vi': -0.47, 'trung_binh': -0.37}` (%).
 
 ```bash
-make check                 # 8/8 xanh
+python lab.py check                 # 8/8 xanh
 ```
 
 ## 6. Lỗi thường gặp & cách chẩn đoán
@@ -308,7 +308,7 @@ make check                 # 8/8 xanh
 
 ## 8. Tiêu chí "Xong khi"
 
-- [ ] `make check` xanh 8/8.
+- [ ] `python lab.py check` xanh 8/8.
 - [ ] Nói được ba con số cho cùng câu hỏi "tháng 3 so tháng 2 tăng bao nhiêu" và mỗi con số trả lời câu hỏi nào.
 - [ ] Đo được trên tập kiểm tra: đổi ngược thẳng so với có hiệu chỉnh chênh nhau bao nhiêu, và đối chiếu với σ²/2.
 - [ ] Nêu một trường hợp **không** nên hiệu chỉnh bias, kèm lý do bằng số.

@@ -148,6 +148,31 @@ class KiemTaiLieu(unittest.TestCase):
         self.assertEqual(ma(vb), [])
 
 
+class KiemGon(unittest.TestCase):
+    """D13 — câu rỗng, lặp ý."""
+
+    def test_cau_rong(self):
+        vb = TOT.replace("Baseline là cách dự báo đơn giản nhất để so sánh.",
+                         "Như đã nói ở trên, baseline là cách dự báo đơn giản nhất để so sánh.")
+        self.assertIn("cau_rong", ma(vb))
+        vb2 = TOT.replace("Baseline là cách dự báo đơn giản nhất để so sánh.", "Ta tiến hành phân tích dữ liệu.")
+        self.assertIn("cau_rong", ma(vb2))
+
+    def test_tom_lai_chep_lai_cau_trong_muc(self):
+        cau = "Baseline là cách dự báo đơn giản nhất mà ai cũng làm được để so sánh với mô hình."
+        vb = TOT.replace("Baseline là cách dự báo đơn giản nhất để so sánh.", cau)
+        self.assertNotIn("lap_y", ma(vb))
+        self.assertIn("lap_y", ma(vb.replace("**Tóm lại.** Luôn có baseline.", "**Tóm lại.** " + cau)))
+
+    def test_hai_doan_gan_trung(self):
+        doan = ("Chấm trên chính dữ liệu đã dùng để khớp mô hình luôn cho sai số nhỏ hơn thật, "
+                "vì mô hình đã nhìn thấy một phần đáp án trước khi bị chấm điểm.")
+        vb = TOT.replace("Baseline là cách dự báo đơn giản nhất để so sánh.", doan)
+        self.assertNotIn("lap_y", ma(vb))
+        vb2 = vb.replace("**Mục đích:** thấy MAE.", "**Mục đích:** thấy MAE.\n\n" + doan)
+        self.assertIn("lap_y", ma(vb2))
+
+
 class KiemQuiz(unittest.TestCase):
     def test_dap_an_ngan(self):
         q = "**Câu 1.** Hỏi?\n\n- A. x\n- B. y\n\n<details>\n<summary>Đáp án</summary>\n\n**B.**\n\n</details>\n"

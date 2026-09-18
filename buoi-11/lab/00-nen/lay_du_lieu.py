@@ -346,7 +346,7 @@ def nguon_kaggle(bo: dict, cache: Cache) -> Path:
         import kagglehub
         from kagglehub.exceptions import KaggleApiHTTPError, UnauthenticatedError
     except ImportError as loi:
-        raise LoiDuLieu("nguồn Kaggle cần gói kagglehub — chạy qua `make up` của buổi "
+        raise LoiDuLieu("nguồn Kaggle cần gói kagglehub — chạy qua `python lab.py up` của buổi "
                         "(venv của buổi đã có), hoặc `uv pip install kagglehub`.") from loi
 
     luat = f"https://www.kaggle.com/competitions/{ten}/rules"

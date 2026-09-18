@@ -4,7 +4,7 @@
     python xuat_pdf.py            # trang le (lo trinh, phu luc, de du an) + ca 44 buoi
     python xuat_pdf.py 5 6        # rieng buoi 05 va 06
     python xuat_pdf.py lo-trinh   # rieng cac trang le co chuoi "lo-trinh" trong duong dan
-    python xuat_pdf.py --kiem     # dem so trang moi PDF da sinh, bao buoi ngoai 12-24 trang
+    python xuat_pdf.py --kiem     # dem so trang moi PDF da sinh, bao buoi ngoai 10-18 trang, phu luc tren 18
 
 Can:  pip install -r tools/requirements.txt
       (markdown-it-py, mdit-py-plugins, weasyprint, ziamath, pypdf)
@@ -111,8 +111,9 @@ TRANG_LE = [
      "Phụ lục F — nguồn dữ liệu và giấy phép", False),
 ]
 
-# So trang cho phep cua PDF moi buoi (CLAUDE.md quy tac 13 — doi 2026-09-18 theo chuan de hieu)
-TRANG_TOI_THIEU, TRANG_TOI_DA = 12, 24
+# So trang cho phep cua PDF moi buoi (CLAUDE.md quy tac 13 — doi 2026-09-18 theo chuan gon D13, Phase 7)
+TRANG_TOI_THIEU, TRANG_TOI_DA = 10, 18
+TRANG_PHU_LUC_TOI_DA = 18
 
 
 CSS = """
@@ -357,7 +358,11 @@ def kiem_so_trang():
     for _, ten_pdf, _, _ in TRANG_LE:
         duong_dan = os.path.join(GOC, ten_pdf)
         if os.path.exists(duong_dan):
-            print(f"  {ten_pdf:<46} {len(PdfReader(duong_dan).pages):>3} trang")
+            so = len(PdfReader(duong_dan).pages)
+            # ngưỡng cho phụ lục dạy học A–D; E (từ điển) và F (danh mục sinh tự động) là bảng tra, dài theo số mục
+            qua = any(f"PHU-LUC-{c}-" in ten_pdf for c in "ABCD") and so > TRANG_PHU_LUC_TOI_DA
+            vi_pham += qua
+            print(f"  {ten_pdf:<46} {so:>3} trang  {f'<-- phụ lục trên {TRANG_PHU_LUC_TOI_DA}' if qua else ''}")
     return vi_pham
 
 

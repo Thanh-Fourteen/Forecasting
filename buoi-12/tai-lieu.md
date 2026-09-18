@@ -24,7 +24,7 @@ Sau buổi này bạn:
 
 ## 3. Trạng thái đầu buổi
 
-Sau `cd lab && make up`:
+Sau `cd lab && python lab.py up`:
 
 | Hạng mục | Trạng thái |
 |---|---|
@@ -35,7 +35,7 @@ Sau `cd lab && make up`:
 | `code/khu_nhieu.py` | `doc_cam_bien`, `pho`, `ha_mau`, 10 cấu hình bộ lọc, `kiem_nhan_qua`, `tre_pha`, `bang_bo_loc`, `danh_gia_feature`, `gia_cua_ro_ri`, `cham_tren_muc_tieu_lam_tron` |
 | **Đang cố tình sai** | `kiem_nhan_qua` **bỏ qua 200 điểm cuối**; `ha_mau` **bỏ qua** cờ `loc_truoc`; `danh_gia_feature` mặc định dùng MA centered và `cham_tren_muc_tieu_lam_tron` chỉ trả MAE trên mục tiêu **đã làm trơn** |
 | **Triệu chứng** | Bảng bộ lọc báo MA centered / SavGol / Kalman smoother là "nhân quả"; phổ sau hạ mẫu có đỉnh 2,5 giờ không ai giải thích được; báo cáo khoe MAE 35,8 thay vì 46,8 |
-| `make check` lúc này | ĐỎ: 6/8 test qua, 2 test hỏng |
+| `python lab.py check` lúc này | ĐỎ: 6/8 test qua, 2 test hỏng |
 
 ## 4. Lý thuyết
 
@@ -224,9 +224,9 @@ Câu 1 và câu 5 là hai câu bị bỏ qua nhiều nhất — và cũng là ha
 ### Bước 1 — Nhìn phổ trước khi lọc
 
 ```bash
-cd lab && make up
-env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python ../code/khu_nhieu.py
-make check        # 2/8 đỏ
+cd lab && python lab.py up
+python lab.py chay ../code/khu_nhieu.py
+python lab.py check        # 2/8 đỏ
 ```
 
 Vẽ phổ của `Appliances` và `T2` bằng `pho(y, fs=6.0, nperseg=2048)`. Trả lời: chuỗi nào đáng khử nhiễu, ngưỡng tần số nào hợp lý? Dùng
@@ -252,7 +252,7 @@ Sửa `danh_gia_feature` (mặc định phải là bộ lọc nhân quả) và `
 sếp: nên dùng feature nào, vì sao không dùng feature "tốt nhất".
 
 ```bash
-make check        # 8/8 xanh
+python lab.py check        # 8/8 xanh
 ```
 
 ## 6. Lỗi thường gặp & cách chẩn đoán
@@ -282,7 +282,7 @@ make check        # 8/8 xanh
 
 ## 8. Tiêu chí "Xong khi"
 
-- [ ] `make check` xanh 8/8.
+- [ ] `python lab.py check` xanh 8/8.
 - [ ] Nộp bảng 10 bộ lọc có cột **"dùng tương lai?"** do bài kiểm tự động điền, không phải bạn tự gõ.
 - [ ] Nêu được con số aliasing: công suất tại chu kỳ 2,5 h là 64,0 (hạ mẫu thô) so với 0,0 (có lọc trước).
 - [ ] Giải thích được vì sao Kalman filter "tham số cố định" và "khớp lại cả chuỗi" cho RMSE gần y hệt (0,584 vs 0,583) nhưng chỉ một cái

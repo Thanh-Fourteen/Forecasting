@@ -23,7 +23,7 @@ Sau buổi này bạn:
 
 ## 3. Trạng thái đầu buổi
 
-Sau `cd lab && make up`:
+Sau `cd lab && python lab.py up`:
 
 | Hạng mục | Trạng thái |
 |---|---|
@@ -35,7 +35,7 @@ Sau `cd lab && make up`:
 | `code/bat_thuong.py` | `z_score`, `iqr`, `mad_score`, `hampel`, `stl_robust`, `so_sanh_bat`, `masking`, `sinh_chuoi_co_loi`, `dan_nhan`, `doi_phuong_sai`, `diem_gay`, `quet_penalty`, `xu_ly_ngoai_lai`, `ba_cach_xu_ly_covid` |
 | **Đang cố tình sai** | `xu_ly_ngoai_lai` **xoá** mọi điểm > 3σ và không biết tới nhật ký sự kiện; `diem_gay` chạy PELT trên **mức thô**; `doi_phuong_sai` đo trên chuỗi gốc bằng `std` |
 | **Triệu chứng** | Chuỗi Tết mất sạch 10 đỉnh và thủng 54 mốc; hàng không EU27 ra **43 điểm gãy** không ai giải thích nổi; cảnh báo "đổi phương sai" rải khắp nơi |
-| `make check` lúc này | ĐỎ: 8/12 test qua, 4 test hỏng |
+| `python lab.py check` lúc này | ĐỎ: 8/12 test qua, 4 test hỏng |
 
 ## 4. Lý thuyết
 
@@ -256,9 +256,9 @@ Cái máy không biết, và sẽ không bao giờ đoán được từ dữ li�
 ### Bước 1 — Ngưỡng toàn chuỗi so với cửa sổ trượt
 
 ```bash
-cd lab && make up
-env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python ../code/bat_thuong.py
-make check                 # 4/12 đỏ
+cd lab && python lab.py up
+python lab.py chay ../code/bat_thuong.py
+python lab.py check                 # 4/12 đỏ
 ```
 
 Chạy `so_sanh_bat(tong)` và `masking(tong)`. Giải thích vì sao 3σ chỉ bắt 16 ngày, và vì sao thêm một điểm làm con số đó **giảm**.
@@ -286,7 +286,7 @@ Sửa `doi_phuong_sai` (phần dư STL + MAD + `model="normal"`). Chạy `dan_nh
 ≥ 4/5 loại. Cuối cùng chạy `ba_cach_xu_ly_covid(hk)` và viết ba câu khuyến nghị.
 
 ```bash
-make check                 # 12/12 xanh
+python lab.py check                 # 12/12 xanh
 ```
 
 ## 6. Lỗi thường gặp & cách chẩn đoán
@@ -317,7 +317,7 @@ make check                 # 12/12 xanh
 
 ## 8. Tiêu chí "Xong khi"
 
-- [ ] `make check` xanh 12/12.
+- [ ] `python lab.py check` xanh 12/12.
 - [ ] Trên chuỗi mô phỏng, gắn đúng loại cho **≥ 4/5** bất thường cài sẵn và bảo vệ được cách xử lý từng loại.
 - [ ] Nộp bằng chứng masking bằng số (16 → 5 và 121 → 123).
 - [ ] Nộp bảng "10/10 đỉnh Tết bị gắn cờ" kèm một đoạn giải thích vì sao **không** phương pháp thống kê nào sửa được.

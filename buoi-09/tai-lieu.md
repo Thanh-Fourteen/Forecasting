@@ -22,7 +22,7 @@ Sau buổi này bạn:
 
 ## 3. Trạng thái đầu buổi
 
-Sau `cd lab && make up`:
+Sau `cd lab && python lab.py up`:
 
 | Hạng mục | Trạng thái |
 |---|---|
@@ -32,7 +32,7 @@ Sau `cd lab && make up`:
 | `code/dac_trung.py` | `doc_tsf`, `lay_mau`, `doc_ban_le`, `entropy_pho`, `dac_trung_mot_chuoi`, `bang_dac_trung`, `du_bao_mua_vu`, `smape`, `mase`, `danh_gia_kho_de`, `tuong_quan_kho_de`, `de_xuat_chien_luoc`, `khong_gian_dac_trung`, `phan_cum_dtw`, `abc_xyz` |
 | **Đang cố tình sai** | `tuong_quan_kho_de` chỉ báo **MASE** (và chỉ Pearson); `phan_cum_dtw` mặc định **không chuẩn hoá**; `de_xuat_chien_luoc` bảo *mọi* chuỗi đều "đáng đầu tư mô hình" |
 | **Triệu chứng** | "entropy không liên quan gì tới độ khó" (r = −0,05); các cụm DTW chỉ khác nhau về độ lớn; kế hoạch tune cả 4.000 chuỗi |
-| `make check` lúc này | ĐỎ: 4/10 test hỏng |
+| `python lab.py check` lúc này | ĐỎ: 4/10 test hỏng |
 
 ## 4. Lý thuyết
 
@@ -202,9 +202,9 @@ Lưu ý khi so số liệu giữa các nguồn: entropy phổ của `tsfeatures`
 ### Bước 1 — Chạy code đầu buổi
 
 ```bash
-cd lab && make up
-env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python ../code/dac_trung.py
-make check                # 4/10 đỏ
+cd lab && python lab.py up
+python lab.py chay ../code/dac_trung.py
+python lab.py check                # 4/10 đỏ
 ```
 
 ### Bước 2 — Trích 20 đặc trưng cho 4.000 chuỗi
@@ -241,7 +241,7 @@ chuỗi. Cuối cùng lập bảng ABC–XYZ cho dữ liệu bán lẻ bằng `a
 ô đó **không** trùng với "ô khó dự báo nhất".
 
 ```bash
-make check                # 10/10 xanh
+python lab.py check                # 10/10 xanh
 ```
 
 ## 6. Lỗi thường gặp & cách chẩn đoán
@@ -271,7 +271,7 @@ make check                # 10/10 xanh
 
 ## 8. Tiêu chí "Xong khi"
 
-- [ ] `make check` xanh 10/10.
+- [ ] `python lab.py check` xanh 10/10.
 - [ ] Nộp bản đồ tập dữ liệu (PCA) + bảng "chuỗi nào đáng đầu tư mô hình, chuỗi nào dùng baseline" kèm số chuỗi và sMAPE trung vị mỗi nhóm.
 - [ ] Giải thích bằng số vì sao entropy tương quan +0,22 với sMAPE nhưng ≈ 0 với MASE và −0,54 với MASE chia naive-1.
 - [ ] Chứng minh phân cụm của bạn theo **hình dạng**: nhân một chuỗi với 100 không đổi cụm.

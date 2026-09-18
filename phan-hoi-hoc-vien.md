@@ -59,3 +59,14 @@ Khuôn một mục:
   Yêu cầu: "viết dễ hiểu nhưng không được dài dòng".
 - Đã phải hỏi/tra: —
 - Đã xử lý: 🔲 (Phase 7 — chuẩn "gọn" D13, rút gọn buổi 1–3 + Phụ lục A, B; mọi phase sau viết gọn ngay từ đầu)
+
+### Buổi 01–03, tài liệu nền — quá tường minh, công cụ rối (2026-09-18)
+
+- Câu/đoạn gây khó: phần Lab và MOI-TRUONG: `env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python …`, `make`,
+  tệp `.py` dạng percent mở bằng jupytext.
+- Không hiểu gì: "nhiều khi viết dễ hiểu, tường minh quá thành ra dài dòng và khó hiểu". Vì sao dùng make, vì sao không
+  phát sẵn `.ipynb`, dùng anaconda được không?
+- Đã phải hỏi/tra: —
+- Đã xử lý: ✅ Phase 7, 2026-09-18 — bỏ make, thay bằng `python lab.py up | check | chay | notebook | down` (thư viện
+  chuẩn, chạy cả Windows); phát sẵn `code/lab.ipynb`; conda/pip được qua `python lab.py up --pip` +
+  `00-nen/requirements.txt` sinh từ `uv.lock`; thêm vào D13 "tường minh quá cũng là khó hiểu".

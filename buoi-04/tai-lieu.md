@@ -28,7 +28,7 @@ Những gì hôm nay dùng từ phần dữ liệu thời gian:
 
 ## 3. Trạng thái đầu buổi
 
-Sau `cd lab && make up`:
+Sau `cd lab && python lab.py up`:
 
 | Hạng mục | Trạng thái |
 |---|---|
@@ -38,7 +38,7 @@ Sau `cd lab && make up`:
 | `code/bieu_do.py` | `doc_luot_thue`, `ho_so_tuan`, `acf_nhanh`, `cap_tre`, `ve_duong`, `ve_nhiet_do_truc_kep`, `bo_bieu_do_chan_doan`, `bieu_do_gay_hieu_nham`, `ve_lai_trung_thuc` |
 | **Đang cố tình sai** | bộ chẩn đoán chỉ có 2 ô: đường thô 17.544 giờ và trục kép lượt thuê–nhiệt độ có trục y cắt; `ho_so_tuan` cho 7 dòng **giống hệt nhau**; `ve_lai_trung_thuc` trả lại chính hình gây hiểu nhầm |
 | **Triệu chứng** | nhìn bộ biểu đồ không thấy thứ Bảy khác thứ Hai; trục kép "chứng minh" lượt thuê bám nhiệt độ |
-| `make check` lúc này | ĐỎ: 7/8 test hỏng |
+| `python lab.py check` lúc này | ĐỎ: 7/8 test hỏng |
 
 ## 4. Lý thuyết
 
@@ -232,9 +232,9 @@ kết luận người đọc kiểm được ngay trên hình. Bộ chấm từ 
 ### Bước 1 — Chạy code đầu buổi
 
 ```bash
-cd lab && make up
-env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python ../code/bieu_do.py
-make check                  # 7/8 đỏ
+cd lab && python lab.py up
+python lab.py chay ../code/bieu_do.py
+python lab.py check                  # 7/8 đỏ
 ```
 
 In ra `17544 giờ trên lưới, thiếu 165` và bảng `ho_so_tuan` có 7 dòng giống nhau (8h: 359 ở mọi thứ).
@@ -261,7 +261,7 @@ heatmap, cột 8h, dòng T7–CN tối (114 và 84 so với 412–489)."
 về quan hệ.
 
 ```bash
-make check                  # 8/8 xanh
+python lab.py check                  # 8/8 xanh
 ```
 
 ## 6. Lỗi thường gặp & cách chẩn đoán
@@ -291,7 +291,7 @@ make check                  # 8/8 xanh
 
 ## 8. Tiêu chí "Xong khi"
 
-- [ ] `make check` xanh 8/8.
+- [ ] `python lab.py check` xanh 8/8.
 - [ ] Với một chuỗi lạ, trong 20 phút nộp bộ 8 biểu đồ + 5 nhận xét, mỗi nhận xét chỉ vào hình, chỗ, con số.
 - [ ] Chỉ ra mùa vụ kép ngày + tuần trên ít nhất hai hình (heatmap, seasonal tuần, ACF) mà biểu đồ đường thô che mất.
 - [ ] Giải thích hai thủ thuật trong biểu đồ gây hiểu nhầm và vì sao bản vẽ lại trung thực hơn.

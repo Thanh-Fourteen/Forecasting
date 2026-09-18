@@ -3,7 +3,7 @@
 #
 # Chạy một lần trước khi phát đề:
 #
-#     cd lab && env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python \
+#     cd lab && python lab.py chay \
 #         ../giam-khao/tiem_loi.py --ra ../phat/du-lieu
 #
 # Sinh ra (tất định theo seed):

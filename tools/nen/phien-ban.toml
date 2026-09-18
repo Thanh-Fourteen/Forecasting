@@ -19,7 +19,7 @@ uv_build = ">=0.12.15,<0.13"
 # Nhóm phụ thuộc có trong MỌI buổi (PEP 735, uv cài mặc định cả hai nhóm)
 [nhom]
 dev = ["pytest", "ruff"]
-notebook = ["jupyterlab", "jupytext", "ipykernel"]
+notebook = ["jupyterlab", "ipykernel"]
 
 # Luôn thêm vào dependencies: zoneinfo cần tzdata trên máy không có CSDL múi giờ IANA;
 # numpy + pandas vì mọi module của tv/ cần (tv.ve cần thêm matplotlib, tv.backtest.diebold_mariano cần scipy)

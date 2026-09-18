@@ -1,4 +1,4 @@
-"""du_lieu: đọc .tsf của Monash, dạng dài theo khai báo dang_dai, báo lỗi khi chưa make up."""
+"""du_lieu: đọc .tsf của Monash, dạng dài theo khai báo dang_dai, báo lỗi khi chưa python lab.py up."""
 import pandas as pd
 import pytest
 
@@ -74,7 +74,7 @@ def test_doc_du_lieu_dang_dai(tmp_path, monkeypatch):
 
 def test_chua_make_up(tmp_path, monkeypatch):
     _nen_gia(tmp_path, monkeypatch, co_du_lieu=False)
-    with pytest.raises(FileNotFoundError, match="make up"):
+    with pytest.raises(FileNotFoundError, match="lab.py up"):
         du_lieu.doc_du_lieu("xe")
     with pytest.raises(KeyError, match="không có bộ"):
         du_lieu.thong_tin("khong-co")

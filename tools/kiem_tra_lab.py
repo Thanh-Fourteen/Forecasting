@@ -1,16 +1,17 @@
-"""Chạy lab của mọi buổi như học viên: make down → up → check (dap-an, code) → down, in bảng kết quả.
+"""Chạy lab của mọi buổi như học viên: python lab.py down → up → check (dap-an, code) → chạy code/lab.ipynb → down, in bảng kết quả.
 
-    python tools/kiem_tra_lab.py                 mọi buoi-*/ có lab/Makefile
+    python tools/kiem_tra_lab.py                 mọi buoi-*/ có lab/lab.py
     python tools/kiem_tra_lab.py 7 13            chỉ các buổi này (cũng nhận buoi-00-thu, 4-8)
     python tools/kiem_tra_lab.py 7 --may-trang   cache uv + cache dữ liệu mới tinh trong thư mục tạm
                                                  (mô phỏng máy trắng; tải lại mọi thứ)
-    python tools/kiem_tra_lab.py 7 --giu         không make down ở cuối (để xem lại môi trường)
+    python tools/kiem_tra_lab.py 7 --giu         không down ở cuối (để xem lại môi trường)
 
 Kỳ vọng mỗi buổi (Definition of Done trong CLAUDE.md):
     up                    thành công; < 10 phút khi đã có cache
-    check BAI=dap-an      XANH
-    check BAI=code        ĐỎ vì test hỏng (chỗ hở cố ý) — trừ buổi đặt [cham] code_phai_do = false
+    check --dap-an        XANH
+    check (code/)         ĐỎ vì test hỏng (chỗ hở cố ý) — trừ buổi đặt [cham] code_phai_do = false
     check                 < 10 phút
+    notebook              code/lab.ipynb chạy hết không lỗi (nếu buổi có)
     down                  thành công
 
 Nhật ký đầy đủ từng bước: tools/nhat-ky-lab/<buoi>-<buoc>.log (gitignore).
@@ -30,11 +31,12 @@ from pathlib import Path
 GOC = Path(__file__).resolve().parent.parent
 NHAT_KY = GOC / "tools" / "nhat-ky-lab"
 GIOI_HAN_GIAY = 600
+LAB = [sys.executable, "lab.py"]  # chạy trong buoi-NN/lab/
 
 
 def chon_buoi(tham_so: list[str]) -> list[Path]:
     if not tham_so:
-        return sorted(p for p in GOC.glob("buoi-*") if (p / "lab" / "Makefile").is_file())
+        return sorted(p for p in GOC.glob("buoi-*") if (p / "lab" / "lab.py").is_file())
     ra: list[Path] = []
     for t in tham_so:
         if t.isdigit():
@@ -72,8 +74,8 @@ def kiem_buoi(buoi: Path, env: dict[str, str], giu: bool) -> tuple[list[str], bo
     """Trả về (các ô của dòng bảng, đạt?)."""
     o: list[str] = []
     dat = True
-    if not (buoi / "lab" / "Makefile").is_file():
-        return ["thiếu lab/Makefile", "", "", "", ""], False
+    if not (buoi / "lab" / "lab.py").is_file():
+        return ["thiếu lab/lab.py — chạy tools/sinh_nen.py", "", "", "", "", ""], False
 
     code_phai_do = True
     nen = buoi / "lab" / "nen.toml"
@@ -81,16 +83,16 @@ def kiem_buoi(buoi: Path, env: dict[str, str], giu: bool) -> tuple[list[str], bo
         with open(nen, "rb") as f:
             code_phai_do = tomllib.load(f).get("cham", {}).get("code_phai_do", True)
 
-    chay(buoi, "down-truoc", ["make", "down"], env)  # venv trắng
+    chay(buoi, "down-truoc", [*LAB, "down"], env)  # venv trắng
 
-    ma, giay, ra = chay(buoi, "up", ["make", "up"], env)
+    ma, giay, ra = chay(buoi, "up", [*LAB, "up"], env)
     if ma:
         dong_loi = next((d for d in reversed(ra.splitlines()) if d.strip()), "")
-        return [f"✗ {phut(giay)} — {dong_loi[:60]}", "—", "—", "—"], False
+        return [f"✗ {phut(giay)} — {dong_loi[:60]}", "—", "—", "—", "—"], False
     o.append(f"✓ {phut(giay)}" + (" ⚠>10′" if giay > GIOI_HAN_GIAY else ""))
 
     if (buoi / "dap-an").is_dir():
-        ma, giay, ra = chay(buoi, "check-dap-an", ["make", "check", "BAI=dap-an"], env)
+        ma, giay, ra = chay(buoi, "check-dap-an", [*LAB, "check", "--dap-an"], env)
         dat_dap_an = ma == 0
         dat &= dat_dap_an
         o.append(("✓ xanh " if dat_dap_an else "✗ đỏ ") + phut(giay)
@@ -100,7 +102,7 @@ def kiem_buoi(buoi: Path, env: dict[str, str], giu: bool) -> tuple[list[str], bo
         o.append("— (không có dap-an/)")
 
     if (buoi / "code").is_dir():
-        ma, giay, ra = chay(buoi, "check-code", ["make", "check", "BAI=code"], env)
+        ma, giay, ra = chay(buoi, "check-code", [*LAB, "check"], env)
         if code_phai_do:
             dung = ma != 0 and do_do_test_hong(ra)
             o.append(("✓ đỏ đúng " if dung else ("✗ XANH — chỗ hở đã bị sửa? " if ma == 0
@@ -112,10 +114,19 @@ def kiem_buoi(buoi: Path, env: dict[str, str], giu: bool) -> tuple[list[str], bo
     else:
         o.append("— (không có code/)")
 
+    nb = buoi / "code" / "lab.ipynb"
+    if nb.is_file():
+        ma, giay, ra = chay(buoi, "notebook", [*LAB, "chay", "-m", "jupyter", "nbconvert", "--to", "notebook",
+                                               "--execute", "--stdout", str(nb)], env)
+        o.append(("✓ " if ma == 0 else "✗ ") + phut(giay))
+        dat &= ma == 0
+    else:
+        o.append("—")
+
     if giu:
         o.append("giữ")
     else:
-        ma, giay, _ = chay(buoi, "down", ["make", "down"], env)
+        ma, giay, _ = chay(buoi, "down", [*LAB, "down"], env)
         o.append("✓" if ma == 0 else "✗")
         dat &= ma == 0
     return o, dat
@@ -126,12 +137,12 @@ def main(argv: list[str] | None = None) -> int:
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("buoi", nargs="*")
     ap.add_argument("--may-trang", action="store_true", help="cache uv + dữ liệu mới trong thư mục tạm")
-    ap.add_argument("--giu", action="store_true", help="không make down ở cuối")
+    ap.add_argument("--giu", action="store_true", help="không down ở cuối")
     t = ap.parse_args(argv)
 
     cac_buoi = chon_buoi(t.buoi)
     if not cac_buoi:
-        print("(chưa có buổi nào có lab/Makefile)")
+        print("(chưa có buổi nào có lab/lab.py)")
         return 0
     env = {k: v for k, v in os.environ.items() if k != "VIRTUAL_ENV"}
     tam = None
@@ -141,7 +152,7 @@ def main(argv: list[str] | None = None) -> int:
         env["KHOA_FORECASTING_CACHE"] = f"{tam.name}/du-lieu"
         print(f"Máy trắng mô phỏng: cache tạm {tam.name}")
 
-    tieu_de = ["buổi", "make up", "check dap-an", "check code", "down", "tổng"]
+    tieu_de = ["buổi", "up", "check dap-an", "check code", "lab.ipynb", "down", "tổng"]
     print("| " + " | ".join(tieu_de) + " |\n|" + "---|" * len(tieu_de), flush=True)
     that_bai = 0
     for buoi in cac_buoi:

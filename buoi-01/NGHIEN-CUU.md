@@ -191,3 +191,19 @@ Subagent mới mỗi vòng, prompt nguyên văn ở `tools/CHUAN-DE-HIEU.md`, ch
 | 2 | sửa 6 chỗ trên | **0** | **5** | 20 | 10/10 | **đạt**. Không số nào sai. Sau vòng này sửa thêm 2 chỗ khó: định nghĩa $C_u$, $C_o$ trước khi dùng + chuyển vế từng bước; nói thẳng vì sao trung bình 4 tuần xuống cuối khi chấm tổng tuần (lệch cùng chiều kéo dài quanh tháng 8) |
 
 `kiem_de_hieu.py 1`: 67 → 0 vi phạm. Độ dài 6.790 chữ ngoài bảng/code; PDF 19 trang.
+
+## Rút gọn (Phase 7, 2026-09-18)
+
+Người dùng: bản Phase 6 "dễ hiểu hơn nhưng dài dòng", "tường minh quá thành ra dài dòng và khó hiểu". Quy tắc D13.
+
+| Bước | Kết quả |
+|---|---|
+| Biên tập viên lượt đầu | 32 chỗ thừa, ≈ 765 chữ (10,5%) — tài liệu đã khá chặt; phần lớn thừa là **lặp lập luận** (4.6 giải "vì sao 0,8" ba lần) và **chữ đọc lại hình/bảng** (4.5 giải tháng 8 ba lần) |
+| Cắt | 6.910 → 5.473 chữ ngoài bảng/code; năm câu hỏi 4.2 chuyển xuống Lab bước 2; Trực giác 4.2, 4.4 bỏ |
+| Đọc thử lại (subagent mới) | **0 chặn / 5 khó / 22 nhỏ**, quiz 10/10. Bắt được **một câu sai do cắt**: Lab bước 4 "mỗi tuần một phương pháp khác thắng" (thật ra trung bình 4 tuần gần nhất 2/3 tuần) — đã sửa. Sửa thêm: nhãn "23:00" là cả giờ 23:00–23:59; "thực tế = dự báo + sai số" nối quantile sai số với quantile lượng điện; trung vị đếm tay (7) khác cách phổ thông (7,5) |
+| Đổi công cụ | bỏ `make`/`env -u VIRTUAL_ENV uv run …` → `python lab.py up/check/notebook`; code Lab vào `code/lab.ipynb` (chạy hết, `kiem_tra_lab.py`); Python thật 3.12.14 (tài liệu cũ ghi 3.12.3 — đã sửa) |
+| Biên tập viên cuối | 9 chỗ nhỏ, chỉ 1 chỗ ≥ 30 chữ (4.6 gộp $s$ và $C_u$) — **đạt** (≤ 3). Nhận #1, #5 (dòng 1 : 3 lộ đáp án Tự kiểm tra), #6; giữ hai bước "bằng số rồi bằng chữ" ở 4.6 vì đọc thử Phase 6 cần |
+| Cuối | **5.538 chữ (−19,9%)**, PDF **19 → 17 trang**, `kiem_de_hieu` 0 vi phạm |
+
+Chưa đạt mục tiêu −25%: phần còn lại là ví dụ tính tay, câu nói bằng lời, 4 hình × 5 bước, hộp Mượn trước — danh sách
+không được cắt. Cắt tiếp sẽ quay lại lỗi Phase 5 (nén chữ).

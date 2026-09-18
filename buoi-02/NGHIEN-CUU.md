@@ -256,3 +256,24 @@ là phép tính tay/dãy dữ liệu ví dụ (lý do ghi ở mục "Sửa sau �
 Bài học cho Phase 7–8: buổi dạy nhiều khái niệm nền thì mỗi vòng đọc thử lại tìm ra chỗ mới; thêm giải thích làm
 chạm trần chữ. Cách hiệu quả là **cắt chi tiết chứng minh sang phụ lục** và nói thẳng giới hạn ("cần toán ngoài buổi
 này") thay vì giải thích nửa vời.
+
+## Rút gọn (Phase 7, 2026-09-18)
+
+Người dùng: "dễ hiểu hơn nhưng dài dòng", "tường minh quá thành ra dài dòng và khó hiểu". Quy tắc D13.
+
+| Vòng | Bản | Chặn | Khó | Nhỏ | Quiz | Ghi chú |
+|---|---|---|---|---|---|---|
+| biên tập 1 | bản Phase 6 (8.991 chữ) | — | — | — | — | 37 chỗ thừa ≈ 735 chữ (8%); muốn −28% phải chuyển chứng minh sang Phụ lục B |
+| cắt | 6.499 chữ | | | | | trỏ Phụ lục B mục 5, 6, 8, 11; bỏ Nâng cao 4.3; rút hộp Mượn trước |
+| đọc 1 | sau cắt | 0 | 7 | 12 | 10/10 | khó: i.i.d. "cùng phân phối", tổng thể, confounder nhiệt độ, tự tương quan −0,75 vs $r$, $C(n,k)$, hình khối, khối dài hẹp |
+| đọc 2 | + Lab mới (notebook) | 0 | 8 | 10 | 10/10 | cắt quá tay: √n chỉ khẳng định, $\sigma$ hai cách gọi, 95% "của quy trình" mất khỏi thân bài; **một câu sai do tác giả**: Lab bước 1 trỏ 72,51% về dòng Triệu chứng |
+| đọc 3 | + tính tay phương sai đồng xu ±1, một/hai phía, bootstrap từng điểm vs $n_{\text{eff}}$ | 0 | 6 | 15 | 10/10 | |
+| đọc 4 | sửa 6 chỗ | **0** | **4** | 15 | 10/10 | **đạt**. Bắt một lời giải thích **sai cơ chế** của tác giả (hộp biến gây nhiễu: giờ làm *loãng* quan hệ nhiệt độ, không làm nó cao giả) — đã sửa |
+| biên tập cuối | | — | — | — | — | 5 chỗ lặp nhỏ (mỗi chỗ < 30 chữ): đã nhận hết; từ chối "Kết luận: như tiêu đề hình" |
+
+Cuối: **6.544 chữ (−27%)**, PDF **22 → 18 trang**. `kiem_de_hieu`: `do_dai` vượt trần 6.500 **44 chữ (0,7%) — giữ có lý
+do**: buổi nền thống kê 6 khái niệm; mỗi lần ép xuống dưới trần, đọc thử lại báo khó đúng ở mắt xích vừa cắt (√n, 95% của
+quy trình, khối dài). `nhieu_so` 24 cờ: phép tính tay/dãy số ví dụ (lý do như Phase 6).
+
+Bài học: với buổi dạy nhiều khái niệm nền, trần chữ là giới hạn mềm; thước đo thật là đọc thử. Cắt lặp và câu rỗng thì
+an toàn; cắt mắt xích lập luận ("vì sao") thì lần nào cũng bị đọc thử bắt lại.

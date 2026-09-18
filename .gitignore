@@ -24,10 +24,12 @@ phat-de/*.zip
 *.key
 kaggle.json
 
-# notebook sinh từ .py percent bằng jupytext — không commit (tools/NGHIEN-CUU.md mục 4)
+# notebook: chỉ code/*.ipynb được commit, và phải sạch output (kiem_tra_doc_lap.sh K9)
 buoi-*/**/*.ipynb
 du-an-*/**/*.ipynb
 danh-gia/**/*.ipynb
+!buoi-*/code/*.ipynb
+!du-an-*/*/code/*.ipynb
 .pytest_cache/
 
 # nhật ký chạy thử lab (tools/kiem_tra_lab.py)

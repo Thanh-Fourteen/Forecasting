@@ -1,5 +1,5 @@
 # SINH TỰ ĐỘNG bởi tools/sinh_nen.py — KHÔNG SỬA TAY. Sửa tools/du-lieu/danh-muc.toml rồi chạy lại tool.
-# Dữ liệu của buoi-02: tải + kiểm sha256 bằng `bash 00-nen/chuan-bi.sh` (make up).
+# Dữ liệu của buoi-02: tải + kiểm sha256 bằng `python lab.py up`.
 
 phien_ban = 1
 

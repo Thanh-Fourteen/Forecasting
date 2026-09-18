@@ -28,15 +28,15 @@ Nội dung từng buổi: `lo-trinh/lo-trinh-forecasting.md`.
 | `phu-luc/` | Phụ lục A–F dùng chung (Python, xác suất, đọc biểu đồ, công thức chỉ số, từ điển, nguồn dữ liệu) |
 | `buoi-NN/` | Một buổi tự chứa: `tai-lieu.md`, PDF, `NGHIEN-CUU.md`, `hinh/`, `code/`, `dap-an/`, `lab/`, `kiem-tra.md` |
 | `buoi-NN/lab/nen.toml` | **Viết tay**: tên thư viện + tên bộ dữ liệu buổi cần (`[ghi_de]` có lý do nếu phải lệch bảng chung) |
-| `buoi-NN/lab/00-nen/` | **Nền của buổi — sinh tự động**: `pyproject.toml` + `uv.lock`, `du-lieu.toml` (URL + sha256 + giấy phép), `lay_du_lieu.py`, `chuan-bi.sh`, `tv/` (khung trợ giúp, `import tv`) |
+| `buoi-NN/lab/00-nen/` | **Nền của buổi — sinh tự động**: `pyproject.toml` + `uv.lock`, `du-lieu.toml` (URL + sha256 + giấy phép), `lay_du_lieu.py`, `requirements.txt` (cho conda/pip), `tv/` (khung trợ giúp, `import tv`); kèm `lab/lab.py` (`python lab.py up/check/chay/notebook/down`, thay Makefile từ 2026-09-18) |
 | `du-an-giua-chang/` | 01 EDA & làm sạch, 02 thi dự báo trên dữ liệu tương lai |
 | `du-an-cuoi/` | 3 đề thực tế, rubric 100+20, bộ chấm, "ngày dữ liệu hỏng" |
 | `danh-gia/` | Ngân hàng câu hỏi, đề thực hành, đề đọc biểu đồ, đề tìm rò rỉ |
 | `phat-de/` | Sinh ra: `buoi-NN.zip` phát cho học viên (gitignore) |
-| `tools/` | `CHUAN-DE-HIEU.md` (chuẩn dễ hiểu + prompt đọc thử), `kiem_de_hieu.py`, `xuat_pdf.py`, `sinh_nen.py`, `lay_du_lieu.py`, `kiem_tra_doc_lap.sh`, `kiem_tra_lab.py`, `dong_goi.py`, `khung/` (nguồn của `tv/`), `nen/phien-ban.toml` (phiên bản chung), `du-lieu/danh-muc.toml`, `khuon-buoi/`, `NGHIEN-CUU.md` |
+| `tools/` | `CHUAN-DE-HIEU.md` (chuẩn dễ hiểu + prompt đọc thử), `kiem_de_hieu.py`, `xuat_pdf.py`, `sinh_nen.py`, `lay_du_lieu.py`, `kiem_tra_doc_lap.sh`, `kiem_tra_lab.py`, `dong_goi.py`, `khung/` (nguồn của `tv/`), `nen/phien-ban.toml` (phiên bản chung), `nen/lab.py` (nguồn của `lab/lab.py`), `nb.py` (soạn `code/lab.ipynb`), `du-lieu/danh-muc.toml`, `khuon-buoi/`, `NGHIEN-CUU.md` |
 | `todos.md`, `todos/` | `todos.md`: tiêu đề phase + prompt (autoclick theo dõi); `todos/quy-uoc.md`, `todos/tong-quan.md`, `todos/phase-NN.md`. Xong phase → đổi 🔲→✅ ở `todos.md` VÀ `todos/phase-NN.md` |
 | `phan-hoi-hoc-vien.md` | Người học ghi đoạn khó hiểu — đọc trước khi soạn/viết lại buổi |
-| `MOI-TRUONG.md`, `pyproject.toml` | Hướng dẫn cài cho học viên; cấu hình ruff + jupytext (repo **không** phải dự án uv — cấm `[tool.uv.workspace]`) |
+| `MOI-TRUONG.md`, `pyproject.toml` | Hướng dẫn cài cho học viên; cấu hình ruff (repo **không** phải dự án uv — cấm `[tool.uv.workspace]`) |
 
 ## Research trước khi soạn (CRITICAL)
 
@@ -114,11 +114,12 @@ có nguồn và ngày. Lệch lớn so với lộ trình → cập nhật `lo-tr
   + **đọc thử** bằng subagent học viên mới theo prompt trong
   `tools/CHUAN-DE-HIEU.md` (0 chỗ chặn, ≤ 5 chỗ khó, quiz ≥ 9/10 chỉ bằng tài liệu), ghi mục "Đọc thử" trong `NGHIEN-CUU.md`
 - `code/` chạy được, có chỗ hở cố ý, kèm `README.md` ngắn
-- `dap-an/` là bản đã sửa, `make check` xanh; `code/` thì `make check` đỏ đúng chỗ hở
+- `dap-an/` là bản đã sửa, `python lab.py check --dap-an` xanh; `code/` thì `python lab.py check` đỏ đúng chỗ hở
 - `lab/00-nen/` dựng đúng nền **từ venv trắng** (`uv sync --frozen` + dữ liệu qua sha256)
-- `lab/Makefile` có `up` / `check` / `down`; `check` < 10 phút trên CPU 4 nhân
+- `lab/lab.py` (sinh tự động) chạy được `up` / `check` / `down`, cả `up --pip` cho conda; `check` < 10 phút trên CPU 4 nhân
 - `kiem-tra.md` 10 câu (4 nhắc lại, 4 vận dụng, 2 đọc biểu đồ/bảng kết quả tìm chỗ sai), đáp án trong `<details>`
-- `ruff check` sạch; notebook sinh từ `.py` bằng jupytext, không commit output
+- `ruff check` sạch; Lab có notebook `code/lab.ipynb` phát sẵn (soạn bằng `tools/nb.py`), commit **không output**,
+  chạy hết không lỗi (`kiem_tra_lab.py` chạy nó)
 - `tools/kiem_tra_doc_lap.sh` xanh
 - PDF sinh ra, mở kiểm tra bảng, khối code, công thức, ảnh; 10–18 trang
 - Chạy thử toàn bộ lab trên **venv trắng** một lần rồi mới tick ✅ trong `todos.md`
@@ -144,7 +145,7 @@ python3 tools/kiem_de_hieu.py [7] [--chi-tiet]        # kiểm máy chuẩn dễ
 .venv/bin/python tools/du-lieu/sinh_phu_luc_f.py      # Phụ lục F từ danh mục (không sửa tay)
 .venv/bin/python tools/du-lieu/mirror_hf.py --repo ORG/REPO --chuan-bi   # (--day-len: cần HF_TOKEN + đồng ý)
 
-cd buoi-07/lab && make up && make check BAI=dap-an    # như học viên; make check = chấm code/
+cd buoi-07/lab && python lab.py up && python lab.py check --dap-an   # như học viên; check = chấm code/
 ```
 
 `xuat_pdf.py` cần `markdown-it-py`, `mdit-py-plugins`, `weasyprint`, `ziamath`, `pypdf` (không cần

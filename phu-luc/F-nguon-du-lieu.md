@@ -1,14 +1,14 @@
 <!-- SINH TỰ ĐỘNG bởi tools/du-lieu/sinh_phu_luc_f.py từ tools/du-lieu/danh-muc.toml — KHÔNG SỬA TAY -->
 # Phụ lục F — Nguồn dữ liệu và giấy phép
 
-Mọi bộ dữ liệu buổi học tải tự động (`make up`) đều nằm trong danh mục này, kèm **giấy phép đã đọc từ trang
+Mọi bộ dữ liệu buổi học tải tự động (`python lab.py up`) đều nằm trong danh mục này, kèm **giấy phép đã đọc từ trang
 gốc** (trích nguyên văn), sha256 và quyết định có được mirror không. Buổi học chỉ dùng được bộ đã chốt
 sha256. Nhật ký rà giấy phép đầy đủ: `tools/du-lieu/NGHIEN-CUU.md`.
 
 **Quy tắc:** CC BY / CC0 / public domain → được mirror (kèm ghi nguồn); giấy phép cấm phân phối lại → học
 viên tự tải bằng tài khoản của mình và luôn có bộ dự phòng mở; nguồn không có giấy phép rõ → không mirror.
 
-Danh mục có **56 bộ**, tổng dung lượng tải khoảng **1.4 GB** (không tính bộ chưa rõ dung lượng).
+Danh mục có **57 bộ**, tổng dung lượng tải khoảng **1.4 GB** (không tính bộ chưa rõ dung lượng).
 
 ## Bảng tổng quan
 
@@ -59,6 +59,7 @@ Danh mục có **56 bộ**, tổng dung lượng tải khoảng **1.4 GB** (khô
 | `open-meteo-houston-2024` | CC BY 4.0 | có | tải trực tiếp | 188.3 KB | 8 | đã chốt |
 | `open-meteo-new-york-2024-01` | CC BY 4.0 | có | tải trực tiếp | 26.6 KB | 3 | đã chốt |
 | `open-meteo-new-york-2024-03-11` | CC BY 4.0 | có | tải trực tiếp | 237.3 KB | 3 | đã chốt |
+| `open-meteo-tphcm-2023-2024` | CC BY 4.0 | có | tải trực tiếp | 653.0 KB | du-an-1 | đã chốt |
 | `philly-fed-gdp-thuc-vintage` | Điều khoản Philadelphia Fed — chỉ cho mục đích thông tin, giáo dục, nghiên cứu | không | tải trực tiếp | 237.5 KB | 20 | đã chốt |
 | `prop99-smoking` | Không có giấy phép từ tác giả gốc; bản CSV nằm trong repo MIT | không | tải trực tiếp | 99.0 KB | 38 | đã chốt |
 | `tourism-australia-tsibble` | GPL-3 (dữ liệu nằm trong gói tsibble) | có | tải trực tiếp | 173.8 KB | 28 | đã chốt |
@@ -625,6 +626,19 @@ Danh mục có **56 bộ**, tổng dung lượng tải khoảng **1.4 GB** (khô
 - **Trích dẫn:** Weather data by Open-Meteo.com (https://open-meteo.com/), mô hình ERA5.
 - **Ghi chú:** Cố ý lấy timezone=UTC: với timezone=America/New_York API áp MỘT độ lệch cố định (giờ lúc gọi) cho cả khoảng — sai quanh DST (issue open-meteo #1764).
 - **Xác minh:** 2026-09-17: tải + sha256; hành vi timezone kiểm bởi agent research
+
+### `open-meteo-tphcm-2023-2024` — Open-Meteo Historical Weather (ERA5) — TP. Hồ Chí Minh, theo giờ 2023–2024, UTC
+
+- **Nguồn:** <https://open-meteo.com/en/docs/historical-weather-api>
+- **Tệp tải:** `https://archive-api.open-meteo.com/v1/archive?latitude=10.8231&longitude=106.6297&start_date=2023-01-01&end_date=2024-12-31&hourly=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m,wind_direction_10m&timezone=UTC&models=era5&format=csv`
+- **Giấy phép:** CC BY 4.0 — <https://open-meteo.com/en/licence>
+- **Trích nguyên văn:** "API data are offered under Attribution 4.0 International (CC BY 4.0) You are free to share: copy and redistribute the material in any medium or format and adapt: remix, transform, and build upon the material."
+- **Mirror:** được — nên mirror: API miễn phí chỉ cho mục đích phi thương mại và giới hạn 10.000 lượt/ngày; dữ liệu CC BY cho phép phân phối lại
+- **Khoảng thời gian cố định:** 2023-01-01 → 2024-12-31
+- **sha256:** `aebd047f8dd768eb128c50eae35064c92ef03672b0161b5b7df20f2372bd1195` (653.0 KB)
+- **Trích dẫn:** Weather data by Open-Meteo.com (https://open-meteo.com/), mô hình ERA5 (Copernicus Climate Change Service).
+- **Ghi chú:** Toạ độ bị bắt vào ô lưới gần nhất; chốt models=era5 cho ổn định (mặc định 'best match' trộn nhiều mô hình). Ba dòng đầu CSV là metadata ô lưới.
+- **Xác minh:** 2026-09-17: trang licence + terms; tải 2 lần (agent kiểm dạng tương tự, tác giả tải bản này)
 
 ### `philly-fed-gdp-thuc-vintage` — Philadelphia Fed Real-Time Data Set — GDP thực theo quý, mọi vintage (ROUTPUT, thay ALFRED)
 

@@ -1,9 +1,12 @@
 <!--
 KHUÔN tai-lieu.md — xoá mọi khối chú thích HTML như khối này trước khi xuất PDF.
 Dùng khuôn:  cp -r tools/khuon-buoi buoi-NN  → sửa lab/nen.toml → python tools/sinh_nen.py NN
-Bắt buộc (CLAUDE.md): đủ 9 mục đúng thứ tự dưới đây; 4.000–9.000 chữ ngoài bảng/code (kiem_de_hieu: do_dai); PDF 12–24 trang
+Bắt buộc (CLAUDE.md): đủ 9 mục đúng thứ tự dưới đây; 3.500–6.500 chữ ngoài bảng/code (kiem_de_hieu: do_dai); PDF 10–18 trang
 (python tools/xuat_pdf.py NN && python tools/xuat_pdf.py --kiem).
-CHUẨN DỄ HIỂU (quy tắc D1–D12): đọc tools/CHUAN-DE-HIEU.md (có bài mẫu = buổi 1 mục 4.8) và phan-hoi-hoc-vien.md
+GỌN (D13): mỗi ý nói một lần; khuôn khái niệm dưới đây là TRẦN — chỉ "Ví dụ số nhỏ" + "Tóm lại" bắt buộc, bước nào
+không thêm hiểu biết thì bỏ (NumPy + thư viện gộp một khối); "Tóm lại" ≤ 3 câu, không chép lại; Lab/Lỗi thường gặp trỏ
+về mục lý thuyết thay vì giải lại. Nghiệm thu thêm bước "Rà gọn" (biên tập viên ≤ 3 chỗ thừa).
+CHUẨN DỄ HIỂU (quy tắc D1–D13): đọc tools/CHUAN-DE-HIEU.md (có bài mẫu = buổi 1 mục 4.8) và phan-hoi-hoc-vien.md
 TRƯỚC khi viết. Người đọc biết Python + toán phổ thông, chưa học thống kê đại học, tự học một mình.
 Kiểm máy: python3 tools/kiem_de_hieu.py NN --chi-tiet. Nghiệm thu: BƯỚC CUỐI "Đọc thử" (0 chặn, ≤ 5 khó).
 Các nhãn in đậm dưới đây là CỐ ĐỊNH — bộ kiểm và xuat_pdf.py tìm đúng các chữ này.
@@ -31,22 +34,23 @@ nhiều nhất. Kiến thức nền dùng chung có thể trỏ thêm phu-luc/, 
 
 ## 3. Trạng thái đầu buổi
 
-<!-- Bảng liệt kê CHÍNH XÁC sau `make up`, lấy từ output thật:
+<!-- Bảng liệt kê CHÍNH XÁC sau `python lab.py up`, lấy từ output thật:
      `bash lab/00-nen/chuan-bi.sh --tom-tat` in sẵn tệp / số dòng / sha256 rút gọn. -->
 
-| Hạng mục | Trạng thái sau `make up` |
+| Hạng mục | Trạng thái sau `python lab.py up` |
 |---|---|
 | Dữ liệu | `lab/du-lieu/raw/<bộ>/<tệp>` — … dòng, từ … đến …, sha256 `…` (12 ký tự) |
 | Môi trường | Python 3.12, … (phiên bản từ `lab/00-nen/pyproject.toml`) |
 | `code/` có gì | … |
 | **Đang cố tình sai** | … — **triệu chứng:** … (con số "đẹp giả tạo" thấy được) |
-| `make check` lúc này | ĐỎ: … test hỏng / … test |
+| `python lab.py check` lúc này | ĐỎ: … test hỏng / … test |
 
 ## 4. Lý thuyết
 
 <!-- TỐI ĐA 6 mục ### khái niệm chính (D9). Thừa → hộp "Nâng cao" hoặc "Đọc thêm", KHÔNG nén chữ.
      Mỗi khái niệm theo khuôn D2: Vấn đề → Trực giác → Ví dụ số nhỏ tính tay → Hình → Công thức → Nói bằng lời →
      NumPy (chạy trên CHÍNH ví dụ số nhỏ) → Thư viện → Dữ liệu thật → Tóm lại → Tự kiểm tra.
+     Khuôn là TRẦN (D13): bắt buộc chỉ Ví dụ số nhỏ + Tóm lại + Tự kiểm tra; bỏ bước không thêm hiểu biết.
      Câu ≤ ~30 chữ; đoạn ≤ 3 con số kết quả (nhiều hơn → bảng); không trích tiếng Anh chưa dịch; không viết tắt tự chế;
      "thiếu/thừa/cao hơn/sai số dương" luôn nói so với cái gì, đơn vị gì (D4, D6, D7).
      Công thức: $…$ trong dòng, $$…$$ khối riêng. Hình sinh bằng dap-an/ve_hinh.py, tiêu đề hình nói KẾT LUẬN. -->
@@ -127,14 +131,19 @@ import numpy as np
 
 <!-- Mỗi bước (D11): "Mục đích:" (để làm gì, sẽ thấy gì) → lệnh/code chạy được + output THẬT (rút gọn) →
      "Đọc kết quả:" (thấy X nghĩa là Y; thấy Z thì kiểm lại gì). Tham số lạ trong code giải thích bằng comment.
-     Bước cuối: sửa chỗ hở, `make check` chuyển XANH. -->
+     Bước cuối: sửa chỗ hở, `python lab.py check` chuyển XANH.
+     Code của Lab nằm trong code/lab.ipynb (soạn bằng tools/nb.py, commit không output); tài liệu chỉ trỏ "ô bước N"
+     và ghi output cần đọc — không chép lại code dài. Không giải thích cờ lệnh: lệnh phức tạp → thêm vào lab.py. -->
+
+Lệnh gõ trong terminal ở thư mục `lab/`. Code của các bước nằm sẵn trong `code/lab.ipynb`.
 
 ### Bước 1 — …
 
 **Mục đích:** …
 
 ```bash
-cd lab && make up
+python lab.py up           # môi trường + dữ liệu, kiểm sha256
+python lab.py notebook     # mở code/lab.ipynb
 ```
 
 **Đọc kết quả:** …
@@ -157,7 +166,7 @@ cd lab && make up
 
 <!-- Lấy từ "Xong khi" của buổi trong lộ trình, đo được. -->
 
-- [ ] `make check` xanh
+- [ ] `python lab.py check` xanh
 - [ ] …
 
 ## 9. Đọc thêm

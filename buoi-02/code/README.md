@@ -4,6 +4,7 @@ Code **chạy được** nhưng **cố tình sai** đúng chỗ bài học hôm 
 
 | Tệp | Làm gì |
 |---|---|
+| `lab.ipynb` | notebook của Lab (bước 1–5) |
 | `xac_suat.py` | quantile tự viết, khoảng dự báo, tỷ lệ phủ (tách hai đuôi), khoảng tin cậy bootstrap cho trung bình, mô phỏng chuỗi AR(1), đọc lượt thuê xe theo giờ |
 
 **Triệu chứng bạn sẽ thấy** (chưa nói nguyên nhân — tự tìm bằng mục 4.3 và 4.6 của tài liệu):
@@ -15,19 +16,17 @@ Code **chạy được** nhưng **cố tình sai** đúng chỗ bài học hôm 
 
 **Bạn cần làm:**
 
-1. Chạy code, ghi lại hai con số trên (Bước 1 của Lab).
-2. Sửa `khoang_du_bao` để khoảng giữ đúng hình dạng dữ liệu lệch phải (Bước 4). Không đổi tên hàm, không đổi tham số.
-3. Sửa `khoang_tin_cay_trung_binh` để mặc định dùng được cho dữ liệu tự tương quan (Bước 5).
-4. Chạy `make check` tới khi xanh 8/8.
+1. Chạy notebook, ghi lại hai con số trên (Lab bước 1).
+2. Sửa `khoang_du_bao` để khoảng giữ đúng hình dạng dữ liệu lệch phải (bước 4). Không đổi tên hàm, không đổi tham số.
+3. Sửa `khoang_tin_cay_trung_binh` để mặc định dùng được cho dữ liệu tự tương quan (bước 5).
+4. Chạy `python lab.py check` tới khi xanh 8/8.
 
-Chạy:
+Lệnh (trong `lab/`):
 
 ```bash
-cd lab && make up          # một lần: môi trường + dữ liệu Bike Sharing (kiểm sha256)
-make check                 # bộ chấm: đầu buổi ĐỎ (5/8 hỏng), cuối buổi phải XANH 8/8
-make notebook              # mở các tệp .py dưới dạng notebook
-env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python ../code/xac_suat.py
+python lab.py up           # một lần: môi trường + dữ liệu Bike Sharing, kiểm sha256
+python lab.py notebook     # mở code/lab.ipynb (hoặc mở bằng VS Code)
+python lab.py check        # bộ chấm: đầu buổi ĐỎ (5/8 hỏng), cuối buổi phải XANH 8/8
 ```
 
-Tệp `.py` viết dạng *percent* (`# %%` tách ô): chạy được như script, mở được như notebook. Mỗi tệp chỉ định nghĩa hàm ở
-mức module; phần chạy thử đặt trong `if __name__ == "__main__":`, để bộ chấm nạp nhanh.
+Bạn sửa **tệp `.py`**; notebook `lab.ipynb` nạp lại nó tự động. Dùng conda: `python lab.py up --pip`.

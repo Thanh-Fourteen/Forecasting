@@ -1,7 +1,7 @@
 # %% [markdown]
 # # Chấm tự động phần "phát hiện lỗi cài sẵn" (30/100 điểm) — GIÁM KHẢO GIỮ
 #
-#     cd lab && env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python \
+#     cd lab && python lab.py chay \
 #         ../giam-khao/cham_phat_hien.py ../bai-nop/nguyen-van-a/bao-cao-loi.json
 #
 # Học viên nộp `bao-cao-loi.json` dạng:

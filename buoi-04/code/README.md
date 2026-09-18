@@ -14,10 +14,10 @@ Code **chạy được** nhưng **cố tình sai** đúng chỗ bài học hôm 
 Chạy:
 
 ```bash
-cd lab && make up          # một lần: môi trường + dữ liệu Bike Sharing
-make check                 # bộ chấm: đầu buổi ĐỎ (7/8 hỏng), cuối buổi phải XANH
-make notebook              # mở các tệp .py dưới dạng notebook
-env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python ../code/bieu_do.py
+cd lab && python lab.py up          # một lần: môi trường + dữ liệu Bike Sharing
+python lab.py check                 # bộ chấm: đầu buổi ĐỎ (7/8 hỏng), cuối buổi phải XANH
+python lab.py notebook              # mở các tệp .py dưới dạng notebook
+python lab.py chay ../code/bieu_do.py
 ```
 
 Tệp `.py` viết dạng *percent* (`# %%` tách ô): chạy được như script, mở được như notebook.

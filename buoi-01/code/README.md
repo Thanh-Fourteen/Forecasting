@@ -4,31 +4,24 @@ Code **chạy được** nhưng **cố tình sai** đúng chỗ bài học hôm 
 
 | Tệp | Làm gì |
 |---|---|
+| `lab.ipynb` | notebook của Lab (bước 1, 2, 4, 5) — mở bằng JupyterLab hoặc VS Code |
+| `danh_gia.py` | đọc điện theo giờ (kWh), "mô hình" bảng lịch, bốn hàm baseline, dự báo cuốn theo tuần, bảng MAE — **tệp bạn sửa** |
 | `kiem_tra_moi_truong.py` | in phiên bản Python, thư viện và kiểm tệp dữ liệu |
-| `danh_gia.py` | đọc điện tiêu thụ theo giờ (kWh), "mô hình" bảng lịch, bốn hàm baseline, dự báo cuốn theo tuần, bảng MAE |
-| `phieu-bai-toan.md` | mẫu phiếu bài toán dự báo 6 ô — điền cho 3 tình huống của lab (bước 3) |
+| `phieu-bai-toan.md` | mẫu phiếu bài toán 6 ô — điền cho 3 tình huống (bước 3) |
 
-**Đang cố tình sai** (triệu chứng nhìn thấy): `danh_gia()` báo MAE 0,380 kWh/giờ cho năm 2010. Con số rất đẹp, và
-bảng chỉ có đúng một dòng, nên không có gì để so.
+**Đang cố tình sai:** `danh_gia()` báo MAE 0,380 kWh/giờ cho năm 2010, và bảng chỉ có một dòng nên không có gì để so.
 
-**Bạn cần làm** (tài liệu mục 5, bước 5):
+**Bạn cần làm** (tài liệu mục 5, bước 5): sửa `du_bao_cuon` để tại mỗi gốc (00:00 thứ Hai) mọi dự báo chỉ dùng dữ liệu
+**trước** gốc (mục 4.4), và thêm bốn cột baseline "trung bình 4 tuần", "tuần trước", "trung bình", "giờ trước" (mục 4.3;
+đúng tên cột, bộ chấm tìm theo tên). Xong thì bảng lịch còn khoảng 0,5 kWh/giờ và thua ít nhất một baseline.
 
-1. Đọc `du_bao_cuon` và tìm xem bảng lịch được khớp trên dữ liệu nào. So với mục 4.4 "Sai số ảo và dự báo cuốn".
-2. Sửa để tại mỗi gốc (00:00 thứ Hai), mọi dự báo chỉ dùng dữ liệu **trước** gốc.
-3. Thêm bốn cột baseline ("trung bình 4 tuần", "tuần trước", "trung bình", "giờ trước") bằng các hàm có sẵn trong tệp
-   (mục 4.3). Đúng tên cột như vậy, vì bộ chấm tìm theo tên.
-4. Chạy `make check` cho tới khi xanh cả 8 test.
-
-Xong thì bảng lịch không còn 0,380 mà khoảng 0,5 kWh/giờ, và có ít nhất một baseline tốt hơn nó.
-
-Chạy (trong `lab/`):
+Lệnh (trong `lab/`):
 
 ```bash
-make up                    # một lần: môi trường + dữ liệu (~20 MB tải, 133 MB giải nén), kiểm sha256
-make check                 # bộ chấm: đầu buổi ĐỎ (4 trên 8 test hỏng), cuối buổi phải XANH
-make notebook              # mở các tệp .py dưới dạng notebook
-env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python ../code/danh_gia.py
+python lab.py up           # một lần: môi trường + dữ liệu (~20 MB tải), kiểm sha256
+python lab.py notebook     # mở JupyterLab ở code/
+python lab.py check        # bộ chấm: đầu buổi ĐỎ (4/8 test hỏng), cuối buổi phải XANH
 ```
 
-Python in số thập phân bằng dấu chấm: `0.38` là 0,38. Tệp `.py` viết dạng *percent* (`# %%` tách ô): chạy được như
-script, mở được như notebook. Phần chạy thử đặt trong `if __name__ == "__main__":` để bộ chấm nạp tệp nhanh.
+Dùng conda thay uv: bật môi trường Python 3.12 của bạn rồi `python lab.py up --pip`. Phần chạy thử của `danh_gia.py`
+nằm trong `if __name__ == "__main__":` để bộ chấm nạp tệp nhanh.

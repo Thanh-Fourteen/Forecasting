@@ -62,7 +62,7 @@ Pipeline phải:
 - sinh cột cờ `da_dien`, `nghi_ngo`, `lo_dai_bo_trong`;
 - có test pytest riêng của bạn trong `lab/cham/` cho **từng quy tắc làm sạch**.
 
-Bộ chấm chung (`make check`) kiểm các yêu cầu tối thiểu; test của bạn là phần cho điểm thêm về chất lượng.
+Bộ chấm chung (`python lab.py check`) kiểm các yêu cầu tối thiểu; test của bạn là phần cho điểm thêm về chất lượng.
 
 ### 2.4 Bộ feature đã qua kiểm rò rỉ
 
@@ -95,7 +95,7 @@ tốt mà không giải thích được thì không dùng được trong thực 
 |---|---|---|
 | Phát hiện lỗi cài sẵn | **30** | tự động (`cham_phat_hien.py`): 5 điểm/lỗi = 3 đúng loại + 1 đúng tệp/cột + 1 đúng khoảng ±3 ngày; báo sai −2 |
 | Chất lượng EDA và lập luận | **25** | giám khảo đọc: mỗi nhận xét có bằng chứng, đọc đúng biểu đồ, tương quan có prewhitening |
-| Pipeline + test | **25** | `make check` xanh (10) + test riêng cho từng quy tắc (10) + đánh giá cách điền bằng che nhân tạo (5) |
+| Pipeline + test | **25** | `python lab.py check` xanh (10) + test riêng cho từng quy tắc (10) + đánh giá cách điền bằng che nhân tạo (5) |
 | Chống rò rỉ | **10** | bộ feature qua bài kiểm rò rỉ; bảng "biết trước bao lâu" đầy đủ |
 | Trình bày | **10** | báo cáo gọn, hình có tiêu đề nói kết luận, nhật ký quyết định rõ |
 
@@ -104,8 +104,8 @@ Chi tiết từng ô: `RUBRIC.md`.
 ## 5. Bắt đầu
 
 ```bash
-cd lab && make up              # môi trường + dữ liệu gốc (để đối chiếu nếu cần)
-make check                     # bộ chấm tối thiểu — đầu tuần sẽ ĐỎ
+cd lab && python lab.py up              # môi trường + dữ liệu gốc (để đối chiếu nếu cần)
+python lab.py check                     # bộ chấm tối thiểu — đầu tuần sẽ ĐỎ
 ```
 
 Dữ liệu phát (đã cài lỗi) nằm trong thư mục `phat/du-lieu/` mà giảng viên gửi kèm. **Không** dùng dữ liệu gốc trong `lab/du-lieu/raw/` để

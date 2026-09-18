@@ -12,7 +12,7 @@ KHÔNG BAO GIỜ vào zip (CLAUDE.md quy tắc 9 — đừng gỡ bộ lọc):
 Quy ước cho dự án: mọi thứ giám khảo giữ (lỗi cài sẵn, holdout, script tiêm sự cố) đặt trong
 thư mục tên `giam-khao/` ở bất kỳ cấp nào.
 
-Cũng loại đồ sinh ra: .venv/, lab/du-lieu/raw/, __pycache__/, .ipynb_checkpoints/, *.ipynb,
+Cũng loại đồ sinh ra: .venv/, lab/du-lieu/raw/, __pycache__/, .ipynb_checkpoints/, *.ipynb (trừ code/*.ipynb),
 .env, lab/nen.toml và .dau-van-tay.json (tệp của tác giả), mlruns/, outputs/.
 
 Zip tất định: thứ tự tệp cố định, mốc thời gian cố định → cùng nội dung thì cùng sha256.
@@ -35,7 +35,7 @@ TEP_CAM = {"NGHIEN-CUU.md", "tai-lieu.md", "kiem-tra.md"}
 THU_MUC_SINH = {".venv", "__pycache__", ".ipynb_checkpoints", ".pytest_cache", ".ruff_cache",
                 "mlruns", "outputs", ".git"}
 TEP_SINH = {".env", ".DS_Store", ".dau-van-tay.json"}
-DUOI_SINH = {".pyc", ".ipynb", ".part"}
+DUOI_SINH = {".pyc", ".ipynb", ".part"}  # .ipynb: trừ code/*.ipynb phát sẵn cho học viên
 MOC_THOI_GIAN = (2026, 1, 1, 0, 0, 0)
 
 
@@ -52,6 +52,8 @@ def bi_loai(rel: Path) -> str | None:
         return "dữ liệu tải về"
     if rel.as_posix() == "lab/nen.toml":
         return "cấu hình của tác giả"
+    if rel.suffix == ".ipynb" and len(rel.parts) >= 2 and rel.parts[-2] == "code":
+        return None
     if rel.name in TEP_SINH or rel.suffix in DUOI_SINH:
         return "sinh ra"
     return None

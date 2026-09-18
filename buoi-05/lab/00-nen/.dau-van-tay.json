@@ -1,15 +1,16 @@
 {
+ "../lab.py": "176396bddb72559ec65cc984dea54919602ba560dc5f03a7f55f39069a38d16a",
  ".python-version": "7b55f8e67b5623c4bef3fa691288da9437d79d3aba156de48d481db32ac7d16d",
- "README.md": "b0d64e6beb2a1a00bdf62c17f0a61ab15c123b41bf454b24d30d6a6b953842da",
- "chuan-bi.sh": "c6b20c01a1d1000fd91653585293427ae4f973bdccac2e4d9f46a8614d6d5152",
- "du-lieu.toml": "72b9b9e7ad78fa1fc0deb3625d7d379f246bb1aec47e4d1d06158a80a63dfc9b",
- "lay_du_lieu.py": "8c38edbd8b33e8eacf2ec5519d4b81c17e3d8b0cc0a722d5068de43105bd0581",
- "pyproject.toml": "90a256da4015cc8c5b07dd525835e85e796020f9ea3a464d1bae9cf1b352e324",
+ "README.md": "008175c339ed303d5ac1bea6f574bbf8eb70a3b20673fc3217cfbd1a1d743a13",
+ "du-lieu.toml": "8fac6ce4158a5af9d13bf1bba61dab77b2f78b251e00d64baa5c6fc57a34d071",
+ "lay_du_lieu.py": "5c0e89ea7fec9ffe89eab191533662f08f483ccb8f8e165ada965e370f90b1f5",
+ "pyproject.toml": "ff1972d4dc9fc58fbc1eebe24a5c9ecd47b62d6bbed614bb307eb71b792e1fe4",
+ "requirements.txt": "d8864eddfec513032462257dc9b1a37daa01da22eec8f12d7c99064d8db5abdd",
  "tv/__init__.py": "30d89fb48922e1f5779138b207a31dc0ec0e131af5a4f8b8d8ad144b60f77aac",
  "tv/backtest.py": "c171bc1e10c55faf38c635c5445d97d1b526f2f7d16e02aff449c95d7a25997e",
  "tv/danh_gia.py": "e49f133d6d2003c3660e46c9f981b3c50389d3d6c5a8796cd08ba50319b06589",
- "tv/du_lieu.py": "94e7dc5aa1ee59177aa37183f6f8af118023318c35d7fcd33b34952208cb0af8",
+ "tv/du_lieu.py": "e957a18cb58e59d4ea1ce1fbc92b32e0ac186d1f5d1e5c2b238bd65ba2dfa0ff",
  "tv/ro_ri.py": "63cdbe60949b39bf1f607d98e0d0f8c7b5ec898c31e11fecb76f19014cc13b95",
  "tv/ve.py": "0c80d6922ed986c4721195a057c3cdcf708389534f5d0b6d2becd72628280a08",
- "uv.lock": "d8f01e0e91edc2d792e90058052b3b2bea683025b2c521563530b1d0da274724"
+ "uv.lock": "4e89c43c539db7f6bccb3e4b07a8f7c783769cf22468a5c281ad0c642d2f6c21"
 }

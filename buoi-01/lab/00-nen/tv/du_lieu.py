@@ -1,5 +1,5 @@
 # BẢN SAO của tools/khung/du_lieu.py — SINH TỰ ĐỘNG bởi tools/sinh_nen.py — KHÔNG SỬA TAY. Sửa tools/khung/du_lieu.py rồi chạy lại tool.
-"""Đọc dữ liệu của buổi — chỉ từ lab/du-lieu/raw/ đã kiểm sha256 bởi `make up`.
+"""Đọc dữ liệu của buổi — chỉ từ lab/du-lieu/raw/ đã kiểm sha256 bởi `python lab.py up`.
 
     from tv import du_lieu
     du_lieu.danh_sach()                           # các bộ trong lab/00-nen/du-lieu.toml
@@ -64,7 +64,7 @@ def thu_muc(ten: str) -> Path:
     thong_tin(ten)
     p = thu_muc_nen().parent / "du-lieu" / "raw" / ten
     if not (p / ".da-kiem").is_file():
-        raise FileNotFoundError(f"chưa có dữ liệu '{ten}' đã kiểm sha256 ở {p} — chạy: make up (trong lab/)")
+        raise FileNotFoundError(f"chưa có dữ liệu '{ten}' đã kiểm sha256 ở {p} — chạy: python lab.py up (trong lab/)")
     return p
 
 

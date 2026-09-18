@@ -18,11 +18,12 @@
 Đầu ra (SINH RA — không sửa tay; sửa nguồn rồi chạy lại):
     buoi-NN/lab/00-nen/
         pyproject.toml   .python-version   uv.lock
-        du-lieu.toml     lay_du_lieu.py    chuan-bi.sh
+        du-lieu.toml     lay_du_lieu.py    requirements.txt (uv export, cho người dùng conda/pip)
         tv/              README.md         .dau-van-tay.json   (sha256 mọi tệp sinh ra)
+    buoi-NN/lab/lab.py   bản sao tools/nen/lab.py: python lab.py up | check | chay | notebook | down
 
 Sau khi sinh, buổi KHÔNG còn phụ thuộc gì vào tools/: copy riêng thư mục buổi sang máy khác vẫn
-`make up` được.
+`python lab.py up` được.
 """
 from __future__ import annotations
 
@@ -46,6 +47,7 @@ PHIEN_BAN = HERE / "nen" / "phien-ban.toml"
 DANH_MUC = HERE / "du-lieu" / "danh-muc.toml"
 KHUNG = HERE / "khung"
 LAY_DU_LIEU = HERE / "lay_du_lieu.py"
+LAB_PY = HERE / "nen" / "lab.py"
 
 DAU_SINH = "SINH TỰ ĐỘNG bởi tools/sinh_nen.py — KHÔNG SỬA TAY. Sửa {nguon} rồi chạy lại tool."
 TEP_VAN_TAY = ".dau-van-tay.json"
@@ -224,38 +226,13 @@ def toml_gia_tri(v: object) -> str:
 
 def dung_du_lieu_toml(buoi: Path, cac_bo: list[dict]) -> str:
     dong = [f"# {DAU_SINH.format(nguon='tools/du-lieu/danh-muc.toml')}",
-            f"# Dữ liệu của {ten_buoi(buoi)}: tải + kiểm sha256 bằng `bash 00-nen/chuan-bi.sh` (make up).",
+            f"# Dữ liệu của {ten_buoi(buoi)}: tải + kiểm sha256 bằng `python lab.py up`.",
             "", "phien_ban = 1"]
     bo_qua = {"buoi", "xac_minh"}  # chỉ để tra cứu trong danh mục
     for bo in cac_bo:
         dong += ["", "[[bo]]"]
         dong += [f"{k} = {toml_gia_tri(v)}" for k, v in bo.items() if k not in bo_qua]
     return "\n".join(dong) + "\n"
-
-
-def dung_chuan_bi(buoi: Path) -> str:
-    return f"""#!/usr/bin/env bash
-# {DAU_SINH.format(nguon='tools/sinh_nen.py')}
-# Dựng nền của {ten_buoi(buoi)}: môi trường Python chốt phiên bản + dữ liệu đã kiểm sha256.
-#     bash lab/00-nen/chuan-bi.sh [--tom-tat]        (make up gọi lệnh này)
-set -euo pipefail
-NEN="$(cd "$(dirname "${{BASH_SOURCE[0]}}")" && pwd)"
-unset VIRTUAL_ENV  # venv đang bật ở nơi khác sẽ bị uv bỏ qua kèm cảnh báo — gỡ cho gọn
-
-if ! command -v uv >/dev/null 2>&1; then
-    echo "✗ Chưa có uv. Cài:  curl -LsSf https://astral.sh/uv/install.sh | sh" >&2
-    echo "  (hướng dẫn: https://docs.astral.sh/uv/getting-started/installation/)" >&2
-    exit 1
-fi
-
-echo "==> Môi trường Python theo uv.lock (uv sync --frozen)"
-uv sync --frozen --project "$NEN"
-
-echo "==> Dữ liệu (tải hoặc lấy từ cache, kiểm sha256)"
-uv run --no-sync --project "$NEN" python "$NEN/lay_du_lieu.py" "$NEN/du-lieu.toml" "$@"
-
-echo "==> Xong nền {ten_buoi(buoi)}"
-"""
 
 
 def dung_readme(buoi: Path, cac_bo: list[dict]) -> str:
@@ -271,7 +248,7 @@ Thư mục này **sinh tự động** — đừng sửa tay (sửa sẽ bị ghi
 | `pyproject.toml`, `uv.lock`, `.python-version` | Python + thư viện chốt phiên bản; `uv sync --frozen` dựng lại y hệt |
 | `du-lieu.toml` | URL, sha256, giấy phép, khoảng thời gian của từng bộ dữ liệu |
 | `lay_du_lieu.py` | tải dữ liệu, kiểm sha256, cache ở `~/.cache/khoa-forecasting/` |
-| `chuan-bi.sh` | `uv sync --frozen` + tải dữ liệu — `make up` gọi tệp này |
+| `requirements.txt` | cùng phiên bản, xuất từ `uv.lock` cho người dùng conda/pip (`python lab.py up --pip`) |
 | `tv/` | thư viện trợ giúp, cài editable: `import tv` chạy từ mọi thư mục của buổi |
 
 Dữ liệu được đặt ở `lab/du-lieu/raw/<bộ>/` (chỉ đọc, kèm `NGUON.txt` ghi nguồn và giấy phép).
@@ -299,9 +276,11 @@ def noi_dung_sinh(buoi: Path) -> dict[str, bytes]:
         "pyproject.toml": dung_pyproject(buoi, cau_hinh, pb, cac_bo).encode(),
         ".python-version": f"{pb['python']}\n".encode(),
         "du-lieu.toml": dung_du_lieu_toml(buoi, cac_bo).encode(),
-        "chuan-bi.sh": dung_chuan_bi(buoi).encode(),
         "README.md": dung_readme(buoi, cac_bo).encode(),
     }
+    shebang, _, than = LAB_PY.read_text(encoding="utf-8").partition("\n")
+    tep["../lab.py"] = (f"{shebang}\n# BẢN SAO của tools/nen/lab.py — {DAU_SINH.format(nguon='tools/nen/lab.py')}\n"
+                        + than).encode()
     dau = (f"# BẢN SAO của tools/lay_du_lieu.py — {DAU_SINH.format(nguon='tools/lay_du_lieu.py')}\n")
     tep["lay_du_lieu.py"] = dau.encode() + LAY_DU_LIEU.read_bytes()
     # buổi dạy chính công cụ nào thì bỏ module đó khỏi tv/ (vd buổi 13 tự viết ro_ri) — không phát đáp án
@@ -334,6 +313,15 @@ def uv_lock(nen: Path, nang_cap: bool) -> None:
                      + kq.stderr.strip())
 
 
+def xuat_requirements(nen: Path) -> None:
+    lenh = ["uv", "export", "--frozen", "--no-hashes", "--no-emit-project", "--no-header", "--no-annotate",
+            "--project", str(nen), "-o", str(nen / "requirements.txt")]
+    env = {k: v for k, v in os.environ.items() if k != "VIRTUAL_ENV"}
+    kq = subprocess.run(lenh, env=env, capture_output=True, text=True)
+    if kq.returncode:
+        raise LoiNen("uv export thất bại:\n" + kq.stderr.strip())
+
+
 def sinh(buoi: Path, nang_cap: bool, khong_lock: bool) -> None:
     nen = buoi / "lab" / "00-nen"
     tep = noi_dung_sinh(buoi)
@@ -346,12 +334,15 @@ def sinh(buoi: Path, nang_cap: bool, khong_lock: bool) -> None:
         p = nen / rel
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_bytes(nd)
-    (nen / "chuan-bi.sh").chmod(0o755)
+    (nen / "chuan-bi.sh").unlink(missing_ok=True)  # bản cũ dùng make + bash (bỏ 2026-09-18)
+    (buoi / "lab" / "Makefile").unlink(missing_ok=True)
 
     if not khong_lock:
         uv_lock(nen, nang_cap)
-    if (nen / "uv.lock").exists():
-        tep["uv.lock"] = (nen / "uv.lock").read_bytes()
+        xuat_requirements(nen)
+    for rel in ("uv.lock", "requirements.txt"):
+        if (nen / rel).exists():
+            tep[rel] = (nen / rel).read_bytes()
     (nen / TEP_VAN_TAY).write_bytes(van_tay(tep))
 
 
@@ -373,13 +364,14 @@ def kiem(buoi: Path) -> list[str]:
             rel = p.relative_to(nen).as_posix()
             if p.is_file() and "__pycache__" not in p.parts and rel not in tep:
                 lech.append(f"{ten_buoi(buoi)}: 00-nen/{rel} không có trong tools/khung/ (thêm tay?)")
-    if not (nen / "uv.lock").is_file():
-        lech.append(f"{ten_buoi(buoi)}: thiếu 00-nen/uv.lock")
+    if not (nen / "uv.lock").is_file() or not (nen / "requirements.txt").is_file():
+        lech.append(f"{ten_buoi(buoi)}: thiếu 00-nen/uv.lock hoặc requirements.txt")
     else:
         tep["uv.lock"] = (nen / "uv.lock").read_bytes()
+        tep["requirements.txt"] = (nen / "requirements.txt").read_bytes()
         van_tay_cu = nen / TEP_VAN_TAY
         if not van_tay_cu.is_file() or van_tay_cu.read_bytes() != van_tay(tep):
-            lech.append(f"{ten_buoi(buoi)}: uv.lock hoặc {TEP_VAN_TAY} không khớp lần sinh gần nhất "
+            lech.append(f"{ten_buoi(buoi)}: uv.lock, requirements.txt hoặc {TEP_VAN_TAY} không khớp lần sinh gần nhất "
                         "(ai đó chạy uv lock/uv add tay?)")
     return lech
 

@@ -23,7 +23,7 @@ Sau buổi này bạn:
 
 ## 3. Trạng thái đầu buổi
 
-Sau `cd lab && make up`:
+Sau `cd lab && python lab.py up`:
 
 | Hạng mục | Trạng thái |
 |---|---|
@@ -35,7 +35,7 @@ Sau `cd lab && make up`:
 | `code/feature.py` | âm lịch (Meeus), `feature_lich`, `feature_fourier`, `feature_tre`, `bo_feature`, `bang_biet_truoc`, `kiem_ro_ri`, `kiem_nhieu_muc_tieu`, `gia_cua_ro_ri`, `gia_tri_feature_tet` |
 | **Đang cố tình sai** | 4 feature rò rỉ (`tb_7` centered, `z_score` chuẩn hoá toàn bộ, `tb_theo_thu` target encoding toàn bộ, `y_dien_hai_chieu`); feature Tết **hardcode ngày Tết 2011**; `kiem_ro_ri` chỉ cắt một mốc và **bỏ 10 dòng cuối** |
 | **Triệu chứng** | Bài kiểm rò rỉ báo "sạch" cho `tb_7`; mô hình có MAE đẹp bất thường; feature Tết chỉ đúng cho năm 2011 |
-| `make check` lúc này | ĐỎ: 9/13 test qua, 4 test hỏng |
+| `python lab.py check` lúc này | ĐỎ: 9/13 test qua, 4 test hỏng |
 | Lưu ý | Buổi này **`tv` không có `ro_ri`** — bạn tự viết bài kiểm |
 
 ## 4. Lý thuyết
@@ -266,9 +266,9 @@ Dữ liệu buổi này có sẵn ví dụ tốt: EIA-930 có cột `Demand (MW)
 ### Bước 1 — Xây bộ feature
 
 ```bash
-cd lab && make up
-env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python ../code/feature.py
-make check                 # 4/13 đỏ
+cd lab && python lab.py up
+python lab.py chay ../code/feature.py
+python lab.py check                 # 4/13 đỏ
 ```
 
 Chạy `bo_feature(doc_ban_le().ffill())` và `bang_biet_truoc(f)`. Có cột nào không phân loại được không?
@@ -291,7 +291,7 @@ Sửa feature Tết để đúng cho **mọi** năm (không hardcode). Kiểm: `
 Cuối cùng chạy `gia_cua_ro_ri()` và viết ba câu kết luận cho sếp.
 
 ```bash
-make check                 # 13/13 xanh
+python lab.py check                 # 13/13 xanh
 ```
 
 ## 6. Lỗi thường gặp & cách chẩn đoán
@@ -322,7 +322,7 @@ make check                 # 13/13 xanh
 
 ## 8. Tiêu chí "Xong khi"
 
-- [ ] `make check` xanh 13/13.
+- [ ] `python lab.py check` xanh 13/13.
 - [ ] Bộ feature ≥ 40 cột, **qua bài kiểm rò rỉ 100%** (cả bài của bạn lẫn bài độc lập của bộ chấm).
 - [ ] `kiem_ro_ri` của bạn bắt đủ 4 kiểu rò rỉ kinh điển và không báo động giả.
 - [ ] Feature Tết chạy đúng cho **mọi năm 2000–2035** (đối chiếu `holidays`), và giải thích được vì sao 2007 và 2030 khác Trung Quốc.

@@ -20,7 +20,7 @@ Sau buổi này bạn:
 
 ## 3. Trạng thái đầu buổi
 
-Sau `cd lab && make up`:
+Sau `cd lab && python lab.py up`:
 
 | Hạng mục | Trạng thái |
 |---|---|
@@ -30,7 +30,7 @@ Sau `cd lab && make up`:
 | `code/tu_tuong_quan.py` | `doc_gdp`, `doc_san_luong`, `doc_luot_thue`, `sinh_bon_chuoi`, `acf_tu_viet`, `dai_nhieu_trang`, `ljung_box`, `kiem_dinh`, `ket_luan`, `so_lan_sai_phan`, `dau_hieu_sai_phan_thua`, `bang_bon_chuoi` |
 | **Đang cố tình sai** | `kiem_dinh` chỉ chạy **ADF** (bỏ KPSS, bỏ dạng 'ct'); `so_lan_sai_phan` **luôn sai phân ít nhất một lần** "cho chắc" |
 | **Triệu chứng** | chuỗi xu hướng tất định bị gọi là "không dừng — cần sai phân"; nhiễu trắng cũng được sai phân một lần |
-| `make check` lúc này | ĐỎ: 5/9 test hỏng |
+| `python lab.py check` lúc này | ĐỎ: 5/9 test hỏng |
 
 ## 4. Lý thuyết
 
@@ -201,9 +201,9 @@ trung bình mẫu của một random walk **không** hội tụ về đâu cả 
 ### Bước 1 — Chạy code đầu buổi
 
 ```bash
-cd lab && make up
-env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python ../code/tu_tuong_quan.py
-make check                    # 5/9 đỏ
+cd lab && python lab.py up
+python lab.py chay ../code/tu_tuong_quan.py
+python lab.py check                    # 5/9 đỏ
 ```
 
 ```text
@@ -233,7 +233,7 @@ Chạy cho log GDP, tăng trưởng GDP (cả giai đoạn 1985–2019), log s�
 lần sai phân, và **bằng chứng nào** dẫn tới kết luận đó.
 
 ```bash
-make check                    # 9/9 xanh
+python lab.py check                    # 9/9 xanh
 ```
 
 ## 6. Lỗi thường gặp & cách chẩn đoán
@@ -264,7 +264,7 @@ make check                    # 9/9 xanh
 
 ## 8. Tiêu chí "Xong khi"
 
-- [ ] `make check` xanh 9/9.
+- [ ] `python lab.py check` xanh 9/9.
 - [ ] Với một chuỗi lạ: kết luận dừng / không dừng và số lần sai phân, dựa trên **cả ba** bằng chứng (ACF, ADF, KPSS) — mỗi kết luận kèm con số.
 - [ ] Giải thích được hai ô "mâu thuẫn" và "không đủ bằng chứng" bằng ví dụ thật trong buổi (tăng trưởng GDP; log sản lượng công nghiệp dạng 'ct').
 - [ ] Chỉ ra sai phân thừa bằng hai dấu hiệu: ACF(1) ≤ −0,45 và độ lệch chuẩn tăng.

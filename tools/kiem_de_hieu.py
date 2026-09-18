@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Kiểm máy phần đo được của chuẩn dễ hiểu D1–D12 (todos/quy-uoc.md, tools/CHUAN-DE-HIEU.md).
+"""Kiểm máy phần đo được của chuẩn dễ hiểu + gọn D1–D13 (todos/quy-uoc.md, tools/CHUAN-DE-HIEU.md).
 
 Chỉ BÁO CÁO, không sửa gì. Không thay được bước đọc thử bằng subagent — chỉ bắt những lỗi đếm được.
 
@@ -24,7 +24,9 @@ Mã kiểm (cột của bảng):
   tu_kiem     D10 mục lý thuyết thiếu "Tự kiểm tra"
   lab         D11 bước lab thiếu "Mục đích" hoặc "Đọc kết quả"
   quiz        D12 đáp án quiz không giải thích (quá ngắn / không nói vì sao lựa chọn khác sai)
-  do_dai      D9  số chữ NGOÀI bảng và khối code nằm ngoài 4.000–9.000 (wc -w đếm cả dấu | nên không dùng)
+  do_dai      D13 số chữ NGOÀI bảng và khối code nằm ngoài 3.500–6.500 (wc -w đếm cả dấu | nên không dùng)
+  cau_rong    D13 cụm câu rỗng / rào đón / động từ ẩn ("như đã nói ở trên", "điều quan trọng là", "tiến hành"…)
+  lap_y       D13 "Tóm lại" chép lại một câu trong mục; hoặc hai đoạn trong tài liệu gần như trùng nhau
 """
 
 from __future__ import annotations
@@ -41,21 +43,40 @@ PHU_LUC_E = GOC / "phu-luc" / "E-tu-dien-thuat-ngu.md"
 MA = [
     "tu_moi", "chua_bang", "muon_truoc", "cong_thuc", "tieng_anh", "cau_dai", "nhieu_so",
     "viet_tat", "hinh", "bang", "khai_niem", "tom_lai", "tu_kiem", "lab", "quiz", "do_dai",
+    "cau_rong", "lap_y",
 ]
 
 NGUONG_CAU = 40          # chữ (âm tiết) mỗi câu
 NGUONG_SO = 3            # con số mỗi đoạn
 NGUONG_TIENG_ANH = 6     # từ tiếng Anh liên tiếp trong một trích dẫn
 MAX_KHAI_NIEM = 6
-DO_DAI = (4000, 9000)    # chữ ngoài bảng và khối code
+DO_DAI = (3500, 6500)    # chữ ngoài bảng và khối code (D13, chốt Phase 7)
 CUA_SO = 15              # số dòng tìm nhãn sau công thức / hình / bảng
+NGUONG_LAP = 0.6         # tỷ lệ cặp âm tiết liền nhau trùng → coi là lặp ý
+LAP_MIN_CHU = 8          # câu/đoạn ngắn hơn thì không xét lặp
+
+# D13 — câu rỗng: dẫn dắt, rào đón, nhấn mạnh không mang thông tin, động từ ẩn
+CAU_RONG = [
+    r"như (?:đã|ta đã|chúng ta đã) (?:nói|đề cập|thấy|trình bày)(?: ở trên| ở trước| trước đó)?",
+    r"điều (?:quan trọng|cần nhớ|đáng chú ý)(?: cần lưu ý)? là",
+    r"cần lưu ý rằng",
+    r"(?:trong )?(?:phần|mục) này,? (?:chúng )?ta sẽ",
+    r"mục này (?:sẽ )?(?:cho thấy|trình bày|giải thích|chỉ ra)",
+    r"nói cách khác",
+    r"(?:rất|cực kỳ|vô cùng) quan trọng",
+    r"(?:chỉ )?đơn giản là",
+    r"(?:ta |chúng ta )?có thể thấy (?:rằng|là)",
+    r"dễ (?:thấy|dàng nhận thấy) (?:rằng|là)",
+    r"(?:chúng ta )?hãy cùng",
+    r"tiến hành (?=\w)",
+]
 
 # Viết tắt ai cũng biết hoặc là tên riêng — không đòi giải thích
 VIET_TAT_CHUNG = {
     "CPU", "GPU", "RAM", "CSV", "PDF", "URL", "API", "HTTP", "HTTPS", "JSON", "ID", "OK", "USD", "VND",
     "VN", "TP", "HCM", "PNG", "SVG", "HTML", "SQL", "OS", "UTF", "GB", "MB", "KB", "TB?", "AI",
     "UCI", "NOAA", "EIA", "BLS", "BEA", "ERCOT", "ECMWF", "FPP", "IIF", "WMO", "CC", "BY", "CC0",
-    "M1", "M2", "M3", "M4", "M5", "M6", "NN", "II", "III", "IV", "XYZ", "ABC", "USA", "US", "EU",
+    "M1", "M2", "M3", "M4", "M5", "M6", "NN", "II", "III", "IV", "XYZ", "ABC", "USA", "US", "EU", "VS",
 }
 VIET_TAT_CHUNG.discard("TB?")
 
@@ -175,7 +196,7 @@ def _la_phep_tinh(s: str) -> bool:
 def _dem_so(s: str) -> int:
     """Số con số KẾT QUẢ khác nhau trong đoạn: bỏ công thức, ngày giờ, năm, tham chiếu, dãy dữ liệu liệt kê."""
     s = _bo_cong_thuc(_bo_inline(s))
-    s = re.sub(r"\d{1,2}/\d{1,2}/\d{2,4}|\d{1,2}:\d{2}|\d{1,2}/\d{4}", " ", s)
+    s = re.sub(r"\d{1,2}/\d{1,2}/\d{2,4}|\d{1,2}:\d{2}|\d{1,2}/\d{4}|(?<![\d,.])\d{1,2}/\d{1,2}(?![\d/])", " ", s)
     s = re.sub(r"(?:năm|Năm|tháng|quý)\s+\d{4}(?:[–-]\d{2,4})?", " ", s)
     s = re.sub(r"(?:quantile|phân vị|mức)\s+\d[\d,.]*", " ", s, flags=re.I)
     s = re.sub(rf"{TU_THAM_CHIEU}\s*[0-9][0-9.,–\-]*", " ", s)
@@ -448,7 +469,51 @@ def kiem_tai_lieu(van_ban: str, so_buoi: int | None, thuat_ngu: list[ThuatNgu] |
             da_bao_viet_tat.add(vt)
             vp.append(ViPham("viet_tat", dong, f'viết tắt "{vt}" chưa giải thích'))
 
+    vp += kiem_gon(lines, hop_le, ly_dau, ly_cuoi, het_noi_dung)
     return sorted(vp, key=lambda v: (v.dong, v.ma))
+
+
+def _cap(s: str) -> set[tuple[str, str]]:
+    """Tập cặp âm tiết liền nhau (chữ thường, bỏ dấu câu) — dùng đo lặp ý."""
+    tu = re.findall(r"\w+", _bo_cong_thuc(_bo_inline(s)).lower())
+    return set(zip(tu, tu[1:], strict=False))
+
+
+def _trung(a: set, b: set) -> float:
+    return len(a & b) / len(a) if a else 0.0
+
+
+def kiem_gon(lines: list[str], hop_le: list[bool], ly_dau: int, ly_cuoi: int, het: int) -> list[ViPham]:
+    """D13: câu rỗng; Tóm lại chép lại câu trong mục; hai đoạn gần trùng."""
+    vp: list[ViPham] = []
+    mau = re.compile("|".join(f"(?:{m})" for m in CAU_RONG), re.I)
+    doan = [(d, t) for d, t in _doan_van(lines, hop_le, 0, het) if not lines[d - 1].lstrip().startswith("|")]
+    for dong, t in doan:
+        for m in mau.finditer(_bo_inline(t)):
+            vp.append(ViPham("cau_rong", dong, f'câu rỗng "{m.group(0)}"'))
+
+    # Tóm lại chép lại một câu trong cùng mục lý thuyết
+    if ly_dau >= 0:
+        dau_muc = [i for i in range(ly_dau, ly_cuoi) if lines[i].startswith("### ")] + [ly_cuoi]
+        for a, b in zip(dau_muc, dau_muc[1:], strict=False):
+            trong = [(d, t) for d, t in _doan_van(lines, hop_le, a, b)]
+            tl = [(d, t) for d, t in trong if NHAN["tom_lai"].search(t[:20])]
+            than = [c for d, t in trong if not NHAN["tom_lai"].search(t[:20]) for c in _cau(t)]
+            for d, t in tl:
+                for c in _cau(t):
+                    ca = _cap(c)
+                    if len(ca) < LAP_MIN_CHU:
+                        continue
+                    if any(_trung(ca, _cap(x)) >= NGUONG_LAP for x in than):
+                        vp.append(ViPham("lap_y", d, f'"Tóm lại" chép lại câu trong mục: {c[:50]}…'))
+
+    # hai đoạn gần như trùng nhau (bỏ qua đoạn nhãn ngắn)
+    dai = [(d, t, _cap(t)) for d, t in doan if len(_cap(t)) >= 2 * LAP_MIN_CHU]
+    for i, (d1, t1, c1) in enumerate(dai):
+        for d2, _t2, c2 in dai[i + 1:]:
+            if min(_trung(c1, c2), _trung(c2, c1)) >= NGUONG_LAP:
+                vp.append(ViPham("lap_y", d2, f"đoạn gần trùng đoạn ở dòng {d1}: {t1[:40]}…"))
+    return vp
 
 
 def dem_chu(van_ban: str) -> int:

@@ -324,3 +324,33 @@ so với gì (#18), quantile không định nghĩa (#39), $F^{-1}$ và vì sao $
 - **Buổi 12**: MAE/RMSE không định nghĩa; MAD và $\sigma$ không giải thích; phương sai (định nghĩa phổ công suất),
   periodogram, lọc thông thấp, IIR/dải qua, nhiễu trắng, wavelet (thang, hệ số) không định nghĩa; đo trễ bằng tương
   quan; câu trích tiếng Anh của `filtfilt`, SavGol, Hamilton mang ý chính; "10 cấu hình" bộ lọc không liệt kê.
+
+---
+
+## 8. Gọn — viết ngắn mà vẫn dễ hiểu (Phase 7, 2026-09-18)
+
+**Vấn đề.** Sau Phase 6, người dùng báo buổi 1–3 "dễ hiểu hơn nhưng dài dòng quá". Nhìn lại quy trình: mỗi vòng đọc
+thử chỉ **thêm** giải thích, không bước nào **bỏ** (buổi 2 qua 6 vòng). Mục này tìm căn cứ để cắt mà không làm khó lại.
+
+| Nguồn (truy cập 2026-09-18) | Điều rút ra |
+|---|---|
+| Chandler & Sweller 1991; tổng quan hiệu ứng thừa (redundancy effect) — [Cambridge Handbook of Multimedia Learning, ch. 10](https://www.cambridge.org/core/books/abs/cambridge-handbook-of-multimedia-learning/redundancy-principle-in-multimedia-learning/448A5532008EB4B4BA17DBEB5A421920), [Lovell](https://www.ollielovell.com/the-redundancy-effect-in-cognitive-load-theory-what-it-is-and-when-to-consider-it/) | Thông tin không cần cho việc học vẫn phải xử lý trong trí nhớ làm việc → tải thừa. "Hình kèm chữ chỉ tả lại hình" là ví dụ kinh điển của phần nên bỏ |
+| Albers et al. 2023, *Br. J. Educ. Psychol.* — [Wiley](https://bpspsychub.onlinelibrary.wiley.com/doi/10.1111/bjep.12592) | Tách hai loại: **thừa nội dung** (nhắc lại ý chính ngắn gọn) *giúp* học và giảm tải; **thừa hình thức** (cùng thông tin trình bày song song bằng chữ + bảng/hình) *hại*. → Giữ "Tóm lại" ngắn; bỏ đoạn văn đọc lại từng ô bảng, bỏ câu tả lại hình mà "Cách đọc hình" đã nói |
+| Kalyuga et al. 2003, expertise reversal (đã có ở mục 1) | Hỗ trợ cần cho người mới thành thừa khi người đọc đã nắm. → Khái niệm đã dạy ở mục trước/buổi trước chỉ nhắc một câu; không giải lại trong Lab, "Lỗi thường gặp" |
+| Strunk, *The Elements of Style* (1918) — [trích](https://www.investmentwriting.com/omit-needless-words-excerpt-from-strunks-the-elements-of-style/) | "Omit needless words… không đòi mọi câu ngắn hay bỏ chi tiết, mà đòi **mỗi chữ đều có việc**" (every word tell). Gọn ≠ nén: vẫn giữ ví dụ số, chỉ bỏ chữ không mang thông tin |
+| Google developer documentation style guide — [Voice and tone](https://developers.google.com/style/tone) | Bỏ cụm đệm ("please note", "at this time"), bỏ "simply", "it's easy"; người đọc "đang vội, đi tìm thông tin" |
+| Digital.gov plain language — [Writing](https://digital.gov/guides/plain-language/writing) | Đoạn ngắn, câu chủ động, bỏ "động từ ẩn" ("tiến hành phân tích dữ liệu" → "phân tích dữ liệu") |
+
+**Quyết định cho khoá (→ D13 trong `tools/CHUAN-DE-HIEU.md`):**
+1. **Mỗi ý một lần.** Được phép lặp đúng một lần dưới dạng "Tóm lại" ≤ 3 câu (thừa nội dung có ích, Albers 2023).
+   Không được lặp ở thân bài khác, Lab, "Lỗi thường gặp", "Xong khi".
+2. **Không song song chữ + bảng/hình.** "Đọc bảng" nói so sánh và kết luận, không đọc lại ô. Văn trước hình không
+   tả trước điều "Cách đọc hình" sẽ nói.
+3. **Câu đệm, câu rào đón, động từ ẩn** → bỏ (danh sách cụm cấm là mã `cau_rong` của `kiem_de_hieu.py`).
+4. **Khuôn D2 là trần.** Bước nào không thêm hiểu biết thì bỏ; bắt buộc chỉ "Ví dụ số nhỏ" và "Tóm lại".
+5. **Sửa chỗ khó bằng cách viết lại câu.** Đọc thử thêm chữ ở đâu thì tìm chỗ bỏ bù.
+6. **Không cắt** thứ đọc thử đã chứng minh là cần: định nghĩa lần đầu, ví dụ số nhỏ, câu nói bằng lời có thay số,
+   hộp Mượn trước, chỗ sửa từ `phan-hoi-hoc-vien.md`.
+
+Rủi ro đã biết: cắt quá tay quay lại lỗi Phase 5 (nén chữ). Vì vậy mỗi tài liệu sau khi cắt phải **đọc thử lại bằng
+subagent mới** với cùng tiêu chí 0 chặn / ≤ 5 khó.

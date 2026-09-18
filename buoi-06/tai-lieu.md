@@ -22,7 +22,7 @@ Sau buổi này bạn:
 
 ## 3. Trạng thái đầu buổi
 
-Sau `cd lab && make up`:
+Sau `cd lab && python lab.py up`:
 
 | Hạng mục | Trạng thái |
 |---|---|
@@ -33,7 +33,7 @@ Sau `cd lab && make up`:
 | `code/phan_ra.py` | `doc_nhu_cau`, `lap_cho_trong`, `phan_ra`, `do_manh`, `ho_so_phan_du`, `ty_le_mau_hinh_con_lai` |
 | **Đang cố tình sai** | `phan_ra` dùng phân rã **cổ điển chu kỳ 24** cho chuỗi có mùa vụ tuần; tham số `robust` bị bỏ qua |
 | **Triệu chứng** | $F_S$ = 0,618 cho chuỗi điện rõ ràng rất mùa vụ; không có thành phần tuần; phần dư còn **10%** phương sai ở hồ sơ tháng × giờ; 24 giờ đầu/cuối NaN |
-| `make check` lúc này | ĐỎ: 5/7 test hỏng |
+| `python lab.py check` lúc này | ĐỎ: 5/7 test hỏng |
 
 ## 4. Lý thuyết
 
@@ -210,9 +210,9 @@ thiếu) — không dùng cho dữ liệu giờ.
 ### Bước 1 — Chạy code đầu buổi
 
 ```bash
-cd lab && make up
-env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python ../code/phan_ra.py
-make check                    # 5/7 đỏ
+cd lab && python lab.py up
+python lab.py chay ../code/phan_ra.py
+python lab.py check                    # 5/7 đỏ
 ```
 
 ```text
@@ -245,7 +245,7 @@ So `phan_ra(y)` với `phan_ra(y, robust=True)` quanh 21/11/2024: phần dư t�
 Trung bình `seasonal_24` theo (tháng, giờ New York); vẽ 12 đường, đọc biên độ.
 
 ```bash
-make check                    # 7/7 xanh
+python lab.py check                    # 7/7 xanh
 ```
 
 ## 6. Lỗi thường gặp & cách chẩn đoán
@@ -276,7 +276,7 @@ make check                    # 7/7 xanh
 
 ## 8. Tiêu chí "Xong khi"
 
-- [ ] `make check` xanh 7/7.
+- [ ] `python lab.py check` xanh 7/7.
 - [ ] Phân rã đúng một chuỗi có ≥ 2 mùa vụ; chứng minh phần dư sạch bằng tỷ lệ mẫu hình thứ×giờ và tháng×giờ.
 - [ ] Giải thích bằng hình và số nhịp tuần "trốn" ở đâu khi dùng cổ điển chu kỳ 24.
 - [ ] Báo $F_T$, $F_{S,24}$, $F_{S,168}$ kèm tên phương pháp và diễn giải.

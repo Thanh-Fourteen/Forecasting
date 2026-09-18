@@ -43,7 +43,7 @@ def sinh() -> str:
         "<!-- SINH TỰ ĐỘNG bởi tools/du-lieu/sinh_phu_luc_f.py từ tools/du-lieu/danh-muc.toml — KHÔNG SỬA TAY -->",
         "# Phụ lục F — Nguồn dữ liệu và giấy phép",
         "",
-        "Mọi bộ dữ liệu buổi học tải tự động (`make up`) đều nằm trong danh mục này, kèm **giấy phép đã đọc từ trang",
+        "Mọi bộ dữ liệu buổi học tải tự động (`python lab.py up`) đều nằm trong danh mục này, kèm **giấy phép đã đọc từ trang",
         "gốc** (trích nguyên văn), sha256 và quyết định có được mirror không. Buổi học chỉ dùng được bộ đã chốt",
         "sha256. Nhật ký rà giấy phép đầy đủ: `tools/du-lieu/NGHIEN-CUU.md`.",
         "",

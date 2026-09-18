@@ -1,87 +1,49 @@
 # Phụ lục A — Python cho chuỗi thời gian
 
-Phụ lục này là **bản tra cứu** các hàm NumPy và pandas dùng nhiều nhất khi làm việc với chuỗi thời gian. Mỗi hàm có:
-nó làm gì (bằng lời thường), một ví dụ nhỏ, và **output thật** in ngay dưới dạng chú thích `#`. Buổi 3 dạy lại phần
-thời gian đầy đủ kèm lab. Các buổi khác trỏ về đây khi cần nhắc một cú pháp.
+Bản tra cứu các hàm NumPy và pandas hay dùng với chuỗi thời gian. Mỗi ví dụ in **output thật** dưới dạng chú thích
+`#`. Buổi 3 dạy đầy đủ kèm lab. Cần biết Python cơ bản; không cần biết trước pandas.
 
-Người đọc cần biết Python cơ bản: biến, list, hàm, vòng `for`, `import`. Không cần biết trước pandas.
-
-Mọi đoạn code **đã chạy** ngày 2026-09-18 trong môi trường của buổi 3. Phiên bản các thư viện:
+Code chạy ngày 2026-09-18 trong môi trường buổi 3; các dòng ghi "pandas 2.3.3" chạy trong môi trường buổi 14.
+Phiên bản:
 
 | Python | pandas | NumPy | polars | DuckDB |
 |---|---|---|---|---|
 | 3.12 | 3.0.5 | 2.5.3 | 1.44.2 | 1.5.5 |
 
-Riêng các dòng ghi "pandas 2.3.3" chạy trong môi trường của buổi 14. Mỗi ví dụ giả định đã có sẵn:
+Mỗi ví dụ giả định đã có:
 
 ```python
 import numpy as np
 import pandas as pd
 ```
 
-> **Vì sao có hai bản pandas trong khoá?** pandas 3 ra đầu năm 2026. Tới giữa tháng 9/2026, các thư viện dự báo
-> statsforecast, utilsforecast, mlforecast và autogluon.timeseries vẫn chỉ chạy với pandas 2. Vì vậy các buổi đầu dùng
-> pandas 3, còn buổi nào cần các thư viện đó thì dùng pandas 2.3.3. Mỗi buổi có môi trường riêng nên hai bản không
-> đụng nhau. Chỗ khác nhau giữa hai bản nằm ở mục 9.
-
-## Mục lục
-
-- [1. Môi trường của một buổi](#1-môi-trường-của-một-buổi)
-- [2. NumPy tối thiểu](#2-numpy-tối-thiểu)
-- [3. pandas tối thiểu và mốc thời gian](#3-pandas-tối-thiểu-và-mốc-thời-gian)
-- [4. resample — đổi tần suất](#4-resample--đổi-tần-suất)
-- [5. Dời và cửa sổ: shift, diff, rolling, ewm](#5-dời-và-cửa-sổ-shift-diff-rolling-ewm)
-- [6. merge_asof — ghép với giá trị gần nhất trong quá khứ](#6-merge_asof--ghép-với-giá-trị-gần-nhất-trong-quá-khứ)
-- [7. Múi giờ và giờ mùa hè](#7-múi-giờ-và-giờ-mùa-hè)
-- [8. Định dạng dài và định dạng rộng](#8-định-dạng-dài-và-định-dạng-rộng)
-- [9. pandas 2 và pandas 3 — những chỗ khác nhau](#9-pandas-2-và-pandas-3--những-chỗ-khác-nhau)
-- [10. polars](#10-polars)
-- [11. DuckDB](#11-duckdb)
-- [12. Bảng đối chiếu nhanh](#12-bảng-đối-chiếu-nhanh)
-- [13. Bẫy thường gặp](#13-bẫy-thường-gặp)
-- [Nguồn](#nguồn)
+> **Vì sao có hai bản pandas trong khoá?** Tới tháng 9/2026, statsforecast, utilsforecast, mlforecast và
+> autogluon.timeseries vẫn chưa chạy với pandas 3 (ra đầu năm 2026). Buổi nào cần chúng thì dùng pandas 2.3.3 trong
+> môi trường riêng. Chỗ khác nhau: mục 9.
 
 ---
 
 ## 1. Môi trường của một buổi
 
-**Môi trường** là một thư mục chứa đúng các thư viện (đúng phiên bản) mà buổi đó cần. Mỗi buổi có môi trường riêng
-trong `lab/00-nen/.venv`, dựng bằng lệnh `make up` (xem hướng dẫn cài đặt `MOI-TRUONG.md`). Để chạy một file Python
-bằng môi trường đó, đứng ở thư mục `lab/` của buổi rồi gõ:
+**Môi trường** là bộ thư viện đúng phiên bản mà buổi đó cần. Đứng ở `lab/` của buổi:
 
 ```bash
-env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python ../code/vi_du.py
+python lab.py up                      # dựng môi trường + tải dữ liệu (uv; dùng conda thì thêm --pip)
+python lab.py notebook                # mở JupyterLab ở code/ — notebook của Lab là code/lab.ipynb
+python lab.py chay ../code/vi_du.py   # chạy một tệp .py bằng Python của buổi
 ```
 
-Đọc lệnh từ trái sang phải:
+VS Code cũng được: mở `code/lab.ipynb`, chọn Python `lab/00-nen/.venv` (hoặc môi trường conda của bạn).
 
-- `env -u VIRTUAL_ENV`: bỏ qua môi trường Python khác đang bật (nếu có), để khỏi chạy nhầm.
-- `uv run`: chạy lệnh phía sau bằng Python của một môi trường do công cụ `uv` quản lý.
-- `--no-sync`: không cài thêm hay cập nhật gì, dùng đúng những gì đã cài.
-- `--project 00-nen`: môi trường nằm ở thư mục `00-nen`.
-- `python ../code/vi_du.py`: file cần chạy.
-
-**File code dạng percent.** Code của khoá là file `.py` bình thường, chia ô bằng chú thích đặc biệt. `# %%` mở một ô
-code; `# %% [markdown]` mở một ô chữ. Công cụ jupytext đọc các dấu này để mở file như một notebook Jupyter. File vẫn
-chạy được như script thường, và git so sánh được từng dòng.
-
-```python
-# %% [markdown]
-# # Tiêu đề notebook
-
-# %%
-import pandas as pd
-```
-
-**Gói `tv`.** Mỗi môi trường có sẵn gói trợ giúp `tv` của khoá (`import tv`). Ví dụ `tv.THU_MUC_DU_LIEU` là đường dẫn
-tới thư mục dữ liệu đã kiểm tra, dùng thay cho đường dẫn gõ tay.
+**Gói `tv`.** Mỗi môi trường có gói trợ giúp `tv` của khoá (`import tv`). Ví dụ `tv.THU_MUC_DU_LIEU` là đường dẫn
+tới thư mục dữ liệu đã kiểm tra.
 
 ---
 
 ## 2. NumPy tối thiểu
 
-**Mảng.** NumPy làm việc với **mảng** (array): một dãy số cùng kiểu. Khác list của Python, phép tính trên mảng áp
-dụng cho **từng phần tử** mà không cần vòng `for`.
+**Mảng.** NumPy làm việc với **mảng** (array): một dãy số cùng kiểu. Phép tính trên mảng áp dụng cho **từng phần tử**,
+không cần vòng `for`.
 
 ```python
 a = np.array([7, 5, 9, 6, 8])
@@ -92,12 +54,11 @@ a[a > 6]       # array([7, 9, 8])              — chỉ giữ các số lớn h
 a.mean()       # 7.0                           — trung bình
 ```
 
-Dòng `a[a > 6]` gọi là **lọc bằng điều kiện**: `a > 6` cho một mảng True/False, đặt nó trong ngoặc vuông thì chỉ giữ
-các vị trí True.
+`a[a > 6]` gọi là **lọc bằng điều kiện**: `a > 6` cho một mảng True/False; đặt nó trong ngoặc vuông thì chỉ giữ các
+vị trí True.
 
-**Giá trị thiếu.** NumPy và pandas ghi giá trị thiếu là `np.nan` (viết tắt của "not a number", không phải số). Hai thư
-viện xử lý khác nhau. Trong **NumPy**, mọi phép tính có `nan` đều ra `nan`, trừ khi dùng hàm bỏ qua nó. Trong **pandas**,
-`.sum()` và `.mean()` **mặc định bỏ qua** `nan`, và tổng của một nhóm toàn `nan` ra 0 (mục 4 có cách sửa bằng `min_count`):
+**Giá trị thiếu** ghi là `np.nan` ("not a number"). Trong **NumPy**, phép tính có `nan` ra `nan`, trừ các hàm bỏ
+qua nó như `np.nanmean`. Trong **pandas** (`pd.Series` là một cột số, mục 3), `.sum()` và `.mean()` **mặc định bỏ qua** `nan`:
 
 ```python
 b = np.array([7.0, np.nan, 9.0])
@@ -105,12 +66,12 @@ b.mean()          # nan   — một ô thiếu làm hỏng cả trung bình
 np.nanmean(b)     # 8.0   — bỏ ô thiếu: (7 + 9) / 2
 pd.Series(b).mean()                  # 8.0   — pandas tự bỏ ô thiếu
 pd.Series(b).mean(skipna=False)      # nan   — muốn giống NumPy thì tắt bỏ qua
-pd.Series([np.nan, np.nan]).sum()    # 0.0   — toàn thiếu mà ra 0: dễ nhầm với "tiêu thụ 0"
+pd.Series([np.nan, np.nan]).sum()    # 0.0   — toàn thiếu mà ra 0, xem mục 4
 ```
 
-**Số ngẫu nhiên có seed.** **Seed** (hạt giống) là con số khởi động bộ sinh số ngẫu nhiên. Cùng seed thì ra đúng cùng
-dãy số, nên kết quả chạy lại được. Tạo một bộ sinh riêng bằng `np.random.default_rng(seed)`; đừng dùng
-`np.random.seed(...)`, vì cách cũ đó đặt seed chung cho cả chương trình và dễ bị đoạn code khác làm lệch.
+**Số ngẫu nhiên có seed.** **Seed** (hạt giống) là con số khởi động bộ sinh số ngẫu nhiên: cùng seed thì ra cùng
+dãy số, nên chạy lại được. Dùng bộ sinh riêng `np.random.default_rng(seed)`, đừng dùng `np.random.seed(...)`: cách cũ
+này đặt seed chung cho cả chương trình, dễ bị code khác làm lệch.
 
 ```python
 rng = np.random.default_rng(42)
@@ -119,29 +80,25 @@ rng = np.random.default_rng(42)    # tạo lại với cùng seed…
 rng.normal(size=3).round(4)        # array([ 0.3047, -1.04  ,  0.7505])  — …ra đúng 3 số cũ
 ```
 
-**Quantile.** `np.quantile(a, q)` trả về quantile mức `q`, với `q` từ 0 tới 1 (0,25 nghĩa là 25%). Quantile mức `q` là
-mốc mà khoảng `q` phần số liệu nằm dưới hoặc bằng nó. **Cách đếm tay**: xếp tăng dần, lấy số đứng ở vị trí $q \times n$
+**Quantile.** `np.quantile(a, q)` trả về quantile mức `q`, với `q` từ 0 tới 1 (0,25 là 25%). Quantile mức `q` là mốc
+mà khoảng `q` phần số liệu nằm dưới hoặc bằng nó. **Cách đếm tay**: xếp tăng dần, lấy số đứng ở vị trí $q \times n$
 làm tròn lên ($n$ là số giá trị). Với `[1, 2, 3, 4]` và `q = 0.25`: $0{,}25 \times 4 = 1$, lấy số thứ 1, được **1**.
+
 Mặc định `np.quantile` không đếm như vậy mà **nội suy** giữa hai số kề nhau, nên có thể ra số không có trong dữ liệu.
 Có 9 cách tính khác nhau (Hyndman & Fan, 1996), chọn bằng tham số `method`:
 
 ```python
 np.quantile([1, 2, 3, 4], 0.25)                            # 1.75   mặc định (method="linear")
-np.quantile([1, 2, 3, 4], 0.25, method="median_unbiased")  # 1.4167
 np.quantile([1, 2, 3, 4], 0.25, method="inverted_cdf")     # 1      khớp cách đếm tay
 ```
 
-**Nội suy** là lấy một điểm nằm **giữa** hai số kề nhau, theo tỷ lệ. Cách mặc định tính như sau:
+**Nội suy** là lấy một điểm nằm **giữa** hai số kề nhau, theo tỷ lệ. Cách mặc định:
 
-1. Xếp tăng dần và đánh số vị trí **từ 0**: số 1 ở vị trí 0, số 2 ở vị trí 1, số 3 ở vị trí 2, số 4 ở vị trí 3.
+1. Xếp tăng dần, đánh số vị trí **từ 0**: các số 1, 2, 3, 4 ở vị trí 0, 1, 2, 3.
 2. Vị trí cần lấy = $(n - 1) \times q$, với $n$ là số giá trị. Ở đây $(4 - 1) \times 0{,}25 = 0{,}75$.
-3. Vị trí 0,75 nằm giữa vị trí 0 (số 1) và vị trí 1 (số 2), cách vị trí 0 đúng 0,75 khoảng.
-4. Kết quả = 1 + 0,75 × (2 − 1) = 1,75.
+3. Vị trí 0,75 nằm giữa vị trí 0 (số 1) và vị trí 1 (số 2), nên kết quả = 1 + 0,75 × (2 − 1) = 1,75.
 
-Cách `median_unbiased` dùng một công thức vị trí khác, phức tạp hơn (chữ "median" ở đây chỉ tên một tính chất
-thống kê của cách này, không phải trung vị); không cần tính tay. Cách `inverted_cdf` không
-nội suy mà lấy đúng một số có trong dữ liệu: định nghĩa và cách đếm tay có ở Phụ lục B mục 4. Khi so kết quả với R (một ngôn ngữ thống kê)
-hay thư viện khác, kiểm `method` trước khi nghi code sai.
+So kết quả với R (một ngôn ngữ thống kê) hay thư viện khác thì kiểm `method` trước khi nghi code sai.
 
 ---
 
@@ -149,12 +106,10 @@ hay thư viện khác, kiểm `method` trước khi nghi code sai.
 
 ### Series, DataFrame và chỉ mục
 
-pandas có hai kiểu dữ liệu chính:
+- **DataFrame**: một bảng gồm nhiều cột có tên, giống một trang tính Excel.
+- **Series**: **một cột** của bảng, lấy ra bằng một cặp ngoặc vuông: `df["kwh"]`.
 
-- **DataFrame**: một bảng, gồm nhiều cột có tên. Giống một trang tính Excel.
-- **Series**: **một cột** của bảng. Lấy một cột ra bằng một cặp ngoặc vuông: `df["kwh"]`.
-
-Mỗi dòng có một **nhãn dòng**, gọi là **chỉ mục** (index), in ở cột ngoài cùng bên trái. Mặc định chỉ mục là 0, 1, 2…
+Mỗi dòng có một **nhãn dòng**, gọi là **chỉ mục** (index), in ở cột ngoài cùng bên trái; mặc định là 0, 1, 2…
 Mỗi cột có một **kiểu** (dtype): `int64` là số nguyên, `float64` là số thực (có phần thập phân), `str` là chữ.
 
 ```python
@@ -170,10 +125,9 @@ df.loc[df["kwh"] > 11, "tinh"].tolist()    # ['HN', 'HCM']  — .loc[điều ki�
 ```
 
 `.loc[dòng, cột]` chọn theo **nhãn**: phần trước dấu phẩy chọn dòng (một nhãn, hoặc một dãy True/False), phần sau
-chọn cột. Viết `df["kwh"][df["kwh"] > 11]` cũng chọn được, nhưng đó là **hai lần ngoặc vuông** nối nhau: lần đầu
-chọn cột, lần sau chọn dòng. Mục 9 cho thấy vì sao không được **gán** giá trị theo kiểu hai lần ngoặc này.
+chọn cột. Cách hai lần ngoặc vuông `df["kwh"][df["kwh"] > 11]` chọn được, nhưng không được dùng để **gán** (mục 9).
 
-**Cột số nguyên có ô thiếu sẽ thành số thực.** `nan` là một số thực, nên pandas đổi cả cột sang `float64`:
+**Cột số nguyên có ô thiếu sẽ thành số thực.** `nan` là một số thực, nên pandas đổi cả cột sang `float64`.
 
 ```python
 pd.Series([1, 2]).dtype            # int64
@@ -190,19 +144,19 @@ df.groupby("tinh")["kwh"].sum()
 # HN     22     ← 10 + 12
 ```
 
-`resample` ở mục 4 là một kiểu `groupby` đặc biệt: nhóm theo khoảng thời gian thay vì theo giá trị một cột.
+`resample` (mục 4) là một kiểu `groupby` nhóm theo khoảng thời gian thay vì theo giá trị một cột.
 
 ### Timestamp và `pd.to_datetime`
 
-Một **mốc thời gian** trong pandas là một `Timestamp`. Nó biết mình là ngày nào, giờ nào, thứ mấy:
+Một **mốc thời gian** trong pandas là một `Timestamp`, biết cả ngày, giờ, thứ:
 
 ```python
 t = pd.Timestamp("2024-03-10 19:30")
 t.hour, t.dayofweek, t.day_name()     # (19, 6, 'Sunday')   — thứ Hai là 0, Chủ nhật là 6
 ```
 
-Dữ liệu đọc từ CSV thường là **chuỗi chữ** như `"2024-01-05 08:00"`. `pd.to_datetime` đổi chuỗi thành mốc thời gian.
-Sau đó dùng `.dt` để lấy từng phần:
+Dữ liệu đọc từ CSV thường là **chuỗi chữ** như `"2024-01-05 08:00"`. `pd.to_datetime` đổi chuỗi thành mốc thời gian;
+sau đó `.dt` lấy từng phần:
 
 ```python
 s = pd.to_datetime(pd.Series(["2024-01-05 08:00", "2024-01-06 09:30"]))
@@ -212,8 +166,7 @@ s.dt.dayofweek.tolist()      # [4, 5]   — thứ Sáu, thứ Bảy
 
 Ba tham số hay cần:
 
-- `format`: nói rõ chuỗi viết theo mẫu nào, ví dụ `format="%Y-%m-%d %H:%M"` (năm-tháng-ngày giờ:phút). Nói rõ thì
-  nhanh hơn và không đoán nhầm.
+- `format`: mẫu của chuỗi, ví dụ `format="%Y-%m-%d %H:%M"` (năm-tháng-ngày giờ:phút), để khỏi đoán nhầm.
 - `dayfirst=True`: chuỗi viết ngày trước tháng, kiểu Việt Nam. Thiếu nó, `"05/01/2024"` bị hiểu là **1 tháng 5**:
 
 ```python
@@ -231,8 +184,8 @@ pd.to_datetime(pd.Series(["2024-01-05", "không rõ"]), errors="coerce").tolist(
 # [Timestamp('2024-01-05 00:00:00'), NaT]
 ```
 
-Dùng `errors="coerce"` xong thì luôn đếm xem có bao nhiêu `NaT`, để không mất dữ liệu âm thầm: `.isna()` cho
-True ở ô thiếu, `.sum()` đếm số True, nên `s.isna().sum()` là số ô thiếu.
+Dùng `errors="coerce"` xong thì luôn đếm số `NaT` bằng `s.isna().sum()` (`.isna()` cho True ở ô thiếu, `.sum()` đếm
+số True), để không mất dữ liệu âm thầm.
 
 ### `pd.date_range` và bí danh tần suất
 
@@ -257,13 +210,12 @@ pd.date_range("2024-01-01", periods=3, freq="ME")
 # DatetimeIndex(['2024-01-31', '2024-02-29', '2024-03-31'], dtype='datetime64[us]', freq='ME')
 ```
 
-`dtype='datetime64[us]'` nghĩa là pandas lưu mỗi mốc bằng số **microsecond** (một phần triệu giây). Mục 9 nói vì sao
-chi tiết này quan trọng.
+`dtype='datetime64[us]'`: pandas lưu mỗi mốc bằng số **microsecond** (một phần triệu giây), xem mục 9.
 
 ### Series có chỉ mục thời gian
 
-Một chuỗi thời gian trong pandas thường là một `Series` mà **chỉ mục** (index, cột nhãn bên trái) là các mốc thời
-gian. Có chỉ mục thời gian thì cắt theo ngày tháng bằng `.loc` rất gọn:
+Chuỗi thời gian trong pandas thường là một `Series` có chỉ mục là các mốc thời gian. Khi đó cắt theo ngày tháng
+bằng `.loc`:
 
 ```python
 y = pd.Series([5, 7, 6, 9, 8, 10], index=pd.date_range("2024-01-01", periods=6, freq="D"))
@@ -271,21 +223,20 @@ y.loc["2024-01-03":"2024-01-04"]    # 2024-01-03 → 6, 2024-01-04 → 9   (lấ
 y.loc["2024-01"].sum()              # 45 — cộng mọi ngày của tháng 1/2024
 ```
 
-Chú ý: cắt theo ngày tháng bằng `.loc` lấy **cả** mốc cuối. Cắt list Python thì bỏ mốc cuối: với
-`a = [10, 11, 12, 13, 14]`, `a[2:4]` ra `[12, 13]`, tức lấy chỉ số 2 và 3, bỏ `a[4]`.
+Khác list Python (`a[2:4]` bỏ vị trí 4), `.loc` với mốc thời gian lấy **cả** mốc cuối.
 
 ---
 
 ## 4. resample — đổi tần suất
 
-**Nó làm gì.** `resample` gộp dữ liệu theo từng khoảng thời gian dài hơn, ví dụ từ giờ lên ngày. Sau `resample(...)`
-phải nói gộp bằng cách nào: `.sum()` (cộng), `.mean()` (trung bình), `.last()` (lấy giá trị cuối)…
+**Nó làm gì.** `resample` gộp dữ liệu theo khoảng thời gian dài hơn, ví dụ từ giờ lên ngày, rồi phải nói cách gộp:
+`.sum()`, `.mean()`, `.last()` (giá trị cuối)…
 
 **Cộng hay trung bình?** Tuỳ loại đại lượng:
 
-- **Lượng tích luỹ** (kWh, số chuyến xe, số đơn hàng): **cộng**. 24 giờ, mỗi giờ 2 kWh, thì cả ngày là 48 kWh.
-- **Trạng thái tại một lúc** (nhiệt độ, giá, số người đang online): **trung bình** hoặc giá trị cuối. Cộng nhiệt độ 24
-  giờ không có nghĩa gì.
+- **Lượng tích luỹ** (kWh, số chuyến xe, số đơn hàng): **cộng**.
+- **Trạng thái tại một lúc** (nhiệt độ, giá, số người đang online): **trung bình** hoặc giá trị cuối. Cộng nhiệt độ
+  24 giờ không có nghĩa gì.
 
 ```python
 y = pd.Series(range(6), index=pd.date_range("2024-01-01 00:00", periods=6, freq="h"))  # 0, 1, …, 5 lúc 00:00…05:00
@@ -305,8 +256,8 @@ Hai tham số quyết định:
   khoảng (02:00, 04:00], bỏ 02:00, gồm 04:00).
 - `label`: nhãn ghi bằng mốc đầu (`"left"`) hay mốc cuối (`"right"`) của khoảng.
 
-Mặc định cả hai là `"left"` với hầu hết tần suất. **Ngoại lệ**: tần suất gắn với cuối kỳ (`ME`, `QE`, `YE`, `W`…) mặc
-định `"right"`. Cùng dữ liệu trên, đổi sang `"right"`:
+Mặc định cả hai là `"left"`, **trừ** các tần suất gắn với cuối kỳ (`ME`, `QE`, `YE`, `W`…) mặc định `"right"`. Cùng dữ
+liệu trên, đổi sang `"right"`:
 
 ```python
 y.resample("2h", closed="right", label="right").sum()
@@ -316,8 +267,8 @@ y.resample("2h", closed="right", label="right").sum()
 # 2024-01-01 06:00:00    5     ← chỉ có giờ 05
 ```
 
-Dữ liệu điện hay ghi "giờ kết thúc" (nhãn 01:00 là điện dùng từ 00:00 tới 01:00). Khi đó `"right"` mới đúng nghĩa.
-Đọc tài liệu của nguồn dữ liệu trước khi chọn.
+Dữ liệu điện hay ghi "giờ kết thúc" (nhãn 01:00 là điện dùng từ 00:00 tới 01:00); khi đó `"right"` mới đúng nghĩa.
+Đọc tài liệu nguồn dữ liệu trước khi chọn.
 
 **`ME` và `MS`.** Cùng gộp theo tháng, chỉ khác nhãn:
 
@@ -328,9 +279,8 @@ d.resample("ME").sum()     # 2024-01-31 → 3.0,  2024-02-29 → 7.0
 d.resample("MS").sum()     # 2024-01-01 → 3.0,  2024-02-01 → 7.0
 ```
 
-**`min_count` — đừng để khoảng trống thành số 0.** Mặc định `.sum()` của khoảng không có số liệu nào ra **0**. Với
-lượng điện, "0 kWh" và "không đo được" rất khác nhau. `min_count=k` nghĩa là khoảng nào có ít hơn `k` giá trị thật
-thì để trống (`nan`):
+**`min_count` — đừng để khoảng trống thành số 0.** `.sum()` của khoảng không có số liệu ra **0**, mà
+"0 kWh" khác "không đo được". `min_count=k`: khoảng nào có ít hơn `k` giá trị thật thì để trống (`nan`):
 
 ```python
 z = pd.Series([1.0, np.nan, np.nan, np.nan], index=pd.date_range("2024-01-01", periods=4, freq="h"))
@@ -344,11 +294,10 @@ z.resample("2h").sum(min_count=1).tolist()      # [1.0, nan]  — đúng: không
 <details>
 <summary>Đáp án</summary>
 
-Mặc định (`"left"`): khoảng [00:00, 02:00) gồm giờ 00 và 01, được 1 + 2 = 3, nhãn 00:00; khoảng [02:00, 04:00) được
-3 + 4 = 7, nhãn 02:00. Kết quả 3, 7.
+Mặc định (`"left"`): [00:00, 02:00) gồm giờ 00 và 01, được 1 + 2 = 3; [02:00, 04:00) được 3 + 4 = 7. Kết quả 3, 7.
 
-Với `"right"`: khoảng (22:00, 00:00] chỉ có giờ 00, được 1, nhãn 00:00; (00:00, 02:00] gồm giờ 01 và 02, được
-2 + 3 = 5, nhãn 02:00; (02:00, 04:00] chỉ có giờ 03, được 4, nhãn 04:00. Kết quả 1, 5, 4. Nhầm hay gặp là giữ nguyên
+Với `"right"`: (22:00, 00:00] chỉ có giờ 00, được 1; (00:00, 02:00] gồm giờ 01 và 02, được 2 + 3 = 5;
+(02:00, 04:00] chỉ có giờ 03, được 4. Kết quả 1, 5, 4 với nhãn 00:00, 02:00, 04:00. Nhầm hay gặp là giữ nguyên
 số khoảng, chỉ đổi nhãn.
 
 </details>
@@ -357,12 +306,12 @@ số khoảng, chỉ đổi nhãn.
 
 ## 5. Dời và cửa sổ: shift, diff, rolling, ewm
 
-Các hàm này tạo **feature** (đặc trưng đầu vào cho mô hình) từ chính chuỗi, như "giá trị giờ trước" hay "trung bình
-3 giờ gần nhất". Câu hỏi quan trọng nhất với mỗi hàm: **tại thời điểm $t$, nó dùng dữ liệu của những thời điểm nào?**
-Nếu nó dùng dữ liệu **sau** lúc ra dự báo, mô hình được "nhìn trộm" tương lai. Lỗi đó gọi là **rò rỉ tương lai**: điểm
-đánh giá đẹp giả tạo, rồi hỏng khi dùng thật.
+Các hàm này tạo **feature** (đặc trưng đầu vào cho mô hình) từ chính chuỗi. Với mỗi hàm, hỏi: **tại thời điểm $t$,
+nó dùng dữ liệu của những thời điểm nào?** Dùng dữ liệu **sau** lúc ra dự báo là **rò rỉ tương lai**: mô hình "nhìn
+trộm" tương lai, điểm đánh giá đẹp giả tạo rồi hỏng khi dùng thật. Ví dụ: cuối giờ 10 dự báo giờ 11 thì đã biết $y_{10}$, dùng được;
+nhưng nếu dòng $t$ là để đoán chính $y_t$ thì mọi feature ở dòng đó chỉ được dùng tới $y_{t-1}$.
 
-Dùng chung một chuỗi 6 giờ, giá trị 0, 1, 2, 3, 4, 5:
+Chuỗi dùng chung, 6 giờ:
 
 ```python
 x = pd.Series([0.0, 1, 2, 3, 4, 5], index=pd.date_range("2024-01-01", periods=6, freq="h"))
@@ -370,7 +319,7 @@ x = pd.Series([0.0, 1, 2, 3, 4, 5], index=pd.date_range("2024-01-01", periods=6,
 
 ### `shift` — dời chuỗi
 
-`shift(1)` đẩy mọi giá trị xuống 1 bước: tại giờ $t$ ta thấy giá trị của giờ $t-1$ (gọi là **trễ 1**). Ô đầu không có
+`shift(1)` đẩy mọi giá trị xuống 1 bước: tại giờ $t$ ta thấy giá trị của giờ $t-1$ (gọi là **trễ 1**); ô đầu không có
 giờ trước nên thành `nan`. `shift(-1)` đẩy ngược lên, tức lấy giá trị của **giờ sau**, là tương lai.
 
 ```python
@@ -391,7 +340,7 @@ Nó dùng $y_t$, nên chỉ làm feature được nếu lúc ra dự báo đã b
 
 ### `rolling` — cửa sổ trượt
 
-`rolling(3).mean()` tính trung bình của **3 giá trị gần nhất, tính cả giá trị hiện tại**. Cửa sổ trượt dần dọc chuỗi.
+`rolling(3).mean()` tính trung bình của **3 giá trị gần nhất, tính cả giá trị hiện tại**.
 Hai ô đầu chưa đủ 3 giá trị nên là `nan`.
 
 ```python
@@ -400,8 +349,8 @@ x.rolling(3).mean().tolist()                   # [nan, nan, 1.0, 2.0, 3.0, 4.0]
 
 Tính tay ô thứ 3 (giờ 02:00): (0 + 1 + 2) / 3 = 1,0.
 
-- `min_periods=1`: tính luôn khi mới có ít hơn 3 giá trị, thay vì để `nan`.
-- `center=True`: đặt cửa sổ **giữa** $t$, tức dùng $y_{t-1}, y_t, y_{t+1}$. Có $y_{t+1}$ là tương lai.
+- `min_periods=1`: tính luôn khi chưa đủ 3 giá trị.
+- `center=True`: đặt cửa sổ **giữa** $t$, tức dùng $y_{t-1}, y_t, y_{t+1}$; $y_{t+1}$ là tương lai.
 - Muốn cửa sổ chỉ gồm quá khứ trước $t$: thêm `.shift(1)`.
 
 ```python
@@ -412,8 +361,8 @@ x.rolling(3).mean().shift(1).tolist()          # [nan, nan, nan, 1.0, 2.0, 3.0]
                                                # chỉ dùng 3 giờ TRƯỚC t
 ```
 
-**Cửa sổ theo khoảng thời gian.** Viết `rolling("2h")` thay vì `rolling(2)` thì cửa sổ là "mọi giá trị trong 2 giờ
-vừa qua", không phải "2 giá trị gần nhất". Hai cách khác nhau khi dữ liệu có chỗ hổng:
+**Cửa sổ theo khoảng thời gian.** `rolling("2h")` lấy "mọi giá trị trong 2 giờ vừa qua", còn `rolling(2)` lấy "2 giá
+trị gần nhất". Hai cách khác nhau khi dữ liệu có chỗ hổng:
 
 ```python
 g = pd.Series([1.0, 2, 3],
@@ -424,14 +373,8 @@ g.rolling("2h").sum().tolist()     # [1.0, 3.0, 3.0]
                                    # ô 05:00 chỉ còn chính nó, vì 01:00 đã quá 2 giờ
 ```
 
-Vì sao ô đầu của `rolling("2h")` đã có số, còn `rolling(2)` để `nan`? Cửa sổ đếm theo **số giá trị** mặc định đòi đủ
-số giá trị (`min_periods` bằng độ rộng cửa sổ). Cửa sổ theo **thời gian** mặc định `min_periods=1`: có một giá trị là
-tính. Muốn đòi ít nhất 2 giá trị thì ghi rõ, ví dụ trên 3 giờ đầu của `x`:
-`x.iloc[:3].rolling("2h", min_periods=2).sum().tolist()` ra `[nan, 1.0, 3.0]`.
-
-`.iloc` chọn theo **vị trí** (dòng thứ 0, 1, 2…), khác `.loc` chọn theo **nhãn**. `x.iloc[:3]` lấy 3 dòng đầu (vị trí
-0, 1, 2) và, giống list Python, **không** lấy vị trí cuối 3. Ngược lại `.loc` với mốc thời gian lấy **cả** mốc cuối
-(mục 3).
+Ô đầu của `rolling("2h")` có số vì cửa sổ theo **thời gian** mặc định `min_periods=1`; cửa sổ theo **số giá trị**
+đòi đủ số giá trị.
 
 Với cửa sổ thời gian, `closed` quyết định hai đầu cửa sổ có được tính không. Mặc định `"right"`: khoảng
 $(t - 2\text{h}, t]$, bỏ mốc cách đúng 2 giờ, gồm $t$.
@@ -445,9 +388,7 @@ x.rolling("2h", closed="left").sum().tolist()   # [nan, 0.0, 1.0, 3.0, 5.0, 7.0]
 
 Tính tay ô giờ 03:00 với `"both"`: gồm giờ 01, 02, 03, tổng 1 + 2 + 3 = 6. Với mặc định bỏ giờ 01: 2 + 3 = 5.
 
-Vì sao ô đầu với `closed="left"` là `nan`, trong khi mục 4 nói tổng của khoảng rỗng ra 0? Ở giờ 00:00, cửa sổ
-[22:00, 00:00) không chứa giá trị nào. `rolling` có `min_periods` (ở đây là 1): chưa đủ 1 giá trị thì trả `nan`.
-`resample(...).sum()` không có `min_periods`, nên mặc định cộng khoảng rỗng thành 0 (trừ khi thêm `min_count`).
+Ô đầu với `closed="left"` là `nan` vì cửa sổ [22:00, 00:00) rỗng, chưa đủ `min_periods=1`.
 
 ### `ewm` — trung bình trượt hàm mũ
 
@@ -468,9 +409,9 @@ pd.Series([1.0, 2, 3]).ewm(alpha=0.5, adjust=False).mean().tolist()     # [1.0, 
 pd.Series([1.0, 2, 3]).ewm(alpha=0.5).mean().round(3).tolist()          # [1.0, 1.667, 2.429]
 ```
 
-Mặc định `adjust=True` cho số khác ở các bước đầu. Nó lấy trung bình có trọng số của mọi giá trị đã có, trọng số 1,
+Mặc định `adjust=True` cho số khác ở các bước đầu: nó lấy trung bình có trọng số (mỗi số nhân trọng số của nó, cộng lại, chia tổng trọng số) của mọi giá trị đã có, trọng số 1,
 $(1-\alpha)$, $(1-\alpha)^2$… từ mới tới cũ. Tính tay bước 3: trọng số 1; 0,5; 0,25 cho 3, 2, 1, nên
-(3 + 1 + 0,25) / (1 + 0,5 + 0,25) = 4,25 / 1,75 ≈ 2,429. Càng về sau, hai cách càng gần nhau.
+(1 × 3 + 0,5 × 2 + 0,25 × 1) / (1 + 0,5 + 0,25) = 4,25 / 1,75 ≈ 2,429. Càng về sau, hai cách càng gần nhau.
 
 ### Bảng tổng hợp: hàm nào nhìn trộm tương lai?
 
@@ -483,8 +424,8 @@ $(1-\alpha)$, $(1-\alpha)^2$… từ mới tới cũ. Tính tay bước 3: trọ
 | `rolling(3, center=True).mean()` | $y_{t-1}, y_t, y_{t+1}$ | **không** — có tương lai |
 | `ewm(alpha=…).mean()` | mọi giá trị tới $t$ | thêm `.shift(1)` nếu $y_t$ là thứ cần dự báo |
 
-**Đọc bảng.** Nhìn cột 2: dòng nào có chỉ số $t+1$ là dùng tương lai, cấm làm feature. Dòng nào có $y_t$ thì phải hỏi
-"lúc ra dự báo đã biết $y_t$ chưa?". Nếu $y_t$ là thứ đang cần dự báo thì chưa biết, nên phải dời thêm một bước.
+**Đọc bảng.** Cột 2 có $y_{t+1}$ thì cấm làm feature. Có $y_t$ thì hỏi lúc ra dự báo đã biết $y_t$ chưa; nếu $y_t$ là
+thứ cần dự báo thì thêm `.shift(1)`.
 
 **Tự kiểm tra.** Chuỗi 10, 20, 30, 40 theo giờ liên tiếp. Ở giờ thứ 4, `rolling(2).mean().shift(1)` ra bao nhiêu? Có dùng
 giá trị 40 không?
@@ -493,7 +434,7 @@ giá trị 40 không?
 <summary>Đáp án</summary>
 
 `rolling(2).mean()` ở giờ thứ 3 là (20 + 30) / 2 = 25. `shift(1)` dời nó xuống giờ thứ 4, nên ra **25**, không dùng 40.
-Kết quả cả chuỗi: nan, nan, 15, 25. Nhầm hay gặp là quên `shift(1)`: khi đó giờ thứ 4 ra (30 + 40) / 2 = 35, có dùng
+Nhầm hay gặp là quên `shift(1)`: khi đó giờ thứ 4 ra (30 + 40) / 2 = 35, có dùng
 chính giá trị 40 đang cần dự báo.
 
 </details>
@@ -502,10 +443,9 @@ chính giá trị 40 đang cần dự báo.
 
 ## 6. merge_asof — ghép với giá trị gần nhất trong quá khứ
 
-**Nó làm gì.** Ghép hai bảng theo thời gian khi mốc thời gian **không trùng nhau**. Mỗi dòng bảng trái lấy dòng bảng
-phải có thời điểm **gần nhất, trước hoặc đúng bằng** nó. Ví dụ: đơn hàng lúc 10:07 cần giá sản phẩm. Giá cập nhật lúc
-10:05 và 10:10. Đơn hàng phải lấy giá lúc 10:05, vì lúc 10:07 giá 10:10 chưa tồn tại. Lấy giá 10:10 là **rò rỉ
-tương lai** (mục 5): dùng thông tin chưa có vào lúc đó.
+**Nó làm gì.** Ghép hai bảng theo thời gian khi mốc **không trùng nhau**: mỗi dòng bảng trái lấy dòng bảng phải
+**gần nhất, trước hoặc đúng bằng** nó. Đơn hàng lúc 10:07 phải lấy giá cập nhật lúc 10:05, không lấy giá 10:10, vì
+lúc 10:07 giá đó chưa có (lấy là **rò rỉ tương lai**, mục 5).
 
 ```python
 don = pd.DataFrame({"t": pd.to_datetime(["2024-01-01 10:07"])})
@@ -515,17 +455,17 @@ pd.merge(don, gia, on="t", how="left")        # t = 10:07, gia = NaN
                                               # ghép thường đòi trùng khít từng giây
 ```
 
-`pd.merge` là phép **ghép thường**: chỉ ghép hai dòng có giá trị `t` **bằng hệt nhau**. `how="left"` nghĩa là giữ mọi
-dòng của bảng trái (`don`), dòng nào không tìm được cặp thì để trống. Không có `how="left"` thì đơn hàng bị bỏ luôn.
+`pd.merge` là phép **ghép thường**: chỉ ghép dòng có `t` **bằng hệt nhau**. `how="left"` giữ mọi dòng bảng trái,
+dòng không có cặp thì để trống.
 
 Các tham số:
 
-- `on="t"`: tên cột thời gian dùng để ghép. **Cả hai bảng phải xếp tăng dần** theo cột này, nếu không sẽ báo
-  `ValueError: right keys must be sorted` (hoặc `left keys…`).
+- `on="t"`: cột thời gian để ghép. **Hai bảng phải xếp tăng dần** theo cột này, nếu không sẽ báo
+  `ValueError: right keys must be sorted`.
 - `direction="backward"` (mặc định): chỉ nhìn về quá khứ. `"forward"` nhìn về tương lai, dễ gây rò rỉ.
 - `allow_exact_matches=False`: không lấy dòng có thời điểm **trùng đúng**, chỉ lấy dòng trước đó. Dùng khi giá trị tại
   đúng thời điểm $t$ chưa kịp công bố lúc ra dự báo.
-- `tolerance=pd.Timedelta("1min")`: chỉ ghép nếu dòng quá khứ cách không quá 1 phút; xa hơn thì để trống.
+- `tolerance=pd.Timedelta("1min")`: chỉ ghép nếu dòng quá khứ cách không quá 1 phút.
 
 ```python
 trai = pd.DataFrame({"t": pd.to_datetime(["2024-01-01 10:00", "2024-01-01 10:05"])})
@@ -535,9 +475,8 @@ pd.merge_asof(trai, phai, on="t", allow_exact_matches=False)["v"].tolist()     #
 pd.merge_asof(trai, phai, on="t", tolerance=pd.Timedelta("1min"))["v"].tolist()  # [1.0, nan]
 ```
 
-Lệnh thứ 2: dòng 10:00 bên trái trùng khít với dòng 10:00 bên phải, nhưng bị cấm lấy trùng, và trước đó không còn gì,
-nên `nan`. Lệnh thứ 3: dòng 10:05 cách 10:03 hai phút, quá giới hạn 1 phút, nên `nan`. Cột `v` có ô `nan` nên thành số
-thực: 1 thành 1.0 (mục 3).
+Lệnh thứ 2: dòng 10:00 bị cấm lấy dòng trùng 10:00 bên phải, trước đó không còn gì, nên `nan`. Lệnh thứ 3: dòng 10:05
+cách 10:03 hai phút, quá giới hạn 1 phút, nên `nan`. Cột có `nan` nên 1 thành 1.0 (mục 3).
 
 **Tự kiểm tra.** Bảng trái có một dòng lúc 10:02. Bảng phải có 10:00 (v = 1), 10:02 (v = 2), 10:04 (v = 3).
 `merge_asof` mặc định cho v bằng mấy? Thêm `allow_exact_matches=False` thì sao?
@@ -546,7 +485,7 @@ thực: 1 thành 1.0 (mục 3).
 <summary>Đáp án</summary>
 
 Mặc định lấy dòng gần nhất **trước hoặc đúng bằng** 10:02, tức 10:02, nên v = **2**. Cấm lấy trùng thì lùi về 10:00,
-v = **1**. Không bao giờ lấy 3, vì 10:04 nằm sau 10:02 (trừ khi đặt `direction="forward"`, tức nhìn về tương lai).
+v = **1**. Không bao giờ lấy 3, vì 10:04 nằm sau 10:02 (trừ khi đặt `direction="forward"`).
 
 </details>
 
@@ -557,17 +496,16 @@ v = **1**. Không bao giờ lấy 3, vì 10:04 nằm sau 10:02 (trừ khi đặt
 **Quy tắc của khoá.** Lưu mọi mốc thời gian theo **UTC** (giờ chuẩn quốc tế, không đổi theo mùa). Chỉ đổi sang giờ địa
 phương khi hiển thị, hoặc khi tính feature lịch như "giờ trong ngày", "thứ trong tuần".
 
-**Độ lệch so với UTC** viết sau giờ: `+07:00` nghĩa là giờ địa phương **nhanh hơn** UTC 7 giờ (Việt Nam: 7:00 sáng ở Hà
-Nội là 0:00 UTC). `-05:00` nghĩa là **chậm hơn** UTC 5 giờ (New York mùa đông).
+**Độ lệch so với UTC** viết sau giờ: `+07:00` là giờ địa phương **nhanh hơn** UTC 7 giờ (7:00 sáng ở Hà Nội là 0:00
+UTC); `-05:00` là **chậm hơn** UTC 5 giờ (New York mùa đông).
 
-**Vì sao phải thống nhất múi giờ.** Ví dụ bảng chuyến taxi New York ghi giờ địa phương, còn bảng mưa ghi giờ UTC, cả
-hai đều không ghi múi giờ. Mùa hè New York chậm hơn UTC 4 giờ. Mưa bắt đầu lúc 21:00 UTC, tức 17:00 ở New York, và
-chuyến xe tăng vọt đúng lúc 17:00 New York. Ghép thẳng hai bảng theo con số giờ thì cơn mưa hiện ở dòng 21:00, sau đợt
-tăng chuyến 4 giờ. Kết luận sai: "chuyến xe tăng **trước khi** mưa". Đổi cả hai về UTC trước khi ghép thì hết.
+**Vì sao phải thống nhất múi giờ.** Bảng taxi New York ghi giờ địa phương, bảng mưa ghi UTC, cả hai không ghi múi
+giờ. Mưa lúc 21:00 UTC, tức 17:00 New York (mùa hè), đúng lúc chuyến xe tăng vọt. Ghép thẳng theo con số giờ thì mưa
+hiện sau đợt tăng 4 giờ, và ta kết luận sai "xe tăng **trước khi** mưa".
 
 ### Naive và aware
 
-- Mốc **naive** không ghi múi giờ: `2024-07-01 12:00`. Không biết đó là 12 giờ ở Hà Nội hay ở London.
+- Mốc **naive** không ghi múi giờ: `2024-07-01 12:00`. Không biết đó là 12 giờ ở đâu.
 - Mốc **aware** có ghi múi giờ: `2024-07-01 12:00+07:00`.
 - `tz_localize(mui_gio)`: **gắn** múi giờ cho mốc naive, **giữ nguyên** con số giờ.
 - `tz_convert(mui_gio)`: **đổi** một mốc aware sang múi giờ khác. Thời điểm thật không đổi, con số giờ đổi.
@@ -584,8 +522,8 @@ t < ta
 # TypeError: Cannot compare tz-naive and tz-aware timestamps
 ```
 
-Tên múi giờ lấy từ **cơ sở dữ liệu múi giờ IANA**: danh sách chuẩn quốc tế ghi mọi lần một nơi đổi giờ trong lịch
-sử. IANA là tổ chức quốc tế quản lý tên miền, địa chỉ Internet và danh sách này. Viết theo dạng `Châu_lục/Thành_phố`: `Asia/Ho_Chi_Minh`, `America/New_York`, `Europe/London`.
+Tên múi giờ lấy từ **cơ sở dữ liệu múi giờ IANA** (danh sách chuẩn quốc tế ghi mọi lần một nơi đổi giờ trong lịch
+sử), dạng `Châu_lục/Thành_phố`: `Asia/Ho_Chi_Minh`, `America/New_York`, `Europe/London`.
 
 **Feature lịch phải tính theo giờ địa phương.** 17:00 UTC ngày 1/1 là 0:00 ngày 2/1 ở Việt Nam:
 
@@ -595,8 +533,8 @@ u.dt.hour.tolist()                                  # [17, 18] — giờ UTC
 u.dt.tz_convert("Asia/Ho_Chi_Minh").dt.hour.tolist() # [0, 1]  — giờ Việt Nam, đã sang ngày 2/1
 ```
 
-**Việt Nam không phải lúc nào cũng UTC+7.** Hiện nay Việt Nam là UTC+7 và không đổi giờ theo mùa. Nhưng theo cơ sở dữ
-liệu IANA, điều đó chỉ đúng từ 13/6/1975; trước đó có những giai đoạn lệch khác:
+**Việt Nam không phải lúc nào cũng UTC+7.** Theo IANA, Việt Nam chỉ cố định ở UTC+7 từ 13/6/1975; trước đó có giai
+đoạn lệch khác:
 
 ```python
 from datetime import datetime
@@ -610,22 +548,21 @@ Vì vậy đừng tự cộng 7 giờ; hãy dùng `tz_localize`/`tz_convert` v�
 
 ### Giờ mùa hè (DST)
 
-Một số nước (Mỹ, châu Âu) **vặn đồng hồ nhanh 1 giờ** vào mùa xuân và vặn lại vào mùa thu. Việc này gọi là giờ mùa hè,
-viết tắt DST (daylight saving time). Hệ quả với dữ liệu theo giờ:
+Một số nước (Mỹ, châu Âu) **vặn đồng hồ nhanh 1 giờ** vào mùa xuân và vặn lại vào mùa thu, gọi là giờ mùa hè
+(DST, daylight saving time). Hệ quả với dữ liệu theo giờ:
 
 - Ngày vặn nhanh có **23 giờ**: một giờ **bị mất**. Ở New York ngày 10/3/2024 không có 02:00–02:59.
 - Ngày vặn lại có **25 giờ**: một giờ **bị lặp**. Ngày 3/11/2024 có hai lần 01:00–01:59.
 
 ```python
 pd.date_range("2024-03-10 00:00", periods=4, freq="h", tz="America/New_York")
-# 00:00-05:00, 01:00-05:00, 03:00-04:00, 04:00-04:00      ← không có 02:00
+# 00:00-05:00, 01:00-05:00, 03:00-04:00, 04:00-04:00      ← không có 02:00 ("-05:00" là độ lệch UTC, không phải giờ kết thúc)
 pd.date_range("2024-11-03 00:00", periods=4, freq="h", tz="America/New_York")
 # 00:00-04:00, 01:00-04:00, 01:00-05:00, 02:00-05:00      ← 01:00 xuất hiện hai lần
 ```
 
-Phần `-05:00`, `-04:00` là độ lệch so với UTC. Vì sao đổi từ −05:00 sang −04:00? Mùa đông New York chậm hơn UTC 5 giờ.
-Vặn đồng hồ nhanh thêm 1 giờ thì giờ địa phương chỉ còn chậm hơn UTC 4 giờ. Dữ liệu điện của EIA (Cơ quan Thông tin
-Năng lượng Mỹ) hay dữ liệu taxi New York đều gặp hai ngày này mỗi năm.
+Mùa đông New York là −05:00; vặn nhanh 1 giờ thành −04:00. Dữ liệu điện EIA (Cơ quan Thông tin Năng lượng Mỹ) và
+taxi New York gặp hai ngày này mỗi năm.
 
 **Gắn múi giờ cho giờ bị mất hoặc bị lặp sẽ báo lỗi**, trừ khi nói rõ cách xử lý:
 
@@ -648,8 +585,7 @@ m.dt.tz_localize("America/New_York", nonexistent="shift_forward")   # 03:00-04:0
 Các lựa chọn:
 
 - `ambiguous` (giờ bị lặp): `"infer"` tự suy từ thứ tự các dòng; `"NaT"` để trống; `"raise"` báo lỗi (mặc định); hoặc
-  một mảng True/False, True là lần thứ nhất (còn giờ mùa hè). Phải là **mảng**, vì Series có thể nhiều dòng: mỗi dòng
-  một True/False. Ví dụ trên chỉ có một dòng nên mảng có một phần tử.
+  một mảng True/False, True là lần thứ nhất (còn giờ mùa hè). Phải là **mảng**, mỗi dòng một True/False.
 - `nonexistent` (giờ bị mất): `"shift_forward"` đẩy tới giờ kế tiếp; `"shift_backward"` lùi về giờ trước; `"NaT"` để
   trống; một khoảng thời gian (ví dụ `pd.Timedelta("1h")`) để cộng thêm; `"raise"` báo lỗi (mặc định).
 
@@ -662,17 +598,13 @@ seq.dt.tz_localize("America/New_York", ambiguous="infer").tolist()
 # [00:30-04:00, 01:30-04:00, 01:30-05:00, 02:30-05:00] — hai lần 01:30 được tách đúng
 ```
 
-Trên máy thiếu cơ sở dữ liệu IANA (hay gặp trên Windows), Python cần gói `tzdata`. Môi trường của mọi buổi đã có sẵn.
-
 **Tự kiểm tra.** Một cảm biến ghi `2024-07-01 20:00` theo UTC. Ở Việt Nam đó là mấy giờ, ngày nào? Nếu tính feature "ngày
 trong tuần" bằng giờ UTC thì sai ở đâu?
 
 <details>
 <summary>Đáp án</summary>
 
-Cộng 7 giờ: **03:00 ngày 2/7** (`pd.Timestamp("2024-07-01 20:00", tz="UTC").tz_convert("Asia/Ho_Chi_Minh")` ra
-`2024-07-02 03:00:00+07:00`). Tính bằng giờ UTC thì số đo này bị xếp vào thứ Hai 1/7, giờ 20, trong khi ở Việt Nam là 3 giờ sáng
-thứ Ba 2/7. Feature lịch lệch cả giờ lẫn thứ trong tuần.
+Đổi sang `Asia/Ho_Chi_Minh` (năm 2024 là UTC+7): **03:00 ngày 2/7**. Tính bằng giờ UTC thì số đo bị xếp vào 20 giờ thứ Hai thay vì 3 giờ sáng thứ Ba: lệch cả giờ lẫn thứ.
 
 </details>
 
@@ -683,9 +615,9 @@ thứ Ba 2/7. Feature lịch lệch cả giờ lẫn thứ trong tuần.
 Nhiều chuỗi (ví dụ tải điện của nhiều tỉnh) có thể xếp theo hai cách:
 
 - **Dạng rộng**: mỗi chuỗi một cột, mỗi dòng một thời điểm.
-- **Dạng dài**: mỗi dòng là **một** quan sát của **một** chuỗi tại **một** thời điểm. Họ thư viện của công ty
-  Nixtla (statsforecast, mlforecast, neuralforecast) đòi dạng dài với đúng ba cột: `unique_id` (tên chuỗi), `ds` (thời điểm),
-  `y` (giá trị).
+- **Dạng dài**: mỗi dòng là **một** quan sát của **một** chuỗi tại **một** thời điểm. Các thư viện Nixtla
+  (statsforecast, mlforecast, neuralforecast) đòi dạng dài với đúng ba cột: `unique_id` (tên chuỗi), `ds` (thời
+  điểm), `y` (giá trị).
 
 `melt` đổi rộng thành dài; `pivot` đổi dài thành rộng:
 
@@ -705,7 +637,7 @@ dai = rong.melt(id_vars="ds", var_name="unique_id", value_name="y")[["unique_id"
 dai.pivot(index="ds", columns="unique_id", values="y")     # quay lại dạng rộng (cột xếp theo tên: HCM, HN)
 ```
 
-Trong `melt`: `id_vars` là cột giữ nguyên; tên các cột còn lại (`HN`, `HCM`) vào cột `var_name`; giá trị vào cột
+Trong `melt`: `id_vars` là cột giữ nguyên; tên các cột còn lại (`HN`, `HCM`) vào cột `var_name`, giá trị vào cột
 `value_name`.
 
 Dạng dài chứa được các chuỗi dài ngắn khác nhau và dễ thêm cột feature. Dạng rộng tiện để vẽ nhiều chuỗi cạnh nhau và
@@ -721,24 +653,23 @@ tính tương quan giữa các chuỗi.
 | Kiểu của cột chữ | `object` (kiểu chung "đối tượng Python bất kỳ") | `str` |
 | `pd.to_datetime` từ chuỗi | `datetime64[ns]` (nano giây) | `datetime64[us]` (micro giây) |
 | Bí danh tần suất cũ `H`, `T`, `M` | chạy, kèm `FutureWarning` | `ValueError: Invalid frequency` |
-| `fillna(method="ffill")` | chạy, kèm `FutureWarning` | `TypeError` — dùng `.ffill()` |
+| `fillna(method="ffill")` | chạy, kèm `FutureWarning` | `TypeError` — dùng `.ffill()` (điền ô trống bằng giá trị trước nó) |
 | Kiểu đối tượng múi giờ | của gói pytz | của thư viện chuẩn `zoneinfo` (pandas không cài kèm pytz nữa) |
 | `groupby` trên cột phân loại có nhóm rỗng | vẫn in nhóm rỗng (`observed=False`) | bỏ nhóm rỗng (`observed=True`) |
 
-Bí danh cũ và bí danh mới (bí danh cũ báo `ValueError` trên pandas 3, đã chạy thử từng cái):
+Bí danh cũ và mới (đã chạy thử: bí danh cũ báo `ValueError` trên pandas 3):
 
 | Cũ | `H` | `T` | `S` | `L` | `U` | `M` | `Q` | `Y`, `A` | `BM` |
 |---|---|---|---|---|---|---|---|---|---|
 | Mới | `h` | `min` | `s` | `ms` | `us` | `ME` | `QE` | `YE` | `BME` |
 | Nghĩa | giờ | phút | giây | mili giây | micro giây | cuối tháng | cuối quý | cuối năm | ngày làm việc cuối tháng |
 
-**Đọc bảng.** Bảng trên chỉ để tra. Với bảng so sánh hai bản pandas: cột 2 và cột 3 khác nhau theo hai kiểu. Kiểu nguy hiểm là **cùng code, kết quả khác mà không dừng**: dòng
-gán hai lần ngoặc, đơn vị thời gian, `groupby`. Kiểu dễ thấy là code cũ **báo lỗi** trên pandas 3: bí danh cũ,
-`fillna(method=...)`. `FutureWarning` là cảnh báo "cách viết này sẽ bị bỏ ở bản sau".
+**Đọc bảng.** Nguy hiểm nhất là chỗ **cùng code, kết quả khác mà không dừng**: gán hai lần ngoặc, đơn vị thời gian,
+`groupby`. Bí danh cũ và `fillna(method=...)` thì báo lỗi ngay trên pandas 3. `FutureWarning` là cảnh báo "cách viết
+này sẽ bị bỏ ở bản sau".
 
-**`groupby` và nhóm rỗng.** Cột **phân loại** (kiểu `category`) là cột chữ mà danh sách giá trị được khai sẵn, kể cả
-giá trị chưa xuất hiện dòng nào. Khi `groupby` theo cột này, giá trị chưa xuất hiện tạo ra một **nhóm rỗng**. pandas 2
-mặc định vẫn in nhóm rỗng (tổng bằng 0); pandas 3 mặc định bỏ nó:
+**`groupby` và nhóm rỗng.** Cột **phân loại** (kiểu `category`) là cột chữ có danh sách giá trị khai sẵn. Giá trị
+chưa xuất hiện dòng nào thành **nhóm rỗng** khi `groupby`: pandas 2 mặc định vẫn in (tổng bằng 0), pandas 3 bỏ:
 
 ```python
 c = pd.DataFrame({"loai": pd.Categorical(["ngay_thuong", "ngay_thuong"],
@@ -748,11 +679,11 @@ c.groupby("loai", observed=True)["kwh"].sum()     # ngay_thuong → 22          
 c.groupby("loai", observed=False)["kwh"].sum()    # ngay_thuong → 22, ngay_le → 0  (mặc định pandas 2.3.3)
 ```
 
-Cùng một dòng code không ghi `observed`, pandas 2 ra 2 dòng, pandas 3 ra 1 dòng. Code phía sau đếm số nhóm hay ghép
-bảng sẽ lệch âm thầm.
+Không ghi `observed` thì số nhóm khác nhau giữa hai bản, nên code đếm nhóm hay ghép bảng phía sau lệch âm thầm. Luôn
+ghi rõ `observed=True` hoặc `observed=False`.
 
 **Gán giá trị: luôn dùng `.loc`.** pandas 3 bật cơ chế **Copy-on-Write** (chép khi ghi): mọi phần cắt ra từ một bảng
-đều cư xử như một **bản sao** độc lập. Vì vậy `df["a"]` là một bản sao; gán vào bản sao đó không đổi `df`.
+cư xử như **bản sao** độc lập, nên gán vào `df["a"]` không đổi `df`.
 
 ```python
 df = pd.DataFrame({"a": [1, 2, 3], "b": [4, 5, 6]})
@@ -762,12 +693,12 @@ df.loc[df["b"] > 4, "a"] = 100      # cách đúng: một lần .loc với [đi�
 df["a"].tolist()                    # [1, 100, 100]
 ```
 
-Dù tên có chữ "Error", `ChainedAssignmentError` là một **cảnh báo** (warning), không phải lỗi. Chương trình in cảnh báo
-rồi **chạy tiếp**, chỉ là `df` không đổi. Vì không dừng nên rất dễ bỏ sót.
+Dù tên có chữ "Error", `ChainedAssignmentError` chỉ là **cảnh báo**: chương trình chạy tiếp, `df` không đổi, nên rất
+dễ bỏ sót.
 
-**Đơn vị thời gian.** Máy lưu mỗi mốc thời gian là một số nguyên: số đơn vị thời gian kể từ 0:00 UTC ngày 1/1/1970.
-pandas 2 đếm bằng nano giây (một phần tỷ giây), pandas 3 đếm bằng micro giây (một phần triệu giây). Đổi mốc thời gian
-sang số nguyên thì hai bản ra hai số cách nhau 1.000 lần:
+**Đơn vị thời gian.** Mỗi mốc thời gian được lưu là số đơn vị kể từ 0:00 UTC ngày 1/1/1970: pandas 2 đếm nano giây
+(một phần tỷ giây), pandas 3 đếm micro giây. Đổi sang số nguyên thì hai bản lệch 1.000 lần; cần số nguyên thì
+`.dt.as_unit("ns")` trước:
 
 ```python
 ts = pd.to_datetime(pd.Series(["2024-01-01"]))
@@ -777,21 +708,12 @@ ts.dt.as_unit("ns").astype("int64").tolist() # cả hai bản: [1704067200000000
                                              # nói rõ đơn vị thì như nhau
 ```
 
-**Viết code chạy được trên cả hai bản:**
-
-- gán bằng `df.loc[dieu_kien, "cot"] = gia_tri`;
-- dùng bí danh mới (bảng trên);
-- dùng `.ffill()` / `.bfill()` (điền ô trống bằng giá trị trước / sau nó);
-- không giả định đơn vị nano giây; cần số nguyên thì `.dt.as_unit("ns")` trước;
-- `groupby` trên cột phân loại thì ghi rõ `observed=True` hoặc `observed=False`.
-
 ---
 
 ## 10. polars
 
-polars là thư viện bảng dữ liệu khác pandas, xử lý theo cột và chạy nhiều lõi CPU cùng lúc. Nó có **chế độ lazy**
-(chạy lười): viết cả chuỗi phép tính trước, polars tối ưu toàn bộ rồi mới chạy khi gọi `.collect()`. Đọc file lớn bằng
-`pl.scan_parquet(...)` là bắt đầu ở chế độ này, hợp với dữ liệu vài chục triệu dòng.
+polars là thư viện bảng dữ liệu khác pandas, chạy nhiều lõi CPU cùng lúc. **Chế độ lazy** (chạy lười): viết cả chuỗi
+phép tính trước, polars tối ưu rồi mới chạy khi gọi `.collect()`; `pl.scan_parquet(...)` đọc file lớn theo cách này.
 
 ```python
 import polars as pl
@@ -800,16 +722,14 @@ lz = pl.LazyFrame({"a": [1, 2, 3]}).filter(pl.col("a") > 1)   # chưa chạy gì
 lz.collect()["a"].to_list()                                    # [2, 3] — giờ mới chạy
 ```
 
-Bốn từ hay gặp trong code polars:
+Bốn từ hay gặp:
 
 - `pl.col("v")`: "cột tên `v`", dùng để viết phép tính trên cột đó.
 - `.alias("ten")`: đặt tên cho cột kết quả.
 - `df.with_columns(...)`: trả về bảng mới có thêm (hoặc thay) các cột tính trong ngoặc.
 - `.agg(...)`: sau khi gộp nhóm, nói mỗi nhóm tính gì (tổng, trung bình…).
 
-Ví dụ `d.with_columns((pl.col("v") * 10).alias("v10"))` thêm cột `v10` bằng cột `v` nhân 10.
-
-**Gộp theo khoảng thời gian: `group_by_dynamic`**, tương đương `resample`. Mặc định `closed="left"`, `label="left"`, và
+**Gộp theo khoảng thời gian: `group_by_dynamic`**, tương đương `resample`. Mặc định `closed="left"`, `label="left"`;
 cột thời gian phải xếp tăng dần:
 
 ```python
@@ -818,8 +738,8 @@ d.group_by_dynamic("t", every="2h").agg(pl.col("v").sum())
 # t: 00:00, 02:00, 04:00;  v: 1, 5, 9   — giống ví dụ resample ở mục 4
 ```
 
-**Trễ và cửa sổ**: `pl.col("v").shift(1)` và `pl.col("v").rolling_mean(3)`. Ô thiếu hiện là `None`. Khác pandas,
-polars cho cột số nguyên chứa ô thiếu, nên `tre_1` vẫn là số nguyên (0, 1, 2…), không thành 0.0, 1.0:
+**Trễ và cửa sổ**: `pl.col("v").shift(1)` và `pl.col("v").rolling_mean(3)`. Ô thiếu hiện là `None`. Khác pandas
+(mục 3), cột số nguyên có ô thiếu vẫn là số nguyên:
 
 ```python
 d.with_columns(pl.col("v").shift(1).alias("tre_1"))["tre_1"].to_list()   # [None, 0, 1, 2, 3, 4]
@@ -850,16 +770,14 @@ d.with_columns(pl.col("t").dt.replace_time_zone("UTC")
                                                                                # lệch 7 giờ
 ```
 
-Dòng thứ hai không báo lỗi gì; thời điểm đã lệch 7 giờ âm thầm. Tài liệu polars ghi rõ `replace_time_zone` thay đổi
-cả mốc thời gian bên dưới.
+Dòng thứ hai không báo lỗi mà lệch 7 giờ âm thầm.
 
 ---
 
 ## 11. DuckDB
 
-DuckDB là cơ sở dữ liệu chạy ngay trong chương trình Python, không cần cài máy chủ. Ta viết truy vấn bằng **SQL** (ngôn
-ngữ truy vấn bảng) chạy thẳng trên file Parquet hay CSV. Parquet là định dạng file lưu bảng theo cột, nén tốt, đọc
-nhanh hơn CSV nhiều.
+DuckDB là cơ sở dữ liệu chạy ngay trong Python, không cần máy chủ. Truy vấn viết bằng **SQL** (ngôn ngữ truy vấn
+bảng), chạy thẳng trên file Parquet hay CSV. Parquet lưu bảng theo cột, nén tốt, đọc nhanh hơn CSV.
 
 **SQL tối thiểu.**
 
@@ -869,9 +787,6 @@ nhanh hơn CSV nhiều.
 - `-- …` : chú thích, DuckDB bỏ qua phần sau `--` (giống `#` trong Python).
 - `TIMESTAMP '2024-01-01 10:07'` : một mốc thời gian viết thẳng trong câu lệnh; `INTERVAL '15 minutes'` : một khoảng
   thời gian dài 15 phút.
-
-Ví dụ: `SELECT t, y FROM bang_y WHERE y > 5` trên bảng `bang_y` (dựng ở dưới, y = 5, 7, 6) ra hai dòng 01:00 → 7 và
-02:00 → 6.
 
 ```sql
 SELECT * FROM 'du-lieu.parquet';                                           -- đọc file trực tiếp
@@ -887,14 +802,14 @@ SELECT t, y, lag(y) OVER (ORDER BY t) AS tre_1 FROM bang_y;
 SELECT trai.t, phai.v FROM trai ASOF JOIN phai ON trai.t >= phai.t;        -- (10:00, 1), (10:05, 2)
 ```
 
-`ASOF JOIN … ON trai.t >= phai.t`: với mỗi dòng của `trai`, trong các dòng `phai` thoả điều kiện (thời điểm không sau
-nó), chỉ lấy **một dòng gần nhất**. Khác phép ghép thường, vốn ghép với **mọi** dòng thoả điều kiện. Nhắc lại dữ liệu
-của mục 6: `trai` có 10:00 và 10:05; `phai` có 10:00 (v = 1) và 10:03 (v = 2). Dòng 10:05 thoả với cả 10:00 và 10:03,
-nhưng chỉ lấy 10:03, nên v = 2.
+`ASOF JOIN … ON trai.t >= phai.t`: mỗi dòng `trai` chỉ lấy **một** dòng `phai` gần nhất không sau nó, còn phép ghép
+thường lấy **mọi** dòng thoả điều kiện. Vì vậy dòng 10:05 lấy 10:03 (v = 2), không lấy 10:00.
 
-**Các bảng `bang_y`, `trai`, `phai` ở trên từ đâu ra?** Đó là các DataFrame pandas đã có trong chương trình Python.
-DuckDB tự tìm biến Python cùng tên và đọc nó như một bảng, không cần chép dữ liệu. `trai`, `phai` là hai bảng ở mục 6;
-`bang_y` tạo như sau:
+Trung bình 3 bước gần nhất, tương đương `rolling(3).mean()`, viết là `avg(y) OVER (ORDER BY t ROWS 2 PRECEDING)`:
+cửa sổ gồm dòng hiện tại và 2 dòng trước; hai dòng đầu vẫn có số, như `min_periods=1`.
+
+**`bang_y`, `trai`, `phai` từ đâu ra?** DuckDB tự đọc DataFrame pandas cùng tên đang có trong chương trình như một
+bảng. `trai`, `phai` ở mục 6; `bang_y` tạo như sau:
 
 ```python
 import duckdb
@@ -910,17 +825,13 @@ duckdb.sql("SELECT t, y, lag(y) OVER (ORDER BY t) AS tre_1 FROM bang_y ORDER BY 
 
 - `lag(y)`: giá trị `y` của dòng **ngay trước**. `OVER (ORDER BY t)` nói "trước" theo thứ tự nào: xếp theo cột `t`.
 - `AS tre_1`: đặt tên cột kết quả, giống `.alias` của polars.
-- `.df()`: đổi kết quả về DataFrame pandas. `<NA>`, hay `NULL` trong SQL, là ô không có giá trị, giống `nan`. Chú ý
-  cột `tre_1` vẫn là số nguyên (5, 7), không thành 5.0, 7.0 như quy tắc ở mục 3. Lý do: DuckDB trả về kiểu `Int64`
-  (chữ I hoa), một kiểu số nguyên của pandas **cho phép ô thiếu**, ô thiếu hiện là `<NA>`. Kiểu `int64` thường (chữ i
-  thường) không chứa được ô thiếu nên mới phải đổi sang số thực. Cả hai loại ô thiếu đều nhận ra bằng `.isna()`.
+- `.df()`: đổi kết quả về DataFrame pandas. `<NA>` (SQL gọi là `NULL`) là ô thiếu. `tre_1` vẫn là số nguyên vì
+  DuckDB trả kiểu `Int64` (chữ I hoa) của pandas, chứa được ô thiếu, khác `int64` ở mục 3.
 - `::VARCHAR` (dùng ở dưới): đổi giá trị sang chữ, để in ra đúng như DuckDB hiển thị.
 
-Cũng có thể mở kết nối riêng: `con = duckdb.connect(); con.sql("...")`.
-
-**`TIMESTAMPTZ` không lưu múi giờ.** Kiểu thời gian có múi giờ của DuckDB lưu số micro giây kể từ 0:00 UTC 1/1/1970. Khi
-**hiển thị** và khi **cắt theo ngày/giờ**, DuckDB dùng cài đặt `TimeZone`, mặc định là múi giờ của máy đang chạy. Cùng
-một truy vấn, hai máy khác múi giờ cho kết quả khác:
+**`TIMESTAMPTZ`** (timestamp with time zone) là kiểu thời điểm của DuckDB dành cho giờ có múi giờ. Dù tên vậy, **nó
+không lưu múi giờ**: nó lưu số micro giây kể từ 0:00 UTC 1/1/1970. Khi **hiển thị** và **cắt theo
+ngày/giờ**, DuckDB dùng cài đặt `TimeZone`, mặc định là múi giờ của máy, nên hai máy có thể ra kết quả khác:
 
 ```sql
 SET TimeZone = 'Asia/Ho_Chi_Minh';
@@ -929,49 +840,36 @@ SET TimeZone = 'UTC';
 SELECT date_trunc('day', TIMESTAMPTZ '2024-01-01 20:00:00+00')::VARCHAR;   -- '2024-01-01 00:00:00+00'
 ```
 
-20:00 UTC ngày 1/1 là 3:00 sáng ngày 2/1 ở Việt Nam, nên "ngày" của nó khác nhau tuỳ cài đặt. Luôn viết
-`SET TimeZone = '...'` ở đầu script.
+20:00 UTC ngày 1/1 đã là ngày 2/1 ở Việt Nam. Luôn viết `SET TimeZone = '...'` ở đầu script.
 
-Với pandas 3, lấy cột `TIMESTAMPTZ` từ DuckDB về pandas cần gói `pytz` (gói múi giờ cũ của Python, trước khi có `zoneinfo`), vì pandas 3 không cài kèm pytz nữa. Thiếu thì
-báo lỗi "Required module 'pytz' failed to import".
-
----
-
-## 12. Bảng đối chiếu nhanh
-
-| Việc | pandas | polars | DuckDB |
-|---|---|---|---|
-| gộp theo khoảng thời gian | `resample("h")` | `group_by_dynamic("t", every="1h")` | `time_bucket(INTERVAL '1 hour', t)` |
-| ghép quá khứ gần nhất | `merge_asof(..., direction="backward")` | `join_asof(..., strategy="backward")` | `ASOF JOIN ... ON a.t >= b.t` |
-| trễ 1 bước | `shift(1)` | `pl.col("y").shift(1)` | `lag(y) OVER (ORDER BY t)` |
-| trung bình 3 bước gần nhất | `rolling(3).mean()` | `pl.col("y").rolling_mean(3)` | `avg(y) OVER (ORDER BY t ROWS 2 PRECEDING)` (cửa sổ = dòng hiện tại + 2 dòng trước; hai dòng đầu vẫn có số, như `min_periods=1`) |
-| gắn / đổi múi giờ | `tz_localize` / `tz_convert` | `dt.replace_time_zone` / `dt.convert_time_zone` | `SET TimeZone` + `TIMESTAMPTZ` |
+Với pandas 3, lấy cột `TIMESTAMPTZ` về pandas cần cài gói múi giờ cũ `pytz`, nếu không sẽ báo "Required module
+'pytz' failed to import".
 
 ---
 
-## 13. Bẫy thường gặp
+## 12. Bẫy thường gặp
 
 | Bẫy | Triệu chứng | Sửa |
 |---|---|---|
-| Gán `df["a"][mask] = v` trên pandas 3 | cột không đổi, chỉ có cảnh báo `ChainedAssignmentError`, code chạy tiếp | `df.loc[mask, "a"] = v` (mục 9) |
-| Bí danh cũ `H`, `M`, `T` | `ValueError: Invalid frequency` trên pandas 3 | `h`, `ME`, `min` (mục 3) |
-| Giả định mốc thời gian là nano giây | `astype("int64")` ra số nhỏ hơn 1.000 lần trên pandas 3 | `.dt.as_unit("ns")` trước (mục 9) |
+| Gán `df["a"][mask] = v` trên pandas 3 | cột không đổi, chỉ có cảnh báo | `df.loc[mask, "a"] = v` (mục 9) |
+| Bí danh cũ `H`, `M`, `T` | `ValueError` trên pandas 3 | `h`, `ME`, `min` (mục 3) |
+| Giả định mốc thời gian là nano giây | số nguyên nhỏ hơn 1.000 lần | `.dt.as_unit("ns")` trước (mục 9) |
 | Đọc ngày kiểu Việt Nam không có `dayfirst=True` | 05/01 thành 1 tháng 5 | `dayfirst=True` hoặc `format=` (mục 3) |
 | `resample(...).sum()` trên khoảng không có số liệu | ra 0 thay vì trống | `sum(min_count=1)` (mục 4) |
 | `rolling(center=True)` hay `shift(-1)` làm feature | backtest (chấm mô hình trên quá khứ như đang dự báo thật) đẹp giả tạo | cửa sổ lùi + `shift(1)` (mục 5) |
-| `rolling(k)` trên dữ liệu có chỗ hổng | cửa sổ trải dài hơn dự định | `rolling("2h")` theo thời gian (mục 5) |
-| `merge_asof` với bảng chưa xếp | `ValueError: left keys must be sorted` | `sort_values` theo cột thời gian trước (mục 6) |
-| Dữ liệu naive trộn nhiều múi giờ | "chuyến xe tăng **trước khi** mưa": bảng giờ địa phương ghép với bảng giờ UTC, lệch 4 giờ | đổi về UTC ngay khi đọc (mục 7) |
+| `rolling(k)` trên dữ liệu có chỗ hổng | cửa sổ dài hơn dự định | `rolling("2h")` theo thời gian (mục 5) |
+| `merge_asof` với bảng chưa xếp | `ValueError: … keys must be sorted` | `sort_values` theo cột thời gian trước (mục 6) |
+| Dữ liệu naive trộn nhiều múi giờ | sự kiện lệch vài giờ | đổi về UTC ngay khi đọc (mục 7) |
 | Tự cộng 7 giờ cho Việt Nam | lệch giờ với dữ liệu trước 1975 | `zoneinfo` / `tz_convert` (mục 7) |
 | Giờ bị mất / lặp khi gắn múi giờ Mỹ, châu Âu | `ValueError` ở ngày đổi giờ | `ambiguous=`, `nonexistent=` (mục 7) |
 | `replace_time_zone` thay cho `convert_time_zone` (polars) | lệch giờ âm thầm | replace đổi nhãn, convert đổi giờ (mục 10) |
-| DuckDB `date_trunc` trên `TIMESTAMPTZ` | kết quả khác nhau giữa các máy | `SET TimeZone` đầu script (mục 11) |
+| DuckDB `date_trunc` trên `TIMESTAMPTZ` | mỗi máy một kết quả | `SET TimeZone` đầu script (mục 11) |
 
 ---
 
 ## Nguồn
 
-Tra cứu ngày 2026-09-17; code chạy lại ngày 2026-09-18. Nhật ký research của khoá ghi trong thư mục công cụ.
+Tra cứu ngày 2026-09-17; code chạy lại ngày 2026-09-18.
 
 - pandas 3.0.0 — What's new: <https://pandas.pydata.org/docs/whatsnew/v3.0.0.html>
 - pandas `to_datetime`: <https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html>
@@ -990,4 +888,3 @@ Tra cứu ngày 2026-09-17; code chạy lại ngày 2026-09-18. Nhật ký resea
 - DuckDB ASOF JOIN: <https://duckdb.org/docs/current/guides/sql_features/asof_join.html>
 - DuckDB hàm thời gian: <https://duckdb.org/docs/current/sql/functions/timestamp.html>
 - DuckDB TIMESTAMP / TIMESTAMPTZ: <https://duckdb.org/docs/current/sql/data_types/timestamp.html>
-- jupytext định dạng percent: <https://jupytext.org/formats/scripts/>

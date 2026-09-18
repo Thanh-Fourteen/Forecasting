@@ -11,8 +11,8 @@ cho tới khi bạn viết.
 Chạy:
 
 ```bash
-cd lab && make up          # môi trường + dữ liệu GỐC (để đối chiếu)
-make check                 # bộ chấm tối thiểu — đầu tuần ĐỎ toàn bộ
+cd lab && python lab.py up          # môi trường + dữ liệu GỐC (để đối chiếu)
+python lab.py check                 # bộ chấm tối thiểu — đầu tuần ĐỎ toàn bộ
 ```
 
 Dữ liệu **phát cho bài** (đã cài 6 lỗi) nằm ở `phat/du-lieu/` do giảng viên gửi kèm, không nằm trong repo.

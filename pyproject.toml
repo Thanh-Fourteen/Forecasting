@@ -1,4 +1,4 @@
-# Cấu hình CÔNG CỤ dùng chung của repo (ruff, jupytext) — repo này KHÔNG phải một dự án Python.
+# Cấu hình CÔNG CỤ dùng chung của repo (ruff) — repo này KHÔNG phải một dự án Python.
 #
 # - Không có [project]. KHÔNG BAO GIỜ thêm [tool.uv.workspace]: uv sẽ gom mọi buổi vào một uv.lock
 #   chung ở gốc và phá tính độc lập của từng buổi (đã chạy thử — tools/NGHIEN-CUU.md mục 2).
@@ -37,7 +37,3 @@ known-first-party = ["tv"]   # thư viện trợ giúp của buổi (lab/00-nen/
 # Script ghi lại phép tính của Phụ lục A, B — viết gọn, không phải code bài học
 "phu-luc/ma-vi-du/**" = ["E702", "B905", "E741", "E731", "E402"]
 
-[tool.jupytext]
-# Nguồn của notebook là .py dạng percent (diff được); .ipynb sinh ra, không commit (.gitignore).
-# Zip phát học viên không có tệp này — lab/Makefile gọi `jupytext --to ipynb` tường minh.
-formats = "ipynb,py:percent"

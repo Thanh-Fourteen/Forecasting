@@ -1,7 +1,7 @@
-"""Hạ tầng chung của bộ chấm — `make check` chạy pytest trên thư mục cham/.
+"""Hạ tầng chung của bộ chấm — `python lab.py check` chạy pytest trên thư mục cham/.
 
     BAI=code    (mặc định) chấm bài của học viên trong code/
-    BAI=dap-an  chấm bản đáp án (tác giả; thư mục này không có trong zip phát học viên)
+    BAI=dap-an  chấm bản đáp án (`python lab.py check --dap-an`) (tác giả; thư mục này không có trong zip phát học viên)
 
 Quy ước để chấm được: mỗi tệp trong code/ chỉ ĐỊNH NGHĨA hàm ở mức module; phần chạy thử đặt
 trong `if __name__ == "__main__":` hoặc trong ô notebook — nạp module không được tốn thời gian.
@@ -51,7 +51,7 @@ def nap(bai: Path):
 
 @pytest.fixture(scope="session")
 def du_lieu() -> Path:
-    """lab/du-lieu/raw/ — dữ liệu đã kiểm sha256 bởi `make up`."""
+    """lab/du-lieu/raw/ — dữ liệu đã kiểm sha256 bởi `python lab.py up`."""
     if not DU_LIEU.is_dir():
-        pytest.exit("chưa có dữ liệu — chạy: make up", returncode=2)
+        pytest.exit("chưa có dữ liệu — chạy: python lab.py up", returncode=2)
     return DU_LIEU

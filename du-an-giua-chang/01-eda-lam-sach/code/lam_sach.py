@@ -1,7 +1,7 @@
 # %% [markdown]
 # # Dự án giữa chặng 1 — khung `lam_sach.py` để bạn điền
 #
-# Đây là **khung rỗng**: chữ ký hàm đã cố định để `make check` chạy được, phần thân là việc của bạn.
+# Đây là **khung rỗng**: chữ ký hàm đã cố định để `python lab.py check` chạy được, phần thân là việc của bạn.
 # Mọi công cụ cần thiết đã học ở buổi 10–13; được phép chép lại code của chính mình từ các buổi đó.
 #
 # Nhắc lại thứ tự tám bước (buổi 10, mục 4.9):
@@ -83,4 +83,4 @@ def tuong_quan_truot(a: pd.Series, b: pd.Series, cua_so: str = "7D") -> pd.Serie
 
 # %%
 if __name__ == "__main__":
-    print("Điền các hàm ở trên rồi chạy: cd lab && make check")
+    print("Điền các hàm ở trên rồi chạy: cd lab && python lab.py check")

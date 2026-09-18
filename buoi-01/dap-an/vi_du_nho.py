@@ -3,7 +3,7 @@
 #
 # In mọi con số của các "Ví dụ số nhỏ" (mục 2, 4.1–4.5) và vài con số đếm trên dữ liệu thật
 # (mục 4.4, 4.5, Lab bước 4). Không có ngẫu nhiên — không cần seed.
-# Chạy trong lab/: `env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python ../dap-an/vi_du_nho.py`
+# Chạy trong lab/: `python lab.py chay ../dap-an/vi_du_nho.py`
 
 # %%
 from __future__ import annotations

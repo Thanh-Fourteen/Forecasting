@@ -40,4 +40,4 @@ def baseline_seasonal_naive(y: pd.Series, tam: int = TAM, chu_ky: int = 48) -> p
 
 # %%
 if __name__ == "__main__":
-    print("Điền các hàm ở trên rồi chạy: cd lab && make check")
+    print("Điền các hàm ở trên rồi chạy: cd lab && python lab.py check")

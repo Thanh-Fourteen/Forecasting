@@ -1,11 +1,14 @@
 # Chuẩn dễ hiểu — cách viết tài liệu học viên đọc
 
-Áp dụng cho mọi `tai-lieu.md`, `kiem-tra.md`, `code/README.md`, đề dự án, phụ lục. Tóm tắt 12 quy tắc nằm ở
+Áp dụng cho mọi `tai-lieu.md`, `kiem-tra.md`, `code/README.md`, đề dự án, phụ lục. Tóm tắt 13 quy tắc nằm ở
 `todos/quy-uoc.md` mục "Chuẩn dễ hiểu". File này có **chi tiết + ví dụ trước/sau lấy từ tài liệu thật + bài mẫu + prompt đọc
 thử**. Căn cứ nghiên cứu: `tools/NGHIEN-CUU-SU-PHAM.md`.
 
 **Người đọc:** biết Python cơ bản và toán phổ thông; **chưa** học thống kê đại học; **chưa** biết forecasting; tự
 học một mình. **Tiêu chí:** đọc xong không phải tra ngoài.
+
+**Dễ hiểu nhưng gọn (D13, thêm Phase 7).** Bản viết lại Phase 6 dễ hiểu hơn nhưng người dùng thấy dài dòng. Dễ hiểu
+đến từ viết **đúng chỗ** (định nghĩa, ví dụ số, câu nói bằng lời), không đến từ **nhiều chữ**.
 
 **Vì sao có chuẩn này:** người dùng tự học buổi 1–13 và phải hỏi ChatGPT mới hiểu. Đọc thử bản cũ buổi 1, 7, 12
 cho **9–12 chỗ chặn mỗi buổi**. Phần lớn là khái niệm thống kê nền (phân phối, quantile, phương sai, tương quan, kiểm
@@ -55,7 +58,9 @@ Người đọc thử: *"Tôi chưa biết phương sai, nên câu định nghĩ
 
 ## D2 — Khuôn một khái niệm
 
-Mỗi khái niệm chính đi theo thứ tự dưới đây. Bước nào không hợp thì bỏ, nhưng **không đảo thứ tự**.
+Mỗi khái niệm chính đi theo thứ tự dưới đây. **Khuôn là trần, không phải sàn** (D13): chỉ bước 3 "Ví dụ số nhỏ" và
+bước 10 "Tóm lại" là bắt buộc; bước nào không thêm hiểu biết thì bỏ (NumPy và thư viện thường gộp một khối). Không
+**đảo thứ tự**.
 
 | Bước | Viết gì | Vì sao |
 |---|---|---|
@@ -281,11 +286,111 @@ Feedback nên nói "cái gì, thế nào, vì sao" (Shute 2008).
 > lớn hơn exp(1). **C sai**: mode là giá trị hay gặp nhất, không liên quan tới phép đổi ngược. **D sai**: quantile 0,9
 > cũng đi qua nguyên vẹn, nhưng dự báo trên thang log là trung vị (quantile 0,5), không phải 0,9.
 
+## D13 — Gọn: mỗi ý nói một lần
+
+Căn cứ: `tools/NGHIEN-CUU-SU-PHAM.md` mục 8. **Thừa nội dung** ngắn (một "Tóm lại") giúp nhớ; **thừa hình thức** (cùng
+thông tin viết song song bằng chữ và bảng/hình) làm học kém đi (Albers et al. 2023). Gọn không phải nén: ví dụ số,
+định nghĩa, câu nói bằng lời vẫn giữ đủ. Chỉ bỏ chữ không có việc (Strunk: *every word tell*).
+
+| Loại thừa | Nhận ra | Sửa |
+|---|---|---|
+| **Lặp ý** | cùng một ý ở "Vấn đề", thân bài, "Tóm lại", Lab, "Lỗi thường gặp", "Xong khi" | giữ ở chỗ dạy; chỗ khác trỏ về ("mục 4.3") |
+| **Lặp lập luận** | cùng một phép suy luận giải hai–ba lần bằng cách khác nhau | giữ cách rõ nhất, nhiều nhất thêm một câu nối sang ký hiệu |
+| **Chữ đọc lại bảng/hình** | "Đọc bảng" kể lại từng ô; văn trước hình tả điều "Cách đọc hình" sẽ nói | "Đọc bảng" chỉ nói so gì với gì → kết luận |
+| **Câu rỗng** | dẫn dắt, rào đón, chuyển tiếp không có thông tin: "Mục này cho thấy…", "Như đã nói ở trên", "Điều quan trọng là", "Nói cách khác" rồi nói lại y hệt, "rất quan trọng", "đơn giản là" | xoá; ý thật (nếu có) nhập vào câu kế |
+| **Ví dụ thừa** | ví dụ thứ hai không cho thấy điều gì mới so với ví dụ đầu | bỏ |
+| **Bước D2 thừa** | hình, NumPy, "Trực giác" cho khái niệm đã rõ sau ví dụ số | bỏ bước đó |
+| **Giải thích điều đã biết** | Python cơ bản, toán phổ thông, khái niệm đã dạy kỹ ở mục/buổi trước | một câu nhắc hoặc bỏ |
+| **"Tóm lại" dài** | > 3 câu, hoặc chép lại câu phía trên | ≤ 3 câu, nói kết luận để mang đi |
+
+**Không được cắt** (đọc thử đã chứng minh cần): định nghĩa lần đầu của từ mới; ví dụ số nhỏ tính tay; câu "Nói bằng
+lời" có thay số; bảng ký hiệu dưới công thức; 5 bước "Cách đọc hình" (được viết ngắn lại); hộp "Mượn trước"; quy ước dấu
+sai số; chỗ đã sửa theo `phan-hoi-hoc-vien.md`; con số đã đo.
+
+**Tường minh quá cũng là khó hiểu.** Giải thích mọi cờ lệnh, mọi ngoại lệ làm ý chính chìm mất. Chỉ viết cái người đọc
+cần để hiểu ý chính hoặc làm bước tiếp theo. **Công cụ phải giải thích dài thì sửa công cụ**: lệnh
+`env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python x.py` (4 gạch giải thích) đã thay bằng `python lab.py chay x.py`.
+
+**Sửa chỗ khó bằng cách viết lại câu, không chèn đoạn.** Đọc thử báo khó thì câu đó thiếu một mắt xích — thêm đúng mắt
+xích đó vào câu, rồi tìm một câu thừa quanh đó để bỏ bù.
+
+**Phép thử mỗi đoạn:** *"Bỏ đoạn này thì học viên mất gì?"* Không mất gì → xoá. Mất một ý → giữ đúng một câu mang ý đó.
+
+**Độ dài:** 3.500–6.500 chữ ngoài bảng/code mỗi `tai-lieu.md` (mã `do_dai`), PDF 10–18 trang. Bộ kiểm còn bắt
+`cau_rong` (cụm câu rỗng) và `lap_y` ("Tóm lại" chép lại câu trong mục; hai đoạn gần như trùng nhau).
+
+### Trước/sau lấy từ bài thật (Phase 7)
+
+**1. Lặp ý — "Đọc bảng" giải lại điều hình và Trực giác đã nói** (buổi 1, mục 4.5; tháng 8 được giải lần thứ ba):
+
+> **Trước:** Bảng lịch giống cách A: lệch từng giờ vì nhiễu, nhưng lệch bù trừ khi cộng, còn "nhịp năm" của nó thì giữ
+> lại. Vì sao? Khi cộng lên tuần, phần lệch lúc lên lúc xuống của **cả ba** cách đều bù trừ. Cái không bù trừ là **lệch
+> cùng một chiều kéo dài nhiều ngày**. Trung bình 4 tuần chỉ hạ xuống sau khi kỳ nghỉ tháng 8 đã bắt đầu và lên lại
+> chậm, nên nhiều ngày liền dự báo cao hơn thực tế; cộng cả tuần thì sai số dồn lại. Bảng lịch đã thấy tháng 8 của ba
+> năm trước nên không mắc lỗi này.
+>
+> **Sau:** Cộng lên tuần, lệch lên xuống của cả ba cách đều bù trừ; chỉ **lệch cùng một chiều nhiều ngày** là dồn lại,
+> như hai baseline ở tháng 8.
+
+**2. Câu rỗng + nói lại ô đã có** (buổi 1, mục 4.6, "Vấn đề"):
+
+> **Trước:** … Vậy mỗi giờ nên mua bao nhiêu kWh? Câu trả lời tự nhiên là "mua đúng bằng dự báo trung bình". Mục này
+> cho thấy câu trả lời đó không tốt nhất, và chỉ ra nên mua bao nhiêu.
+>
+> **Sau:** Mỗi giờ nên mua bao nhiêu? Mua đúng dự báo trung bình không phải cách tốt nhất.
+
+**3. Lặp lập luận — cùng phép suy luận giải hai lần bằng lời** (buổi 1, mục 4.6):
+
+> **Trước:** Quy luật: thêm 1 kWh còn có lời chừng nào số ngày thiếu, nhân với 4, còn lớn hơn số ngày dư, nhân với 1. …
+> Quy tắc dừng: tăng dần lượng mua, và **dừng ở mức đầu tiên mà tỷ lệ ngày thiếu không quá 20%**. Mua 8 thì 3 trên 10
+> ngày thiếu (30%), còn quá 20%, nên tăng tiếp. Mua 9 thì … Mức dừng là mức nhỏ nhất đủ điện cho ít nhất 100% − 20% =
+> 80% số ngày. Đó đúng là định nghĩa quantile 0,8.
+>
+> **Sau:** Mỗi ngày thiếu được lợi 4 đồng, mỗi ngày còn lại mất 1 đồng, nên tăng có lời khi $4s > 1 \times (1 - s)$,
+> tức $s > 0{,}2$. Vậy dừng ở mức nhỏ nhất mà ngày thiếu không quá 20%, tức đủ điện cho ít nhất 80% số ngày: đúng định
+> nghĩa quantile 0,8.
+
+Ví dụ tính tay 8 → 9, 9 → 10 phía trên **giữ nguyên** — chỉ bỏ lần giải thứ hai bằng lời.
+
+**4. "Đọc bảng" kể lại từng ô** (buổi 3, mục 4.1):
+
+> **Trước:** – Cột ngày 10/3/2024: UTC đi từ 06:00Z lên thẳng 07:00Z, nhưng đồng hồ nhảy từ 01:59 lên 03:00. Ngày này
+> chỉ có 23 giờ. – Cột ngày 3/11/2024: hai dòng 01:00 và 01:30 có hai đáp án. Ngày này có 25 giờ. – …
+>
+> **Sau:** **Đọc bảng.** Ngày đổi giờ mùa xuân chỉ có **23 giờ**; ngày mùa thu có **25 giờ**. Một giờ New York không kèm
+> offset ứng với không, một hoặc hai thời điểm UTC; giờ UTC luôn chỉ đúng một thời điểm.
+
+**5. Lab giảng lại lý thuyết** (buổi 3, Lab bước 3):
+
+> **Trước:** … giải thích vì sao đường cam trượt **khoảng 4** giờ chứ không phải 5. Gợi ý: phần lớn tháng 3/2024 nằm sau
+> ngày đổi giờ mùa xuân, khi New York là EDT (mục 4.4). Nếu bạn giải thích bằng "New York luôn lệch 4 giờ" thì đọc lại
+> mục 4.1.
+>
+> **Sau:** … giải thích vì sao đường cam trượt khoảng 4 giờ chứ không phải 5 (gợi ý: mục 4.4).
+
+**6. Nhắc lại dữ liệu đã có ngay trên** (Phụ lục A, ASOF JOIN):
+
+> **Trước:** … chỉ lấy **một dòng gần nhất**. Khác phép ghép thường, vốn ghép với **mọi** dòng thoả điều kiện. Nhắc lại
+> dữ liệu của mục 6: `trai` có 10:00 và 10:05; `phai` có 10:00 (v = 1) và 10:03 (v = 2). Dòng 10:05 thoả với cả 10:00 và
+> 10:03, nhưng chỉ lấy 10:03, nên v = 2.
+>
+> **Sau:** mỗi dòng `trai` chỉ lấy **một** dòng `phai` gần nhất không sau nó, còn phép ghép thường lấy **mọi** dòng thoả
+> điều kiện. Vì vậy dòng 10:05 lấy 10:03 (v = 2), không lấy 10:00.
+
+**Không gọn hoá kiểu này** (bị từ chối khi rà Phase 7):
+
+- "Kết luận: như tiêu đề hình." — bước 5 của "Cách đọc hình" phải là **câu kết luận** (người đọc PDF có thể không thấy
+  tiêu đề ảnh ngay cạnh). Viết lại đúng câu đó, ngắn.
+- Bỏ ngày cụ thể ("10/3" → "ngày đổi giờ mùa xuân") cho qua bộ đếm số — vi phạm D4 (nói lửng). Ngày tháng không tính
+  vào ngưỡng D7.
+
 ---
 
-## Bài mẫu — buổi 1 mục 4.8 "Một con số hay cả phân phối"
+## Bài mẫu — buổi 1 mục 4.6 "Một con số hay cả phân phối" (mục 4.8 của bản cũ)
 
-Bản đầy đủ nằm ở `buoi-01/tai-lieu.md` mục 4.8 (một nguồn duy nhất — sửa ở đó). Số liệu từ lần chạy thật:
+Bản đầy đủ nằm ở `buoi-01/tai-lieu.md` mục 4.6 (một nguồn duy nhất — sửa ở đó). Phase 7 rút gọn nó theo D13:
+bỏ lần giải thứ hai của "vì sao 0,8", câu dẫn ở "Vấn đề", văn đọc lại bảng và hình; giữ nguyên ví dụ tính tay, bảng,
+hình, công thức, "Mượn trước". Số liệu từ lần chạy thật:
 `buoi-01/dap-an/vi_du_quantile.py` (ví dụ nhỏ, không cần dữ liệu) và `buoi-01/dap-an/ve_hinh.py` (năm 2009–2010).
 
 Khung, đối chiếu với D2:
@@ -296,7 +401,7 @@ Khung, đối chiếu với D2:
 | Mượn trước (D5) | phân phối, quantile (định nghĩa + cách đếm tay + kiểm lại với số trùng), trung vị |
 | Trực giác | người bán bánh mì: hết bánh đắt hơn dư bánh thì làm dư một chút |
 | Ví dụ số nhỏ | 10 ngày nhu cầu; tính mẫu dòng "mua 8"; bảng mua 6…12 → rẻ nhất ở 9 = quantile 0,8 |
-| Vì sao 0,8 | tăng từng kWh: 8 → 9 lời 5 đồng, 9 → 10 lỗ 5 đồng; quy tắc dừng "tỷ lệ ngày thiếu ≤ 20%" |
+| Vì sao 0,8 | tăng từng kWh: 8 → 9 lời 5 đồng, 9 → 10 lỗ 5 đồng; một câu $4s > 1 - s$ → dừng khi ngày thiếu ≤ 20%; một dòng tổng quát bằng $C_u$, $C_o$ |
 | Công thức + ký hiệu | $p^\ast = C_u/(C_u+C_o)$; $C_u$, $C_o$, $p^\ast$ giải thích từng cái |
 | Nói bằng lời | 4/(4+1) = 0,8; 1/(1+3) = 0,25; 1/2 = 0,5 — ba trường hợp |
 | NumPy | `chi_phi()` + `np.quantile` trên đúng 10 số, in (33, 28) và 9.0; lưu ý nội suy, `method="inverted_cdf"` |
@@ -393,6 +498,10 @@ Mỗi câu: đáp án chọn (hoặc câu trả lời ngắn) + mức tự tin (
 - Số chỗ vướng theo mức: chặn / khó / nhỏ
 - 3 đoạn khó hiểu nhất và vì sao
 - Nếu chỉ được sửa một điều trong tài liệu này, sửa gì
+
+### E. Chỗ thấy dài hoặc lặp (không tính vào chặn/khó)
+Liệt kê tối đa 5 đoạn bạn thấy nói lại điều đã hiểu, hoặc đọc mà không học thêm được gì:
+| # | Mục | Trích (≤ 15 chữ) | Đã nói ở đâu trước đó / vì sao thấy thừa |
 ```
 
 ### Chấm và ghi
@@ -401,6 +510,68 @@ Mỗi câu: đáp án chọn (hoặc câu trả lời ngắn) + mức tự tin (
    7 câu 5 có đáp án sai).
 2. Ghi vào `buoi-NN/NGHIEN-CUU.md` mục "Đọc thử": ngày, vòng, số chặn/khó/nhỏ, quiz, khái niệm "không giải thích
    được", các chỗ chặn và đã sửa thế nào.
+
+---
+
+## BƯỚC CUỐI — Rà gọn (D13)
+
+Chạy **sau khi đọc thử đạt**, bằng một subagent **mới** (không phải agent đọc thử). Người đọc thử tìm chỗ *thiếu*;
+biên tập viên tìm chỗ *thừa*. Hai vai tách riêng vì một agent làm cả hai sẽ nghiêng về một phía.
+
+### Tiêu chí đạt
+
+| Tiêu chí | Ngưỡng |
+|---|---|
+| Chỗ thừa **đáng kể** (≥ 30 chữ bớt được, hoặc lặp cả một ý) biên tập viên còn tìm thấy | ≤ 3 |
+| `kiem_de_hieu.py NN`: `do_dai`, `cau_rong`, `lap_y` | 0 |
+| Đọc thử lại sau khi cắt (subagent mới) | vẫn 0 chặn, ≤ 5 khó, quiz ≥ 9/10 |
+
+### Prompt biên tập gọn (dán nguyên văn cho subagent, kèm đường dẫn file)
+
+```text
+Bạn là BIÊN TẬP VIÊN của một giáo trình tiếng Việt tự học ("Forecasting in AI"). Người đọc: biết Python cơ bản
+và toán phổ thông, chưa học thống kê đại học, tự học một mình. Tài liệu đã qua kiểm tra "dễ hiểu": người mới đọc
+không vướng. Việc của bạn là làm nó GỌN mà KHÔNG làm khó hiểu lại.
+
+Nguyên tắc: mỗi ý nói một lần. Gọn không phải nén: giữ đủ mắt xích, chỉ bỏ chữ không có việc.
+Phép thử cho MỖI đoạn: "Bỏ đoạn này thì người học mất gì?" Không mất gì → thừa. Mất một ý → chỉ cần một câu.
+
+Săn 7 loại thừa:
+1. LẶP Ý: cùng một ý xuất hiện ở nhiều chỗ ("Vấn đề", thân bài, "Tóm lại", Lab, "Lỗi thường gặp", "Xong khi",
+   bài tập). Ghi cả hai vị trí.
+2. LẶP LẬP LUẬN: cùng một phép suy luận được giải hai–ba lần bằng cách khác nhau (bằng số, bằng lời, bằng chữ).
+3. CHỮ ĐỌC LẠI BẢNG/HÌNH: "Đọc bảng" kể lại từng ô; văn trước/sau hình tả lại điều "Cách đọc hình" đã nói.
+4. CÂU RỖNG: dẫn dắt, rào đón, chuyển tiếp, nhấn mạnh không mang thông tin.
+5. VÍ DỤ THỪA: ví dụ thứ hai không cho thấy điều gì mới.
+6. BƯỚC KHUÔN THỪA: hình, đoạn NumPy/thư viện, "Trực giác" không thêm hiểu biết sau ví dụ số (NumPy và thư viện
+   gộp được thì gộp).
+7. GIẢI THÍCH ĐIỀU ĐÃ BIẾT: Python cơ bản, toán phổ thông, hoặc khái niệm tài liệu đã giải kỹ ở mục trước.
+Thêm: "Tóm lại" > 3 câu hoặc chép lại câu phía trên; câu dài có thể nói bằng nửa số chữ.
+
+KHÔNG ĐƯỢC đề xuất cắt: định nghĩa lần đầu của một từ mới; ví dụ số nhỏ tính tay; câu "Nói bằng lời" có thay số;
+danh sách ký hiệu dưới công thức; 5 bước "Cách đọc hình" (được đề xuất viết ngắn lại); hộp "Mượn trước"; quy ước
+dấu sai số; mọi con số đo được; nhãn cố định (Tóm lại, Tự kiểm tra, Mục đích, Đọc kết quả, Đọc bảng, Cách đọc hình,
+Ví dụ số nhỏ, Nói bằng lời). Nếu cắt một chỗ sẽ làm câu sau mất nghĩa, nói rõ phải viết lại câu sau thế nào.
+
+Đọc TOÀN BỘ file. Chỉ mở đúng file được giao. Không sửa file.
+
+Trả về (markdown):
+
+### A. Chỗ thừa
+| # | Mục | Trích đầu đoạn (≤ 12 chữ) | Loại (1–7) | Đề xuất: XOÁ / RÚT thành "<câu mới>" / GỘP với … | Chữ bớt ≈ |
+Xếp theo thứ tự trong file. Đề xuất phải làm được ngay (viết sẵn câu mới nếu RÚT).
+
+### B. Tổng kết
+- Tổng chữ bớt được ước tính, và % so với cả file
+- 3 mục thừa nhiều nhất
+- Chỗ nào bạn muốn cắt nhưng KHÔNG dám vì sợ mất mắt xích — ghi để tác giả cân nhắc
+```
+
+### Chấm và ghi
+
+Tác giả tự quyết từng đề xuất (không bắt buộc nhận hết). Sau khi cắt: `kiem_de_hieu.py`, rồi đọc thử lại bằng subagent
+mới, rồi một biên tập viên **mới** rà lần cuối. Ghi vào `NGHIEN-CUU.md` mục "Đọc thử": số chữ trước → sau, số chỗ
+thừa lượt đầu → lượt cuối.
 
 ---
 

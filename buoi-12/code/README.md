@@ -15,10 +15,10 @@ thường không phải vì nó tốt, mà vì nó đã nhìn thấy tương lai
 Chạy:
 
 ```bash
-cd lab && make up          # một lần: môi trường + dữ liệu (~12 MB)
-make check                 # bộ chấm: đầu buổi ĐỎ (2/8 hỏng), cuối buổi phải XANH
-make notebook              # mở các tệp .py dưới dạng notebook
-env -u VIRTUAL_ENV uv run --no-sync --project 00-nen python ../code/khu_nhieu.py
+cd lab && python lab.py up          # một lần: môi trường + dữ liệu (~12 MB)
+python lab.py check                 # bộ chấm: đầu buổi ĐỎ (2/8 hỏng), cuối buổi phải XANH
+python lab.py notebook              # mở các tệp .py dưới dạng notebook
+python lab.py chay ../code/khu_nhieu.py
 ```
 
 Tệp `.py` viết dạng *percent* (`# %%` tách ô): chạy được như script, mở được như notebook.
