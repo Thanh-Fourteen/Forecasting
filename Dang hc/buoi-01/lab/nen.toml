@@ -1,7 +1,0 @@
-# Buổi 01 — Forecasting là gì. Nguồn của lab/00-nen/ (python tools/sinh_nen.py 1).
-thu_vien = ["matplotlib"]
-du_lieu = ["uci-household-power"]
-khung_bo = []
-
-[cham]
-code_phai_do = true

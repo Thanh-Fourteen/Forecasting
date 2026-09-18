@@ -37,3 +37,8 @@ tools/du-lieu/mirror/
 
 # dữ liệu bẩn sinh cho dự án (giám khảo sinh lại bằng giam-khao/tiem_loi.py)
 du-an-*/**/phat/
+
+# thư mục học cá nhân của người dùng — không đưa lên git
+Dang hc/
+Dang hoc/
+Đang học/
