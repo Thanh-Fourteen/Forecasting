@@ -68,6 +68,18 @@ def kiem_ro_ri(ham_feature, y: pd.Series, cac_moc=None, sai_so: float = 1e-9) ->
     return pd.DataFrame(hang, columns=["feature", "mốc cắt"])
 
 
+def kiem_nhieu_muc_tieu(ham_feature, y: pd.Series, tam: int = TAM, seed: int = 0) -> list[str]:
+    """Cộng nhiễu lớn vào y từ 70% chuỗi trở đi; dòng t có t − tam < mốc thì feature không được đổi."""
+    rng = np.random.default_rng(seed)
+    cat = int(len(y) * 0.7)
+    y2 = y.copy()
+    y2.iloc[cat:] = y2.iloc[cat:] + rng.normal(0, float(np.nanstd(y)) * 10, len(y) - cat)
+    a, b = ham_feature(y), ham_feature(y2)
+    giu = a.index[: cat + tam]
+    return [c for c in a.columns if not np.allclose(a.loc[giu, c].to_numpy(float), b.loc[giu, c].to_numpy(float),
+                                                    rtol=0, atol=1e-9, equal_nan=True)]
+
+
 def baseline_seasonal_naive(y: pd.Series, tam: int = TAM, chu_ky: int = 48) -> pd.Series:
     """Dự báo y_{t+tam} bằng giá trị cùng thời điểm chu kỳ trước."""
     return y.shift(chu_ky - tam)
@@ -88,3 +100,4 @@ if __name__ == "__main__":
     print("số feature:", f.shape[1])
     print(bang_biet_truoc(f)["biết trước"].value_counts().to_dict())
     print("rò rỉ:", kiem_ro_ri(bo_feature, y.iloc[:3000]).to_dict("records") or "không có")
+    print("nhiễu mục tiêu:", kiem_nhieu_muc_tieu(bo_feature, y.iloc[:3000]) or "không có")

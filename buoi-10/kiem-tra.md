@@ -1,156 +1,152 @@
 # Kiểm tra buổi 10 — Làm sạch và dữ liệu thiếu
 
-10 câu. Tự làm trước, mở đáp án sau.
+## Nhắc lại khái niệm
 
----
+**Câu 1.** Một tệp đo theo giờ, `df.isna().sum()` báo 0 ô thiếu ở mọi cột. Kết luận đúng là:
 
-**1 (nhắc lại).** Nêu hai loại thiếu và cách phát hiện từng loại.
+- A. Dữ liệu đủ, không cần làm gì thêm
+- B. Chưa biết: phải dựng lưới đầy đủ các mốc giờ rồi `reindex`, vì `isna()` không thấy dòng không tồn tại
+- C. Dữ liệu chắc chắn có mã trá hình
+- D. Dữ liệu là MCAR
 
-<details><summary>Đáp án</summary>
+<details>
+<summary>Đáp án</summary>
 
-(a) **Thiếu giá trị**: có dòng, ô rỗng → `df.isna().sum()`. (b) **Thiếu mốc**: không có dòng nào cho thời điểm đó → so số dòng với
-`pd.date_range(min, max, freq)`, hoặc `reindex` lên lưới đều rồi mới `isna()`. Ở trạm Nội Bài 2024: chỉ **2** ô rỗng nhưng **249** mốc
-thiếu — chỉ dùng `isna()` sẽ kết luận sai hoàn toàn.
-
-</details>
-
----
-
-**2 (nhắc lại).** MCAR, MAR, MNAR khác nhau thế nào? Cho một ví dụ cảm biến cho mỗi loại.
-
-<details><summary>Đáp án</summary>
-
-- **MCAR**: xác suất thiếu độc lập với mọi thứ — mất điện ngẫu nhiên vài phút.
-- **MAR**: phụ thuộc **dữ liệu quan sát được** — trạm hay hỏng vào mùa mưa (mà mùa thì ta biết).
-- **MNAR**: phụ thuộc **chính giá trị bị thiếu** — cảm biến quá tải và tắt khi ô nhiễm cực cao.
-
-MCAR/MAR điền được (MAR cần mô hình có biến giải thích); MNAR thì không, chỉ có thể mô hình hoá cơ chế thiếu và nói rõ giới hạn.
+**B** (mục 4.1): `isna()` chỉ đếm ô rỗng trong những dòng có mặt; mốc không có dòng thì nó không thấy. Trạm Nội Bài: `isna()` thấy 2 ô,
+thiếu thật 251. **A sai**: đó chính là cái bẫy. **C sai**: không có ô rỗng không nói gì về mã trá hình; phải xem histogram. **D sai**: cơ chế
+thiếu phải kiểm bằng số, không suy ra từ `isna()`.
 
 </details>
 
----
+**Câu 2.** Cảm biến bụi quá tải và tắt mỗi khi PM2.5 vượt 500 µg/m³. Số bị mất thuộc cơ chế nào?
 
-**3 (nhắc lại).** Vì sao `visibility = 9.999` trong GHCNh không phải một số đo?
+- A. MCAR
+- B. MAR
+- C. MNAR
+- D. Không phải dữ liệu thiếu
 
-<details><summary>Đáp án</summary>
+<details>
+<summary>Đáp án</summary>
 
-Vì đó là **mã**. METAR quy định tầm nhìn từ 10 km trở lên ghi là `9999` (mét); GHCNh đổi đơn vị sang km thành 9.999. Nó chiếm **35,0%** số
-dòng ở trạm này. Coi là số đo thì trung bình tầm nhìn bị kéo lên và histogram có một đỉnh giả.
-
-</details>
-
----
-
-**4 (nhắc lại).** Cột `da_dien` dùng để làm gì? Nêu ba việc.
-
-<details><summary>Đáp án</summary>
-
-(1) Hạ trọng số (hoặc loại) các ô đã điền khi huấn luyện; (2) loại chúng khỏi tập chấm để sai số không bị bóp méo; (3) truy vết — trả lời
-được "số này từ đâu ra" nhiều tháng sau. Dữ liệu sạch không truy vết được thì không dùng cho báo cáo nghiêm túc.
+**C** (mục 4.2): việc mất phụ thuộc **chính giá trị** bị mất (cao thì mất). Điền kiểu gì từ phần còn lại cũng lệch xuống. **A sai**: mất không
+ngẫu nhiên. **B sai**: MAR là mất phụ thuộc một thứ **khác** đã đo được. **D sai**: giờ đó có thật, chỉ không có số.
 
 </details>
 
----
+**Câu 3.** Trong GHCNh, một số đo nhiệt độ có cờ chất lượng `4`. Nghĩa là:
 
-**5 (vận dụng).** Báo cáo chất lượng ghi `relative_humidity: min = 100, max = 94`. Chuyện gì đã xảy ra, và kiểm chứng trong một dòng code?
+- A. Số đo sai, phải loại
+- B. Số đo đáng ngờ
+- C. Số đo mới qua bước kiểm giới hạn thô, không phải lỗi
+- D. Số đo ngoài phạm vi
 
-<details><summary>Đáp án</summary>
+<details>
+<summary>Đáp án</summary>
 
-Cột đang là **chuỗi**, nên `min`/`max` so theo thứ tự chữ cái ("100" < "94"). Kiểm: `df.dtypes` (hoặc `df["relative_humidity"].dtype`).
-Sửa: `pd.to_numeric(..., errors="coerce")` cho mọi cột đo ngay khi đọc. Nguy hiểm ở chỗ **không có exception nào** — mọi thống kê sai âm
-thầm.
-
-</details>
-
----
-
-**6 (vận dụng).** Bạn thấy 24 đoạn nhiệt độ "đứng yên" ≥ 12 giờ, tổng 4,15% dữ liệu. Có phải cảm biến hỏng không? Kiểm thế nào?
-
-<details><summary>Đáp án</summary>
-
-Chưa chắc. Kiểm **độ phân giải** trước: ở trạm này nhiệt độ chỉ có 33 giá trị khác nhau, bước nhỏ nhất **1,0 °C**, 100% là số nguyên. Với
-độ phân giải đó, một đêm nhiệt độ đổi 0,4 °C vẫn ra một chuỗi giá trị lặp. Đặt ngưỡng theo độ phân giải: 36 bước (18 giờ) chỉ còn 2 đoạn /
-123 điểm, trong đó đoạn dài nhất là 67 bước = 33,5 giờ ở 26,0 °C — đoạn này mới thật sự đáng ngờ.
+**C** (mục 4.3, bảng cờ). Nhóm cần loại là `2, 3, 6, 7, o, f`. **A, B sai**: đó là mã `3` và `2`; coi `4` là lỗi làm loại oan nhiều dòng. **D
+sai**: đó là cờ `o`.
 
 </details>
 
----
+**Câu 4.** Cách điền nào **nhân quả** (chỉ dùng dữ liệu trước ô đang điền)?
 
-**7 (vận dụng).** Bạn điền toàn bộ chuỗi bằng `interpolate(limit_direction="both")` rồi chia train/test và được kết quả rất tốt. Sai ở đâu,
-và bài kiểm nào bắt được?
+- A. Nội suy tuyến tính hai phía
+- B. Spline
+- C. `ffill`
+- D. Kalman smoother
 
-<details><summary>Đáp án</summary>
+<details>
+<summary>Đáp án</summary>
 
-Hai lỗi: (a) nội suy hai phía **dùng tương lai**, (b) điền **trước** khi chia tập nên thông tin từ test rò sang train. Bài kiểm: cắt dữ
-liệu tại một mốc và so đầu ra ở phần trước mốc đó (`tv.ro_ri.kiem_ro_ri`). Lưu ý: **mốc cắt phải nằm trong một lỗ hổng**, nếu cắt ở chỗ
-dữ liệu đầy đủ thì bài kiểm không phát hiện được gì. Thứ tự đúng: chia tập → điền bằng phương pháp nhân quả (ffill, mùa vụ ngày trước).
-
-</details>
-
----
-
-**8 (vận dụng).** Cửa hàng hết hàng ba ngày, doanh số ghi nhận là 0. Bạn xử lý thế nào và vì sao?
-
-<details><summary>Đáp án</summary>
-
-Đánh dấu ba ngày đó là **thiếu**, không phải bằng 0 (censored demand: nhu cầu thật cao hơn doanh số). Nếu để 0, mô hình học rằng nhu cầu
-thấp → dự báo thấp → đặt hàng ít → lại hết hàng: vòng lặp tự củng cố. Cần cột trạng thái tồn kho để nhận ra những ngày này; nếu không có,
-ít nhất phải đánh cờ `nghi_ngo` cho các ngày doanh số 0 bất thường.
+**C** (mục 4.4): `ffill` chỉ giữ số gần nhất **trước** ô thiếu. **A, B sai**: nối hai đầu lỗ, tức nhìn cả số phía sau. **D sai**: smoother
+ước lượng từ cả hai phía; dùng `fittedvalues` (dự báo một bước) mới là chỉ dùng quá khứ.
 
 </details>
 
----
+## Vận dụng
 
-**9 (đọc bảng).** Bảng MAE (°C) của 7 cách điền trên cùng một chuỗi:
+**Câu 5.** Tệp đo theo giờ từ 06:00 tới 12:00 có các dòng 06:00, 07:00, 09:00, 10:00, 12:00; ô nhiệt độ lúc 10:00 là NaN. `isna()` báo mấy ô
+thiếu? Thiếu thật bao nhiêu giờ, là những giờ nào?
 
-| Cách điền | Che điểm 10% | Che khối 48 giờ |
-|---|---|---|
-| tuyến tính | 0,291 | 2,171 |
-| Kalman smoother | 0,308 | 1,256 |
-| ffill | 0,378 | 2,052 |
-| spline | 0,857 | 3,636 |
-| hàng xóm (Open-Meteo) | 0,922 | 1,006 |
-| mùa vụ (ngày trước) | 1,845 | 1,965 |
-| trung bình theo giờ | 4,350 | 2,839 |
+<details>
+<summary>Đáp án</summary>
 
-(a) Chọn phương pháp cho một chuỗi mà 67% lỗ dài 1 bước nhưng thỉnh thoảng có lỗ 8 giờ. (b) Giải thích vì sao spline tệ nhất ở cột phải.
-(c) Vì sao "trung bình theo giờ" lại **tốt lên** khi lỗ dài hơn?
-
-<details><summary>Đáp án</summary>
-
-(a) Dùng **quy tắc theo độ dài lỗ**: lỗ ≤ vài bước → nội suy tuyến tính (hoặc ffill nếu cần nhân quả); lỗ dài → trạm hàng xóm (1,006) hoặc
-để trống. Một phương pháp duy nhất cho mọi lỗ là lựa chọn tệ ở một trong hai đầu.
-
-(b) Spline bậc 3 khớp đa thức qua hai mép lỗ; lỗ càng dài thì đa thức càng **vọt lố** ra ngoài dải giá trị thật (3,636 — tệ hơn cả ffill).
-
-(c) Vì nó là **khí hậu học**: giá trị trung bình theo giờ trong ngày. Với lỗ 1 bước, hàng xóm gần nhất về thời gian tốt hơn nhiều nên nó
-thua đậm (4,350); với lỗ 48 giờ thì mọi thông tin cục bộ đều mất, và một giá trị "hợp lý theo giờ" lại đỡ tệ hơn đường phẳng (2,839 so với
-ffill 2,052 — vẫn thua ffill, nhưng thắng spline).
+`isna()` báo **1** (10:00). Từ 06:00 tới 12:00 có 7 mốc; tệp có 5 dòng nên thiếu mốc 08:00 và 11:00. Thiếu thật **3** giờ: 08:00, 10:00,
+11:00 (mục 4.1). Nhầm hay gặp: đếm 6 mốc (quên tính cả hai đầu).
 
 </details>
 
----
+**Câu 6.** Nhiệt độ theo giờ: 20, ?, ?, 26; giá trị thật của hai ô thiếu là 22 và 25. Điền bằng `ffill` và bằng nội suy tuyến tính, tính MAE
+của mỗi cách. Cách nào dùng được khi dự báo thật?
 
-**10 (đọc biểu đồ — tìm chỗ sai).** Một báo cáo nội bộ về dữ liệu PM2.5 Bắc Kinh:
+<details>
+<summary>Đáp án</summary>
 
-| Kết luận | Bằng chứng |
+`ffill`: 20, 20 → sai 2 và 5, MAE **3,5**. Tuyến tính nối 20 với 26: 22, 24 → sai 0 và 1, MAE **0,5** (mục 4.4). Tuyến tính tốt hơn nhưng nhìn
+cả số 26 phía sau, nên chỉ dùng được khi làm sạch dữ liệu quá khứ đã chia tập xong; lúc dự báo thật chỉ `ffill` (nhân quả) dùng được. Nhầm
+hay gặp: chọn cách có MAE thấp nhất mà quên hỏi nó có dùng tương lai không.
+
+</details>
+
+**Câu 7.** Cảm biến nhiệt độ ghi tới 1 °C. Có 24 đoạn giá trị lặp dài từ 12 giờ trở lên, phần lớn vào ban đêm. Bạn loại cả 24 đoạn như "cảm
+biến chết" không? Làm gì trước?
+
+<details>
+<summary>Đáp án</summary>
+
+**Không** (mục 4.3). Với độ phân giải 1 °C, đêm nhiệt độ thật chỉ đổi vài phần mười độ vẫn ghi thành cùng một số. Trước hết đo độ phân giải
+(`do_phan_giai`), rồi đặt ngưỡng dài hơn theo đó (buổi này 18 giờ, còn 2 đoạn); đoạn lặp cả ngày lẫn đêm mới đáng ngờ. Nhầm hay gặp: dùng một
+ngưỡng "đứng yên" cho mọi cảm biến.
+
+</details>
+
+**Câu 8.** Một cửa hàng hết hàng ba ngày, doanh số ghi 0. Bạn xử lý ba ngày đó thế nào khi làm dữ liệu cho dự báo, và vì sao?
+
+<details>
+<summary>Đáp án</summary>
+
+Đánh dấu là **thiếu** (NaN + cờ), không để 0 (mục 4.1). Nhu cầu thật những ngày đó cao hơn 0; mô hình học từ số 0 sẽ dự báo thấp, cửa hàng
+nhập ít, lại hết hàng: vòng lặp tự củng cố. Nhầm hay gặp: coi 0 là số đo thật vì "máy ghi đúng là không bán được".
+
+</details>
+
+## Đọc biểu đồ / bảng kết quả — tìm chỗ sai
+
+**Câu 9.** Một nhóm che ngẫu nhiên 10% số điểm của chuỗi nhiệt độ và được:
+
+| Cách điền | MAE (°C) |
 |---|---|
-| (a) "Dữ liệu chỉ thiếu 2,08%, chất lượng rất tốt, dùng được toàn bộ." | tỷ lệ thiếu tổng |
-| (b) "Trạm mất dữ liệu khi ô nhiễm cao, nên đây là MNAR." | trực giác về cảm biến |
-| (c) "Chúng tôi điền toàn bộ bằng trung bình cột để không còn NaN." | pipeline |
-| (d) "Cột `precipitation` của trạm Nội Bài toàn 0, nghĩa là cả năm không mưa." | dữ liệu |
+| tuyến tính | 0,291 |
+| Kalman smoother | 0,308 |
+| `ffill` | 0,378 |
+| hàng xóm | 0,922 |
 
-Chỉ ra chỗ sai của từng dòng.
+Họ kết luận: "Dùng nội suy tuyến tính cho mọi lỗ, kể cả lỗ cảm biến chết hai ngày." Chỉ ra lỗi.
 
-<details><summary>Đáp án</summary>
+<details>
+<summary>Đáp án</summary>
 
-- **(a)** Trung bình che mất cấu trúc: thiếu đi thành **mảng**, có 13 ô (trạm × tháng) thiếu > 10% và ô tệ nhất **48,0%**. Phải xem heatmap
-  theo trạm × thời gian, và loại giai đoạn không dùng được thay vì lấy trung bình an ủi.
-- **(b)** Đó là **giả định**, không phải bằng chứng. Đo thử: khi Dongsi thiếu, PM2.5 của các trạm còn lại là 76,8 so với 79,2 khi có
-  (**−3,0%**); ba trạm thử đều âm (−3,0% đến −14,1%). Không có bằng chứng MNAR ở bộ này.
-- **(c)** Điền bằng trung bình cột xoá cả nhịp ngày lẫn mùa, và **không** đánh dấu ô nào đã điền. Sai số sau đó sẽ đẹp giả tạo. Đúng: điền
-  lỗ ngắn bằng phương pháp nhân quả, để lỗ dài là NaN, và xuất cờ `da_dien`.
-- **(d)** Không: cột đó **rỗng 100%** (NaN), không phải bằng 0 — 30/64 cột đo của tệp này rỗng hoàn toàn. Kiểm bằng `isna().all()` trước
-  khi diễn giải bất kỳ cột nào.
+Che ngẫu nhiên từng điểm chỉ thi **lỗ ngắn**; kết quả không chuyển sang lỗ dài (mục 4.5). Che khối 48 giờ trên cùng chuỗi, tuyến tính tụt
+xuống hạng 5 (MAE 2,171), hàng xóm lên hạng 1 (1,006). Thêm hai lỗi: tuyến tính dùng tương lai (rò rỉ nếu điền trước khi chia tập), và lỗ hai
+ngày thì nên để trống có cờ, không điền (mục 4.6).
+
+</details>
+
+**Câu 10.** Báo cáo chất lượng tự sinh của một trạm:
+
+| Cột | min | max | trá hình % |
+|---|---|---|---|
+| relative_humidity | 100 | 94 | 0,0 |
+| visibility | 0,1 | 9,999 | 0,0 |
+
+Dòng cuối báo cáo: "Sau làm sạch: còn thiếu 0 ô." Chỉ ra ba chỗ đáng ngờ và nguyên nhân có thể của từng chỗ.
+
+<details>
+<summary>Đáp án</summary>
+
+(1) `min` 100 lớn hơn `max` 94: cột độ ẩm lưu dạng **chữ**, so theo thứ tự chữ cái; phải `pd.to_numeric` (mục 4.3). (2) Tầm nhìn max đúng
+9,999 mà "trá hình 0%": vẫn do kiểu chữ, so sánh với số 9,999 không khớp; sau khi ép kiểu, 9,999 chiếm hơn một phần ba số dòng, là mã "từ
+10 km trở lên". (3) "Còn thiếu 0" trong khi có lỗ dài nhiều giờ: pipeline điền **mọi** lỗ bằng nội suy, bịa dữ liệu và dùng tương lai; đúng
+ra lỗ dài phải để trống với cột cờ (mục 4.6).
 
 </details>

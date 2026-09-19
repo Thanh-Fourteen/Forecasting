@@ -75,6 +75,24 @@ def hinh_thuc(y: pd.Series, cpi: pd.Series, dan_so: pd.Series) -> dict:
             "dau_nguoi_1993": round(float(dau_nguoi.iloc[0])), "dau_nguoi_2025": round(float(dau_nguoi.iloc[-1]))}
 
 
+def hinh_dao_dong(y: pd.Series) -> dict:
+    y = y[:"2019-12"]
+    khoi = y.to_numpy()[y.size % 12:].reshape(-1, 12) / 1000
+    tb, sd = khoi.mean(axis=1), khoi.std(axis=1, ddof=1)
+    fig, ax = plt.subplots(figsize=(7, 3.4))
+    ax.plot(tb, sd, "o", color=M["chinh"], markersize=4)
+    for i, nam in ((0, 1992), (len(tb) - 1, 2019), (16, 2008)):
+        ax.annotate(str(nam), (tb[i], sd[i]), xytext=(5, -10), textcoords="offset points", fontsize=8)
+    ax.set_xlim(0, 550)
+    ax.set_ylim(0, 45)
+    ax.set_xlabel("trung bình tháng trong năm (tỷ USD)")
+    ax.set_ylabel("độ lệch chuẩn trong năm (tỷ USD)")
+    ax.set_title(f"Năm bán nhiều thì dao động trong năm cũng lớn: {sd[0]:.1f} → {sd[-1]:.1f} tỷ USD".replace(".", ","), fontsize=10)
+    ve.luu_hinh(fig, HINH / "dao-dong-theo-muc.png")
+    return {"tb_1992": round(float(tb[0]), 1), "tb_2019": round(float(tb[-1]), 1), "sd_1992": round(float(sd[0]), 1),
+            "sd_2019": round(float(sd[-1]), 1), "sd_2008": round(float(sd[16]), 1)}
+
+
 def hinh_box_cox(y: pd.Series) -> dict:
     y = y[:"2019-12"]
     luoi = np.linspace(-1, 2, 601)
@@ -84,28 +102,27 @@ def hinh_box_cox(y: pd.Series) -> dict:
     cv = ty_so.std(axis=1, ddof=1) / ty_so.mean(axis=1)
     lam_g = bd.guerrero(y, 12)
     _, lam_mle = stats.boxcox(y.to_numpy())
-    fig, truc = plt.subplots(1, 3, figsize=(10.5, 3.3))
-    truc[0].loglog(tb / 1000, sd / 1000, "o", color=M["chinh"], markersize=4)
-    doc = np.polyfit(np.log(tb), np.log(sd), 1)[0]
-    truc[0].set_xlabel("trung bình năm (tỷ USD)")
-    truc[0].set_ylabel("độ lệch chuẩn trong năm")
-    truc[0].set_title(f"log sd theo log mức: độ dốc {doc:.2f}", fontsize=9)
-    truc[1].plot(luoi, cv, color=M["chinh"])
-    truc[1].axvline(lam_g, color=M["phu"], linestyle="--")
-    truc[1].axvline(lam_mle, color=M["ba"], linestyle=":")
-    truc[1].text(lam_g + 0.05, cv.max() * 0.9, f"Guerrero {lam_g:.3f}", color=M["phu"], fontsize=8)
-    truc[1].text(lam_mle + 0.05, cv.max() * 0.75, f"MLE {lam_mle:.3f}", color=M["ba"], fontsize=8)
-    truc[1].set_xlabel("λ")
-    truc[1].set_ylabel("hệ số biến thiên của s/μ^(1−λ)")
-    truc[1].set_title("Guerrero chọn λ làm tỷ số ổn định nhất", fontsize=9)
-    for lam, c, ten in ((1.0, M["xam"], "λ = 1 (gốc)"), (lam_g, M["phu"], f"λ = {lam_g:.2f}"), (0.0, M["chinh"], "λ = 0 (log)")):
+    fig, truc = plt.subplots(1, 2, figsize=(10, 3.4))
+    truc[0].plot(luoi, cv, color=M["chinh"])
+    truc[0].axvline(lam_g, color=M["phu"], linestyle="--")
+    truc[0].axvline(lam_mle, color=M["ba"], linestyle=":")
+    truc[0].text(lam_g - 0.95, cv.max() * 0.9, f"Guerrero λ = {lam_g:.3f}", color=M["phu"], fontsize=8)
+    truc[0].text(lam_mle + 0.05, cv.max() * 0.75, f"scipy (MLE) λ = {lam_mle:.3f}", color=M["ba"], fontsize=8)
+    truc[0].set_xlabel("λ")
+    truc[0].set_ylabel("CV của các tỷ số s / μ^(1 − λ)")
+    truc[0].set_ylim(bottom=0)
+    truc[0].set_title("Tiêu chí Guerrero: đáy ở λ ≈ 0,34", fontsize=9)
+    for lam, c, ten in ((1.0, M["xam"], "λ = 1 (không biến đổi)"), (lam_g, M["phu"], f"λ = {lam_g:.2f} (Guerrero)"),
+                        (0.0, M["chinh"], "λ = 0 (log)")):
         w = pd.Series(bd.boxcox(y, lam), index=y.index)
         kh = w.to_numpy()[w.size % 12:].reshape(-1, 12)
-        truc[2].plot(range(1992, 2020), kh.std(axis=1, ddof=1) / kh.std(axis=1, ddof=1)[0], color=c, label=ten)
-    truc[2].set_title("sd trong năm (chuẩn hoá về 1992)", fontsize=9)
-    truc[2].legend(fontsize=7)
-    fig.suptitle("Bán lẻ 1992–2019: biến động tăng chậm hơn mức (độ dốc < 1) → log làm quá tay, λ Guerrero ≈ 0,34",
-                 fontsize=10, fontweight="bold")
+        truc[1].plot(range(1992, 2020), kh.std(axis=1, ddof=1) / kh.std(axis=1, ddof=1)[0], color=c, label=ten)
+    truc[1].axhline(1, color="black", linewidth=0.5)
+    truc[1].set_ylim(bottom=0)
+    truc[1].set_xlabel("năm")
+    truc[1].set_ylabel("độ lệch chuẩn trong năm / của 1992")
+    truc[1].set_title("Sau biến đổi: log làm quá tay, λ = 0,34 giữ dao động gần đều", fontsize=9)
+    truc[1].legend(fontsize=7, loc="lower left")
     fig.tight_layout()
     ve.luu_hinh(fig, HINH / "box-cox.png")
     sd_chuan = {}
@@ -113,7 +130,7 @@ def hinh_box_cox(y: pd.Series) -> dict:
         w = bd.boxcox(y.to_numpy(), lam)
         kh = w[w.size % 12:].reshape(-1, 12).std(axis=1, ddof=1)
         sd_chuan[round(lam, 3)] = round(float(kh[-1] / kh[0]), 2)
-    return {"lam_guerrero": lam_g, "lam_mle": round(float(lam_mle), 3), "doc_log_sd": round(float(doc), 3), "sd_2019_chia_1993": sd_chuan}
+    return {"lam_guerrero": lam_g, "lam_mle": round(float(lam_mle), 3), "sd_2019_chia_1992": sd_chuan}
 
 
 def hinh_bias_log_normal() -> dict:
@@ -124,12 +141,13 @@ def hinh_bias_log_normal() -> dict:
     tv_ = float(bd.boxcox_nguoc(w.mean(), 0.0))
     tb_fpp = float(bd.boxcox_nguoc(w.mean(), 0.0, w.var(ddof=1)))
     fig, ax = plt.subplots(figsize=(9, 3.3))
-    ax.hist(x, bins=np.arange(0, 500, 5), density=True, color=M["xam"], alpha=0.6)
+    ax.hist(x, bins=np.arange(0, 500, 5), color=M["xam"], alpha=0.6)
+    ax.set_ylabel("số mẫu mỗi ô rộng 5")
     for v, c, ten in ((x.mean(), "black", f"trung bình mẫu {x.mean():.1f}"), (tv_, M["phu"], f"exp(trung bình log) {tv_:.1f}"),
                       (tb_fpp, M["chinh"], f"có hiệu chỉnh FPP {tb_fpp:.1f}")):
         ax.axvline(v, color=c, linewidth=1.5, label=ten)
     ax.legend(fontsize=8)
-    ax.set_xlabel("y")
+    ax.set_xlabel("giá trị y = exp(w), w có phân phối chuẩn")
     ax.set_title("Log-normal μ = 5, σ = 0,5 (100.000 mẫu): đổi ngược thẳng cho trung vị, thấp hơn trung bình 11,9%")
     ve.luu_hinh(fig, HINH / "bias-log-normal.png")
     rows = []
@@ -162,62 +180,14 @@ def hinh_bias_that() -> dict:
     return ket_qua
 
 
-def hinh_sai_phan(y: pd.Series) -> dict:
-    w = np.log(y)
-    sp_mua = (w - w.shift(12)) * 100
-    sp_ca_hai = sp_mua - sp_mua.shift(1)
-    fig, truc = plt.subplots(3, 1, figsize=(10, 6), sharex=True)
-    truc[0].plot(w.index, w.to_numpy(), color=M["chinh"])
-    truc[0].set_title("log doanh số: xu hướng + mùa vụ", fontsize=9, loc="left")
-    truc[1].plot(sp_mua.index, sp_mua.to_numpy(), color=M["phu"])
-    truc[1].axhline(0, color="black", linewidth=0.5)
-    truc[1].set_title("sai phân mùa vụ log (≈ % tăng so với cùng tháng năm trước): hết mùa vụ, còn chu kỳ kinh tế và COVID", fontsize=9, loc="left")
-    truc[2].plot(sp_ca_hai.index, sp_ca_hai.to_numpy(), color=M["ba"], linewidth=0.8)
-    truc[2].axhline(0, color="black", linewidth=0.5)
-    truc[2].set_title("thêm sai phân thường: dao động quanh 0", fontsize=9, loc="left")
-    fig.tight_layout()
-    ve.luu_hinh(fig, HINH / "sai-phan.png")
-    return {"yoy_2009_min": round(float(sp_mua["2009"].min()), 1), "yoy_2020_04": round(float(sp_mua[pd.Timestamp("2020-04-01")]), 1),
-            "yoy_2021_04": round(float(sp_mua[pd.Timestamp("2021-04-01")]), 1), "yoy_tb_2012_2019": round(float(sp_mua["2012":"2019"].mean()), 2)}
-
-
-def hinh_chuan_hoa() -> dict:
-    nam = "2024"
-    gas = bd.doc_ban_le("Gasoline stations")[nam]
-    sach = bd.doc_ban_le("Book stores")[nam]
-    fig, truc = plt.subplots(1, 3, figsize=(10.5, 3.2))
-    thang = range(1, 13)
-    for ax, ham, ten in ((truc[0], lambda v: v / 1000, "gốc (tỷ USD/tháng)"),
-                         (truc[1], lambda v: (v - v.mean()) / v.std(ddof=1), "z-score"),
-                         (truc[2], lambda v: v / v.mean(), "chia trung bình")):
-        for s_, c, nhan in ((gas, M["chinh"], "trạm xăng"), (sach, M["phu"], "nhà sách")):
-            ax.plot(thang, ham(s_).to_numpy(), marker="o", markersize=3, color=c, label=nhan)
-        ax.set_title(ten, fontsize=9)
-        ax.set_xticks(range(1, 13, 2))
-        ax.set_xlabel("tháng 2024")
-    truc[0].set_yscale("log")
-    truc[2].axhline(1, color="black", linewidth=0.5)
-    truc[0].legend(fontsize=7)
-    fig.suptitle("Hai chuỗi lệch nhau 80 lần: z-score xoá mất độ lớn dao động tương đối, chia trung bình giữ lại",
-                 fontsize=10, fontweight="bold")
-    fig.tight_layout()
-    ve.luu_hinh(fig, HINH / "chuan-hoa.png")
-    return {"gas_tb": round(float(gas.mean())), "sach_tb": round(float(sach.mean())),
-            "gas_chia": (round(float((gas / gas.mean()).min()), 3), round(float((gas / gas.mean()).max()), 3)),
-            "sach_chia": (round(float((sach / sach.mean()).min()), 3), round(float((sach / sach.mean()).max()), 3)),
-            "gas_z": (round(float(((gas - gas.mean()) / gas.std(ddof=1)).min()), 2), round(float(((gas - gas.mean()) / gas.std(ddof=1)).max()), 2)),
-            "sach_z": (round(float(((sach - sach.mean()) / sach.std(ddof=1)).min()), 2), round(float(((sach - sach.mean()) / sach.std(ddof=1)).max()), 2))}
-
-
 if __name__ == "__main__":
     y = bd.doc_ban_le()
     cpi, dan_so = bd.doc_cpi(), bd.doc_dan_so()
     with ve.phong_cach():
         print("lich", hinh_lich(y))
         print("thuc", hinh_thuc(y, cpi, dan_so))
+        print("dao dong", hinh_dao_dong(y))
         print("boxcox", hinh_box_cox(y))
         print("lognormal", hinh_bias_log_normal())
         print("bias that", hinh_bias_that())
-        print("sai phan", hinh_sai_phan(y))
-        print("chuan hoa", hinh_chuan_hoa())
     print("xong:", sorted(p.name for p in HINH.glob("*.png")))

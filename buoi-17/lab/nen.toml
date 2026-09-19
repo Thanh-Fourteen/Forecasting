@@ -1,0 +1,7 @@
+# Buổi 17 — ARIMA và SARIMA. Nguồn của lab/00-nen/ (python tools/sinh_nen.py 17).
+thu_vien = ["matplotlib", "scipy", "statsmodels", "statsforecast", "utilsforecast", "pyarrow"]
+du_lieu = ["frb-g17-san-luong-cong-nghiep", "monash-tourism-monthly"]
+khung_bo = []
+
+[cham]
+code_phai_do = true

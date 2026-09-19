@@ -778,8 +778,9 @@ auto-ARIMA, và giải thích được từng tham số.
 
 **Dữ liệu:** EIA-930 (public domain); Open-Meteo (CC BY 4.0); Wikimedia Pageviews tiếng Việt (CC0).
 
-**Xong khi:** mô hình hồi quy động có phần dư trắng, thắng seasonal naive và Prophet mặc định
-trên backtest, giải thích được vì sao p-value ở bước 1 là ảo.
+**Xong khi:** hồi quy động ở bước 1 có phần dư trắng và giải thích được vì sao p-value của hồi quy thường là ảo;
+bảng backtest bốn cách đa mùa vụ kèm DM so với seasonal naive và Prophet mặc định (rà 2026-09-19: trên tải ERCOT
+2024, hồi quy động ngang seasonal naive, thắng Prophet có ý nghĩa; phần dư theo giờ chưa trắng — báo trung thực).
 
 ### Buổi 19 — Nhu cầu gián đoạn
 
@@ -800,8 +801,8 @@ trên backtest, giải thích được vì sao p-value ở bước 1 là ảo.
 1. Phân loại 2.674 chuỗi phụ tùng xe theo ADI × CV²
 2. Tự viết Croston và TSB, so với statsforecast
 3. So ETS, Croston, SBA, TSB, ADIDA, seasonal naive trên RMSSE
-4. Mô phỏng tồn kho (order-up-to, lead time 2 tuần) từ mỗi dự báo: mô hình thắng RMSSE có thắng
-   chi phí tồn kho không
+4. Mô phỏng tồn kho (order-up-to, xem kho mỗi tháng, hàng về sau 1 tháng — dữ liệu theo tháng) từ mỗi dự báo:
+   mô hình thắng RMSSE có thắng chi phí tồn kho không
 
 **Dữ liệu:** Car Parts (Monash, CC BY 4.0); tuỳ chọn M5 (xem giấy phép ở Phụ lục F).
 

@@ -11,6 +11,7 @@ from pathlib import Path
 import matplotlib
 
 matplotlib.use("Agg")
+import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -72,6 +73,8 @@ def hinh_ro_ri_minh_hoa(y: pd.Series) -> dict:
         ax.axvline(moc, color="black", linewidth=1)
         ax.set_title(ten, fontsize=9)
         ax.legend(fontsize=7)
+        ax.xaxis.set_major_formatter(mdates.DateFormatter("%d/%m/%y"))
+        ax.xaxis.set_major_locator(mdates.MonthLocator())
     a.set_ylabel("nghìn đơn vị doanh thu")
     lech = float(np.nanmax(np.abs((ro_full.reindex(ro_cat.index) - ro_cat).to_numpy(float))))
     fig.suptitle(f"Bài kiểm rò rỉ: cắt dữ liệu tại vạch đen rồi tính lại. Trái: hai đường trùng khít. "
@@ -90,8 +93,7 @@ def hinh_gia_ro_ri() -> pd.DataFrame:
     ax.barh(bang["bộ feature"], bang["so với chỉ lag (%)"], color=mau)
     ax.axvline(0, color="black", linewidth=0.9)
     for i, v in enumerate(bang["so với chỉ lag (%)"]):
-        ax.text(v + (0.1 if v >= 0 else -0.1), i, f"{v:+.2f}%", va="center",
-                ha="left" if v >= 0 else "right", fontsize=8)
+        ax.text(max(v, 0) + 0.1, i, f"{v:+.2f}%".replace(".", ","), va="center", ha="left", fontsize=8)
     ax.set_xlabel("MAE so với baseline chỉ dùng lag (%) — âm là tốt hơn")
     ax.set_title("Cam = dùng tương lai. Backtest rò rỉ hứa −3,85%; chạy thật bằng dự báo 1 ngày "
                  "còn −3,10%, bằng dự báo 3 ngày thì +2,20%")
@@ -110,14 +112,15 @@ def hinh_du_bao_vs_that() -> dict:
     a.set_ylabel("°C")
     a.legend(fontsize=8)
     a.set_title("Dallas, nửa đầu tháng 7/2024", fontsize=9)
-    sai = {"dự báo 1 ngày": (tt["du_bao_1_ngay"] - tt["nhiet_do_that"]),
-           "dự báo 3 ngày": (tt["du_bao_3_ngay"] - tt["nhiet_do_that"])}
+    a.xaxis.set_major_formatter(mdates.DateFormatter("%d/%m"))
+    sai = {"dự báo 1 ngày": (tt["nhiet_do_that"] - tt["du_bao_1_ngay"]),
+           "dự báo 3 ngày": (tt["nhiet_do_that"] - tt["du_bao_3_ngay"])}
     b.hist([v.to_numpy() for v in sai.values()], bins=40, label=list(sai), color=[M["chinh"], M["phu"]])
-    b.set_xlabel("sai số dự báo (°C)")
+    b.set_xlabel("sai số = thật − dự báo (°C)")
     b.set_ylabel("số giờ")
     b.legend(fontsize=8)
     b.set_title(f"MAE {sai['dự báo 1 ngày'].abs().mean():.2f} °C và "
-                f"{sai['dự báo 3 ngày'].abs().mean():.2f} °C", fontsize=9)
+                f"{sai['dự báo 3 ngày'].abs().mean():.2f} °C".replace(".", ","), fontsize=9)
     fig.suptitle("Lúc ra dự báo bạn KHÔNG có nhiệt độ thật — chỉ có bản dự báo, và nó sai thật",
                  fontsize=10, fontweight="bold")
     fig.tight_layout()

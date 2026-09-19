@@ -385,7 +385,8 @@ def kiem_ro_ri(ham_feature, y: pd.Series, cac_moc=None, sai_so: float = 1e-9) ->
 
 
 def kiem_nhieu_muc_tieu(ham_feature, y: pd.Series, tam: int = TAM, seed: int = 0) -> list[str]:
-    """Bài kiểm thứ hai: đổi y từ 70% chuỗi trở đi. Feature cho y_t (t < mốc) không được đổi.
+    """Bài kiểm thứ hai: đổi y từ 70% chuỗi trở đi. Feature cho y_t với t − tam < mốc (thời điểm ra dự báo
+    còn trước mốc) không được đổi.
 
     Bắt được kiểu rò rỉ mà bài cắt-tương-lai bỏ sót: feature dùng lag < tầm dự báo.
     """
@@ -394,7 +395,7 @@ def kiem_nhieu_muc_tieu(ham_feature, y: pd.Series, tam: int = TAM, seed: int = 0
     y2 = y.copy()
     y2.iloc[cat:] = y2.iloc[cat:] + rng.normal(0, float(np.nanstd(y)) * 10, len(y) - cat)
     a, b = ham_feature(y), ham_feature(y2)
-    giu = a.index[: max(cat - tam + 1, 0)]
+    giu = a.index[: cat + tam]  # các dòng t < mốc + tam: lúc ra dự báo (t − tam) chưa thấy phần bị đổi
     xau = []
     for cot in a.columns:
         if not np.allclose(a.loc[giu, cot].to_numpy(float), b.loc[giu, cot].to_numpy(float),

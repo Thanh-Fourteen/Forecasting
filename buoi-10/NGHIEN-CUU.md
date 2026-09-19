@@ -136,3 +136,80 @@ kiểu che sẽ chọn sai.
 | Thêm `do_phan_giai` + bài học độ phân giải 1 °C | nhỏ | Đã đưa vào buổi (mục 4.3 + test) |
 | Bằng chứng MNAR ở Bắc Kinh là **âm** (−3,0%) | nhỏ | Báo trung thực + thêm `mo_phong_mnar` để dạy cơ chế |
 | Lộ trình ghi "cảm biến đứng yên 33,5 giờ" như lỗi rõ ràng | nhỏ | Giữ ví dụ nhưng dạy kèm ngưỡng theo độ phân giải |
+
+## Research viết lại (Phase 12, 2026-09-18)
+
+Research sư phạm; không đổi code nên không rà lại phiên bản.
+
+| Khái niệm | Cách giải thích chọn | Hiểu lầm phổ biến | Nguồn (truy cập 2026-09-18) |
+|---|---|---|---|
+| thiếu mốc | bảng 5 dòng: `isna()` thấy 1, lưới cho 2 | `isna()` = toàn bộ phần thiếu | pandas *Working with missing data* |
+| MCAR/MAR/MNAR | ví dụ 4 giờ PM2.5, cảm biến tắt khi > 30: điền kiểu gì trung bình cũng 20 thay vì 25 | "Missing at random" nghĩa là ngẫu nhiên thật; tên gây hiểu lầm: ngẫu nhiên **sau khi** biết biến khác | Rubin 1976; bookdown RMPH §9.2; ydata.ai "Understanding Missing Data Mechanisms"; Wikipedia *Missing data* |
+| 7 cách điền | một lỗ 2 giờ lúc nhiệt độ lên đỉnh, tính tay 5 cách (+ bảng khi nào dùng/không dùng bằng lời thường) | nội suy tuyến tính dùng được mọi nơi; LOCF (`ffill`) an toàn | Sci. Reports 2026 (benchmark điền dữ liệu ICU: LOCF "may distort temporal trends if missing segments are long"); TDS *Handling gaps in time series* |
+| che nhân tạo | một ngày 8 giờ: che 1 điểm (tuyến tính sai 0,5) vs che khối 4 điểm (MAE 2,75) | che ngẫu nhiên từng điểm là đủ | benchmark trên: đánh giá cả MCAR lẫn "temporal interruptions (contiguous gaps)" |
+| điền = rò rỉ | 20, NaN, 30 cắt tại ô thiếu | kiểm rò rỉ ở mốc cắt không có lỗ | khung `tv.ro_ri` |
+
+## Đọc thử (Phase 12, 2026-09-18)
+
+Tự đọc (không subagent), theo checklist `tools/CHUAN-DE-HIEU.md`; mọi ví dụ tay và đáp án quiz tính lại bằng Python (lưới 6 mốc; MNAR 20/25;
+ffill/tuyến tính/spline 23–23 / 24,33–25,67 / 25,2–26,8; 24,5 và MAE 2,75; quiz câu 5: 3 giờ; câu 6: MAE 3,5 và 0,5). Số dữ liệu thật tái
+lập bằng `dap-an/ve_hinh.py` (khớp bảng "Con số đo được"); chênh MNAR ba trạm: Dongsi −3,0%, Guanyuan −7,6%, Wanliu −3,7%.
+
+| Vòng | Bản | Chặn | Khó | Nhỏ | Quiz | Ghi chú |
+|---|---|---|---|---|---|---|
+| 0 | bản cũ (2.772 chữ, 10 trang, 51 cờ) | 8 | — | — | — | chặn: không bảng Từ mới; MCAR/MAR/MNAR chỉ có tên tiếng Anh + ví dụ; cờ GHCNh trích nguyên tiếng Anh; METAR, NCEI, PM2.5 không giải thích; "censored demand" tiếng Anh; Kalman smoother, spline, `smoothed_forecasts` dùng không định nghĩa; không ví dụ số tính tay cho 7 cách điền; không hình nào có "Cách đọc hình" |
+| 1 | viết lại (4.598 chữ) | 0 | 1 | 3 | 10/10 có căn cứ | khó: câu hỏi Tự kiểm tra 4.3 đổi thành "cảm biến nào" nhưng đáp án vẫn trả lời "đáng ngờ hơn". Nhỏ: nhãn "spline (máy tính)"; "PM2.5" dùng trước khi định nghĩa; mục 4.6 có hai lập luận rò rỉ gần nhau (trực giác + ví dụ) |
+| 2 | sau sửa (4.589 chữ, 14 trang) | **0** | **0** | 1 | 10/10 | **đạt**. Rà gọn: không đoạn nào ≥ 30 chữ lặp ý (hai lập luận ở 4.6 giữ vì một nói chia tập, một nói mốc cắt) |
+
+`kiem_de_hieu.py 10`: 51 → **0**. Quiz viết lại 10 câu, căn cứ: 1 → 4.1, 2 → 4.2, 3 → 4.3, 4 → 4.4, 5 → 4.1, 6 → 4.4, 7 → 4.3, 8 → 4.1,
+9 → 4.5–4.6, 10 → 4.3 + 4.6. Notebook `code/lab.ipynb` soạn bằng `tools/nb.py`, chạy hết trên `code/` (~8 s), bước 5 tự chạy bài kiểm rò rỉ.
+
+## Đọc thử độc lập (Phase 15, 2026-09-19)
+
+Phiên mới; chỉ mở `tai-lieu.md` + quiz bỏ `<details>` cho tới khi viết xong A–E. Tính lại bằng Python/tay: 6 mốc ví dụ 4.1; tầm nhìn 7,8 km;
+tuyến tính 24,33/25,67; spline 25,2/26,8 (scipy `CubicSpline`, khớp); che khối MAE 2,75; Dongsi −3,0%; bảng sau làm sạch khớp
+249 + 2 + 130 = 381 = 198 + 181; quiz 5 (3 giờ), 6 (MAE 3,5 / 0,5). Khớp hết.
+
+### A. Chỗ vướng (đọc mù)
+
+| # | Mục | Trích | Loại | Vì sao | Mức |
+|---|---|---|---|---|---|
+| 1 | Lab bước 2 | "ngưỡng 24 và 36 bước" | 3 | mục 4.3 nói ngưỡng bằng giờ (12, 18 giờ); phải tự đổi bước 30 phút | nhỏ |
+| 2 | 4.6 Vấn đề | "backtest đẹp bất thường" | 1 | "backtest" không định nghĩa trong buổi | nhỏ |
+| 3 | 4.6 | "khung `tv.ro_ri`" | 8 | không nói `tv` là gì (buổi 12 dựng) | nhỏ |
+
+### B. Giải thích lại (ví dụ số mới)
+
+- **Thiếu mốc**: mỗi giờ 00:00–05:00 (6 mốc), tệp 4 dòng, 1 NaN → thiếu 3.
+- **MNAR**: 2, 4, 6, 8, tắt khi > 6 → còn trung bình 4 thay vì 5.
+- **Trá hình / độ phân giải**: 9,999 km là "≥ 10 km"; 25,4 và 25,6 ghi 25 và 26.
+- **Bảy cách điền**: 10, ?, 20 → `ffill` 10, tuyến tính 15.
+- **Che hai kiểu**: che một điểm tuyến tính gần đúng; che 6 giờ quanh đỉnh thì xoá đỉnh.
+- **Rò rỉ khi điền**: 10, NaN, 20 cắt tại NaN → tuyến tính không điền được, `ffill` vẫn 10.
+
+### C. Quiz mù
+
+1 B · 2 C · 3 C · 4 C · 5 `isna()` 1; thiếu 3 giờ: 08:00, 10:00, 11:00 · 6 `ffill` MAE 3,5, tuyến tính 0,5; dự báo thật chỉ `ffill` · 7 không; đo
+độ phân giải trước · 8 đánh dấu thiếu + cờ · 9 chỉ che điểm; che khối tuyến tính hạng 5, hàng xóm hạng 1; tuyến tính dùng tương lai; lỗ dài
+để trống · 10 kiểu chữ, mã 9,999 không bắt, "còn thiếu 0" do điền mọi lỗ. Căn cứ: 1, 5, 8 → 4.1; 2 → 4.2; 3, 7, 10 → 4.3 (+ 4.6); 4, 6 →
+4.4; 9 → 4.5–4.6. Tất cả "chắc".
+
+### D. Tổng kết
+
+Chặn 0 / khó 0 / nhỏ 3.
+
+### E. Dài/lặp
+
+Không đoạn nào ≥ 30 chữ lặp ý.
+
+### Chấm, sửa, đọc lại
+
+**Quiz mù 10/10.** Sửa: Lab bước 2 "hai ngưỡng (tính bằng bước 30 phút)… 36 bước = 18 giờ" (khớp số notebook in ra); 4.6 "kết quả chấm trên
+đoạn giữ lại (backtest)". Giữ #3 (buổi 12 dựng `tv.ro_ri`).
+
+| Vòng | Chữ | Trang | Chặn | Khó | Nhỏ | Quiz | Chỗ thừa |
+|---|---|---|---|---|---|---|---|
+| Phase 15 đọc mù | 4.589 | 14 | 0 | 0 | 3 | 10/10 | 0 |
+| sau sửa, đọc lại | 4.601 | 14 | **0** | **0** | 1 | 10/10 | 0 |
+
+**Đạt.** `kiem_de_hieu.py 10` 0; `kiem_tra_lab.py 10` đạt; tự chứa đạt.

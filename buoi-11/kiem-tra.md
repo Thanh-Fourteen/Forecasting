@@ -1,153 +1,149 @@
 # Kiểm tra buổi 11 — Ngoại lai và điểm gãy
 
-10 câu. Tự làm trước, mở đáp án sau.
+## Nhắc lại khái niệm
 
----
+**Câu 1.** Chuỗi $(10, 10, 10, 20, 15, 12, 11, 10)$ có loại bất thường nào?
 
-**1 (nhắc lại).** Kể bốn loại bất thường và dấu hiệu nhận biết từng loại.
+- A. Điểm đơn (AO)
+- B. Dịch mức
+- C. Thay đổi tạm
+- D. Đổi phương sai
 
-<details><summary>Đáp án</summary>
+<details>
+<summary>Đáp án</summary>
 
-- **AO** (outlier cộng): một điểm lệch, mức trước và sau như cũ.
-- **LS** (level shift): mức nhảy và **ở lại**.
-- **TC** (thay đổi tạm): mức nhảy rồi hồi dần về cũ.
-- **Đổi phương sai**: mức giữ nguyên, **biên độ** dao động đổi.
-
-Mỗi loại cần một cách phát hiện khác: Hampel cho AO, phát hiện điểm gãy cho LS/TC, chi phí Gaussian trên phần dư cho đổi phương sai.
-
-</details>
-
----
-
-**2 (nhắc lại).** Masking là gì? Swamping là gì?
-
-<details><summary>Đáp án</summary>
-
-**Masking**: ngoại lai kéo trung bình và σ lên, nên chính nó (và các ngoại lai khác) **không** vượt ngưỡng nữa — ngoại lai tự che mình.
-**Swamping**: ngược lại, ngoại lai làm ước lượng lệch đến mức các điểm **bình thường** bị gắn cờ oan. Cả hai đều biến mất khi dùng ước
-lượng bền vững (trung vị, MAD).
+**C** (mục 4.1): nhảy lên 20 rồi hồi dần 15, 12, 11, 10. **A sai**: điểm đơn thì điểm sau quay về 10 ngay. **B sai**: dịch mức thì ở lại 20.
+**D sai**: mức đổi rồi hồi, không phải độ dao động đổi quanh một mức.
 
 </details>
 
----
+**Câu 2.** Trong mười số $(10, 12, 11, 13, 12, 50, 11, 12, 13, 12)$, vì sao ngưỡng $|z| > 3$ không gắn cờ số 50?
 
-**3 (nhắc lại).** Hệ số 1,4826 trong công thức MAD từ đâu ra?
+- A. Vì 50 không phải ngoại lai
+- B. Vì chính số 50 kéo trung bình và độ lệch chuẩn lên, nên $z$ của nó chỉ khoảng 2,84
+- C. Vì z-score chỉ dùng được cho số âm
+- D. Vì phải dùng ngưỡng 2
 
-<details><summary>Đáp án</summary>
+<details>
+<summary>Đáp án</summary>
 
-$1/\Phi^{-1}(0{,}75) \approx 1{,}4826$ — hệ số đưa MAD về cùng thang với độ lệch chuẩn **khi dữ liệu phân phối chuẩn**. Nhờ nó, ngưỡng
-"3 MAD" đọc được như "3σ" mà không bị ngoại lai làm hỏng.
-
-</details>
-
----
-
-**4 (nhắc lại).** PELT cần gì để chạy, và vì sao phải chọn penalty?
-
-<details><summary>Đáp án</summary>
-
-Cần (a) một **hàm chi phí** (`l2` cho đổi trung bình, `normal` cho đổi trung bình + phương sai, `rbf` phi tham số) và (b) **penalty** $\beta$
-phạt mỗi điểm gãy thêm vào. Không có penalty thì lời giải tối ưu là cắt ở mọi điểm (chi phí nội đoạn bằng 0). Quy ước BIC $=2\log n$,
-MBIC $\approx 3\log n$, nhưng nên **quét** rồi lấy vùng kết quả ổn định.
+**B** (mục 4.2): masking. Với 10 số, $|z|$ còn không bao giờ vượt $9/\sqrt{10} \approx 2{,}85$. **A sai**: điểm MAD của 50 là 25,6. **C sai**:
+z-score dùng cho mọi số. **D sai**: hạ ngưỡng thì bắt được 50 ở ví dụ này, nhưng sẽ gắn cờ oan nhiều điểm khác ở chuỗi lớn; cách đúng là dùng
+MAD.
 
 </details>
 
----
+**Câu 3.** Winsorize khác xoá ở chỗ:
 
-**5 (vận dụng).** Bạn chạy 3σ trên chuỗi doanh thu 5 năm đang tăng trưởng và chỉ bắt được 3 điểm, tất cả ở năm cuối. Chuyện gì xảy ra và
-sửa thế nào?
+- A. Winsorize giữ mốc thời gian, kéo giá trị bị gắn cờ về trung vị địa phương
+- B. Winsorize xoá cả dòng
+- C. Winsorize chỉ dùng cho sự kiện thật
+- D. Hai cách như nhau
 
-<details><summary>Đáp án</summary>
+<details>
+<summary>Đáp án</summary>
 
-Trung bình toàn chuỗi nằm đâu đó giữa mức năm 1 và năm 5, nên "lệch 3σ so với trung bình toàn chuỗi" chỉ có nghĩa là "**mức cao**", không
-phải "bất thường". Với dữ liệu buổi này, 3σ gắn cờ 16/3.653 ngày và dồn hết vào vùng mức cao.
-
-Sửa: dùng ngưỡng theo **mức địa phương** (Hampel với cửa sổ trượt: 121 ngày, rải đều), hoặc đặt ngưỡng trên **phần dư** sau khi khử xu
-hướng và mùa vụ.
-
-</details>
-
----
-
-**6 (vận dụng).** Giám đốc yêu cầu "làm sạch mọi ngoại lai" trên chuỗi lượt xem bài Tết. Bạn làm gì?
-
-<details><summary>Đáp án</summary>
-
-Từ chối làm theo nghĩa đen, kèm bằng chứng: **cả 5 phương pháp (3σ, IQR, MAD, Hampel, STL robust) đều gắn cờ 10/10 đỉnh Tết**. Đó là sự
-kiện thật, là thứ đáng dự báo nhất trong chuỗi.
-
-Việc cần làm: lập **nhật ký sự kiện** (10 mốc Tết), truyền vào `bo_qua_su_kien`, chỉ winsorize những gì còn lại, và **không xoá mốc nào**.
-Với mô hình, thêm biến giả Tết (buổi 13).
+**A** (mục 4.4). **B sai**: đó là xoá, làm thủng lưới thời gian. **C sai**: sự kiện thật thì **giữ nguyên**, không winsorize. **D sai**: xoá làm
+mất mốc (chuỗi Tết mất 54 mốc), winsorize thì không.
 
 </details>
 
----
+**Câu 4.** Tăng penalty của PELT thì số điểm gãy:
 
-**7 (vận dụng).** PELT trên chuỗi hành khách hàng không cho 43 điểm gãy. Sửa thế nào, và kiểm kết quả có đáng tin không bằng cách nào?
+- A. Tăng
+- B. Giảm hoặc giữ nguyên
+- C. Không liên quan
+- D. Luôn bằng 0
 
-<details><summary>Đáp án</summary>
+<details>
+<summary>Đáp án</summary>
 
-Nguyên nhân: chuỗi tăng trưởng **nhân tính** — biên độ dao động tỷ lệ với mức, nên `l2` đọc mọi lần biên độ đổi thành đổi mức. Sửa: lấy
-**log** (hoặc Box-Cox) trước → còn 2 điểm gãy.
-
-Kiểm độ tin cậy: (a) **quét penalty** và lấy các mốc xuất hiện ở mọi penalty trong một khoảng (ở đây 1–4·log n); (b) kiểm số điểm gãy
-**giảm đơn điệu** theo penalty; (c) tính **độ lớn** thật của từng điểm gãy (−78,7% và +238,2%) — nếu chênh lệch không đáng kể thì đó là
-điểm gãy thống kê chứ không phải điểm gãy nghiệp vụ.
-
-</details>
-
----
-
-**8 (vận dụng).** Bạn nghi ngờ biên độ dao động của chuỗi đổi từ giữa năm, nhưng đo σ hai bên thì gần bằng nhau (7,9 và 7,9). Có thể bạn
-đã bỏ sót gì?
-
-<details><summary>Đáp án</summary>
-
-σ thô bị **biên độ mùa vụ** chi phối, nên thay đổi của σ **nhiễu** bị át hoàn toàn. Phải đo trên **phần dư** sau STL. Ngoài ra dùng **MAD**
-thay `std`, vì một ngoại lai đơn lẻ có thể làm `std` phình gấp 4 lần và tạo cảnh báo giả. Và dùng `model="normal"` trong PELT — `l2` chỉ
-nhìn trung bình.
+**B** (mục 4.5): penalty là giá của mỗi điểm gãy; giá cao thì chỉ những điểm gãy giảm chi phí nhiều mới được giữ. Số điểm gãy tăng theo
+penalty là dấu hiệu gọi sai API. **A sai**: ngược chiều. **C sai**: penalty chính là núm chỉnh số điểm gãy. **D sai**: chỉ khi penalty lớn hơn
+mức giảm chi phí của mọi điểm gãy (hàng không EU: từ khoảng $5 \ln n$).
 
 </details>
 
----
+## Vận dụng
 
-**9 (đọc biểu đồ).** Hình `diem-gay-pelt.png`, ô phải: số điểm gãy theo penalty/log n là 3 (0,5), 2 (1 → 4), 0 (từ 5 trở lên). Bạn chọn
-penalty nào và vì sao? Nếu một đồng nghiệp chọn 8·log n rồi kết luận "chuỗi này không có điểm gãy" thì sai ở đâu?
+**Câu 5.** Sáu ngày lượt xem $(20, 21, 19, 20, 80, 20)$. Tính $z$ của 80 (độ lệch chuẩn chia $n - 1$) và điểm MAD của 80. Cách nào gắn cờ?
 
-<details><summary>Đáp án</summary>
+<details>
+<summary>Đáp án</summary>
 
-Chọn trong vùng **1–4·log n** (lấy giữa, ví dụ 3·log n ≈ MBIC): đó là "elbow" — kết quả không đổi trên một dải penalty rộng, dấu hiệu hai
-điểm gãy này là cấu trúc thật chứ không phải lựa chọn tham số.
-
-Sai của đồng nghiệp: penalty 8·log n phạt nặng tới mức **mọi** phân đoạn đều bị loại; "0 điểm gãy" là kết luận về tham số, không phải về
-dữ liệu. Bằng chứng ngược lại rất rõ: tháng 2020-04 chỉ còn 890.607 khách so với 66,0 triệu của 2020-01 (−98,65%). Luôn quét, đừng tin một
-giá trị penalty.
+Trung bình 30, độ lệch chuẩn ≈ 24,5, $z$ = 50 / 24,5 ≈ **2,04**: không vượt 3 (với 6 số, $|z|$ tối đa là $5/\sqrt 6 \approx 2{,}04$). Trung vị
+20; khoảng cách $(0, 1, 1, 0, 60, 0)$, trung vị 0,5; MAD = 1,4826 × 0,5 ≈ 0,74; điểm của 80 = 60 / 0,74 ≈ **81**: bị gắn cờ (mục 4.2, 4.3).
+Nhầm hay gặp: tính MAD bằng trung bình các khoảng cách (10,3), bị chính số 80 kéo lên.
 
 </details>
 
----
+**Câu 6.** Một chuỗi có chi phí: không cắt 400; một điểm gãy 40; hai điểm gãy 34. PELT chọn mấy điểm gãy với penalty 10? Với penalty 3?
 
-**10 (đọc bảng — tìm chỗ sai).** Báo cáo về chuỗi hành khách hàng không:
+<details>
+<summary>Đáp án</summary>
 
-| Kết luận | Bằng chứng |
-|---|---|
-| (a) "Chúng tôi xoá toàn bộ 15 tháng COVID khỏi dữ liệu để chuỗi sạch." | pipeline |
-| (b) "Cắt bỏ dữ liệu trước 2021-07 là cách tốt nhất vì dữ liệu cũ đã lỗi thời." | trực giác |
-| (c) "MAPE của cách tốt nhất là 8,71%, nên mô hình đã sẵn sàng chạy thật." | bảng so sánh |
-| (d) "Hampel không gắn cờ tháng 2020-04 nên tháng đó không bất thường." | kết quả chạy |
+Penalty 10: tổng là 400, 40 + 10 = 50, 34 + 20 = 54 → **một** điểm gãy. Penalty 3: 400, 43, 34 + 6 = 40 → **hai** điểm gãy (mục 4.5). Điểm gãy
+thứ hai chỉ giảm chi phí 6; nó được giữ khi penalty nhỏ hơn 6. Nhầm hay gặp: so chi phí mà quên cộng penalty cho **mỗi** điểm gãy.
 
-Chỉ ra chỗ sai của từng dòng.
+</details>
 
-<details><summary>Đáp án</summary>
+**Câu 7.** Điện tiêu thụ của một toà nhà văn phòng giảm hẳn vào ngày Quốc khánh mỗi năm. Hampel gắn cờ những ngày đó. Làm gì với chúng khi
+chuẩn bị dữ liệu dự báo?
 
-- **(a)** "Xoá" mơ hồ và nguy hiểm. Nếu xoá **dòng** thì chuỗi thủng 15 mốc, `resample` và lag hỏng hết. Đúng là **đặt NaN** (coi là thiếu)
-  rồi xử lý như buổi 10, hoặc giữ nguyên + biến giả. Và phải ghi lại bằng cờ.
-- **(b)** Đo ngược lại: cắt cho MAPE **18,11%**, tệ hơn hẳn cách coi COVID là thiếu (**8,71%**), vì chỉ còn 18 tháng — không đủ để ước
-  lượng 12 hệ số mùa vụ. "Dữ liệu cũ lỗi thời" là giả định, phải kiểm bằng backtest.
-- **(c)** MAPE 8,71% là của **một** baseline thô trên **một** cửa sổ 12 tháng. Chưa có backtest rolling origin (buổi 15), chưa so với
-  seasonal naive, chưa có khoảng dự báo. Chưa sẵn sàng.
-- **(d)** Hampel dùng **mức địa phương**: quanh tháng 2020-04 thì mọi tháng lân cận đều thấp, nên điểm đó "bình thường" so với hàng xóm.
-  Đó chính là lý do phải ghép Hampel (bắt AO) với phát hiện điểm gãy (bắt LS) — 2020-04 là một phần của **level shift**, không phải outlier
-  điểm.
+<details>
+<summary>Đáp án</summary>
+
+Đưa các ngày Quốc khánh vào **nhật ký sự kiện** và giữ nguyên; khi dự báo thì thêm biến giả cho ngày lễ (mục 4.4). Đó là sự kiện thật, lặp lại,
+biết trước; winsorize sẽ xoá đúng chỗ toà nhà cần dự báo thấp. Nhầm hay gặp: tin nhãn "ngoại lai" của thuật toán vì con số lệch lớn.
+
+</details>
+
+**Câu 8.** Một cửa hàng đóng cửa sửa chữa hai tháng, doanh số gần 0; mở lại thì bán như trước. Bạn cần dự báo năm sau. Chọn cách xử lý hai
+tháng đó và nói vì sao.
+
+<details>
+<summary>Đáp án</summary>
+
+**Coi là thiếu** (NaN, có cột cờ) rồi điền như buổi 10, hoặc thêm biến giả (mục 4.6). Hành vi sau đó quay về như cũ, và chỉ cần dự báo sau
+gián đoạn, giống COVID với hàng không EU (8,71% so với 24,01% khi giữ nguyên). Giữ nguyên thì hai tháng gần 0 kéo mức và mùa vụ xuống. Nhầm
+hay gặp: cắt bỏ mọi dữ liệu trước khi đóng cửa, mất gần hết mẫu.
+
+</details>
+
+## Đọc biểu đồ / bảng kết quả — tìm chỗ sai
+
+**Câu 9.** Bảng quét penalty trên log hành khách hàng không EU:
+
+| penalty / $\ln n$ | 0,5 | 1 | 2 | 3 | 4 | 5 | 10 |
+|---|---|---|---|---|---|---|---|
+| Số điểm gãy | 3 | 2 | 2 | 2 | 2 | 0 | 0 |
+
+Một bạn chọn penalty $0{,}5 \ln n$ "để không bỏ sót" và báo 3 điểm gãy. Một bạn khác chọn $10 \ln n$ và báo "không có điểm gãy". Nhận xét.
+
+<details>
+<summary>Đáp án</summary>
+
+Cả hai đều chọn ở mép. Kết quả **ổn định** là 2 điểm gãy, giữ nguyên trong cả khoảng 1–4 lần $\ln n$: đó là khoảng đáng tin (mục 4.5). Ở $0{,}5
+\ln n$ phạt quá nhẹ nên thêm một điểm gãy chỉ đi theo dao động; ở $10 \ln n$ phạt quá nặng nên bỏ luôn sụt giảm −78,7% của COVID. Báo 2 điểm
+gãy kèm khoảng penalty ổn định.
+
+</details>
+
+**Câu 10.** Báo cáo làm sạch lượt xem Wikipedia:
+
+| Cách | Số ngày gắn cờ | Quyết định của nhóm |
+|---|---|---|
+| 3σ toàn chuỗi | 16 (0,44%) | "Dữ liệu rất sạch, chỉ cần xoá 16 ngày" |
+| STL robust (mùa vụ tuần) | 616 (16,86%) | "Loại 17% dữ liệu bẩn" |
+
+Chỉ ra lỗi của từng quyết định.
+
+<details>
+<summary>Đáp án</summary>
+
+(1) 3σ toàn chuỗi mù trước xu hướng và masking: 16 ngày đó dồn vào vùng mức cao, nói "những ngày này đông" chứ không phải "bất thường"; và
+**xoá** thì thủng mốc, phải winsorize (mục 4.2–4.4). (2) STL robust gắn cờ một phần sáu số ngày vì phần dư còn mùa vụ năm mà mùa vụ tuần không
+giải thích được; một ngưỡng gắn cờ 17% dữ liệu là ngưỡng sai, không phải dữ liệu bẩn (mục 4.3). Nên dùng Hampel (121 ngày, 3,3%) và nhật ký sự
+kiện.
 
 </details>

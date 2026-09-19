@@ -112,3 +112,103 @@ research purpose." — hẹp hơn CC BY trên Zenodo; khoá dùng cho mục đí
 | `tslearn`/`pycatch22`/`tsfeatures` | nhỏ | Không đưa vào nền (numba/trình biên dịch/đóng băng); dùng `dtaidistance` |
 | Ngưỡng XYZ 0,5 / 1,0 không có chuẩn học thuật | nhỏ | Nói rõ là **quy ước**, kèm phê bình của Kourentzes và số đo CV ↔ MASE (−0,11) |
 | `kpss` vỡ trên chuỗi hằng | nhỏ | Bọc try/except → NaN, và dùng chính NaN đó để phát hiện chuỗi lạ |
+
+## Research viết lại (Phase 12, 2026-09-18)
+
+Research sư phạm (cách giải thích + hiểu lầm phổ biến), phiên bản chỉ rà lại vì có sửa code:
+
+| Khái niệm | Cách giải thích chọn | Hiểu lầm phổ biến | Nguồn (truy cập 2026-09-18) |
+|---|---|---|---|
+| spectral entropy | phổ là "chia năng lượng thành phần"; entropy đo chia đều tới đâu (ẩn dụ chia bánh); tính tay trên 4 tần số | entropy thấp = chắc chắn dễ (sai với chuỗi xu hướng mạnh); so số giữa thư viện khác cách tính phổ | FPP ch. 4 (otexts.com/fpppy/nbs/04-features.html): "strong trend and seasonality … entropy close to 0"; arXiv:2507.13556; arXiv:2511.08884 |
+| MASE / sMAPE | hai chuỗi 10 điểm tính tay: MASE nói chuỗi thất thường **dễ hơn**, sMAPE nói khó hơn 10 lần | MASE = 1 là "khó trung bình"; một thước đo cho mọi câu hỏi | số đo của buổi; Phụ lục D |
+| PCA | ví dụ 3 chuỗi × 2 đặc trưng ngược dấu ($r_1$, số lần cắt trung bình) → một trục chung giữ 100% | PCA tự biết cột nào quan trọng; quên chuẩn hoá cột | FPP ch. 4: "PC1 is the linear combination of the features which explains the most variation" |
+| DTW | bảng $D(i,j)$ 4 × 4 tính tay; ẩn dụ dây cao su; phải z-score | DTW khớp được mọi độ lệch (điểm đầu/cuối bắt buộc khớp); bỏ chuẩn hoá | Keogh, *Everything you know about DTW is Wrong* (cs.ucr.edu/~eamonn/DTW_myths.pdf); tài liệu dtaidistance |
+| ABC–XYZ | hai mã $P$ (mùa vụ đều, CV 0,58) và $Q$ (quanh mức, CV 0,09): XYZ xếp ngược độ khó | CV cao = khó dự báo | Kourentzes 2016 (kourentzes.com …/abc-xyz-analysis-for-forecasting/): "seasonal sales with no randomness … as easy as it gets"; đề xuất dùng sai số dự báo ngoài mẫu |
+| catch22 | một đặc trưng trên hai chuỗi 8 điểm: đoạn dài nhất trên trung bình (4 và 1) | nhiều đặc trưng = nhiều thông tin | Lubba 2019; danh sách đặc trưng catch22 (github DynamicsAndNeuralSystems/catch22, featureList.txt) |
+
+Phiên bản PyPI (2026-09-18): `pycatch22` 0.5.0 (chỉ sdist, 2026-08-06), `tsfeatures` 0.4.5 (2023-06-20), `tsfresh` 0.21.2, `dtaidistance`
+2.5.1 — không đổi so với research gốc.
+
+**Sửa code (không phải chỗ hở cố ý), phát hiện khi viết lại:**
+
+1. Docstring nói "chỉ 2 đặc trưng phụ thuộc đơn vị", nhưng nhân chuỗi với 1.000 thì spike (×10¹²), độ dốc, độ cong (×1.000) cũng đổi. Sửa:
+   STL chạy trên chuỗi đã z-score (như FPP/tsfeatures) ở cả `code/` và `dap-an/`; kiểm lại: 18/20 đặc trưng giữ nguyên khi nhân 1.000.
+2. `khong_gian_dac_trung` đưa **cả cột sai số** (`smape_snaive`, `mase_*`) và hai đặc trưng quy mô vào PCA, vì `bang` = đặc trưng join
+   sai số. Bản đồ tô màu theo sMAPE mà sMAPE lại là đầu vào. Sửa: hàm `cot_ban_do` chỉ lấy 18 đặc trưng không đơn vị.
+   PC1 + PC2: ~45% (bản cũ) → **56%** (41% + 15%). PC1 nặng ở số lần cắt trung bình (+0,39), $r_1$, tổng $r_k^2$, bất ổn định (−0,38…−0,39);
+   PC2 ở độ dốc (+0,52), độ cong (−0,52), $F_S$ (−0,45).
+3. `ve_hinh.py` in "đặc trưng mạnh nhất PC1" lệch chỉ số cột → sửa; thêm hình `entropy-hai-chuoi.png` (seed 0: entropy 0,33 và 0,94).
+4. Đổi khoá `do_lech` → `he_so_lech` (Phụ lục E: hệ số lệch).
+
+Các số khác tái lập đúng (seed 42): bảng tương quan entropy × sMAPE/MASE, 137/3.863 chuỗi, 18,11%/6,05%, cụm DTW, ABC–XYZ. $F_S$ × sMAPE
+Pearson −0,246 → −0,245 (STL trên chuỗi z-score, sai khác làm tròn).
+
+## Đọc thử (Phase 12, 2026-09-18)
+
+Tự đọc (không subagent), theo checklist `tools/CHUAN-DE-HIEU.md`; mọi ví dụ tay và đáp án quiz tính lại bằng Python (entropy 0 / 0,5 / 1 và
+0,47 / 0,95; MASE 1,00 / 0,92 và sMAPE 6,7% / 76,2%; PCA 1,73; DTW 0 / 2 / 44,1; CV 0,58 / 0,09 / 1,1; $r_1$ = 0 của chuỗi $a$).
+
+| Vòng | Bản | Chặn | Khó | Nhỏ | Quiz | Ghi chú |
+|---|---|---|---|---|---|---|
+| 0 | bản cũ (2.306 chữ, 10 trang, 52 cờ) | 10 | — | — | — | chặn: "phổ Welch" nhắc như đã học; PCA, DTW (công thức trần), hệ số lệch/độ nhọn, entropy (công thức không lời), MASE/sMAPE chưa định nghĩa, z-score, Ward/`fcluster`, nhiều trích tiếng Anh (FPP, Kourentzes, FFORMA, arXiv) mang ý chính; không hình nào có "Cách đọc hình"; quiz câu 9 cần số không có trong tài liệu |
+| 1 | viết lại (5.575 chữ) | 0 | 2 | 4 | 10/10 có căn cứ | khó: mục 4.6 dùng "CV × MASE = −0,11" làm bằng chứng, trái với chính mục 4.3 (MASE của seasonal naive luôn quanh 1); "tune" chưa định nghĩa. Nhỏ: "sóng tần số 1/2 lên xuống mỗi tháng"; "khoảng cách thường" ở bảng Từ mới trước khi giải thích; câu "entropy cao thì ngược lại" nói lửng; bảng DTW vỡ công thức trong PDF |
+| 2 | sau sửa (5.567 chữ, 17 trang) | **0** | **0** | 2 | 10/10 | **đạt**. Mục 4.6 viết lại trung thực: trên M4, CV × sMAPE Spearman 0,77 (CV có liên quan tới độ khó ở dữ liệu này), nhưng CV xếp sai chuỗi mùa vụ đều; −0,11 với MASE "không nói gì". Thêm "tune" vào Từ mới |
+| rà gọn | biên tập viên | — | — | — | — | 1 chỗ: câu "Ngưỡng 0,5 và 1,0 chỉ là quy ước" lặp ví dụ mục 4.6 → xoá. Còn lại không đoạn nào ≥ 30 chữ lặp ý |
+
+`kiem_de_hieu.py 9`: 52 → **0**. Quiz viết lại 10 câu (4 nhắc lại, 4 vận dụng, 2 tìm chỗ sai), căn cứ: 1 → 4.2, 2 → 4.1, 3 → 4.3, 4 → 4.6,
+5 → 4.2, 6 → 4.3, 7 → 4.5, 8 → 4.4, 9 → 4.3, 10 → 4.5. Notebook `code/lab.ipynb` soạn bằng `tools/nb.py`, chạy hết trên `code/` (~20 s).
+
+## Đọc thử độc lập (Phase 15, 2026-09-19)
+
+Phiên mới; chỉ mở `tai-lieu.md` + quiz bỏ `<details>` cho tới khi viết xong A–E. Tính lại bằng Python: hệ số lệch 1,749; độ lệch chuẩn
+$A$/$B$ 2,51/2,67; bảng DTW + DTW$(x, z)$ = 2 + z-score $(−0,58; 1,73)$; PCA 1,22/1,73; MASE 1,00/0,92, sMAPE 6,7%/76,2%; quiz 5 (0,946),
+7 (44,09; z −0,71/1,41). Khớp hết, trừ một ô ở câu "Nói bằng lời" của DTW.
+
+### A. Chỗ vướng (đọc mù)
+
+| # | Mục | Trích | Loại | Vì sao | Mức |
+|---|---|---|---|---|---|
+| 1 | 4.1 bảng | "số lần cắt trung bình" | 1 | đọc được thành "trung bình số lần cắt"; không nói cắt cái gì | khó |
+| 2 | 4.1 bảng | "bất ổn định" | 1 | không định nghĩa | nhỏ |
+| 3 | 4.1 Đọc bảng | "như FPP làm" | 7 | viết tắt, chỉ mở ở Đọc thêm | nhỏ |
+| 4 | Từ mới | "so với phân phối chuẩn" | 8 | "phân phối chuẩn" không nhắc lại | nhỏ |
+| 5 | 4.5 Nói bằng lời | "$\min(1, 0, 0) = 0$" | 5 | ba ô trên/trái/chéo là 1, 1, 0: số sai, kết quả đúng | nhỏ |
+| 6 | 4.4 Chiến lược | "Ghép hai đặc trưng" | 4 | không nói vì sao không dùng một đặc trưng (quiz 8 căn cứ yếu) | nhỏ |
+
+### B. Giải thích lại (ví dụ số mới)
+
+- **Đặc trưng**: 3, 0, 3, 0 → tỷ lệ số 0 là 0,5; nhân 10 vẫn 0,5.
+- **Entropy**: phần năng lượng 0,7 / 0,3 → (0,250 + 0,361)/0,693 ≈ 0,88.
+- **MASE vs sMAPE**: mức 500, seasonal naive sai 10 cả khi học lẫn khi chấm → MASE 1, sMAPE ≈ 2%.
+- **PCA**: hai cột luôn ngược dấu → một trục giữ hết khác biệt.
+- **DTW**: (0, 2, 0) với (2, 0, 0) → 0; với (0, 6, 0) → 4 nếu chưa chuẩn hoá.
+- **ABC–XYZ**: 5, 15, 5, 15 có CV 0,58 (Y) mà seasonal naive chu kỳ 2 sai 0.
+
+### C. Quiz mù
+
+1 A · 2 C · 3 B · 4 A · 5 0,95, gần nhiễu · 6 MASE 1, sMAPE ≈ 3,5%, MASE = 1 không nói khó hay dễ · 7 chưa chuẩn hoá, sau z-score DTW 0 ·
+8 chỉ $U$ (vế "vì sao không một đặc trưng": đoán) · 9 mẫu số MASE chứa độ khó, báo thêm sMAPE + Spearman · 10 phân cụm theo độ lớn; kiểm bằng
+z-score và phép nhân 100. Căn cứ: 1, 5 → 4.2; 2 → 4.1; 3, 6, 9 → 4.3; 4 → 4.6; 7, 10 → 4.5; 8 → 4.4.
+
+### D. Tổng kết
+
+Chặn 0 / khó 1 / nhỏ 5. Sửa một điều: định nghĩa "số lần cắt trung bình".
+
+### E. Dài/lặp
+
+| # | Mục | Trích | Vì sao |
+|---|---|---|---|
+| 1 | 4.3 Khi nào dùng | "Dùng nó để so độ khó giữa các chuỗi…" | lần thứ ba nói "MASE của seasonal naive luôn quanh 1" (Trực giác, Tóm lại) |
+
+### Chấm, sửa, đọc lại
+
+**Quiz mù 10/10** khớp `kiem-tra.md`. Sửa bằng viết lại câu: định nghĩa trong ô bảng cho "số lần cắt trung bình" (cắt ngang đường trung
+bình) và "bất ổn định"; "sách FPP của Hyndman (Đọc thêm)"; "(hình chuông)"; $\min(1, 1, 0)$; Chiến lược 4.4 thêm một câu "chỉ dùng entropy
+thì gạt nhầm chuỗi entropy cao mà mùa vụ vẫn mạnh". Rà gọn: rút câu lặp ở 4.3.
+
+| Vòng | Chữ | Trang | Chặn | Khó | Nhỏ | Quiz | Chỗ thừa |
+|---|---|---|---|---|---|---|---|
+| Phase 15 đọc mù | 5.567 | 17 | 0 | 1 | 5 | 10/10 (1 vế căn cứ yếu) | 1 |
+| sau sửa, đọc lại | 5.586 | 17 | **0** | **0** | 1 ("sai phân" không nhắc lại) | 10/10, mọi câu có căn cứ | 0 |
+
+**Đạt.** `kiem_de_hieu.py 9` 0; `kiem_tra_lab.py 9` đạt; tự chứa đạt.

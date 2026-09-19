@@ -120,3 +120,88 @@ kiện / biến giả lịch âm** (nối sang buổi 13).
 | Lộ trình ghi Hampel gắn 121 ngày (đúng) nhưng ngụ ý Hampel cứu được đỉnh Tết | **lớn** | Đo ra 10/10 đỉnh Tết vẫn bị gắn cờ → đổi thông điệp của lab 3 sang "chỉ nhật ký sự kiện mới cứu được"; đã cập nhật lộ trình |
 | Thêm `doi_phuong_sai` + `danh_gia_nhan` (lộ trình chỉ nêu 5 loại, không nêu cách chấm) | nhỏ | Đưa vào để đo được tiêu chí "Xong khi" (≥4/5 nhãn đúng) |
 | Isolation Forest | nhỏ | Chỉ nhắc trong lý thuyết: cần sklearn + không dùng cấu trúc thời gian, kém Hampel trên chuỗi có xu hướng |
+
+## Research viết lại (Phase 13, 2026-09-18)
+
+Research sư phạm; phiên bản không đổi (ruptures 1.1.10).
+
+| Khái niệm | Cách giải thích chọn | Hiểu lầm phổ biến | Nguồn (truy cập 2026-09-18) |
+|---|---|---|---|
+| z-score, masking | 10 số tính tay: $z$ của 50 chỉ 2,84; thêm 60 thì 1,61; với $n$ số $\lvert z \rvert \le (n-1)/\sqrt n$ nên ngưỡng 3 không bao giờ vượt ở mẫu nhỏ; hình mới `masking-10-so.png` | "không vượt 3σ = không có ngoại lai"; swamping bị quên | Rousseeuw & Hubert 2018 (WIREs); Wikipedia *Median absolute deviation* |
+| MAD, Hampel | cùng 10 số: trung vị 12, MAD 1,48, điểm của 50 là 25,6 | MAD = 0 khi hơn nửa số bằng nhau; Hampel `center=True` là không nhân quả | như trên |
+| PELT, penalty | 10 số có dịch mức: chi phí 254 / 4 / 3,17; cắt khi giảm chi phí > penalty 6,9 (kiểm bằng `ruptures`: `[5, 10]`) | penalty là "số điểm gãy tối đa"; không lấy log với chuỗi tăng trưởng | Lancaster MATH337 (Romano) *PELT, WBS and penalty choices*; tài liệu ruptures; ArcGIS *How change point detection works* ("phải giảm chi phí nhiều hơn penalty") |
+| bốn loại bất thường | bảng 4 chuỗi 8 điểm, chỉ điểm sau mới cho biết loại | gọi mọi thứ là "ngoại lai" | Chen & Liu 1993 |
+
+**Sửa code (không phải chỗ hở):** nhãn "LS (đổi mức)" → "LS (dịch mức)" theo Phụ lục E; cột "sai số trung bình" của `ba_cach_xu_ly_covid` đổi
+dấu theo quy ước khoá (thực tế − dự báo: giữ nguyên +19.710, nội suy +7.560, cắt −12.942 nghìn khách); nhãn "coi COVID là ngoại lai (nội suy)"
+→ "coi COVID là thiếu (nội suy)" cho khớp cách làm; `ve_hinh.py` thêm hình `masking-10-so.png`. Mọi số khác tái lập đúng.
+
+**Phát hiện khi viết Lab:** bản `code/` của `doi_phuong_sai` không "báo khắp nơi" như tài liệu cũ ghi, mà **bắt hụt** (trả danh sách rỗng trên
+chuỗi mô phỏng) — sửa Trạng thái đầu buổi, Lab bước 4, Lỗi thường gặp, README theo đúng số chạy.
+
+## Đọc thử (Phase 13, 2026-09-18)
+
+Tự đọc (không subagent), theo checklist `tools/CHUAN-DE-HIEU.md`; mọi ví dụ tay và đáp án quiz tính lại bằng Python/`ruptures`.
+
+| Vòng | Bản | Chặn | Khó | Nhỏ | Quiz | Ghi chú |
+|---|---|---|---|---|---|---|
+| 0 | bản cũ (2.343 chữ, 9 trang, 56 cờ) | 10 | — | — | — | chặn: không bảng Từ mới; AO/LS/TC chỉ tên tiếng Anh; winsorize, biến giả, MAPE, BIC/MBIC không định nghĩa; MAD "nhắc lại từ buổi 10" nhưng buổi 10 không dạy; công thức PELT không lời, không ví dụ; CUSUM công thức trần; nhiều trích tiếng Anh (ruptures, Hyndman & Rostami-Tabar) mang ý chính; không hình nào có "Cách đọc hình" |
+| 1 | viết lại (4.196 chữ) | 0 | 1 | 3 | 10/10 có căn cứ | khó: Lab bước 4 và Trạng thái mô tả sai triệu chứng của `doi_phuong_sai` (xem trên). Nhỏ: vì sao $\lvert z\rvert \le (n-1)/\sqrt n$ chỉ nêu, không chứng minh; "chạy gần tuyến tính theo độ dài"; đáp án Tự kiểm tra 4.3 nói sai cách code xử lý MAD = 0 |
+| 2 | sau sửa (4.204 chữ, 13 trang) | **0** | **0** | 2 | 10/10 | **đạt**. Rà gọn: không đoạn nào ≥ 30 chữ lặp ý |
+
+`kiem_de_hieu.py 11`: 56 → **0**. PDF 9 → 13 trang (thêm nội dung: ví dụ 10 số cho z-score, MAD, PELT; bảng khi nào dùng/không; không độn).
+Quiz viết lại, căn cứ: 1 → 4.1, 2 → 4.2, 3 → 4.4, 4 → 4.5, 5 → 4.2–4.3, 6 → 4.5, 7 → 4.4, 8 → 4.6, 9 → 4.5, 10 → 4.2–4.4.
+
+## Đọc thử độc lập (Phase 15, 2026-09-19)
+
+Phiên mới; chỉ mở `tai-lieu.md` + quiz bỏ `<details>` cho tới khi viết xong A–E. Tính lại bằng Python: 15,6 / 12,1 / $z$ 2,84; thêm 60 →
+$s$ 18,4, $z$ 1,61/2,15, ngưỡng 3σ 52 → 75,6; $(5, 5, 5, 5, 100)$ $z$ 1,79; MAD 25,6; PELT 254 / 4 / 3,17, $3 \ln 10$ = 6,9; −78,7%; quiz 5
+($z$ 2,04, MAD 81), 6 (1 / 2 điểm gãy). Lệch: "bỏ số 50 thì độ lệch chuẩn khoảng 0,9" (thật 0,97); +238,2% so với 237,5% tính từ số đã làm
+tròn (giữ, tài liệu tính từ số chưa làm tròn).
+
+### A. Chỗ vướng (đọc mù)
+
+| # | Mục | Trích | Loại | Vì sao | Mức |
+|---|---|---|---|---|---|
+| 1 | 4.2 | "bỏ số 50 thì chỉ khoảng 0,9" | 5 | tính lại ra 0,97 | nhỏ |
+| 2 | 4.3 bảng | "IQR 1,5 (ngưỡng theo quantile 0,25 và 0,75)" | 1 | không nói quy tắc 1,5 là gì | nhỏ |
+| 3 | 4.2 hình | "vị trí vạch cam so với các chấm lẻ ở hai ô" | 5 | Ký hiệu không nói hai ô khác nhau thế nào | nhỏ |
+| 4 | 4.4 hình | "độ cao các chấm xanh ở ô phải" | 5 | chấm xanh không có trong Ký hiệu | nhỏ |
+| 5 | 4.3 | "làm feature dự báo" | 6 | chen tiếng Anh, buổi 9 gọi là "đặc trưng" | nhỏ |
+| 6 | 4.5 công thức | "$y_{\tau_k : \tau_{k+1}}$" | 2 | $\tau_0$, $\tau_{K+1}$ không nói (câu Nói bằng lời đủ) | nhỏ |
+
+### B. Giải thích lại (ví dụ số mới)
+
+- **Bốn loại**: 5, 5, 9, 5, 5 là AO; 5, 5, 9, 9, 9 là dịch mức.
+- **Masking**: $(1, 1, 1, 1, 1, 1, 1, 1, 1, 30)$: $|z|$ tối đa $9/\sqrt{10}$ ≈ 2,85 nên 30 không bị gắn cờ.
+- **MAD**: 4, 5, 5, 6, 40 → trung vị 5, khoảng cách 1, 0, 0, 1, 35 → MAD 1,48, điểm của 40 ≈ 23,6.
+- **Nhật ký sự kiện**: ngày khai trương mỗi năm → giữ + biến giả.
+- **PELT**: chi phí 100 → 10 khi cắt một lần; penalty 50 thì cắt, 95 thì không.
+- **COVID**: sự kiện đã qua, hành vi quay về → coi là thiếu.
+
+### C. Quiz mù
+
+1 C · 2 B · 3 A · 4 B · 5 $z$ 2,04 không gắn cờ; điểm MAD ≈ 81 gắn cờ · 6 penalty 10 → 1, penalty 3 → 2 · 7 nhật ký sự kiện + biến giả · 8 coi là
+thiếu (hoặc biến giả) · 9 chọn trong khoảng ổn định 1–4 ln n: 2 điểm gãy · 10 3σ: masking + dồn vào mức cao, xoá thủng mốc; STL robust: phần dư
+còn mùa vụ năm. Căn cứ: 1 → 4.1; 2, 5 → 4.2–4.3; 3, 7 → 4.4; 4, 6, 9 → 4.5; 8 → 4.6; 10 → 4.2–4.4. Tất cả "chắc".
+
+### D. Tổng kết
+
+Chặn 0 / khó 0 / nhỏ 6.
+
+### E. Dài/lặp
+
+Không đoạn nào ≥ 30 chữ lặp ý.
+
+### Chấm, sửa, đọc lại
+
+**Quiz mù 10/10.** Sửa: "khoảng 1"; ô IQR ghi rõ "ngoài khoảng quantile 0,25 → 0,75, nới mỗi phía 1,5 lần độ rộng"; Ký hiệu hình masking
+(ô trái dãy ví dụ, ô phải thêm ngoại lai thứ hai — kiểm với `ve_hinh.py`) và hình Tết (chấm xanh ô phải); "feature dự báo" → "đặc trưng
+đầu vào cho dự báo" (2 chỗ). Giữ #6.
+
+| Vòng | Chữ | Trang | Chặn | Khó | Nhỏ | Quiz | Chỗ thừa |
+|---|---|---|---|---|---|---|---|
+| Phase 15 đọc mù | 4.204 | 13 | 0 | 0 | 6 | 10/10 | 0 |
+| sau sửa, đọc lại | 4.261 | 13 | **0** | **0** | 1 | 10/10 | 0 |
+
+**Đạt.** `kiem_de_hieu.py 11` 0; `kiem_tra_lab.py 11` đạt; tự chứa đạt.

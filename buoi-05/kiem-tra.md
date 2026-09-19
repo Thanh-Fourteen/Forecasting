@@ -2,138 +2,147 @@
 
 ## Nhắc lại khái niệm
 
-**Câu 1.** Mục đích chính của việc điều chỉnh (lịch, dân số, lạm phát) trước khi mô hình hoá là:
+**Câu 1.** Mục đích chính của việc điều chỉnh lịch, lạm phát, dân số trước khi làm mô hình là:
 
-- A. Làm dữ liệu đẹp hơn khi vẽ
-- B. Bỏ những biến động đã biết nguyên nhân để mẫu hình còn lại đơn giản hơn
-- C. Làm chuỗi dừng
-- D. Giảm số quan sát cần có
+- A. Làm hình vẽ đẹp hơn
+- B. Bỏ những dao động đã biết nguyên nhân, để phần còn lại đơn giản hơn cho mô hình
+- C. Làm dự báo luôn cao hơn thực tế
+- D. Giảm số tháng dữ liệu cần có
 
 <details>
 <summary>Đáp án</summary>
 
-**B.** FPP: "removing known sources of variation… Simpler patterns are usually easier to model and lead to more accurate forecasts". C là việc của
-sai phân (buổi 7). Điều chỉnh không đổi số quan sát (D).
+**B** (mục 1, 4.1, 4.2). Ba ngày thêm của tháng 3 hay giá cả tăng là nguyên nhân đã biết; bỏ chúng đi thì mô hình không phải tự
+học lại. **A sai**: hình đẹp hơn chỉ là phụ; mục đích là so đúng (tháng 2/2023 đổi từ "giảm 3,4%" thành "tăng 7,0%"). **C sai**:
+điều chỉnh không đẩy dự báo theo một chiều nào. **D sai**: số tháng giữ nguyên, chỉ giá trị mỗi tháng được chia lại.
 
 </details>
 
-**Câu 2.** Box-Cox với λ = 0 tương đương:
+**Câu 2.** Box-Cox với λ = 0 là:
 
-- A. Không biến đổi
+- A. Không biến đổi gì
 - B. Lấy log
 - C. Lấy căn bậc hai
-- D. Chuẩn hoá z-score
+- D. Trừ trung bình rồi chia độ lệch chuẩn
 
 <details>
 <summary>Đáp án</summary>
 
-**B.** λ = 1 là "không làm gì" (chỉ trừ 1), λ = 0,5 gần căn bậc hai, λ = 0 là log (giới hạn của $(y^\lambda-1)/\lambda$ khi λ → 0).
+**B** (công thức mục 4.4: nhánh $\lambda = 0$ là $\log y$). **A sai**: đó là $\lambda = 1$, cho $y - 1$, chỉ dời xuống 1 đơn vị.
+**C sai**: $\lambda = 0{,}5$ mới gần căn bậc hai (100 thành 18 = (10 − 1)/0,5). **D sai**: đó là chuẩn hoá, không thuộc họ Box-Cox.
 
 </details>
 
-**Câu 3.** Dự báo trên thang log rồi `exp` đổi ngược, không hiệu chỉnh. Con số nhận được là:
+**Câu 3.** Dự báo trên thang log rồi đổi ngược bằng `exp`, không hiệu chỉnh. Con số nhận được là:
 
-- A. Trung bình của phân phối dự báo
-- B. Trung vị của phân phối dự báo
-- C. Mode
+- A. Trung bình của các giá trị có thể xảy ra
+- B. Trung vị của các giá trị có thể xảy ra
+- C. Giá trị lớn nhất có thể xảy ra
 - D. Quantile 0,9
 
 <details>
 <summary>Đáp án</summary>
 
-**B.** Hàm mũ đơn điệu nên giữ nguyên trung vị; trung bình lớn hơn: $E[e^w] = e^{\mu+\sigma^2/2}$. FPP: "it will usually be the median… medians do
-not add up, whereas means do."
+**B** (mục 4.5). `exp` giữ nguyên thứ tự: số đứng giữa trên thang log vẫn đứng giữa sau khi đổi ngược, nên trung vị đi qua nguyên
+vẹn. Ví dụ log 0, 1, 2 → 1; 2,72; 7,39: trung vị là 2,72 = exp(1). **A sai**: `exp` kéo giãn phía trên nên trung bình thật (3,70)
+lớn hơn. **C sai**: không có gì chọn giá trị lớn nhất. **D sai**: quantile 0,9 cũng đi qua nguyên vẹn, nhưng tâm của dự báo trên thang
+log là số đứng giữa (quantile 0,5), không phải 0,9.
 
 </details>
 
-**Câu 4.** `scipy.stats.boxcox(y)` báo `ValueError: Data must be positive.` Cách xử lý **không** phù hợp là:
+**Câu 4.** Chuỗi phần trăm tăng trưởng của bán lẻ có 25 tháng âm, và bạn muốn biến đổi kiểu Box-Cox. Cách đúng là:
 
-- A. Dùng `scipy.stats.yeojohnson`
-- B. Cộng một hằng số vào chuỗi rồi ghi rõ trong báo cáo
-- C. Thay mọi giá trị ≤ 0 bằng 1 rồi lấy log
-- D. Xem lại vì sao có giá trị âm (có phải chuỗi này là phần trăm thay đổi?)
+- A. Dùng Yeo-Johnson
+- B. Lấy log của giá trị tuyệt đối
+- C. Thay các số âm bằng 0,01 rồi lấy log
+- D. Bỏ các tháng âm rồi dùng Box-Cox
 
 <details>
 <summary>Đáp án</summary>
 
-**C.** Thay số liệu thật bằng hằng số là sửa dữ liệu và làm méo phân phối mà không ai biết. A và B đều được (B phải ghi lại hằng số để đổi ngược),
-D là việc nên làm đầu tiên.
+**A** (mục 4.4): Yeo-Johnson là biến thể nhận cả số 0 và số âm. **B sai**: −5% và +5% thành cùng một số, mất hẳn chiều tăng giảm.
+**C sai**: bịa số liệu, và mọi tháng suy giảm thành cùng một giá trị. **D sai**: bỏ đúng những tháng suy thoái mà dự báo cần biết
+nhất.
 
 </details>
 
 ## Vận dụng
 
-**Câu 5.** Doanh số tháng 2/2023 là 595.432 và tháng 3/2023 là 679.701 triệu USD. Tính tăng trưởng thô và tăng trưởng theo ngày.
+**Câu 5.** Doanh số tháng 4/2023 (30 ngày) là 661.990 và tháng 5/2023 (31 ngày) là 708.199 triệu USD. Tính tăng trưởng so thẳng và
+tăng trưởng theo ngày.
 
 <details>
 <summary>Đáp án</summary>
 
-Thô: $679.701/595.432 - 1 =$ **+14,15%**. Theo ngày: tháng 2/2023 có 28 ngày → 21.265 triệu/ngày; tháng 3 có 31 ngày → 21.926 triệu/ngày;
-$21.926/21.265 - 1 =$ **+3,11%**. Phần lớn "tăng trưởng" chỉ là 3 ngày nhiều hơn.
+So thẳng: 708.199 / 661.990 − 1 ≈ **+6,98%**. Theo ngày: 661.990 / 30 ≈ 22.066 và 708.199 / 31 ≈ 22.845 triệu/ngày; 22.845 / 22.066
+− 1 ≈ **+3,53%**. Gần một nửa "tăng trưởng" chỉ là tháng 5 dài hơn một ngày. Nhầm hay gặp: chia cả hai tháng cho 30.
 
 </details>
 
-**Câu 6.** Bạn dự báo trên thang log, σ_h = 0,3. Dự báo đổi ngược thẳng là 1.000. Trung bình xấp xỉ theo FPP là bao nhiêu? Nếu σ_h = 1,0 thì công
-thức FPP còn dùng được không?
+**Câu 6.** Bạn dự báo trên thang log với phương sai $\sigma^2$ = 0,09 ($\sigma$ = 0,3). Đổi ngược thẳng được 1.000. Trung bình theo công thức
+FPP là bao nhiêu? Nếu $\sigma$ = 1 thì công thức FPP còn dùng tốt không?
 
 <details>
 <summary>Đáp án</summary>
 
-$1.000 \times (1 + 0{,}3^2/2) = 1.000 \times 1{,}045 =$ **1.045**. Với σ = 1,0, xấp xỉ Taylor cho $1{,}5$ trong khi giá trị đúng là
-$e^{0{,}5} = 1{,}649$ — hụt **9,0%**; khi σ lớn dùng $e^{\hat w + \sigma^2/2}$ (cho λ = 0) hoặc mô phỏng.
+1.000 × (1 + 0,09/2) = 1.000 × 1,045 = **1.045**. Với $\sigma$ = 1: FPP cho hệ số 1 + 1/2 = 1,5, còn dạng chính xác là $e^{1/2} \approx
+1{,}649$, hụt 1,5 / 1,649 − 1 ≈ **−9%** (bảng mục 4.5). Khi $\sigma$ lớn, dùng $e^{\hat w + \sigma^2/2}$. Nhầm hay gặp: thay $\sigma$ (0,3)
+vào chỗ $\sigma^2$, ra 1.150.
 
 </details>
 
-**Câu 7.** Bạn chấm mô hình bằng **MAE** trên doanh số theo tháng. Có nên bật hiệu chỉnh bias không? Trả lời kèm lý do.
+**Câu 7.** Bạn chấm mô hình bằng **MAE** trên doanh số từng tháng. Có nên bật hiệu chỉnh bias không?
 
 <details>
 <summary>Đáp án</summary>
 
-**Không.** MAE được tối thiểu hoá bởi **trung vị** (FPP §5.8), mà đổi ngược thẳng chính là trung vị. Hiệu chỉnh đẩy dự báo lên σ²/2 nên MAE xấu đi.
-Bật hiệu chỉnh khi cần trung bình: cộng dồn nhiều chuỗi, ước lượng doanh thu kỳ vọng, hoặc chấm bằng RMSE.
+**Không.** MAE nhỏ nhất khi dự báo là **trung vị** (buổi 2), mà đổi ngược thẳng đã cho trung vị (mục 4.5). Hiệu chỉnh đẩy dự báo lên
+cỡ $\sigma^2/2$, rời khỏi trung vị, nên MAE thường tệ đi. Bật khi cần trung bình: cộng nhiều chuỗi thành tổng, tính doanh thu kỳ vọng,
+hay chấm bằng phạt bình phương (mục 4.6).
 
 </details>
 
-**Câu 8.** Bạn tính λ Guerrero trên toàn bộ chuỗi 1992–2026 rồi backtest từ 2012. Sai ở đâu? Sửa thế nào?
+**Câu 8.** Bạn tính λ Guerrero trên toàn bộ chuỗi 1992–2026 rồi backtest với các gốc từ 2012. Sai ở đâu? Sửa thế nào?
 
 <details>
 <summary>Đáp án</summary>
 
-λ là **tham số của mô hình**: tính trên toàn chuỗi là dùng dữ liệu tương lai để chọn tham số → rò rỉ, kết quả backtest lạc quan. Sửa: trong mỗi fold,
-ước lượng λ (và trung bình/độ lệch chuẩn nếu có chuẩn hoá) **chỉ** từ dữ liệu trước gốc, lưu lại, rồi dùng đúng bộ đó để đổi ngược.
+λ là **tham số của mô hình** (mục 4.4). Tính trên cả chuỗi là dùng dữ liệu sau gốc để chọn tham số, nên backtest đẹp hơn thật. Sửa:
+ở mỗi gốc, tính λ chỉ từ dữ liệu trước gốc, lưu lại, và đổi ngược bằng đúng λ đó.
 
 </details>
 
 ## Đọc biểu đồ / bảng kết quả — tìm chỗ sai
 
-**Câu 9.** Slide báo cáo: "Doanh số bán lẻ Mỹ tăng 316% từ 1993 đến 2025 — thị trường tăng trưởng mạnh." Bạn có ba con số: CPI 144,5 → 321,94; dân
-số 260,3 → 341,9 triệu. Tính lại và viết một câu kết luận trung thực.
+**Câu 9.** Slide báo cáo: "Doanh số bán lẻ Mỹ tăng 316% từ 1993 tới 2025 — thị trường tăng trưởng mạnh." Bạn có: CPI 144,5 → 321,94;
+dân số 260,3 → 341,9 triệu người. Tính lại và viết một câu kết luận trung thực.
 
 <details>
 <summary>Đáp án</summary>
 
-Giá thực: $4{,}16 \times 144{,}5/321{,}94 = 1{,}87$ → **+87%**. Chia dân số: $1{,}87 \times 260{,}3/341{,}9 = 1{,}42$ → **+42%** trong 32 năm, khoảng
-**1,1%/năm**. Câu trung thực: "Chi tiêu bán lẻ thực trên đầu người tăng khoảng 42% trong 32 năm (≈1,1%/năm); con số 316% là giá danh nghĩa, gồm cả
-lạm phát và tăng dân số."
+Tăng 316% nghĩa là gấp 4,16. Giá thực: 4,16 × 144,5 / 321,94 ≈ 1,87, tức **+87%**. Chia thêm dân số: 1,87 × 260,3 / 341,9 ≈ 1,42,
+tức **+42%** trong 32 năm, khoảng **1,1%/năm** (mục 4.2). Câu trung thực: "Chi tiêu bán lẻ thực trên đầu người tăng khoảng 42% trong
+32 năm (≈ 1,1%/năm); con số 316% là danh nghĩa, gồm cả lạm phát và tăng dân số." Nhầm hay gặp: nhân CPI thay vì chia, hoặc trừ phần
+trăm (316% − 123% − 31%).
 
 </details>
 
-**Câu 10.** Bảng backtest (gốc mỗi tháng 2012–2018, tầm 12, tổng dự báo / tổng thực − 1):
+**Câu 10.** Bảng backtest (gốc mỗi tháng 2012–2018, mỗi gốc dự báo 12 tháng, tổng dự báo / tổng thực − 1):
 
-| Chuỗi | σ | đổi ngược thẳng | có hiệu chỉnh |
+| Chuỗi | $\sigma$ | Đổi ngược thẳng | Có hiệu chỉnh |
 |---|---|---|---|
 | Tổng bán lẻ | 0,047 | −0,47% | −0,37% |
 | Trạm xăng | 0,159 | +3,50% | +4,85% |
 | Bách hoá | 0,073 | +9,69% | +9,93% |
 
-Một bạn kết luận: "Hiệu chỉnh bias không đáng tin, có chuỗi tốt lên có chuỗi tệ đi." Giải thích cho đúng.
+Một bạn kết luận: "Hiệu chỉnh bias không đáng tin: có chuỗi tốt lên, có chuỗi tệ đi." Giải thích cho đúng.
 
 <details>
 <summary>Đáp án</summary>
 
-Hiệu chỉnh luôn đẩy dự báo lên đúng **σ²/2** (0,11%; 1,27%; 0,26% — khớp bảng). Nó chỉ sửa **một** loại lệch: đổi ngược cho trung vị thay vì trung
-bình. Các lệch còn lại là do mô hình: bách hoá đang suy giảm nên seasonal naive + drift dự báo cao hơn thực tế gần 10%; trạm xăng cũng dự báo cao
-(giá xăng giảm trong giai đoạn đó) nên cộng thêm làm tệ hơn. Kết luận đúng: hiệu chỉnh đáng làm khi cần trung bình và σ lớn; nó không thay được việc
-sửa mô hình. Proietti & Lütkepohl (2013) cũng thấy ở tầm ngắn bản không hiệu chỉnh thường có MSE thấp hơn.
+Hiệu chỉnh làm đúng việc của nó: luôn đẩy dự báo lên cỡ $\sigma^2/2$ (0,11%; 1,27%; 0,26%, khớp chênh giữa hai cột). Nó chỉ sửa **một**
+loại lệch: đổi ngược cho trung vị thay vì trung bình. Lệch còn lại do mô hình: bách hoá đang suy giảm nên seasonal naive có drift dự
+báo cao hơn thực tế gần 10%; trạm xăng cũng đang dự báo cao, nên đẩy lên nữa thì tệ thêm (mục 4.6). Kết luận đúng: hiệu chỉnh đáng
+làm khi cần trung bình và $\sigma$ đủ lớn; nó không thay được việc sửa mô hình.
 
 </details>

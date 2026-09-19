@@ -137,3 +137,83 @@ Mốc đầu tiên bị thay đổi khi sửa 10 điểm cuối (n = 400): MA ce
 | Lab 4 thêm nhận xét "lợi ích giả tạo **nhỏ**" của SavGol/wavelet | nhỏ | Đã đưa vào; **đã cập nhật `lo-trinh`** |
 | Không dùng `statsmodels.tsa.filters.hpfilter` trong lab | nhỏ | Chỉ nhắc trong lý thuyết (Hamilton 2018 + phản biện Moura 2024); bài tập về nhà cho ai muốn đo |
 | Thí nghiệm kiểm nhân quả tự viết thay vì thư viện | nhỏ | Không có thư viện nào làm việc này; là chỗ hở cố ý của `code/` (bỏ qua 200 điểm cuối) |
+
+## Research viết lại (Phase 13, 2026-09-18)
+
+Research sư phạm; phiên bản không đổi.
+
+| Khái niệm | Cách giải thích chọn | Hiểu lầm phổ biến | Nguồn (truy cập 2026-09-18) |
+|---|---|---|---|
+| bộ lọc nhân quả | trung bình trượt 3 điểm tính tay hai kiểu trên $(10, 12, 14, 30, 16)$; đổi số cuối thì kiểu centered sửa cả quá khứ | `rolling().mean()` "chắc là centered"; không trễ = tốt | Wikipedia *Causal filter*; Medium (K. Jones) *Data leakage, lookahead bias and causality in time series* |
+| Nyquist, aliasing | bánh xe quay ngược trong phim trước công thức; sóng lặp 4 bước lấy mẫu mỗi 3 bước thành sóng 12 bước | dao động nhanh "biến mất" khi hạ mẫu | TDS *Aliasing in audio, easily explained: from wagon wheels to waveforms*; Schaedler *Circles, Sines and Signals* (wagon wheel); DSPRelated *Sampling and aliasing* |
+| trễ, EWMA | EWMA tính tay $\alpha$ = 0,5; `span`/`com` | nhầm `span` với `com` | tài liệu pandas `ewm` |
+| rò rỉ qua tham số | hai Kalman filter cùng RMSE, chỉ một cái nhân quả | bộ lọc nhân quả thì không thể rò rỉ | số đo của buổi |
+
+Rút gọn cấu trúc: 10 mục lý thuyết → 6 (quy trình chọn bộ lọc gộp vào 4.6, wavelet thành hộp Nâng cao). Không đổi code. Số đo tái lập đúng
+bằng `dap-an/ve_hinh.py` (phổ 24,38 giờ, 17,8% / 0,0%; aliasing 64,0 / 0,0; bảng 10 bộ lọc; MAE 46,84 → 33,88…; 46,84 / 35,78).
+`python lab.py check` trên `code/` hỏng **6/8** test (tài liệu cũ ghi 2/8) — sửa Trạng thái đầu buổi, Lab bước 1, README.
+
+## Đọc thử (Phase 13, 2026-09-18)
+
+Tự đọc (không subagent), theo checklist `tools/CHUAN-DE-HIEU.md`; mọi ví dụ tay và đáp án quiz tính lại bằng Python (trung bình trượt hai kiểu
+12/18,67/20 và 28; EWMA 15/12,5; aliasing 1/12, 60 phút, 3 giờ; $z_t$ 60 và 50; ngưỡng dung sai $10^{-4}$).
+
+| Vòng | Bản | Chặn | Khó | Nhỏ | Quiz | Ghi chú |
+|---|---|---|---|---|---|---|
+| 0 | bản cũ (2.626 chữ, 10 trang, 57 cờ) | 9 | — | — | — | chặn đúng như `phase-13.md` liệt kê: MAE/RMSE, phương sai (phổ công suất), periodogram, lọc thông thấp, IIR, wavelet, đo trễ bằng tương quan, trích `filtfilt`/SavGol/Hamilton tiếng Anh; "10 cấu hình" bộ lọc chưa liệt kê; 10 mục lý thuyết |
+| 1 | viết lại (4.140 chữ) | 0 | 1 | 2 | 10/10 có căn cứ | khó: tài liệu ghi `lfilter`/`filtfilt` trong khi code dùng `sosfilt`/`sosfiltfilt`. Nhỏ: "HP" chưa giải thích; ví dụ aliasing không nói là tín hiệu mô phỏng |
+| 2 | sau sửa (13 trang) | **0** | **0** | 1 | 10/10 | **đạt**. Rà gọn: không đoạn nào ≥ 30 chữ lặp ý |
+
+`kiem_de_hieu.py 12`: 57 → **0**. Quiz viết lại, căn cứ: 1 → 4.1, 2 → 4.3, 3 → 4.4, 4 → 4.5, 5 → 4.1, 6 → 4.3, 7 → 4.4, 8 → 4.6, 9 → 4.4–4.5,
+10 → 4.6.
+
+## Đọc thử độc lập (Phase 15, 2026-09-19)
+
+Phiên mới; chỉ mở `tai-lieu.md` + quiz bỏ `<details>` cho tới khi viết xong A–E. Tính lại: trung bình trượt 12 / 18,67 / 20 và 28; mẫu
+aliasing $(0, −1, 0, 1, 0, −1)$; 60/43 = 1,395 → 0,4 → 2,5 giờ; EWMA 15 / 12,5; $(1 − 0{,}15)/0{,}15$ = 5,67; 35,78/46,84 → −23,6%; RMSE
+$\sqrt 5$ = 2,24; quiz 5 (6 / 8; 7 → 15), 6 (3 giờ), 7 (50), 8 (5,8%). Khớp hết.
+
+### A. Chỗ vướng (đọc mù)
+
+| # | Mục | Trích | Loại | Vì sao | Mức |
+|---|---|---|---|---|---|
+| 1 | Mục tiêu, Nhắc lại, 4.1 | "feature dự báo", "mục tiêu để chấm" | 1 | không định nghĩa trong buổi; "đặc trưng" của buổi 9 là số tóm cả chuỗi, khác nghĩa cột đầu vào | khó |
+| 2 | 4.1 | "backtest đẹp mà dùng thật thì sập" | 1 | "backtest" không định nghĩa trong buổi | nhỏ |
+| 3 | Lab bước 2 | "nó rơi đúng Nyquist mới" | 4 | 1,5 lớn hơn Nyquist 0,5; thật ra là gập vào đó | nhỏ |
+| 4 | Xong khi | "RMSE gần như nhau (0,584 và 0,583)" | 5 | 0,583 không xuất hiện trong bài | nhỏ |
+| 5 | 4.4 bảng | "phổ học" | 1 | từ chuyên ngành, không cản | nhỏ |
+
+### B. Giải thích lại (ví dụ số mới)
+
+- **Nhân quả**: 2, 4, 6, 20 → trailing 3 điểm ở điểm 3 là 4, centered là 10 (chứa 20).
+- **Phổ**: chuỗi lặp mỗi 24 giờ → đỉnh ở 1/24 chu kỳ mỗi giờ.
+- **Aliasing**: dao động 50 phút (1,2 chu kỳ/giờ), hạ về 1 giờ → |1,2 − 1| = 0,2 → chu kỳ giả 5 giờ.
+- **Trễ**: trailing 7 điểm trễ 3 bước.
+- **Bài kiểm đổi đuôi**: cộng 50 vào 10 điểm cuối; centered 13 đổi 6 mốc trước đó.
+- **Làm trơn mục tiêu**: chấm trên đường đã làm trơn thì MAE giảm mà mô hình không đổi.
+
+### C. Quiz mù
+
+1 A · 2 B · 3 B · 4 B · 5 trailing 6, centered 8; centered điểm 4: 7 → 15 · 6 chu kỳ giả 3 giờ; lọc thông thấp trước · 7 50; `com=3` cùng
+bộ lọc · 8 EWMA/trailing, ≈ 5,8% · 9 ba RMSE thấp nhất nhìn tương lai; Kalman filter tham số cố định · 10 chấm trên mục tiêu làm trơn; MAE
+thật vẫn 46,84. Căn cứ: 1, 5 → 4.1; 2, 6 → 4.3; 3, 7 → 4.4; 4, 9 → 4.4–4.5; 8, 10 → 4.6. Tất cả "chắc".
+
+### D. Tổng kết
+
+Chặn 0 / khó 1 / nhỏ 4. Sửa một điều: định nghĩa feature và mục tiêu.
+
+### E. Dài/lặp
+
+Không đoạn nào ≥ 30 chữ lặp ý.
+
+### Chấm, sửa, đọc lại
+
+**Quiz mù 10/10.** Sửa: thêm dòng "feature / mục tiêu" vào bảng Từ mới; 4.1 "chấm trên quá khứ (backtest)"; Lab bước 2 "gập đúng vào
+Nyquist mới"; Xong khi bỏ số 0,583, ghi "(tham số cố định / khớp lại trên cả chuỗi)".
+
+| Vòng | Chữ | Trang | Chặn | Khó | Nhỏ | Quiz | Chỗ thừa |
+|---|---|---|---|---|---|---|---|
+| Phase 15 đọc mù | 4.140 | 13 | 0 | 1 | 4 | 10/10 | 0 |
+| sau sửa, đọc lại | 4.161 | 13 | **0** | **0** | 1 | 10/10 | 0 |
+
+**Đạt.** `kiem_de_hieu.py 12` 0; `kiem_tra_lab.py 12` đạt; tự chứa đạt.

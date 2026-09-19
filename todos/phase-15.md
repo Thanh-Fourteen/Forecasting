@@ -1,20 +1,28 @@
-# Phase 15 — Buổi 34–37 · Foundation model và LLM 🔲
+# Phase 15 — Đọc thử độc lập buổi 9–13 + dự án giữa chặng 1 + Phụ lục D ✅
 
-Quy ước + chuẩn dễ hiểu: `todos/quy-uoc.md`. Tiêu đề + **prompt copy-paste** của phase này: `todos.md` ở gốc repo (mục "Phase 15"). Trạng thái ✅/🔲 ở tiêu đề phải khớp với tiêu đề trong `todos.md`.
+Quy ước: `todos/quy-uoc.md` (KHỐI CHUNG). Prompt: `todos.md` mục "Phase 15". Trạng thái ✅/🔲 ở tiêu đề khớp `todos.md`.
 
-Hệ sinh thái đổi nhanh nhất khoá — **research của phase này quan trọng nhất**.
+Phiên mới, không mang ngữ cảnh phase 12–14.
 
-| Buổi | Research | Tài liệu | Code | Lab | Quiz | Đọc thử | PDF |
-|---|---|---|---|---|---|---|---|
-| 34 Foundation model | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
-| 35 Fine-tune & benchmark | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
-| 36 LLM & agent | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
-| 37 Dự báo sự kiện bằng LLM | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
+| Tài liệu | Quiz mù | Chặn / khó / nhỏ | Chỗ thừa | Đã sửa + đọc lại | PDF |
+|---|---|---|---|---|---|
+| Buổi 09 | ✅ 10/10 | ✅ 0 / 1 → 0 / 5 → 1 | ✅ 1 → 0 | ✅ | ✅ 17 tr |
+| Buổi 10 | ✅ 10/10 | ✅ 0 / 0 / 3 → 1 | ✅ 0 | ✅ | ✅ 14 tr |
+| Buổi 11 | ✅ 10/10 | ✅ 0 / 0 / 6 → 1 | ✅ 0 | ✅ | ✅ 13 tr |
+| Buổi 12 | ✅ 10/10 | ✅ 0 / 1 → 0 / 4 → 1 | ✅ 0 | ✅ | ✅ 13 tr |
+| Buổi 13 | ✅ 10/10 | ✅ 0 / 3 → 0 / 3 → 2 | ✅ 0 | ✅ + sửa `kiem_nhieu_muc_tieu` | ✅ 14 tr |
+| Đề dự án giữa chặng 1 | — | ✅ 2 mơ hồ → 0 | ✅ 1 → 0 | ✅ | ✅ 5 tr |
+| Phụ lục D | — (không có quiz) | ✅ 0 / 2 → 0 / 4 → 2 | ✅ 0 | ✅ | ✅ 7 tr |
 
 Bắt buộc:
-- Buổi 34: so zero-shot **chỉ trên dữ liệu sau ngày phát hành model**; đo thời gian + RAM trên CPU; context length
-- Buổi 35: ít nhất một ca foundation model **thua** LightGBM, giải thích; tính lại xếp hạng benchmark chỉ trên task sạch rò rỉ; conformal hoá quantile
-- Buổi 36: test tự động "không bịa số" (mọi con số trong báo cáo LLM có trong output công cụ); agent không được tự chọn tập test;
-  **bản ghi phản hồi LLM** để chấm không cần API key; nhánh model mở chạy local
-- Buổi 37: Brier score **chỉ trên câu hỏi resolve sau mốc cắt kiến thức**, đo "khoảng rò rỉ"; học viên tự dự báo
-  và chấm calibration của chính mình; so với baseline thị trường. **Cột mốc M6**
+- Đề dự án: viết lại được đúng "làm gì, nộp gì, chấm thế nào", 0 chỗ mơ hồ
+- Mọi sửa → `kiem_tra_lab.py 9-13` + bộ chấm dự án vẫn đúng
+
+## Kết quả (2026-09-19)
+
+Ghi chi tiết: mục "Đọc thử độc lập (Phase 15)" trong `buoi-09..13/NGHIEN-CUU.md` (đề dự án và Phụ lục D ghi ở `buoi-13/NGHIEN-CUU.md`).
+Sửa bằng viết lại câu (+12 tới +58 chữ mỗi buổi). Lỗi đáng kể nhất: `kiem_nhieu_muc_tieu` của buổi 13 (`code/` + `dap-an/`) so sai vùng dòng
+nên **không bắt lag < tầm dự báo**, đúng việc tài liệu nói nó làm; sửa theo `tools/khung/ro_ri.py` (giữ dòng có $t − h$ < mốc). Lỗi chung:
+"backtest", "feature/mục tiêu" dùng mà buổi không định nghĩa (10, 12, 13). Đề dự án: kiểm nhiễu mục tiêu không có hàm trong khung, baseline
+không nói so với gì → ghi rõ; lời giải mẫu thêm hàm kiểm nhiễu mục tiêu. `kiem_tra_lab.py 9-13` đạt; bộ chấm dự án với lời giải mẫu 8/8;
+`kiem_tra_doc_lap.sh 9–13` đạt; `ruff` sạch cho buổi 9–13, dự án 1, tools.

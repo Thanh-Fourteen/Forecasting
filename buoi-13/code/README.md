@@ -1,24 +1,24 @@
 # code/ — điểm xuất phát của buổi 13
 
-Code **chạy được** nhưng **cố tình sai** đúng chỗ bài học hôm nay sửa. Buổi này `tv` **không có** `ro_ri` — bài kiểm rò rỉ là thứ bạn tự viết.
+Code **chạy được** nhưng **cố tình sai** đúng chỗ bài học hôm nay sửa. Buổi này `tv` **không có** `ro_ri`: bài kiểm rò rỉ là thứ bạn tự viết.
 
-| Tệp | Làm gì |
-|---|---|
-| `feature.py` | lịch âm Việt Nam (Meeus, kinh tuyến 105°Đ); 41 feature cho doanh thu bán lẻ; bài kiểm rò rỉ; đo giá của rò rỉ trên phụ tải ERCOT + dự báo thời tiết đã lưu |
+| Tệp | Làm gì | Bạn cần làm gì |
+|---|---|---|
+| `feature.py` | lịch âm Việt Nam (tính ở UTC+7); 44 feature cho doanh thu bán lẻ; bảng "biết trước bao lâu"; bài kiểm rò rỉ; đo giá của rò rỉ trên tải điện ERCOT + dự báo thời tiết đã lưu | sửa `kiem_ro_ri`, `feature_tre`, `feature_lich` (tài liệu mục 5) |
+| `lab.ipynb` | notebook của Lab, bước 1–5 | chạy từng ô |
 
-**Đang cố tình sai** (triệu chứng nhìn thấy, không nói nguyên nhân):
-- bài kiểm rò rỉ báo **sạch** cho `tb_7`, trong khi mô hình có MAE đẹp bất thường
-- feature Tết chỉ đúng cho **một năm**
-- bảng "biết trước bao lâu" có cột không xếp được vào nhóm nào
+**Đang cố tình sai** (chỉ nói triệu chứng, không nói nguyên nhân):
 
-Chạy:
+- Bài kiểm rò rỉ báo **sạch** cho `tb_7`, trong khi mô hình có sai số đẹp bất thường.
+- Feature Tết chỉ đúng cho **một năm**.
+- Bảng "biết trước bao lâu" xếp vài cột vào nhóm mà chúng không thuộc về.
+
+Lệnh (trong `lab/`):
 
 ```bash
-cd lab && python lab.py up          # một lần: môi trường + dữ liệu (~140 MB)
-python lab.py check                 # bộ chấm: đầu buổi ĐỎ (4/13 hỏng), cuối buổi phải XANH
-python lab.py notebook              # mở các tệp .py dưới dạng notebook
-python lab.py chay ../code/feature.py
+python lab.py up           # một lần: môi trường + dữ liệu (~140 MB), kiểm sha256
+python lab.py notebook     # mở code/lab.ipynb (hoặc mở bằng VS Code)
+python lab.py check        # bộ chấm: đầu buổi ĐỎ (4/13 hỏng), cuối buổi phải XANH 13/13
 ```
 
-Tệp `.py` viết dạng *percent* (`# %%` tách ô): chạy được như script, mở được như notebook.
-Mỗi tệp chỉ định nghĩa hàm ở mức module; phần chạy thử đặt trong `if __name__ == "__main__":`.
+Bạn sửa **tệp `.py`**; notebook `lab.ipynb` nạp lại nó tự động. Dùng conda: `python lab.py up --pip`.

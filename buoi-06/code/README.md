@@ -1,24 +1,24 @@
 # code/ — điểm xuất phát của buổi 6
 
-Code **chạy được** nhưng **cố tình sai** đúng chỗ bài học hôm nay sửa. Phần dư nhỏ chưa chắc là phân rã tốt.
+Code **chạy được** nhưng **cố tình sai** đúng chỗ bài học hôm nay sửa. Một phân rã "gọn gàng" chưa chắc đã tách đúng.
 
-| Tệp | Làm gì |
-|---|---|
-| `phan_ra.py` | đọc nhu cầu điện PJM theo giờ (EIA-930), lấp giờ trống, phân rã, độ mạnh xu hướng/mùa vụ, đo mẫu hình còn trong phần dư |
+| Tệp | Làm gì | Bạn cần làm gì |
+|---|---|---|
+| `phan_ra.py` | đọc nhu cầu điện PJM theo giờ, lấp giờ trống, phân rã, độ mạnh $F_T$/$F_S$, đo mẫu hình còn trong phần dư | sửa `phan_ra` (tài liệu mục 5, bước 3) |
+| `lab.ipynb` | notebook của Lab, bước 1–5 | chạy từng ô |
 
-**Đang cố tình sai** (triệu chứng nhìn thấy, không nói nguyên nhân):
-- độ mạnh mùa vụ chỉ 0,618 cho một chuỗi điện rõ ràng rất mùa vụ, và không có thành phần tuần
-- phần dư còn 10% phương sai ở hồ sơ tháng × giờ; 24 giờ đầu/cuối không có xu hướng
-- `phan_ra(y, robust=True)` cho kết quả y hệt `robust=False`
+**Đang cố tình sai** (chỉ nói triệu chứng, không nói nguyên nhân):
 
-Chạy:
+- Độ mạnh mùa vụ chỉ 0,618 cho một chuỗi điện rõ ràng rất mùa vụ, và không có thành phần mùa vụ tuần.
+- 12 giờ đầu và 12 giờ cuối năm không có xu hướng.
+- Bật `robust=True` cũng không đổi gì.
+
+Lệnh (trong `lab/`):
 
 ```bash
-cd lab && python lab.py up          # một lần: môi trường + dữ liệu EIA-930 2024 (~90 MB)
-python lab.py check                 # bộ chấm: đầu buổi ĐỎ (5/7 hỏng), cuối buổi phải XANH
-python lab.py notebook              # mở các tệp .py dưới dạng notebook
-python lab.py chay ../code/phan_ra.py
+python lab.py up           # một lần: môi trường + dữ liệu EIA-930 (~90 MB), kiểm sha256
+python lab.py notebook     # mở code/lab.ipynb (hoặc mở bằng VS Code)
+python lab.py check        # bộ chấm: đầu buổi ĐỎ (5/7 hỏng), cuối buổi phải XANH 7/7
 ```
 
-Tệp `.py` viết dạng *percent* (`# %%` tách ô): chạy được như script, mở được như notebook.
-Mỗi tệp chỉ định nghĩa hàm ở mức module; phần chạy thử đặt trong `if __name__ == "__main__":`.
+Bạn sửa **tệp `.py`**; notebook `lab.ipynb` nạp lại nó tự động. Dùng conda: `python lab.py up --pip`.

@@ -113,3 +113,99 @@ another 0.5% are either physically implausible … or suspicious".
 | MSTL trích bản IJOR 2025 | nhỏ | Đọc thêm dùng DOI 2025 |
 | X-13 cần binary ngoài | nhỏ | Chỉ nhắc |
 | Chọn PJM (F_S tuần mạnh nhất trong 10 vùng đã thử: ERCO 0,277; TVA 0,235; DUK 0,290; ISNE 0,351; PJM 0,403 với cột Adjusted) | quyết định | PJM |
+
+## Research viết lại (Phase 9, 2026-09-18)
+
+Research sư phạm (KHỐI CHUNG R); nguồn API/thư viện giữ như trên (không đổi phiên bản). Cách giải thích chọn:
+
+| Khái niệm | Cách giải thích | Nguồn / căn cứ |
+|---|---|---|
+| phân rã cổ điển | tự phân rã tay 12 quý, $m$ = 4: 2×4-MA → khử xu hướng → trung bình theo vị trí → phần dư (FPP §3.4 làm đúng các bước này) | FPP §3.3–3.4; bộ số chọn để mùa vụ ra số nguyên (4, −3, −7, 6), kiểm `seasonal_decompose` khớp |
+| vì sao 2×m-MA | hai đầu cách nhau đúng một vòng = cùng một vị trí, nên mỗi nửa trọng số | FPP §3.3 ("centred moving average") |
+| STL | "trung bình cục bộ theo từng vị trí" trước LOESS: ví dụ 2, 4, 6, 8, 10 — cổ điển để lại phần dư đi lên, cục bộ gần sạch | Cleveland et al. 1990 (làm trơn từng chuỗi con mùa vụ) |
+| $F_T$, $F_S$ | tính tay trên 8 quý của ví dụ trên ($F_S$ = 0,976, $F_T$ = 0,838), nói bằng lời "phần dư chiếm bao nhiêu phần" | FPP §4.3 |
+| robust | trọng số bisquare tính tay trên 5 phần dư (1, −2, 1, 20, −1) | Cleveland et al. 1990 |
+| hiểu lầm phổ biến | "phần dư nhỏ = phân rã tốt" (STL mặc định 2,8 GW²); "biên độ lớn mùa hè → dùng mô hình nhân"; tin $F_S$ như thuộc tính của dữ liệu | FPP §3.6; chạy thật |
+
+Quyết định: 8 mục cũ → 6 (phân rã tay + cổ điển; cộng/nhân + mùa vụ đổi theo thời gian; cổ điển 24 trên PJM; STL/MSTL; độ mạnh; robust).
+X-13 và chuỗi khử mùa vụ → hộp Nâng cao. Mọi trích tiếng Anh thay bằng diễn giải.
+
+Số chạy lại (khác bản cũ): **đợt nóng 15–17/7/2024** đo bằng chính MSTL (24, 168) của lab: phần dư lớn nhất 11.364 MW (không robust),
+22.576 MW (robust) — bản cũ dùng một STL mùa hè riêng (3.159/7.838 và 16.266/18.467), không khớp code của buổi; đã thay. MSTL với
+`periods=(24, 168, 8766)` trên 4.380 giờ: statsmodels bỏ chu kỳ năm kèm cảnh báo "A period(s) is larger than half the length…" (quiz 7).
+Bài tập 3 bản cũ ghi "hai năm 2024 H1+H2 (8.784 giờ)" — thật ra là một năm; đã sửa đề. Hình mùa vụ theo tháng vẽ 7 tháng (bản cũ ghi 12).
+Thêm `dap-an/vi_du_nho.py` (ví dụ 4.1, 4.5, 4.6) và `code/lab.ipynb`.
+
+## Đọc thử (Phase 9, 2026-09-18)
+
+Tự đọc (không subagent), theo checklist `tools/CHUAN-DE-HIEU.md`; mọi con số, đáp án quiz tính lại bằng Python.
+
+| Vòng | Bản | Chặn | Khó | Nhỏ | Quiz | Ghi chú |
+|---|---|---|---|---|---|---|
+| 0 | bản cũ (2.368 chữ, 11 trang, 66 cờ) | 6 | — | — | — | chặn: LOESS, "vòng trong/vòng ngoài", trọng số robust chỉ có công thức; $\operatorname{Var}_g$ không giải thích; cửa sổ STL công thức $1{,}5m/(1-1{,}5/\text{seasonal})$; nhiều trích FPP/Cleveland tiếng Anh; "Nhắc lại" dùng giờ địa phương/DST không liên quan buổi 5 |
+| 1 | viết lại (4.829 chữ) | 0 | 1 | 4 | 10/10 có căn cứ | khó: "nhầm hay gặp" của Tự kiểm tra 4.1 ra cùng kết quả 20, không dạy gì. Nhỏ: "đường khớp nhất" của LOESS; thang màu GW của heatmap phần dư không nhắc; 7 tháng vs 12 |
+| rà gọn | biên tập viên | — | — | — | — | 1 chỗ lặp đáng kể: "nhịp tuần nằm trong xu hướng" ba lần ở 4.3 (Kết luận hình, câu giải thích, Đọc bảng) → bỏ ở Đọc bảng |
+| 2 | sau sửa (4.809 chữ, 16 trang) | **0** | **0** | 3 | 10/10 | **đạt** |
+
+Quiz: viết lại đáp án cả 10 câu (vì sao đúng, vì sao từng lựa chọn sai); câu 5 đổi số (chuỗi 8, 4, 2, 6, 10, 6, 4, 8 → 5,25; 5,75) vì bản
+cũ trùng Tự kiểm tra; căn cứ: 1 → 4.1, 2 → 4.1/4.3/4.6, 3 → 4.6, 4 → 4.5, 5 → 4.1, 6 → 4.4, 7 → 4.4 (+ chạy thử), 8 → 4.4, 9 → 4.3,
+10 → 4.5/4.6. `kiem_de_hieu.py 6`: 66 → **0**. PDF 11 → **16** trang. Lab: `kiem_tra_lab.py 6` đạt (đáp án 7/7, code 5/7 đỏ, notebook chạy hết).
+
+## Đọc thử độc lập (Phase 11, 2026-09-18)
+
+Phiên mới; chỉ mở `tai-lieu.md` + quiz bỏ `<details>` cho tới khi viết xong A–E. Ví dụ tay tính lại bằng Python (bảng 12 quý, $F_S$ 0,976,
+$F_T$ 0,838, tự kiểm 20, tỷ lệ mẫu hình 32, trọng số robust 0,79/0,95): khớp hết.
+
+### A. Chỗ vướng (đọc mù)
+
+| # | Mục | Trích | Loại | Vì sao | Mức |
+|---|---|---|---|---|---|
+| 1 | 4.1 Công thức | "Với $m$ chẵn (ở đây $m$ = 24 giờ)" | 3 | ví dụ ngay trên dùng $m$ = 4; "ở đây" chỉ về đâu? | nhỏ |
+| 2 | 4.2 Cách đọc hình | "hai ngày đổi giờ (dữ liệu trống 22 và 25 giờ)" | 3 | ngày đổi giờ có 23 hoặc 25 giờ (buổi 3); "22" và "trống" không rõ nghĩa | nhỏ |
+| 3 | 4.3 | "Ở phân rã B, 32 chia cho phương sai chuỗi" | 4 | ví dụ dừng giữa chừng: không có phương sai chuỗi nên không ra con số | nhỏ |
+| 4 | 4.4 | "phương sai phần dư chỉ 2,8 GW²" | 1 | đơn vị bình phương chưa gặp | nhỏ |
+
+### B. Giải thích lại (ví dụ số mới)
+
+- **Cổ điển**: 4, 8, 4, 8, 4 với $m$ = 2 → 2×2-MA tại điểm 2: 4/4 + 8/2 + 4/4 = 6; mùa vụ ±2.
+- **Cộng/nhân**: mức 50 → 100, cao điểm 55 → 110: nhân (×1,1).
+- **Mùa vụ trốn**: chu kỳ 24 cho chuỗi có nhịp tuần → trung bình 1 ngày quanh CN thấp → xu hướng lõm CN.
+- **STL/MSTL**: "trừ xu hướng" quý 1 là 1, 3, 5 → cổ điển 3 cả ba năm, phần dư −2, 0, 2; cục bộ 2, 3, 4 → phần dư −1, 0, 1.
+- **$F_S$**: Var(R) = 1, Var(S + R) = 10 → 0,9.
+- **Robust**: phần dư 3, −3, 3, 60 → trung vị |R| = 3, $h$ = 18, điểm 60 trọng số 0.
+
+### C. Quiz mù
+
+1 B · 2 C · 3 B · 4 B · 5 $\hat T_3$ = 1 + 3 + 1,25 = 5,25; $\hat T_4$ = 0,5 + 4,5 + 0,75 = 5,75 · 6 cửa sổ xu hướng 47 giờ quá ngắn, xu hướng nuốt
+nhịp tuần/thời tiết: xem xu hướng có răng cưa theo ngày/tuần, so tỷ lệ mẫu hình · 7 (24, 168, 8766); 6 tháng thì chu kỳ năm dài hơn nửa
+chuỗi → MSTL cảnh báo/bỏ, dùng (24, 168) · 8 MSTL trả toàn NaN không báo lỗi; nội suy 47 giờ (`lap_cho_trong`), ghi số giờ đã điền ·
+9 nhịp tuần trốn vào xu hướng (T7, CN thấp hơn 5.500–6.600 MW); phần dư sạch ≠ phân rã đúng; dùng MSTL (24, 168) · 10 $F$ là của phân rã,
+không của dữ liệu; A để mùa vụ đổi theo mùa trong phần dư; C thấp vì phần dư robust giữ trọn điểm lạ, không phải kém hơn. Căn cứ:
+1, 5 → 4.1; 2 → 4.1–4.4 (câu C: suy ra, 4.1 dùng dữ liệu quý, 4.3 dùng dữ liệu giờ); 3 → 4.6; 4, 10 → 4.5; 6, 7, 8 → 4.4 + Bài tập 3;
+9 → 4.3. Câu 7 "đoán" phần 6 tháng (chỉ có gợi ý ở Bài tập 3), còn lại "chắc".
+
+### D. Tổng kết
+
+Chặn 0 / khó 0 / nhỏ 4. Khó nhất: ví dụ tỷ lệ mẫu hình dừng giữa chừng. Sửa một điều: câu ngày đổi giờ ở 4.2.
+
+### E. Dài/lặp
+
+| # | Mục | Trích | Vì sao |
+|---|---|---|---|
+| 1 | 4.3 | "Xu hướng lõm cuối tuần vì 2×24-MA là trung bình một ngày…" | nói lại bước 5 "Cách đọc hình" (≈ 20 chữ; giữ được vì thêm chữ "vì") |
+
+### Chấm, sửa, đọc lại
+
+**Quiz mù: 10/10** khớp `kiem-tra.md` (câu 5: 5,25 / 5,75). Câu 7 (6 tháng dữ liệu, chu kỳ năm) lúc đọc mù chỉ có căn cứ ở gợi ý Bài tập 3
+→ đưa câu "chu kỳ dài hơn nửa chuỗi bị bỏ, chỉ kèm một cảnh báo" vào đoạn MSTL 4.4 và bỏ gợi ý khỏi Bài tập 3.
+
+Sửa khác: công thức 4.1 "(ở đây $m$ = 24)" → "(ví dụ trên $m$ = 4; điện theo giờ $m$ = 24)"; ví dụ tỷ lệ mẫu hình thêm phương sai chuỗi
+giả định 320 → 0,1; Cách đọc hình 4.2: hai khối giờ trống 22 và 25 giờ quanh hai ngày đổi giờ (kiểm từ tệp EIA-930: 17 + 5 giờ quanh
+10/3, 19 + 6 giờ quanh 3/11, tổng 47).
+
+| Vòng | Chữ | Trang | Chặn | Khó | Nhỏ | Quiz | Chỗ thừa |
+|---|---|---|---|---|---|---|---|
+| Phase 11 đọc mù | 4.809 | 16 | 0 | 0 | 4 | 10/10 (1 câu căn cứ yếu) | 0 đáng kể |
+| sau sửa, đọc lại toàn bộ | 4.831 | 16 | **0** | **0** | 1 | 10/10, mọi câu có căn cứ | 0 |
+
+**Đạt.** `kiem_de_hieu.py 6` 0; lab, tự chứa đạt.

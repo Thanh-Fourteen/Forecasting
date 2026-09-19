@@ -44,11 +44,13 @@ pandas = "3.0.5"
 polars = "1.44.2"
 duckdb = "1.5.5"
 pyarrow = "25.0.1"
+xlrd = "2.0.2"   # đọc .xls cũ của EIA (buổi 20) — bản mới nhất PyPI, xác minh 2026-09-19
 openpyxl = "3.1.5"   # đọc .xlsx (Census MARTS, buổi 5) — bản mới nhất PyPI 2024-06-28, xác minh 2026-09-18
 
 # thống kê, biểu đồ
 scipy = "1.18.1"
 statsmodels = "0.15.0"
+arch = "8.0.0"   # GARCH, VaR (buổi 21) — PyPI 2025-10-21, mới nhất ngày 2026-09-19
 matplotlib = "3.11.2"
 seaborn = "0.13.2"
 plotly = "7.1.0"
@@ -57,6 +59,7 @@ dtaidistance = "2.5.1"   # DTW nhanh (C extension, có wheel manylinux) cho phâ
 
 # Nixtla và mô hình
 statsforecast = "2.1.1"
+prophet = "1.4.0"   # buổi 18 — PyPI 2026-08-15, hỗ trợ pandas 3 từ 1.3.0 (xác minh 2026-09-19)
 utilsforecast = "0.2.16"
 mlforecast = "1.1.0"
 neuralforecast = "3.2.2"

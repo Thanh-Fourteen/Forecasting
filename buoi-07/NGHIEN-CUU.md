@@ -109,3 +109,96 @@ differencing is often the order of differencing at which the standard deviation 
 | FPP dùng ±1,96/√T, statsmodels mặc định dải Bartlett | nhỏ | Vẽ cả hai, nêu khác biệt |
 | `pacf` mặc định `ywadjusted`, `plot_pacf` mặc định `ywm` | nhỏ | Buổi luôn khai `method="ywm"` |
 | Lộ trình: "Ljung-Box trên phần dư phân rã của buổi trước" — buổi phải tự chứa | nhỏ | Sinh phần dư ngay trong buổi bằng mô phỏng và bằng chuỗi thật (sai phân log GDP) |
+
+## Research viết lại (Phase 9, 2026-09-18)
+
+| Khái niệm | Cách giải thích | Nguồn / căn cứ |
+|---|---|---|
+| ACF | tính tay $r_1$, $r_2$ trên 6 số (2, 3, 5, 6, 5, 3 → 1/3; −5/12) trước công thức | FPP §2.8 |
+| PACF | tin đồn A → B → C; công thức trễ 2 $\phi_{22} = (r_2 - r_1^2)/(1 - r_1^2)$ (Durbin–Levinson bước 2) tính tay; AR(1) cho 0 | Box & Jenkins; kiểm bằng `pacf(method="ywm")` (khác một chút trên 6 số vì Yule-Walker hiệu chỉnh — không đưa vào) |
+| Ljung-Box | "20 đồng xu, mỗi đồng 5%"; $Q^*$ tay với 2 trễ; $\chi^2$ trong hộp Mượn trước chỉ với bảng ngưỡng | FPP §5.4; scipy `chi2.ppf` |
+| dừng | ba ví dụ đời thường (máy lạnh / chiều cao trẻ / người tung đồng xu); random walk tay từ 6 lần tung + mô phỏng độ lệch chuẩn ∝ √n | FPP §9.1; mô phỏng seed 7 |
+| ADF | "đang cao thì bước sau có bị kéo xuống không" với hai chuỗi 5 số; nghiệm đơn vị trong hộp Mượn trước qua $\rho$ | Dickey & Fuller 1979 (hồi quy Δy trên y_{t−1}) — diễn giải không dùng chữ "hồi quy" (buổi 8 mới dạy) |
+| ADF × KPSS | bảng 2 × 2 có "nghĩa là gì" từng ô, ghi rõ là quy tắc kinh nghiệm | FPP §9.1; statsmodels "Stationarity and detrending" (đã phê bình ở bản cũ) |
+| sai phân thừa | tay: 2, −1, 0, 1, −2, 0 → sd 1,41 → 2,41, $r_1$ ≈ −0,50; một ngưỡng thống nhất "gần −0,5" | Nau (Duke) |
+
+Kiểm định/$H_0$/p-value/α đã dạy ở buổi 2 → nhắc lại ở mục 2 (không phải "Mượn trước"); chỉ **nghiệm đơn vị** và **$\chi^2$** là mượn trước.
+
+**Sửa lỗi bản cũ** (chạy lại):
+
+- **Lượt thuê theo ngày**: bản cũ tạo chuỗi ngày bằng `resample(...).sum(min_count=24).dropna()` → rút 76 ngày khỏi giữa chuỗi, nên
+  `diff(7)` và ACF so những ngày **không cách nhau 7 ngày**. Trên lưới ngày liên tục (`min_count=12` + nội suy 3 ngày) ACF theo ngày
+  **không có đỉnh ở 7** ($r_6$ = 0,775 > $r_7$ = 0,760) — câu cũ "chỉ còn đỉnh ở 7, 14, 21" sai; bảng sai phân mùa vụ theo ngày cũ
+  (0,373/0,436…) cũng sai. Thay bằng bảng **theo giờ** $\log(1+y)$, $m$ = 168: sd 1,430 → sai phân thường 0,643 (còn $r_{168}$ = 0,767) →
+  sai phân 168 0,589 → 168 rồi 1 0,427 ($r_1$ = −0,249). Theo ngày, chỉ sai phân thường cho sd thấp nhất (0,330) — thành bài tập 1.
+  `ve_hinh.py` sửa lưới ngày; thêm `bang_sai_phan_gio`; thêm nhãn trục cho mọi hình.
+- **Quiz câu 5** (`phan-hoi-hoc-vien.md`): đổi thành chuỗi có trung bình tròn 2, 4, 6, 8, 6, 4, 2, 0 → $r_1$ = 24/48 = 0,5 (kiểm Python).
+- Ngưỡng sai phân thừa thống nhất "gần −0,5" (bản cũ lẫn −0,5 và −0,45).
+- Ergodic → hộp Nâng cao.
+
+## Đọc thử (Phase 9, 2026-09-18)
+
+| Vòng | Bản | Chặn | Khó | Nhỏ | Quiz | Ghi chú |
+|---|---|---|---|---|---|---|
+| 0 | bản cũ (2.131 chữ, 10 trang, 64 cờ) | 7 | — | — | — | như baseline trong `todos/phase-09.md`: kiểm định/$H_0$/p-value không nhắc lại, nghiệm đơn vị, AR(1), $\chi^2$, trích Zivot/Nau/FPP tiếng Anh, dừng yếu/mạnh định nghĩa bằng Cov; quiz câu 5 đáp án sai |
+| 1 | viết lại (4.890 chữ) | 0 | 2 | 4 | 10/10 có căn cứ | khó: vì sao PACF chia $1 - r_1^2$ (nói lửng); tình huống 2 của Tự kiểm tra 4.4 mơ hồ. Nhỏ: một dòng bắt đầu bằng "1." bị markdown hiểu thành danh sách; nhãn "Ví dụ số nhỏ" đứng trước công thức PACF |
+| rà gọn | biên tập viên | — | — | — | — | 1 chỗ lặp: "Tóm lại" 4.3 nói lại ý đếm cột của Trực giác và hình → rút |
+| 2 | sau sửa (4.922 chữ, 15 trang) | **0** | **0** | 3 | 10/10 | **đạt** |
+
+Quiz: viết lại cả 10 đáp án; câu 8 đổi sang bảng sai phân theo giờ. Căn cứ: 1 → 4.5, 2 → 4.1/4.2, 3 → 4.3, 4 → 4.4, 5 → 4.1, 6 → 4.5,
+7 → 4.6, 8 → 4.6, 9 → 2/4.5/4.6, 10 → 4.5. `kiem_de_hieu.py 7`: 64 → **0**. PDF 10 → **15** trang. Lab: `kiem_tra_lab.py 7` đạt (đáp án
+9/9, code 5/9 đỏ, notebook chạy hết).
+
+## Đọc thử độc lập (Phase 11, 2026-09-18)
+
+Phiên mới; chỉ mở `tai-lieu.md` + quiz bỏ `<details>` cho tới khi viết xong A–E. Ví dụ tay tính lại bằng Python ($r_1$ 1/3, $r_2$ −5/12,
+tự kiểm 0,25/−0,5, PACF 0/0,2, $Q^*$ 5,16 p 0,076, đồng xu p 0,011, sai phân thừa 1,41 → 2,41 và $r_1$ −0,498, $\rho$ 7 → 4,9): khớp hết.
+
+### A. Chỗ vướng (đọc mù)
+
+| # | Mục | Trích | Loại | Vì sao | Mức |
+|---|---|---|---|---|---|
+| 1 | 2 Nhắc lại | "trễ bằng nửa chu kỳ ghép đỉnh với đáy" | 1 | cùng lỗi buổi 4: "chu kỳ" ở đây là chu kỳ mùa vụ, không phải *cycle* (4.4 dùng "chu kỳ" theo nghĩa *cycle*) | nhỏ |
+| 2 | 4.5 GDP | "hiệu log liên tiếp × 100, tức phần trăm tăng mỗi quý" | 8 | vì sao hiệu log ≈ phần trăm chưa nhắc lại (buổi 5 chỉ ở hộp Nâng cao) | nhỏ |
+| 3 | 4.4 Định nghĩa | "Chuỗi có chu kỳ … vẫn có thể dừng" | 4 | ngược trực giác, không có một câu vì sao | nhỏ |
+| 4 | 4.6 | "Quy tắc của FPP (hàm `ndiffs`)" | 7 | `ndiffs` là gì, ở thư viện nào | nhỏ |
+
+### B. Giải thích lại (ví dụ số mới)
+
+- **ACF**: 1, 3, 3, 1 → trung bình 2, lệch −1, 1, 1, −1, $r_1$ = (−1 + 1 − 1)/4 = −0,25.
+- **PACF**: $r_1$ = 0,8, $r_2$ = 0,64 → PACF(2) = 0: AR(1).
+- **Ljung-Box**: $T$ = 50, hai trễ, $r_1$ = 0,3, $r_2$ = 0 → $Q^*$ = 50 × 52 × 0,09/49 ≈ 4,78 < 5,99: chưa đủ bằng chứng.
+- **Dừng**: mực nước hồ có đập xả tràn (dừng) vs vị trí người say (random walk).
+- **ADF/KPSS**: ADF p 0,01 + KPSS p ≥ 0,1 → dừng; ADF p 0,6 + KPSS p 0,01 → không dừng, sai phân.
+- **Sai phân thừa**: 1, −1, 1, −1 (đã dừng) → −2, 2, −2: độ lệch chuẩn tăng, $r_1$ âm mạnh.
+
+### C. Quiz mù
+
+1 B · 2 B · 3 B · 4 C · 5 trung bình 4, mẫu số 48, tử số 24 → $r_1$ = 0,5 · 6 dừng quanh xu hướng (dạng "ct" hai kiểm định đồng ý) → khử xu hướng,
+không sai phân · 7 sai phân thừa (hai dấu hiệu) → dừng ở một lần · 8 sai phân mùa vụ trước (168), kiểm ACF ở 24/168 + độ lệch chuẩn; rồi sai phân
+thường nếu KPSS còn bác bỏ, kiểm $r_1$ không tới −0,5 và độ lệch chuẩn còn giảm · 9 (1) không bác bỏ ≠ chứng minh nghiệm đơn vị, phải chạy KPSS;
+(2) sai phân tới khi ADF bác bỏ → lần hai là thừa ($r_1$ −0,488, độ lệch chuẩn 1,105 → 1,455) · 10 cả giai đoạn có dao động mạnh trước 1985 và
+sốc 2020 → KPSS bác bỏ vì độ dao động đổi, không vì random walk; báo cả hai giai đoạn, ghi "mâu thuẫn" và lý do. Căn cứ: 1, 6, 9, 10 → 4.5 (+ 4.6
+cho 9); 2 → 4.1–4.2; 3 → 4.3; 4 → 4.4; 5 → 4.1; 7, 8 → 4.6. Mọi câu "chắc".
+
+### D. Tổng kết
+
+Chặn 0 / khó 0 / nhỏ 4. Sửa một điều: "nửa chu kỳ mùa vụ" ở mục 2.
+
+### E. Dài/lặp
+
+Không thấy đoạn ≥ 30 chữ lặp ý.
+
+### Chấm, sửa, đọc lại
+
+**Quiz mù: 10/10** khớp `kiem-tra.md` (câu 5: 0,5).
+
+Sửa: mục 2 "nửa chu kỳ mùa vụ"; 4.4 thêm vì sao chuỗi có chu kỳ vẫn dừng được (không biết trước đỉnh/đáy, theo FPP §9.1); 4.5 hiệu log
+"gần bằng phần trăm vì log 1,01 ≈ 0,01"; 4.6 bỏ "(hàm `ndiffs`)" không giải thích.
+
+| Vòng | Chữ | Trang | Chặn | Khó | Nhỏ | Quiz | Chỗ thừa |
+|---|---|---|---|---|---|---|---|
+| Phase 11 đọc mù | 4.922 | 15 | 0 | 0 | 4 | 10/10 | 0 |
+| sau sửa, đọc lại toàn bộ | 4.946 | 15 | **0** | **0** | 0 | 10/10 | 0 |
+
+**Đạt.** `kiem_de_hieu.py 7` 0; lab, tự chứa đạt.

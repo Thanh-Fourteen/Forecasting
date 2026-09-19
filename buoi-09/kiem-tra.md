@@ -1,141 +1,148 @@
 # Kiểm tra buổi 9 — Đặc trưng chuỗi và khả năng dự báo
 
-10 câu. Tự làm trước, mở đáp án sau.
+## Nhắc lại khái niệm
 
----
+**Câu 1.** Spectral entropy của một chuỗi gần 0 nghĩa là:
 
-**1 (nhắc lại).** Entropy phổ nhận giá trị trong khoảng nào, và giá trị gần 1 nghĩa là gì?
+- A. Năng lượng của chuỗi dồn vào ít tần số: chuỗi có nhịp rõ, dễ dự báo
+- B. Chuỗi gần như nhiễu thuần, khó dự báo
+- C. Các giá trị của chuỗi gần bằng 0
+- D. Dự báo seasonal naive gần như không sai
 
-<details><summary>Đáp án</summary>
+<details>
+<summary>Đáp án</summary>
 
-Trong $[0, 1]$ vì đã chia cho $\ln N_{\text{bin}}$. Gần 1 = phổ trải đều trên mọi tần số (giống nhiễu trắng) → chuỗi **khó dự báo**. Gần 0
-= năng lượng dồn vào vài tần số (xu hướng/mùa vụ mạnh) → dễ dự báo. Đại lượng $\Omega = 1 - H$ là forecastability của ForeCA.
-
-</details>
-
----
-
-**2 (nhắc lại).** Vì sao phải bỏ bin tần số 0 khi chuẩn hoá phổ thành phân phối xác suất?
-
-<details><summary>Đáp án</summary>
-
-Bin tần số 0 là mức trung bình (DC). Nếu giữ lại, chuỗi có mức lớn sẽ có toàn bộ "xác suất" dồn vào bin 0 và entropy ≈ 0 bất kể chuỗi
-nhiễu hay không — đặc trưng sẽ phụ thuộc đơn vị đo. Trong code còn trừ trung bình trước khi gọi Welch.
+**A** (mục 4.2): entropy đo năng lượng trải đều trên các tần số tới đâu; dồn hết vào một tần số cho 0. **B sai**: đó là entropy gần 1.
+**C sai**: code trừ trung bình và bỏ tần số 0 trước khi tính, nên mức của chuỗi không ảnh hưởng. **D sai**: entropy thấp gợi ý dễ, nhưng
+không phải sai số; chuỗi có xu hướng mạnh có entropy thấp mà seasonal naive vẫn có thể sai nhiều.
 
 </details>
 
----
+**Câu 2.** Nhân mọi giá trị của một chuỗi với 1.000 (đổi nghìn đồng thành đồng). Đặc trưng nào **đổi**?
 
-**3 (nhắc lại).** MASE được chuẩn hoá bằng gì, và điều đó khiến nó phù hợp với so sánh nào, không phù hợp với so sánh nào?
+- A. Hệ số biến thiên
+- B. $r_1$
+- C. Độ lệch chuẩn
+- D. Spectral entropy
 
-<details><summary>Đáp án</summary>
+<details>
+<summary>Đáp án</summary>
 
-Chia cho MAE của naive (mùa vụ) tính **trong mẫu huấn luyện của chính chuỗi đó**. Phù hợp: so **nhiều mô hình trên cùng một chuỗi**, và
-gộp sai số qua nhiều chuỗi khác thang. Không phù hợp: so **độ khó giữa các chuỗi** — vì mẫu số đã chứa đúng phần khó ấy.
-
-</details>
-
----
-
-**4 (nhắc lại).** Nêu ba đặc trưng phụ thuộc đơn vị đo và cách xử lý trước khi đưa vào PCA.
-
-<details><summary>Đáp án</summary>
-
-Trung bình, độ lệch chuẩn, độ dốc xu hướng (và mọi đặc trưng tính bằng đơn vị gốc). Xử lý: hoặc bỏ ra, hoặc chuyển sang dạng tương đối
-(hệ số biến thiên = sd/mean), và **luôn** `StandardScaler` trước PCA. Nếu không, PC1 chỉ là "chuỗi to hay nhỏ".
+**C** (mục 4.1): độ lệch chuẩn nhân lên 1.000 lần, như trung bình; hai đặc trưng quy mô này chỉ để tham chiếu. **A sai**: CV là tỷ số, tử và
+mẫu cùng nhân 1.000. **B sai**: tử số và mẫu số của $r_1$ cùng nhân 1.000². **D sai**: phần năng lượng của mỗi tần số là tỷ lệ, không đổi.
 
 </details>
 
----
+**Câu 3.** Vì sao MASE của **chính** seasonal naive nằm quanh 1 ở gần như mọi chuỗi?
 
-**5 (vận dụng).** Bạn tính tương quan giữa một đặc trưng mới và MASE của seasonal naive trên 4.000 chuỗi, được r = 0,01. Bạn kết luận gì,
-và làm gì tiếp?
+- A. Vì seasonal naive luôn là mô hình tốt nhất
+- B. Vì mẫu số của MASE là sai số của seasonal naive trên phần học, nên độ khó của chuỗi có mặt ở cả tử lẫn mẫu
+- C. Vì MASE chỉ dùng được cho chuỗi dương
+- D. Vì 18 tháng chấm quá ngắn
 
-<details><summary>Đáp án</summary>
+<details>
+<summary>Đáp án</summary>
 
-**Chưa kết luận được gì.** MASE của seasonal naive tự triệt tiêu độ khó (trung vị ≈ 1,0 ở mọi nhóm entropy). Việc cần làm: tính lại với
-sMAPE (hoặc MAE chuẩn hoá theo trung bình chuỗi, hoặc skill score so với một baseline **khác** mô hình đang chấm), và báo cả Spearman.
-Trong buổi này entropy có r = −0,05 với MASE nhưng +0,25 với sMAPE.
-
-</details>
-
----
-
-**6 (vận dụng).** Hai chuỗi doanh thu có cùng hình dạng mùa vụ, một chuỗi trung bình 10.000, một chuỗi 100. Bạn phân cụm DTW và chúng vào
-hai cụm khác nhau. Sai ở đâu, sửa thế nào, và kiểm chứng ra sao?
-
-<details><summary>Đáp án</summary>
-
-Sai: DTW so **giá trị tuyệt đối** nên khoảng cách bị chi phối bởi mức. Sửa: z-score từng chuỗi ($(y-\bar y)/s$) trước khi tính ma trận
-khoảng cách. Kiểm chứng: (a) nhân một chuỗi với 100 → nhãn cụm không đổi; (b) in mức trung vị theo cụm — nếu nó tăng đều theo số hiệu cụm
-thì vẫn đang cụm theo độ lớn.
+**B** (mục 4.3): chuỗi nhiễu thì tử và mẫu cùng lớn, chuỗi đều thì cùng nhỏ, tỷ số gần 1. **A sai**: MASE ≈ 1 nói seasonal naive trên kỳ chấm
+sai cỡ như trên phần học, không nói nó tốt nhất. **C sai**: đó là giới hạn của sMAPE, không phải MASE. **D sai**: đổi tầm chấm không đổi
+được việc mẫu số chứa chính độ khó.
 
 </details>
 
----
+**Câu 4.** Kourentzes phản bác việc dùng hệ số biến thiên (CV) làm trục XYZ vì:
 
-**7 (vận dụng).** Sếp yêu cầu tune mô hình cho toàn bộ 4.000 chuỗi trong một tuần. Bạn dùng kết quả buổi này để đề xuất gì, kèm số liệu?
+- A. Chuỗi mùa vụ đều đặn có CV cao nhưng dự báo rất dễ
+- B. CV không tính được cho doanh thu
+- C. CV luôn giống hệt ABC
+- D. Ngưỡng 0,5 và 1,0 quá cao
 
-<details><summary>Đáp án</summary>
+<details>
+<summary>Đáp án</summary>
 
-Phân tầng: 137 chuỗi có entropy ≥ 0,666 **và** $F_S$ < 0,4 (sMAPE trung vị của baseline **18,11%**) — gần nhiễu, khoảng cách giữa mô hình
-tốt nhất và baseline rất hẹp → dùng seasonal naive + khoảng dự báo rộng, không tune. 3.863 chuỗi còn lại (sMAPE trung vị **6,05%**) mới
-đáng đầu tư. Kết hợp thêm ABC: nhóm A chiếm 74,7% doanh thu → ưu tiên ô AX.
-
-</details>
-
----
-
-**8 (vận dụng).** Một chuỗi làm `kpss` ném `ValueError: cannot convert float NaN to integer`. Nguyên nhân là gì, xử lý thế nào trong một
-pipeline chạy 48.000 chuỗi?
-
-<details><summary>Đáp án</summary>
-
-Chuỗi **hằng** (độ lệch chuẩn 0) → thống kê KPSS chia cho 0. Xử lý: bọc try/except, trả NaN, và **giữ NaN như một cờ phát hiện chuỗi lạ**
-(mẫu 4.000 chuỗi có 1 chuỗi như vậy). Không được im lặng thay bằng 0 — như thế là giấu mất chuỗi hỏng.
+**A** (mục 4.6, ví dụ mã $P$: CV 0,58, seasonal naive không sai chút nào). **B sai**: CV tính được cho mọi chuỗi có trung bình khác 0.
+**C sai**: CV trung vị có tăng từ A sang C, nhưng hai trục khác nhau (có ô AX lẫn AZ). **D sai**: ngưỡng chỉ là quy ước; đổi ngưỡng không sửa
+được việc CV đo dao động chứ không đo độ khó.
 
 </details>
 
----
+## Vận dụng
 
-**9 (đọc biểu đồ).** Hình `entropy-sai-so.png`: ô trái có đường trung vị đi lên 5,38 → 4,87 → 5,15 → 6,11 → 12,04; ô phải có đường trung
-vị nằm ngang 1,02 / 0,95 / 1,01 / 1,02 / 1,02. Một đồng nghiệp nói "hai hình mâu thuẫn nhau, chắc có bug". Bạn trả lời thế nào? Và giải
-thích riêng vì sao nhóm Q2 (4,87%) lại thấp hơn Q1 (5,38%)?
+**Câu 5.** Phổ của một chuỗi có 3 tần số với phần năng lượng 0,5; 0,25; 0,25. Tính spectral entropy (lấy $\ln 3 \approx 1{,}099$). Chuỗi
+gần nhiễu hay có nhịp rõ?
 
-<details><summary>Đáp án</summary>
+<details>
+<summary>Đáp án</summary>
 
-Không mâu thuẫn: **cùng một dự báo, hai thước đo khác mẫu số**. MASE chia cho sai số in-sample của chính seasonal naive, nên chuỗi càng
-khó thì cả tử và mẫu cùng lớn → tỷ số giữ nguyên ≈ 1. sMAPE không chuẩn hoá theo baseline nên phản ánh độ khó.
-
-Q2 < Q1: quan hệ entropy–sMAPE **không đơn điệu** ở vùng entropy thấp. Đo trung vị theo nhóm cho thấy nguyên nhân: Q1 có độ mạnh xu hướng
-**0,994** (cao nhất) nhưng độ mạnh mùa vụ chỉ **0,455** (thấp nhất trong Q1–Q4), và hệ số biến thiên 0,140 so với 0,100 của Q2. Phổ dồn
-vào tần số thấp vì **xu hướng**, nên entropy nhỏ — nhưng seasonal naive lặp lại chu kỳ cũ và bỏ qua drift, nên nó dự báo chuỗi xu hướng
-mạnh kém hơn chuỗi mùa vụ mạnh. Bài học: entropy đo "ngẫu nhiên", không đo "sai số của một baseline cụ thể".
+$-(0{,}5 \ln 0{,}5 + 2 \times 0{,}25 \ln 0{,}25) = 0{,}347 + 0{,}693 = 1{,}040$; chia $\ln 3$: $1{,}040 / 1{,}099 \approx$ **0,95**. Gần 1:
+năng lượng khá đều trên cả ba tần số, chuỗi gần nhiễu (mục 4.2). Nhầm hay gặp: chia cho $\ln 4$ hay quên chia, ra 1,04 (lớn hơn 1 là dấu
+hiệu tính sai).
 
 </details>
 
----
+**Câu 6.** Chuỗi chu kỳ $m$ = 2, phần học 100, 120, 104, 124; kỳ chấm thực tế 108, 128. Dự báo seasonal naive là 104, 124. Tính MASE và
+sMAPE. MASE = 1 có nghĩa chuỗi này "khó trung bình" không?
 
-**10 (đọc bảng — tìm chỗ sai).** Một báo cáo nội bộ viết:
+<details>
+<summary>Đáp án</summary>
 
-| Kết luận | Bằng chứng |
-|---|---|
-| (a) "Hệ số biến thiên là thước đo độ khó dự báo; mọi mã hàng nhóm Z cần mô hình phức tạp." | CV trung vị nhóm Z = 1,4 |
-| (b) "Bộ 782 đặc trưng của tsfresh tốt hơn 20 đặc trưng tự viết vì nhiều thông tin hơn." | số đặc trưng |
-| (c) "Entropy phổ của chúng tôi là 0,42, thấp hơn 0,55 trong bài báo X, nên dữ liệu của chúng tôi dễ hơn." | hai con số |
-| (d) "PCA cho thấy chuỗi dài nằm tách biệt — đó là một phân khúc khách hàng riêng." | hình PCA |
+Mẫu số MASE: \|104 − 100\| và \|124 − 120\| → 4. Sai số kỳ chấm 4 và 4 → MAE 4. MASE = 4/4 = **1**. sMAPE = (200 × 4/212 + 200 × 4/252) / 2 =
+(3,77 + 3,17) / 2 ≈ **3,5%**: chuỗi dễ (mục 4.3). MASE = 1 chỉ nói kỳ chấm sai cỡ như phần học, **không** nói chuỗi khó hay dễ. Nhầm hay
+gặp: đọc MASE = 1 thành "khó".
 
-Chỉ ra chỗ sai của từng dòng.
+</details>
 
-<details><summary>Đáp án</summary>
+**Câu 7.** Hai chuỗi 2, 4, 2 và 20, 40, 20. DTW trên giá trị gốc là 44,1. Bạn phân cụm và chúng vào hai cụm khác nhau. Sai ở đâu? Sau khi
+sửa, DTW bằng bao nhiêu?
 
-- **(a)** CV đo **biến động**, không đo **độ khó**. Chuỗi mùa vụ mạnh, không nhiễu, có CV lớn nhưng cực dễ dự báo (ví dụ của Kourentzes).
-  Đo được trong buổi: CV × MASE(snaive) có Spearman chỉ −0,11. Thay trục XYZ bằng **sai số thật của baseline**.
-- **(b)** Nhiều đặc trưng ≠ nhiều thông tin: phần lớn tương quan chặt với nhau. catch22 rút từ **4.791** xuống **22** mà vẫn giữ được
-  hiệu năng phân loại. Muốn so thì phải so trên một nhiệm vụ hạ nguồn cụ thể.
-- **(c)** Hai entropy tính bằng **phương pháp khác nhau** (Welch với `nperseg` nào? periodogram?) và trên **độ dài khác nhau** thì không
-  so trực tiếp được. Phải nêu phương pháp + tham số, và tốt nhất là tính lại cả hai bằng cùng một hàm.
-- **(d)** Nhiều đặc trưng (acf10, entropy, spike) phụ thuộc **độ dài chuỗi**; nếu không cắt về cùng độ dài thì PCA đang vẽ độ dài chứ
-  không phải hành vi khách hàng. Buổi này cắt mọi chuỗi về 120 điểm cuối trước khi trích đặc trưng.
+<details>
+<summary>Đáp án</summary>
+
+Hai chuỗi cùng hình dạng, chỉ khác độ lớn; DTW so **giá trị** nên coi chúng rất khác (mục 4.5). Sửa: chuẩn hoá z-score từng chuỗi trước.
+Cả hai thành −0,71; 1,41; −0,71, nên DTW = **0**, vào cùng cụm. Nhầm hay gặp: tăng cửa sổ Sakoe–Chiba; cửa sổ chỉ cho lệch thời gian, không
+bù được chênh lệch độ lớn.
+
+</details>
+
+**Câu 8.** Ba chuỗi: $U$ có entropy 0,80 và $F_S$ 0,20; $V$ có entropy 0,80 và $F_S$ 0,70; $W$ có entropy 0,30 và $F_S$ 0,10. Theo quy tắc
+của buổi (entropy ≥ 0,666 **và** $F_S$ < 0,4), chuỗi nào "dùng baseline"? Vì sao không tách theo một đặc trưng?
+
+<details>
+<summary>Đáp án</summary>
+
+Chỉ **$U$** (mục 4.4). $V$ entropy cao nhưng mùa vụ mạnh: vẫn có nhịp để mô hình khai thác. $W$ mùa vụ yếu nhưng entropy thấp: có cấu trúc
+khác (ví dụ xu hướng). Ghép hai điều kiện để chỉ gạt ra chuỗi vừa giống nhiễu vừa không có mùa vụ; trong 4.000 chuỗi, nhóm này (137 chuỗi)
+có sMAPE trung vị 18,11%, gấp ba phần còn lại. Nhầm hay gặp: gạt mọi chuỗi entropy cao, bỏ luôn những chuỗi mùa vụ mạnh đáng mô hình tốt.
+
+</details>
+
+## Đọc biểu đồ / bảng kết quả — tìm chỗ sai
+
+**Câu 9.** Một báo cáo viết: "Spectral entropy vô dụng để đoán độ khó: Pearson với MASE của seasonal naive chỉ −0,05, và trung vị MASE theo
+5 nhóm ngũ phân vị entropy là 1,02 / 0,95 / 1,01 / 1,02 / 1,02." Chỉ ra lỗi và nói phải báo gì thêm.
+
+<details>
+<summary>Đáp án</summary>
+
+Lỗi: dùng MASE của **chính** seasonal naive để so độ khó giữa các chuỗi. Mẫu số đã chứa độ khó, nên MASE quanh 1 ở mọi nhóm, và dãy 1,02 /
+0,95 / … là bằng chứng của điều đó, không phải của "entropy vô dụng" (mục 4.3). Phải báo thêm sMAPE (Pearson +0,245, Spearman +0,216; trung
+vị nhóm cao nhất 12,0%, gấp đôi các nhóm khác) và cả hai hệ số tương quan, kèm tên thước đo trong mọi kết luận.
+
+</details>
+
+**Câu 10.** Bảng phân cụm DTW 300 chuỗi thành 4 cụm:
+
+| Cụm | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| Số chuỗi | 78 | 102 | 72 | 48 |
+| Mức trung vị | 1.585 | 3.310 | 6.835 | 9.832 |
+
+Nhóm phân tích kết luận: "Bốn cụm là bốn kiểu hành vi thị trường khác nhau, mỗi cụm cần một mô hình riêng." Nhận xét, và nói cách kiểm.
+
+<details>
+<summary>Đáp án</summary>
+
+Mức trung vị **tăng đều** theo số cụm: phân cụm chỉ đang xếp chuỗi theo độ lớn, vì chưa chuẩn hoá z-score trước DTW (mục 4.5). Bốn cụm là
+"nhỏ, vừa, lớn, rất lớn", không phải bốn hình dạng. Cách kiểm: (1) chuẩn hoá rồi phân cụm lại, mức trung vị theo cụm phải lộn xộn; (2) nhân
+một chuỗi với 100, nhãn cụm phải giữ nguyên. Nhầm hay gặp: chỉ nhìn số chuỗi mỗi cụm (khá cân) rồi tin cụm có ý nghĩa.
 
 </details>

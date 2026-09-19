@@ -1,24 +1,24 @@
 # code/ — điểm xuất phát của buổi 5
 
-Code **chạy được** nhưng **cố tình sai** đúng chỗ bài học hôm nay sửa. Một con số tăng trưởng chỉ có nghĩa khi nói rõ đã điều chỉnh gì.
+Code **chạy được** nhưng **cố tình sai** đúng chỗ bài học hôm nay sửa. Đừng tin một con số tăng trưởng khi chưa biết nó đã bỏ gì.
 
-| Tệp | Làm gì |
-|---|---|
-| `bien_doi.py` | đọc doanh số bán lẻ (Census MARTS), CPI-U (BLS), dân số (BEA); điều chỉnh lịch/lạm phát/dân số; Box-Cox + Guerrero tự viết; dự báo trên thang log và đổi ngược |
+| Tệp | Làm gì | Bạn cần làm gì |
+|---|---|---|
+| `bien_doi.py` | đọc bán lẻ Mỹ, CPI, dân số; điều chỉnh lịch và lạm phát; Box-Cox, Guerrero; dự báo trên thang log và đổi ngược | sửa `so_sanh_thang`, `tang_truong_thuc_dau_nguoi`, `boxcox_nguoc` (tài liệu mục 5) |
+| `lab.ipynb` | notebook của Lab, bước 1–5 | chạy từng ô |
 
-**Đang cố tình sai** (triệu chứng nhìn thấy, không nói nguyên nhân):
-- "tháng 2/2023 giảm 3,4% so với tháng 1"
-- "doanh số bán lẻ tăng 316% từ 1993 tới 2025"
-- dự báo đổi ngược từ thang log luôn thấp hơn thực tế một chút, ở mọi chuỗi
+**Đang cố tình sai** (chỉ nói triệu chứng, không nói nguyên nhân):
 
-Chạy:
+- "Tháng 3/2023 tăng 14,2% so với tháng 2", và con số "theo ngày" y hệt con số so thẳng.
+- "Bán lẻ tăng 316% từ 1993", kể cả khi đã hỏi tăng trưởng thực trên đầu người.
+- Dự báo trung bình và dự báo trung vị ra y hệt nhau.
+
+Lệnh (trong `lab/`):
 
 ```bash
-cd lab && python lab.py up          # một lần: môi trường + dữ liệu (~3 MB)
-python lab.py check                 # bộ chấm: đầu buổi ĐỎ (5/8 hỏng), cuối buổi phải XANH
-python lab.py notebook              # mở các tệp .py dưới dạng notebook
-python lab.py chay ../code/bien_doi.py
+python lab.py up           # một lần: môi trường + dữ liệu (bán lẻ, CPI, dân số), kiểm sha256
+python lab.py notebook     # mở code/lab.ipynb (hoặc mở bằng VS Code)
+python lab.py check        # bộ chấm: đầu buổi ĐỎ (5/8 hỏng), cuối buổi phải XANH 8/8
 ```
 
-Tệp `.py` viết dạng *percent* (`# %%` tách ô): chạy được như script, mở được như notebook.
-Mỗi tệp chỉ định nghĩa hàm ở mức module; phần chạy thử đặt trong `if __name__ == "__main__":`.
+Bạn sửa **tệp `.py`**; notebook `lab.ipynb` nạp lại nó tự động. Dùng conda: `python lab.py up --pip`.

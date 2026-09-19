@@ -1,0 +1,22 @@
+# SINH TỰ ĐỘNG bởi tools/sinh_nen.py — KHÔNG SỬA TAY. Sửa tools/du-lieu/danh-muc.toml rồi chạy lại tool.
+# Dữ liệu của buoi-19: tải + kiểm sha256 bằng `python lab.py up`.
+
+phien_ban = 1
+
+[[bo]]
+ten = "monash-car-parts-khong-thieu"
+kieu = "http"
+tieu_de = "Car Parts — bản đã bỏ giá trị thiếu — Monash"
+url = "https://zenodo.org/records/4656021/files/car_parts_dataset_without_missing_values.zip?download=1"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/105db7d8d51c8ff1229ec06c363f641417124bf3/monash-car-parts-khong-thieu/car_parts_dataset_without_missing_values.zip"
+sha256 = "a0b1e87e2329098837e5cfd020e16a36e30efa9a29a1fae8d1bd3603dfefcfea"
+dung_luong = 39609
+giai_nen = "zip"
+chi_lay = ["car_parts_dataset_without_missing_values.tsf"]
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://doi.org/10.5281/zenodo.4656021"
+trich_giay_phep = "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."
+ghi_nguon = "Godahewa et al. (2021). Monash Time Series Forecasting Archive."
+mirror = true
+khong_thoi_gian = true

@@ -122,7 +122,8 @@ BƯỚC CUỐI — ĐỌC THỬ NHƯ HỌC VIÊN MỚI (bắt buộc trước kh
 
 ## KHỐI CHUNG — mọi prompt phase trong `todos.md` chạy theo khối này (2026-09-18)
 
-Prompt từng phase chỉ ghi phần **riêng**; mọi yêu cầu chung nằm ở đây. Đọc trước: `CLAUDE.md`, mục này, `todos/phase-NN.md`
+Prompt từng phase chỉ ghi phần **riêng**; mọi yêu cầu chung nằm ở đây. Không dùng subagent: mỗi phase soạn chỉ 1–2 buổi;
+sau mỗi cụm có phase **DT** (đọc thử độc lập, phiên mới); cụm đổi nhanh có phase **RS** (research riêng) trước khi soạn. Đọc trước: `CLAUDE.md`, mục này, `todos/phase-NN.md`
 (checklist + "Bắt buộc"), `phan-hoi-hoc-vien.md`, `tools/CHUAN-DE-HIEU.md`. Phase viết lại: đọc thêm mục "Đọc thử"/"Rút gọn"
 trong `NGHIEN-CUU.md` buổi 1–3 (chỗ đã sửa, đã cắt).
 
@@ -161,6 +162,20 @@ Python/output thật. **Mọi lượt cắt/sửa sau đó → tự đọc thử
 thì an toàn; cắt mắt xích "vì sao" thì đọc thử bắt lại. Văn bản không phải buổi (đề, rubric, câu hỏi, README): tự đọc trong vai
 học viên đã học tới buổi tương ứng, viết lại được đúng "làm gì, nộp gì, chấm thế nào", 0 chỗ mơ hồ; rà gọn ≤ 3; không lặp giữa
 đề/rubric/hướng dẫn.
+
+**DT — Phase đọc thử độc lập** (sau mỗi cụm buổi; thay cho "mắt mới" của subagent). Dán prompt trong **phiên MỚI**
+(`/clear` hoặc chat mới — không mang ngữ cảnh phiên soạn). Với từng tài liệu của cụm, theo thứ tự:
+1. Tạo bản quiz bỏ đáp án (lệnh ở `tools/CHUAN-DE-HIEU.md`). Chỉ mở `tai-lieu.md` + bản quiz đó; **KHÔNG** mở `dap-an/`,
+   `NGHIEN-CUU.md`, `code/`, `kiem-tra.md` gốc trước khi viết xong đánh giá.
+2. Đọc toàn bộ theo checklist "Prompt đọc thử", làm quiz **mù**; viết bảng A–E vào `NGHIEN-CUU.md` mục "Đọc thử độc lập".
+3. Rồi mới mở đáp án chấm quiz (kiểm cả đáp án của ta bằng Python), sửa chỗ vướng (viết lại câu), tự rà gọn, chạy X.
+Đạt: 0 chặn, ≤ 5 khó, quiz mù ≥ 9/10, ≤ 3 chỗ thừa. Có sửa → tự đọc thử lại toàn bộ tài liệu đó. Tài liệu chưa đạt thì phase
+DT chưa ✅. Văn bản không phải buổi: viết lại được đúng "làm gì, nộp gì, chấm thế nào", 0 chỗ mơ hồ.
+
+**RS — Phase research riêng** (cụm đổi nhanh: deep learning, foundation model & LLM). Chỉ research, chưa soạn: đủ 6 bước
+"Giao thức research" + danh sách trong prompt, cho từng buổi của cụm; ghi `buoi-NN/NGHIEN-CUU.md` (tạo thư mục buổi từ
+khuôn nếu chưa có) + bảng "lộ trình ↔ hiện tại ↔ quyết định"; lệch lớn → cập nhật lo-trinh + todos, **báo người dùng**.
+Phase soạn sau đọc các `NGHIEN-CUU.md` đó và chỉ rà bổ sung (research cũ hơn 1 tháng thì rà lại phần phiên bản/model).
 
 **X — Xong phase.** `ruff check .` → `kiem_de_hieu.py NN` (0 vi phạm hoặc có lý do) → `kiem_tra_lab.py NN` (đáp án xanh, `code/`
 đỏ đúng chỗ, `lab.ipynb` chạy hết; check < 10 phút CPU 4 nhân) → `kiem_tra_doc_lap.sh` → `xuat_pdf.py NN` + `--kiem` → ghi
@@ -321,14 +336,14 @@ học viên đã học tới buổi tương ứng, viết lại được đúng 
 | 11 | Ngoại lai & điểm gãy | `NGOAI-LAI-DIEM-GAY-buoi-11.pdf` | Xoá mọi điểm > 3σ toàn chuỗi — xoá luôn Tết; không phát hiện level shift COVID |
 | 12 | Khử nhiễu & miền tần số | `KHU-NHIEU-TAN-SO-buoi-12.pdf` | Feature từ rolling centered + `filtfilt` → backtest đẹp giả tạo; hạ mẫu không lọc gây aliasing |
 | 13 | Feature & chống rò rỉ | `FEATURE-RO-RI-buoi-13.pdf` | Rolling không `shift`, scaler fit toàn bộ, nhiệt độ thực tế thay nhiệt độ dự báo, lễ âm lịch hardcode 1 năm |
-| 14 | Baseline & chỉ số | `BASELINE-CHI-SO-buoi-14.pdf` | Báo cáo MAPE cho chuỗi có số 0; không có seasonal naive |
-| 15 | Backtesting | `BACKTEST-buoi-15.pdf` | `train_test_split(shuffle=True)`, tune và báo cáo trên cùng cửa sổ |
-| 16 | ETS & Theta | `ETS-THETA-buoi-16.pdf` | Holt-Winters cộng cho chuỗi có biên độ mùa vụ tăng theo mức |
-| 17 | ARIMA | `ARIMA-buoi-17.pdf` | auto-ARIMA tắt mùa vụ trên dữ liệu tháng; không kiểm phần dư |
-| 18 | Hồi quy động | `HOI-QUY-DONG-buoi-18.pdf` | Hồi quy OLS có phần dư tự tương quan, p-value "đẹp"; Prophet mặc định không khai Tết |
-| 19 | Nhu cầu gián đoạn | `NHU-CAU-GIAN-DOAN-buoi-19.pdf` | ETS cho chuỗi 80% số 0, đánh giá bằng MAPE |
-| 20 | Đa biến & nowcasting | `DA-BIEN-STATE-SPACE-buoi-20.pdf` | VAR trên chuỗi I(1) không kiểm cointegration; nowcast dùng số liệu đã sửa (không vintage) |
-| 21 | Tài chính & biến động | `TAI-CHINH-GARCH-buoi-21.pdf` | Notebook "LSTM đoán giá chính xác 99%" (thực chất là naive trễ 1 bước) |
+| 14 | Baseline & chỉ số | `BASELINE-CHI-SO-buoi-14.pdf` | Báo cáo MAPE cho chuỗi có số 0 (âm thầm bỏ giá trị vô hạn); không có seasonal naive; mẫu số MASE/RMSSE lấy trên đoạn đang chấm |
+| 15 | Backtesting | `BACKTEST-buoi-15.pdf` | `train_test_split(shuffle=True)`, tune và báo cáo trên cùng cửa sổ; Diebold–Mariano bỏ tự tương quan khi h > 1 |
+| 16 | ETS & Theta | `ETS-THETA-buoi-16.pdf` | Holt-Winters cộng cho chuỗi có biên độ mùa vụ tăng theo mức; SES khớp bằng mức đã cập nhật (α → 1, SSE = 0) |
+| 17 | ARIMA | `ARIMA-buoi-17.pdf` | auto-ARIMA tắt mùa vụ trên dữ liệu tháng (`season_length=1`); không kiểm phần dư, nên mô hình tự chọn quên phần mùa vụ vẫn "ổn" |
+| 18 | Hồi quy động | `HOI-QUY-DONG-buoi-18.pdf` | Hồi quy thường có phần dư tự tương quan, p-value "đẹp" (hành khách EU ~ sản lượng Mỹ, p = 3·10⁻¹⁶); Prophet mặc định không khai Tết |
+| 19 | Nhu cầu gián đoạn | `NHU-CAU-GIAN-DOAN-buoi-19.pdf` | Chuỗi 76% số 0 chấm bằng MAE và MAPE bỏ tháng 0, chọn theo MAE → "không nhập hàng"; TSB tự viết chỉ cập nhật xác suất ở tháng có bán (không giảm khi mặt hàng ngừng bán) |
+| 20 | Đa biến & nowcasting | `DA-BIEN-STATE-SPACE-buoi-20.pdf` | Không kiểm cointegration (hạng luôn 0) → VAR trên sai phân cho dầu–xăng; nowcast đọc vintage mới nhất (số đã sửa, đủ 3 tháng ngay từ tháng đầu) |
+| 21 | Tài chính & biến động | `TAI-CHINH-GARCH-buoi-21.pdf` | Demo mạng nơ-ron "đoán giá chính xác 99%" (chuẩn hoá cả chuỗi, chia ngẫu nhiên, chỉ báo R², không có naive — thực chất thua naive); VaR 99% chuẩn với độ lệch chuẩn cố định (Kupiec bác) |
 | 22 | Dự báo thành hồi quy | `ML-HOI-QUY-buoi-22.pdf` | Chiến lược direct dùng lag 1 cho h = 7; cây quyết định trên chuỗi có xu hướng không sai phân |
 | 23 | Gradient boosting | `GRADIENT-BOOSTING-buoi-23.pdf` | LightGBM L2 cho dữ liệu đếm thưa; Optuna tune bằng KFold ngẫu nhiên |
 | 24 | Ensemble & AutoML | `ENSEMBLE-AUTOML-buoi-24.pdf` | Chọn "mô hình tốt nhất" trong 30 mô hình trên chính tập báo cáo |

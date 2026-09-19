@@ -1,0 +1,115 @@
+# SINH TỰ ĐỘNG bởi tools/sinh_nen.py — KHÔNG SỬA TAY. Sửa tools/du-lieu/danh-muc.toml rồi chạy lại tool.
+# Dữ liệu của buoi-18: tải + kiểm sha256 bằng `python lab.py up`.
+
+phien_ban = 1
+
+[[bo]]
+ten = "eia930-balance-2024-h1"
+kieu = "http"
+tieu_de = "EIA-930 BALANCE 2024 tháng 1–6 — nhu cầu, dự báo day-ahead, phát điện theo giờ của mọi vùng điều độ Mỹ"
+url = "https://www.eia.gov/electricity/gridmonitor/sixMonthFiles/EIA930_BALANCE_2024_Jan_Jun.csv"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/105db7d8d51c8ff1229ec06c363f641417124bf3/eia930-balance-2024-h1/EIA930_BALANCE_2024_Jan_Jun.csv"
+sha256 = "26768c495c3ba987e29d79df2e40d4e741f9dbcff086f53c12ff774465756a10"
+dung_luong = 41742812
+ten_tep = "EIA930_BALANCE_2024_Jan_Jun.csv"
+giay_phep = "Public domain (U.S. government)"
+link_giay_phep = "https://www.eia.gov/about/copyrights_reuse.php"
+trang_nguon = "https://www.eia.gov/electricity/gridmonitor/"
+trich_giay_phep = "U.S. government publications are in the public domain and are not subject to copyright protection. You may use and/or distribute any of our data, files, databases, reports, graphs, charts, and other information products that are on our website"
+ghi_nguon = "Source: U.S. Energy Information Administration, Form EIA-930 Hourly Electric Grid Monitor (truy cập 2026-09-17)."
+mirror = true
+ly_do_mirror = "BẮT BUỘC mirror: mọi tệp sáu tháng được EIA dựng lại hằng ngày (Last-Modified 2026-09-16) và số liệu được sửa lùi tới 30 ngày"
+khoang_thoi_gian = ["2024-01-01", "2024-06-30"]
+ghi_chu = "Cột thời gian 'UTC Time at End of Hour' (nhãn là cuối giờ); 'Demand Forecast (MW)' là dự báo day-ahead của đơn vị điều độ. Từ 2024 H2 bảng cột thay đổi (tách nguồn mặt trời/gió/thuỷ điện)."
+
+[[bo]]
+ten = "eia930-balance-2024-h2"
+kieu = "http"
+tieu_de = "EIA-930 BALANCE 2024 tháng 7–12"
+url = "https://www.eia.gov/electricity/gridmonitor/sixMonthFiles/EIA930_BALANCE_2024_Jul_Dec.csv"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/105db7d8d51c8ff1229ec06c363f641417124bf3/eia930-balance-2024-h2/EIA930_BALANCE_2024_Jul_Dec.csv"
+sha256 = "a602a8e577cfdd2fa3083413eaa4dd8ba7f0d2b26a2986f8f6d22917465ea49f"
+dung_luong = 47928993
+ten_tep = "EIA930_BALANCE_2024_Jul_Dec.csv"
+giay_phep = "Public domain (U.S. government)"
+link_giay_phep = "https://www.eia.gov/about/copyrights_reuse.php"
+trang_nguon = "https://www.eia.gov/electricity/gridmonitor/"
+trich_giay_phep = "U.S. government publications are in the public domain and are not subject to copyright protection. You may use and/or distribute any of our data, files, databases, reports, graphs, charts, and other information products that are on our website"
+ghi_nguon = "Source: U.S. Energy Information Administration, Form EIA-930 Hourly Electric Grid Monitor (truy cập 2026-09-17)."
+mirror = true
+ly_do_mirror = "BẮT BUỘC mirror: tệp dựng lại hằng ngày, số liệu sửa lùi"
+khoang_thoi_gian = ["2024-07-01", "2024-12-31"]
+
+[[bo]]
+ten = "open-meteo-dallas-du-bao-luu-2024"
+kieu = "http"
+tieu_de = "Open-Meteo Previous Runs — Dallas TX 2024: nhiệt độ THẬT (ERA5) và nhiệt độ ĐÃ DỰ BÁO trước 1 ngày / 3 ngày"
+url = "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=32.7767&longitude=-96.797&start_date=2024-01-01&end_date=2024-12-31&hourly=temperature_2m,temperature_2m_previous_day1,temperature_2m_previous_day3&timezone=UTC&format=csv"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/105db7d8d51c8ff1229ec06c363f641417124bf3/open-meteo-dallas-du-bao-luu-2024/open-meteo-dallas-du-bao-luu-2024.csv"
+sha256 = "5c7b56f9f713647e61b80a63a078150093598fdf8effdddf075898f7f04340fd"
+dung_luong = 277984
+ten_tep = "open-meteo-dallas-du-bao-luu-2024.csv"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://open-meteo.com/en/licence"
+trang_nguon = "https://open-meteo.com/en/docs/previous-runs-api"
+trich_giay_phep = "The data obtained through the API is provided under the terms of the CC-BY 4.0 licence"
+ghi_nguon = "Weather data by Open-Meteo.com (https://open-meteo.com/), Previous Runs API."
+mirror = true
+ly_do_mirror = "API miễn phí chỉ cho mục đích phi thương mại (10.000 lượt/ngày); dữ liệu CC BY 4.0 cho phép phân phối lại"
+khoang_thoi_gian = ["2024-01-01", "2024-12-31"]
+ghi_chu = "Cột `temperature_2m` là giá trị đã biết sau (ERA5 reanalysis, KHÔNG dùng làm feature ex-ante); `_previous_day1`/`_previous_day3` là giá trị dự báo trước 1 và 3 ngày — dùng làm feature hợp lệ. 8.784 dòng, 2 dòng metadata + 1 dòng trống ở đầu (đọc bằng skiprows=2). NaN ở các giờ đầu 2024-01 (chưa có lượt chạy trước đó). Lưu trữ previous-runs chỉ có từ 01/2024."
+
+[[bo]]
+ten = "wikipedia-vi-tong"
+kieu = "http"
+tieu_de = "Wikimedia Pageviews — tổng lượt xem Wikipedia tiếng Việt (người dùng), theo ngày 2016–2025"
+url = "https://wikimedia.org/api/rest_v1/metrics/pageviews/aggregate/vi.wikipedia/all-access/user/daily/2016010100/2025123100"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/105db7d8d51c8ff1229ec06c363f641417124bf3/wikipedia-vi-tong/vi-wikipedia-tong-2016-2025.json"
+sha256 = "481d604d1b581efcb76c4a86d1dc6e5547271c6b8e2a772bcc53719b1fa1c3f3"
+dung_luong = 463933
+ten_tep = "vi-wikipedia-tong-2016-2025.json"
+giay_phep = "CC0 1.0"
+link_giay_phep = "https://dumps.wikimedia.org/legal.html"
+trang_nguon = "https://wikimedia.org/api/rest_v1/"
+trich_giay_phep = "All Analytics datasets are available under the Creative Commons Zero (CC0) public domain dedication, unless otherwise specified."
+ghi_nguon = "Wikimedia Foundation, Pageviews API (truy cập 2026-09-17)."
+mirror = true
+khoang_thoi_gian = ["2016-01-01", "2025-12-31"]
+
+[[bo]]
+ten = "eurostat-hanh-khach-hang-khong"
+kieu = "http"
+tieu_de = "Eurostat avia_paoc — hành khách hàng không EU27 theo tháng (chở có thu tiền, tổng chiều), 2008-01 → nay"
+url = "https://ec.europa.eu/eurostat/api/dissemination/sdmx/3.0/data/dataflow/ESTAT/avia_paoc/1.0/M.PAS.PAS_CRD.TOTAL.TOTAL.EU27_2020?format=csvdata&compress=false"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/105db7d8d51c8ff1229ec06c363f641417124bf3/eurostat-hanh-khach-hang-khong/eurostat-avia-paoc-eu27.csv"
+sha256 = "6ce5178cf876ba9e58c47ed9e6c5c4207383e9041dab1fc9306693c691eff5d0"
+dung_luong = 18866
+ten_tep = "eurostat-avia-paoc-eu27.csv"
+giay_phep = "CC BY 4.0 (Eurostat)"
+link_giay_phep = "https://ec.europa.eu/eurostat/help/copyright-notice"
+trang_nguon = "https://ec.europa.eu/eurostat/databrowser/view/avia_paoc/default/table"
+trich_giay_phep = "Reuse of statistical data, metadata, publications, and other dissemination tools published on this website for commercial or non-commercial purposes is authorised provided the source is acknowledged."
+ghi_nguon = "Eurostat, Air passenger transport by type of schedule (avia_paoc), truy cập 2026-09-18."
+mirror = true
+ly_do_mirror = "BẮT BUỘC mirror: Eurostat sửa số liệu (revision) mỗi kỳ công bố nên sha256 chỉ đúng tới lần sửa kế tiếp"
+khoang_thoi_gian = ["2008-01", "2026-02"]
+ghi_chu = "Dùng endpoint SDMX 3.0: bản SDMX 2.1 có cột 'LAST UPDATE' đổi mỗi lần tải nên sha256 không ổn định. 218 tháng; cột TIME_PERIOD (YYYY-MM) và OBS_VALUE. Vỡ COVID rất rõ: 2020-01 66.046.231 → 2020-04 890.607 (−98,7%), hồi phục 2021-07 48.960.587. Thay US BTS T-100 (transtats chỉ có bảng HTML, data.bts.gov trả 403)."
+
+[[bo]]
+ten = "frb-g17-san-luong-cong-nghiep"
+kieu = "http"
+tieu_de = "Federal Reserve Board G.17 — chỉ số sản lượng công nghiệp tổng hợp (IP.B50001.S ≈ INDPRO), 2000–2024"
+url = "https://www.federalreserve.gov/datadownload/Output.aspx?rel=G17&series=403cc340ea3a19566b30770b9e4793ab&lastobs=&from=01/01/2000&to=12/31/2024&filetype=csv&label=include&layout=seriescolumn&type=package"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/105db7d8d51c8ff1229ec06c363f641417124bf3/frb-g17-san-luong-cong-nghiep/g17-2000-2024.csv"
+sha256 = "3956c6626866f458434ee81dffb72374b4653e0fd183f6286b84a3da33421d15"
+dung_luong = 23364
+ten_tep = "g17-2000-2024.csv"
+giay_phep = "Public domain (Federal Reserve Board)"
+link_giay_phep = "https://www.federalreserve.gov/disclaimer.htm"
+trang_nguon = "https://www.federalreserve.gov/datadownload/Choose.aspx?rel=G17"
+trich_giay_phep = "Unless otherwise indicated, information on Board's website is in the public domain and may be copied and distributed without permission. Please cite to the Board as the source of the information."
+ghi_nguon = "Board of Governors of the Federal Reserve System, G.17 Industrial Production and Capacity Utilization (truy cập 2026-09-17)."
+mirror = true
+ly_do_mirror = "nên mirror: IP được sửa số liệu lùi hằng năm dù khoảng thời gian cố định"
+khoang_thoi_gian = ["2000-01", "2024-12"]
+ghi_chu = "5 dòng nhãn rồi mới tới dòng tiêu đề 'Time Period'."

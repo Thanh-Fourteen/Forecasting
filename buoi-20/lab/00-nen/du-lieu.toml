@@ -1,0 +1,118 @@
+# SINH TỰ ĐỘNG bởi tools/sinh_nen.py — KHÔNG SỬA TAY. Sửa tools/du-lieu/danh-muc.toml rồi chạy lại tool.
+# Dữ liệu của buoi-20: tải + kiểm sha256 bằng `python lab.py up`.
+
+phien_ban = 1
+
+[[bo]]
+ten = "philly-fed-gdp-thuc-vintage-thang"
+kieu = "http"
+tieu_de = "Philadelphia Fed Real-Time Data Set — GDP thực theo quý, vintage THEO THÁNG (ROUTPUT, 65M11 → nay)"
+url = "https://www.philadelphiafed.org/-/media/FRBP/Assets/Surveys-And-Data/real-time-data/data-files/xlsx/routputMvQd.xlsx"
+sha256 = "7d8c6ab789648f3d98ef522904e47b378e7a31090c26066c821403a8a078cac5"
+dung_luong = 696437
+ten_tep = "routputMvQd.xlsx"
+giay_phep = "Điều khoản Philadelphia Fed — chỉ cho mục đích thông tin, giáo dục, nghiên cứu"
+link_giay_phep = "https://www.philadelphiafed.org/about-us/privacy-notice"
+trang_nguon = "https://www.philadelphiafed.org/surveys-and-data/real-time-data-research/real-time-data-set-for-macroeconomists"
+trich_giay_phep = "The content provided on this website may be used for informational, educational, and research purposes only."
+ghi_nguon = "Federal Reserve Bank of Philadelphia, Real-Time Data Set for Macroeconomists (Croushore & Stark)."
+mirror = false
+ly_do_mirror = "Philadelphia Fed không phải cơ quan chính phủ, trang ghi 'Copyright 2026. All rights reserved.' — không phân phối lại; học viên tải từ nguồn gốc (lớp thu phí: xin phép)"
+noi_them = "vintage tới 2025M12 — mỗi tháng Philadelphia Fed thêm một cột vintage, các cột cũ giữ nguyên"
+khoang_thoi_gian = ["1947Q1", "2026Q2"]
+ghi_chu = "Cột ROUTPUTyyMm = số liệu có vào giữa tháng đó (26M8 đã có GDP 2026Q2 công bố 30/7). Buổi 20 cắt tới vintage 25M12."
+
+[[bo]]
+ten = "philly-fed-viec-lam-vintage"
+kieu = "http"
+tieu_de = "Philadelphia Fed Real-Time Data Set — việc làm phi nông nghiệp (EMPLOY, nghìn người) theo tháng, vintage theo tháng"
+url = "https://www.philadelphiafed.org/-/media/FRBP/Assets/Surveys-And-Data/real-time-data/data-files/xlsx/employMvMd.xlsx"
+sha256 = "ae954f940b621d80e9f56c42b151a2d340ecf01744e03c33acad74e58da0aafa"
+dung_luong = 2228010
+ten_tep = "employMvMd.xlsx"
+giay_phep = "Điều khoản Philadelphia Fed — chỉ cho mục đích thông tin, giáo dục, nghiên cứu"
+link_giay_phep = "https://www.philadelphiafed.org/about-us/privacy-notice"
+trang_nguon = "https://www.philadelphiafed.org/surveys-and-data/real-time-data-research/real-time-data-set-for-macroeconomists"
+trich_giay_phep = "The content provided on this website may be used for informational, educational, and research purposes only."
+ghi_nguon = "Federal Reserve Bank of Philadelphia, Real-Time Data Set for Macroeconomists (Croushore & Stark)."
+mirror = false
+ly_do_mirror = "Philadelphia Fed không phải cơ quan chính phủ, trang ghi 'Copyright 2026. All rights reserved.' — không phân phối lại; học viên tải từ nguồn gốc (lớp thu phí: xin phép)"
+noi_them = "vintage tới 2025M12 — mỗi tháng Philadelphia Fed thêm một cột vintage, các cột cũ giữ nguyên"
+khoang_thoi_gian = ["1939-01", "2026-07"]
+ghi_chu = "Cột EMPLOYyyMm. Buổi 20 cắt tới vintage 25M12."
+
+[[bo]]
+ten = "philly-fed-san-luong-cn-vintage"
+kieu = "http"
+tieu_de = "Philadelphia Fed Real-Time Data Set — chỉ số sản lượng công nghiệp (IPT) theo tháng, vintage theo tháng"
+url = "https://www.philadelphiafed.org/-/media/FRBP/Assets/Surveys-And-Data/real-time-data/data-files/xlsx/iptMvMd.xlsx"
+sha256 = "b4a6324162c8745d1a6d7740c936ae6502b00c39961e98370536c506ab55af99"
+dung_luong = 2857241
+ten_tep = "iptMvMd.xlsx"
+giay_phep = "Điều khoản Philadelphia Fed — chỉ cho mục đích thông tin, giáo dục, nghiên cứu"
+link_giay_phep = "https://www.philadelphiafed.org/about-us/privacy-notice"
+trang_nguon = "https://www.philadelphiafed.org/surveys-and-data/real-time-data-research/real-time-data-set-for-macroeconomists"
+trich_giay_phep = "The content provided on this website may be used for informational, educational, and research purposes only."
+ghi_nguon = "Federal Reserve Bank of Philadelphia, Real-Time Data Set for Macroeconomists (Croushore & Stark)."
+mirror = false
+ly_do_mirror = "Philadelphia Fed không phải cơ quan chính phủ, trang ghi 'Copyright 2026. All rights reserved.' — không phân phối lại; học viên tải từ nguồn gốc (lớp thu phí: xin phép)"
+noi_them = "vintage tới 2025M12 — mỗi tháng Philadelphia Fed thêm một cột vintage, các cột cũ giữ nguyên"
+khoang_thoi_gian = ["1919-01", "2026-07"]
+ghi_chu = "Cột IPTyyMm. Buổi 20 cắt tới vintage 25M12."
+
+[[bo]]
+ten = "philly-fed-nha-khoi-cong-vintage"
+kieu = "http"
+tieu_de = "Philadelphia Fed Real-Time Data Set — nhà khởi công (HSTARTS, nghìn căn/năm) theo tháng, vintage theo tháng"
+url = "https://www.philadelphiafed.org/-/media/FRBP/Assets/Surveys-And-Data/real-time-data/data-files/xlsx/hstartsMvMd.xlsx"
+sha256 = "2c7527def217ea593929f5c83f5f98011acc713356a9971b7ec82041a988586e"
+dung_luong = 1753452
+ten_tep = "hstartsMvMd.xlsx"
+giay_phep = "Điều khoản Philadelphia Fed — chỉ cho mục đích thông tin, giáo dục, nghiên cứu"
+link_giay_phep = "https://www.philadelphiafed.org/about-us/privacy-notice"
+trang_nguon = "https://www.philadelphiafed.org/surveys-and-data/real-time-data-research/real-time-data-set-for-macroeconomists"
+trich_giay_phep = "The content provided on this website may be used for informational, educational, and research purposes only."
+ghi_nguon = "Federal Reserve Bank of Philadelphia, Real-Time Data Set for Macroeconomists (Croushore & Stark)."
+mirror = false
+ly_do_mirror = "Philadelphia Fed không phải cơ quan chính phủ, trang ghi 'Copyright 2026. All rights reserved.' — không phân phối lại; học viên tải từ nguồn gốc (lớp thu phí: xin phép)"
+noi_them = "vintage tới 2025M12 — mỗi tháng Philadelphia Fed thêm một cột vintage, các cột cũ giữ nguyên"
+khoang_thoi_gian = ["1959-01", "2026-07"]
+ghi_chu = "Cột HSTARTSyyMm. Buổi 20 cắt tới vintage 25M12."
+
+[[bo]]
+ten = "eia-gia-dau-wti"
+kieu = "http"
+tieu_de = "EIA — giá dầu WTI giao ngay theo ngày (RWTC ≈ DCOILWTICO), toàn bộ lịch sử"
+url = "https://www.eia.gov/dnav/pet/hist_xls/RWTCd.xls"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/105db7d8d51c8ff1229ec06c363f641417124bf3/eia-gia-dau-wti/RWTCd.xls"
+sha256 = "00974b186543d1fa762ddf58d125ab8e2aa347fc80c7ecb12345fdd2f95a56ee"
+dung_luong = 470528
+ten_tep = "RWTCd.xls"
+giay_phep = "Public domain (U.S. government)"
+link_giay_phep = "https://www.eia.gov/about/copyrights_reuse.php"
+trang_nguon = "https://www.eia.gov/dnav/pet/hist/RWTCD.htm"
+trich_giay_phep = "U.S. government publications are in the public domain and are not subject to copyright protection. You may use and/or distribute any of our data, files, databases, reports, graphs, charts, and other information products that are on our website"
+ghi_nguon = "Source: U.S. Energy Information Administration, Cushing OK WTI Spot Price FOB (truy cập 2026-09-17)."
+mirror = true
+ly_do_mirror = "BẮT BUỘC mirror: tệp ghi đè mỗi tuần"
+khoang_thoi_gian = ["1986-01-02", "2026-09-08"]
+ghi_chu = "Excel định dạng cũ .xls — buổi dùng cần xlrd. Không có bản CSV."
+
+[[bo]]
+ten = "eia-gia-xang-ny-harbor"
+kieu = "http"
+tieu_de = "EIA — giá xăng thông thường giao ngay New York Harbor theo ngày (USD/gallon), toàn bộ lịch sử"
+url = "https://www.eia.gov/dnav/pet/hist_xls/EER_EPMRU_PF4_Y35NY_DPGd.xls"
+sha256 = "1305a8b3280701cec8b150249e2811b46672f1fb656a718e586fb43eacefad3c"
+dung_luong = 517120
+ten_tep = "EER_EPMRU_PF4_Y35NY_DPGd.xls"
+giay_phep = "Public domain (U.S. government)"
+link_giay_phep = "https://www.eia.gov/about/copyrights_reuse.php"
+trang_nguon = "https://www.eia.gov/dnav/pet/hist/EER_EPMRU_PF4_Y35NY_DPGD.htm"
+trich_giay_phep = "U.S. government publications are in the public domain and are not subject to copyright protection. You may use and/or distribute any of our data, files, databases, reports, graphs, charts, and other information products that are on our website"
+ghi_nguon = "Source: U.S. Energy Information Administration, New York Harbor Conventional Gasoline Regular Spot Price FOB (truy cập 2026-09-19)."
+mirror = false
+ly_do_mirror = "được phép mirror (public domain) nhưng chưa đưa lên mirror — cần HF_TOKEN; tệp nối thêm mỗi tuần nên dùng noi_them"
+noi_them = "ngày tới 2024-12-31 — EIA nối thêm ngày mới mỗi tuần"
+khoang_thoi_gian = ["1986-06-02", "2024-12-31"]
+ghi_chu = "Excel .xls cũ (cần xlrd), sheet 'Data 1', 2 dòng tiêu đề."

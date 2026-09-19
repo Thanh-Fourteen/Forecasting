@@ -1,21 +1,25 @@
-# Phase 18 — Dự án cuối khoá 🔲
+# Phase 18 — Đọc thử độc lập buổi 14–17 ✅
 
-Quy ước + chuẩn dễ hiểu: `todos/quy-uoc.md`. Tiêu đề + **prompt copy-paste** của phase này: `todos.md` ở gốc repo (mục "Phase 18"). Trạng thái ✅/🔲 ở tiêu đề phải khớp với tiêu đề trong `todos.md`.
+Quy ước: `todos/quy-uoc.md` (KHỐI CHUNG). Prompt: `todos.md` mục "Phase 18". Trạng thái ✅/🔲 ở tiêu đề khớp `todos.md`.
 
-Đề: **hệ thống dự báo thực tế**, chọn 1 trong 3 (A bán lẻ + tồn kho, B tải điện xác suất, C PM2.5 Việt Nam
-+ cảnh báo). Tiêu chí xịn, đo được: *chấm trên dữ liệu tương lai chưa tồn tại lúc nộp, pipeline chạy tự
-động 2 tuần, giám sát bắt được sự cố do giám khảo tiêm vào mà học viên không biết trước.*
+Phiên mới, không mang ngữ cảnh các phase soạn buổi 14–17.
 
-- [ ] `du-an-cuoi/de-bai.md` — 3 đề, 11 hạng mục bắt buộc + 4 điểm thưởng (lấy từ mục "Buổi 44" của lộ trình)
-- [ ] `du-an-cuoi/rubric.md` — thang **100 + 20**, mô tả rõ "đạt khi" cho từng hạng mục, riêng cho từng đề
-- [ ] `du-an-cuoi/phieu-bai-toan.md`, `mau-model-card.md`, `mau-adr.md` — khuôn cho học viên
-- [ ] `du-an-cuoi/cham/` — bộ chấm tự động ~50/100: lấy dữ liệu tương lai thật (M5 dùng holdout giám khảo giữ,
-      EIA-930 và OpenAQ lấy trực tiếp), tính sai số/calibration, kiểm dấu thời gian dự báo **trước** dữ liệu thật,
-      chạy lại pipeline kiểm tái lập, `kiem_ro_ri`, chạy test của học viên, kiểm giám sát có bắt sự cố không
-- [ ] `du-an-cuoi/ngay-du-lieu-hong/` — **giám khảo giữ, không vào zip**: 3 script tiêm sự cố vào nguồn dữ liệu
-      mirror của lớp (dữ liệu trễ, đổi đơn vị, trạm chết) + tiêu chí "đã xử lý xong"
-- [ ] `du-an-cuoi/cham/phieu-cham-tay.md` — EDA và lập luận, quyết định và giá trị, bảo vệ, model card, ADR
-- [ ] `du-an-cuoi/loi-giai-mau/` — lời giải mẫu cho **đề B** đầy đủ; đề A, C ở mức khung
-- [ ] Hạ tầng "nguồn dữ liệu của lớp": mirror cập nhật hằng ngày để giám khảo tiêm sự cố được mà không đụng nguồn gốc
-- [ ] `du-an-cuoi/DU-AN-CUOI.pdf` — bản phát cho học viên (**không kèm lời giải mẫu, không kèm ngay-du-lieu-hong/**)
-- [ ] Ghi rõ trong buổi 44: phát đề từ **sau buổi 24**; nhóm 2–3 người; lịch 2 tuần dự báo trực tiếp
+| Tài liệu | Quiz mù | Chặn / khó / nhỏ | Chỗ thừa | Đã sửa + đọc lại | PDF |
+|---|---|---|---|---|---|
+| Buổi 14 | ✅ 10/10 | ✅ 0 / 1 / 5 → 0 / 0 / 3 | ✅ 1 → 0 | ✅ | ✅ 16 tr |
+| Buổi 15 | ✅ 10/10 | ✅ 0 / 1 / 5 → 0 / 0 / 2 | ✅ 0 | ✅ | ✅ 12 tr |
+| Buổi 16 | ✅ 10/10 | ✅ 0 / 0 / 4 → 0 / 0 / 2 | ✅ 0 | ✅ | ✅ 11 tr |
+| Buổi 17 | ✅ 10/10 | ✅ 0 / 1 / 4 → 0 / 0 / 1 | ✅ 0 | ✅ | ✅ 12 tr |
+| Phụ lục D (phần mở rộng) | — (không có quiz) | ✅ 0 / 0 / 3 → 0 / 0 / 1 | ✅ 0 | ✅ | ✅ 8 tr |
+
+Bắt buộc:
+- Mọi sửa → `kiem_tra_lab.py` các buổi của cụm vẫn xanh/đỏ đúng chỗ
+
+## Kết quả (2026-09-19)
+
+- Phiên mới, quiz đọc mù trước khi mở đáp án: 40/40; mọi con số và đáp án tính lại bằng Python, không có đáp án sai.
+- Chỗ khó đã sửa: buổi 14 "khoảng dự báo" chưa định nghĩa ở buổi nào (nay định nghĩa ở 4.2, buổi 16 nhắc lại); buổi 15 nhắc lại sai số chuẩn
+  $\sqrt{\text{phương sai}/n}$ trước DM; buổi 17 giải thích "vệt" ở trễ 11, 13 của mô hình airline.
+- Chỗ nhỏ: sửa "hai cách lệch như nhau" (thật ra −11,8% / −15,5%), ghi chú số 1.944 trùng tình cờ, ký hiệu $Q_m$, "tổng có trọng số", "mức danh nghĩa".
+- Ghi chi tiết: mục "Đọc thử độc lập (Phase 18)" trong `buoi-14..17/NGHIEN-CUU.md` (Phụ lục D ghi ở `buoi-14/NGHIEN-CUU.md`).
+- `ruff` sạch; `kiem_de_hieu.py 14–17` 0; `kiem_tra_lab.py 14 15 16 17` đạt; `kiem_tra_doc_lap.sh` đạt; PDF 16 / 12 / 11 / 12 + D 8 trang.

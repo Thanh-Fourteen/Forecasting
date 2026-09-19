@@ -1,0 +1,8 @@
+# Buổi 15 — Backtesting đúng cách. Nguồn của lab/00-nen/ (python tools/sinh_nen.py 15).
+thu_vien = ["matplotlib", "scipy", "scikit-learn", "statsforecast", "utilsforecast", "pyarrow"]
+du_lieu = ["monash-m4-hourly", "eia930-balance-2024-h1", "eia930-balance-2024-h2"]
+# học viên tự viết bộ backtest (buổi này sinh ra công cụ cả khoá dùng) → không phát tv.backtest
+khung_bo = ["backtest"]
+
+[cham]
+code_phai_do = true

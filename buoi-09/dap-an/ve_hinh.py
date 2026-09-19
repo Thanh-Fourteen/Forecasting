@@ -26,6 +26,36 @@ spec.loader.exec_module(dt)
 M = ve.MAU
 
 
+def hinh_entropy_hai_chuoi() -> dict:
+    """Ví dụ mục 4.2: chuỗi mùa vụ gần như đều và nhiễu thuần, cùng độ dài 120, seed 0."""
+    rng = np.random.default_rng(0)
+    t = np.arange(120)
+    hai = {"mùa vụ 12 tháng + nhiễu nhỏ": np.sin(2 * np.pi * t / 12) + 0.2 * rng.normal(size=120),
+           "nhiễu thuần": rng.normal(size=120)}
+    fig, truc = plt.subplots(2, 2, figsize=(10, 5))
+    kq = {}
+    for cot, (ten, y) in enumerate(hai.items()):
+        f, P = dt.signal.welch(y - y.mean(), fs=1.0, nperseg=min(256, y.size))
+        p = P[1:] / P[1:].sum()
+        H = dt.entropy_pho(y)
+        kq[ten] = {"entropy": round(H, 3), "ty_le_nang_luong_o_1_12": round(float(p[np.argmax(p)]), 3),
+                   "so_bin": int(p.size)}
+        truc[0, cot].plot(t, y, color=M["chinh"], linewidth=1)
+        truc[0, cot].set_title(ten, fontsize=9)
+        truc[0, cot].set_xlabel("thời điểm (tháng)")
+        truc[1, cot].bar(f[1:], p, width=0.006, color=M["phu"])
+        truc[1, cot].set_ylim(0, 1)
+        truc[1, cot].set_xlabel("tần số (số vòng lặp mỗi tháng)")
+        truc[1, cot].set_title(f"entropy phổ = {H:.2f}".replace(".", ","), fontsize=9)
+    truc[0, 0].set_ylabel("giá trị")
+    truc[1, 0].set_ylabel("tỷ lệ năng lượng")
+    fig.suptitle("Năng lượng dồn vào một tần số thì entropy thấp; trải đều mọi tần số thì entropy gần 1",
+                 fontsize=10, fontweight="bold")
+    fig.tight_layout()
+    ve.luu_hinh(fig, HINH / "entropy-hai-chuoi.png")
+    return kq
+
+
 def hinh_khong_gian(bang: pd.DataFrame) -> dict:
     toa_do, pca = dt.khong_gian_dac_trung(bang)
     fig, truc = plt.subplots(1, 3, figsize=(11, 3.4))
@@ -39,13 +69,14 @@ def hinh_khong_gian(bang: pd.DataFrame) -> dict:
         ax.set_title(ten, fontsize=9)
         ax.set_xlabel("PC1")
     truc[0].set_ylabel("PC2")
-    fig.suptitle(f"Bản đồ 4.000 chuỗi M4 tháng (20 đặc trưng → PCA): vùng entropy cao cũng là vùng sMAPE cao "
+    fig.suptitle(f"Bản đồ 4.000 chuỗi M4 tháng (18 đặc trưng không phụ thuộc đơn vị → PCA): vùng entropy cao cũng là vùng sMAPE cao "
                  f"(PC1 + PC2 giữ {pca.explained_variance_ratio_.sum():.0%} phương sai)",
                  fontsize=10, fontweight="bold")
     fig.tight_layout()
     ve.luu_hinh(fig, HINH / "khong-gian-dac-trung.png")
     return {"pc1": round(float(pca.explained_variance_ratio_[0]), 3), "pc2": round(float(pca.explained_variance_ratio_[1]), 3),
-            "dac_trung_manh_pc1": bang.columns[np.argsort(-np.abs(pca.components_[0]))[:3]].tolist()}
+            "dac_trung_manh_pc1": [(c, round(float(w), 2)) for c, w in sorted(zip(dt.cot_ban_do(bang), pca.components_[0], strict=True), key=lambda x: -abs(x[1]))[:4]],
+            "dac_trung_manh_pc2": [(c, round(float(w), 2)) for c, w in sorted(zip(dt.cot_ban_do(bang), pca.components_[1], strict=True), key=lambda x: -abs(x[1]))[:4]]}
 
 
 def hinh_entropy_sai_so(bang: pd.DataFrame) -> dict:
@@ -130,7 +161,9 @@ def hinh_abc_xyz(ban_le: pd.DataFrame) -> dict:
         ax.set_yticks(range(3), du_lieu.index)
         for i in range(3):
             for j in range(3):
-                ax.text(j, i, dinh_dang.format(du_lieu.to_numpy()[i, j]), ha="center", va="center", fontsize=8)
+                gt = du_lieu.to_numpy()[i, j]
+                ax.text(j, i, dinh_dang.format(gt), ha="center", va="center", fontsize=8,
+                        color="white" if gt > 0.6 * du_lieu.to_numpy().max() else "black")
         ax.set_title(ten, fontsize=9)
         plt.colorbar(anh, ax=ax, shrink=0.8)
     fig.suptitle("Phân tầng ABC–XYZ trên Online Retail II: A chiếm phần lớn doanh thu; XYZ chỉ đo biến động, "
@@ -146,6 +179,7 @@ if __name__ == "__main__":
     chuoi = dt.lay_mau(dt.doc_tsf(), 4000)
     bang = dt.bang_dac_trung(chuoi).join(dt.danh_gia_kho_de(chuoi))
     with ve.phong_cach():
+        print("entropy hai chuoi", hinh_entropy_hai_chuoi())
         print("khong gian", hinh_khong_gian(bang))
         print("entropy sai so", hinh_entropy_sai_so(bang))
         print(hinh_ba_thuoc_do(bang).round(3).to_string(index=False))

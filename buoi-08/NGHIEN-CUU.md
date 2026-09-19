@@ -114,3 +114,99 @@ O'Brien (2007) về ngưỡng VIF (chỉ có abstract qua snippet).
 | MI trên chuỗi tự tương quan: hoán vị thường cho dương tính giả | bổ sung | Thêm `kiem_y_nghia_mi` hoán vị theo khối (Gohil et al. 2025) |
 | Lộ trình có VIF/đa cộng tuyến và tương quan một phần | nhỏ | Nêu ngắn trong tài liệu (VIF 0.15 tự chuẩn hoá); phần thực hành để buổi 13 (chọn feature) |
 | Open-Meteo: API miễn phí chỉ cho mục đích phi thương mại | nhỏ | Tác giả tải một lần, học viên lấy bản mirror; ghi trong danh mục |
+
+## Research viết lại (Phase 10, 2026-09-18)
+
+Research sư phạm (KHỐI CHUNG R); nguồn, phiên bản giữ như trên. Cách giải thích chọn cho từng khái niệm:
+
+| Khái niệm | Trực giác + ví dụ tay (trước công thức) | Căn cứ |
+|---|---|---|
+| Pearson / Spearman | $y = x^2$ trên 1…5 (Pearson 0,981, Spearman 1) và chữ U trên −2…2 (Pearson 0 tính tay) | Anscombe 1973; FPP §2.6 |
+| tương quan giả | hai chuỗi 5 tháng: $r$ mức 0,974, $r$ các bước −1 (tính tay); DW tay trên hai dãy phần dư (0,67 và 3,33) | Granger & Newbold 1974 |
+| MI | bảng 3 ô lạnh/vừa/nóng: Pearson 0 nhưng MI = 0,637 nat, tính từng ô $p \ln(p/(p_xp_y))$ | Cover & Thomas (định nghĩa); Kraskov 2004 (ước lượng liên tục) |
+| hoán vị theo khối | "hai chuỗi trơn độc lập tình cờ có quãng dài cùng cao"; xáo từng điểm phá độ trơn | Gohil et al. 2025 |
+| prewhitening | random walk 12 điểm, $y$ chậm 2: CCF thô trải rộng (0,42/0,77/0,37), sau sai phân một đỉnh 0,91; "dòng bước của $y$ là dòng bước của $x$ dời 2 cột" | Penn State STAT 510 L9; Box–Jenkins |
+| tương quan trượt | 6 ngày: cửa sổ đông −1, hè +1, gộp 0,48 | chạy thật |
+| Granger | hai cách dự báo A (quá khứ $y$) và B (thêm quá khứ $x$) trên 6 số; tổng bình phương sai số 38 so với 0 | Granger 1969; Maziarz 2015 |
+
+Mỗi tình huống 4.2–4.6 kết bằng nhãn **"Cái bẫy trong một câu"** (yêu cầu phase). 9 mục cũ → 6 (4.1 hệ số + Anscombe; 5 tình huống);
+ex-ante gộp vào 4.6; VIF/tương quan một phần → hộp Nâng cao; quy trình 6 bước bỏ (đã nằm trong "Xong khi"). Mọi trích tiếng Anh bỏ.
+
+**Sửa số bản cũ:** $R^2$ hồi quy theo CDD + HDD **đúng tại mốc 18,33 °C là 0,812** (bản cũ 0,813 lấy ở điểm lưới gần mốc nhất trong
+`ve_hinh.py`); đã sửa script tính đúng mốc, tài liệu, quiz. Thêm `dap-an/vi_du_nho.py`, `code/lab.ipynb` (chạy hết 8 giây).
+
+## Đọc thử (Phase 10, 2026-09-18)
+
+Tự đọc (không subagent), theo checklist `tools/CHUAN-DE-HIEU.md`; mọi con số, đáp án quiz tính lại bằng Python.
+
+| Vòng | Bản | Chặn | Khó | Nhỏ | Quiz | Ghi chú |
+|---|---|---|---|---|---|---|
+| 0 | bản cũ (2.747 chữ, 10 trang, 70 cờ) | 7 | — | — | — | chặn: công thức MI dạng tích phân không giải thích; DW, $t$, $R^2$ dùng không định nghĩa; VIF, $R^{-1}$ tương quan một phần; "hồi quy" chưa dạy; nhiều trích tiếng Anh (Granger & Newbold, Penn State, Wikipedia, Maziarz) mang ý chính; không hình nào có "Cách đọc hình" |
+| 1 | viết lại (5.049 chữ) | 0 | 1 | 3 | 10/10 có căn cứ | khó: vì sao hai chuỗi trơn độc lập có MI lớn (thiếu mắt xích trước đoạn hoán vị theo khối). Nhỏ: "kiểm định F", "Box–Jenkins" chỉ nêu tên; "khoảng một phút" ở Lab bước 3 sai (notebook chạy 8 giây) |
+| rà gọn | biên tập viên | — | — | — | — | 2 chỗ lặp: "Tóm lại" 4.2 và 4.4 nói lại "Cái bẫy" → viết lại mang ý khác |
+| 2 | sau sửa (5.010 chữ, 15 trang) | **0** | **0** | 2 | 10/10 | **đạt** |
+
+Quiz: viết lại 10 đáp án (vì sao đúng, vì sao từng lựa chọn sai, bỏ trích tiếng Anh); căn cứ: 1 → 4.2, 2 → 4.3, 3 → 4.4, 4 → 4.6,
+5 → 4.4, 6 → 4.3 + Nâng cao, 7 → 4.3, 8 → 4.6, 9 → 4.3, 10 → 4.6 (+ buổi 6). `kiem_de_hieu.py 8`: 70 → **0**. Lab: `kiem_tra_lab.py 8`
+đạt (đáp án 10/10, code 3/10 đỏ, notebook chạy hết).
+
+## Đọc thử độc lập (Phase 11, 2026-09-18)
+
+Phiên mới; chỉ mở `tai-lieu.md` + quiz bỏ `<details>` cho tới khi viết xong A–E (ngoại lệ ghi thật: trong lúc kiểm ví dụ tương quan chéo đã
+`grep` định nghĩa hàm `ccf_tu_viet` trong `dap-an/tuong_quan.py` — chỉ docstring + 5 dòng quy ước, không phải đáp án quiz). Ví dụ tay tính lại
+bằng Python (Pearson $x^2$ 0,981, chữ U 0, tự kiểm 0,785, $a$–$b$ 0,974/−1, DW 0,67/3,33, MI 0,637, tương quan chéo 0,15/0,42/0,77/0,37/0,05 và
+−0,09/−0,10/0,91/−0,01/−0,11, trượt 0,48, Granger 38): khớp hết.
+
+### A. Chỗ vướng (đọc mù)
+
+| # | Mục | Trích | Loại | Vì sao | Mức |
+|---|---|---|---|---|---|
+| 1 | 4.3 | "hồi quy tải theo CDD và HDD vẽ được hình chữ V" | 1/4 | bảng Từ mới chỉ có hồi quy **một** biến $y = a + bx$; hồi quy theo hai biến trông ra sao, vì sao ra chữ V, không nói | khó |
+| 2 | Từ mới | "$t$ của hệ số: Hệ số $b$ chia cho sai số chuẩn của nó" | 1 | "sai số chuẩn" chưa định nghĩa (không cản vì chỉ dùng $t$ để nói "trông có ý nghĩa") | nhỏ |
+| 3 | 4.6 | "so hai tổng này bằng một thống kê (kiểm định F)" | 7 | F không giải thích; đủ biết "cho p-value" | nhỏ |
+| 4 | 4.2 | "phần dư lộn xộn thì DW gần 2" | 4 | vì sao đúng 2 (không phải 3,33 như ví dụ xen kẽ) | nhỏ |
+| 5 | 4.6 Cách đọc hình | "ô phải là tương quan chéo" | 5 | hình của mục Granger lại vẽ tương quan chéo hai chiều; phải tự nối | nhỏ |
+
+### B. Giải thích lại (ví dụ số mới)
+
+- **Pearson/Spearman**: $x$ = 1, 2, 3 và $y$ = 1, 8, 27 → Spearman 1, Pearson < 1.
+- **Tương quan giả**: số điện thoại và số cây xanh trong thành phố cùng tăng 20 năm → $r$ mức cao; thay đổi hằng năm không liên quan.
+- **Phi tuyến/MI**: 2 loại ngày mỗi loại 1/2, biết loại là biết chắc → MI = ln 2.
+- **Tương quan chéo + prewhitening**: $y_t = x_{t-1}$, $x$ trơn → thô đỉnh rộng quanh 1; lọc → đỉnh sắc ở 1.
+- **Tương quan trượt**: mùa đông −0,8, mùa hè +0,9, cả năm 0,5 không đúng mùa nào.
+- **Granger**: thêm quá khứ $x$ làm tổng bình phương sai số 50 → 10 → "giúp dự báo", không phải "gây ra"; nhiệt độ ngày mai đo được là ex-post.
+
+### C. Quiz mù
+
+1 C · 2 B · 3 B · 4 B · 5 $x$ đi trước $y$ 4 bước; `ccf(y_loc, x_loc)` (hai chuỗi đã lọc, đặt $y$ trước; `adjusted=False` để khớp mẫu số) ·
+6 10 °C: CDD 0, HDD 8,33; 30 °C: CDD 11,67, HDD 0; quan hệ chữ V: lạnh và nóng đều làm tải tăng, một đường thẳng theo nhiệt độ không bắt được ·
+7 không: hoán vị từng điểm phá tự tương quan nên p nhỏ giả; hoán vị theo khối (và nên xét trên thay đổi/sai phân) · 8 tải hôm nay dùng được;
+nhiệt độ ngày mai phải là **dự báo** thời tiết (kèm sai số); giá khí đốt ngày mai không biết → dự báo nó hoặc dùng giá hôm nay · 9 quan hệ chữ V
+đổi dấu ở 18,33 °C (−0,649 / +0,910); tách CDD/HDD giải thích 81% thay vì 38%: nhiệt độ giải thích phần lớn nhu cầu, không "một phần" ·
+10 hai chiều cùng có ý nghĩa → biến gây nhiễu chung (nhịp ngày), không phải nhân quả; kiểm tốt hơn: bỏ nhịp ngày / đưa về dừng rồi mới Granger,
+prewhiten, đọc "giúp dự báo". Căn cứ: 1 → 4.2; 2, 6, 7, 9 → 4.3; 3, 5 → 4.4; 4, 8, 10 → 4.6. Câu 5 phần `adjusted` "đoán" (tài liệu không nói),
+còn lại "chắc".
+
+### D. Tổng kết
+
+Chặn 0 / khó 1 / nhỏ 4. Khó nhất: hồi quy hai biến CDD + HDD. Sửa một điều: viết công thức tải = $a + b \cdot$CDD $+ c \cdot$HDD ngay ở ví dụ CDD/HDD.
+
+### E. Dài/lặp
+
+Không thấy đoạn ≥ 30 chữ lặp ý ("Cái bẫy trong một câu" + "Tóm lại" mỗi tình huống gần nhau nhưng nói hai ý khác nhau).
+
+### Chấm, sửa, đọc lại
+
+**Quiz mù: 10/10** khớp `kiem-tra.md`.
+
+Sửa: (1) 4.3 ví dụ CDD/HDD viết rõ tải = $a + b \cdot$CDD $+ c \cdot$HDD ("như hồi quy đơn, thêm một biến"), phía nóng dốc $b$, phía lạnh
+dốc $c$; (2) bảng Từ mới: "sai số chuẩn (độ lệch chuẩn của chính ước lượng $b$)"; (3) **lỗi PDF có sẵn**: Cách đọc hình 4.3 có dòng tiếp
+bắt đầu bằng "+ HDD" nên markdown biến thành gạch đầu dòng con — nối lại dòng (grep cả buổi 4–8 + Phụ lục C: chỉ chỗ này).
+
+| Vòng | Chữ | Trang | Chặn | Khó | Nhỏ | Quiz | Chỗ thừa |
+|---|---|---|---|---|---|---|---|
+| Phase 11 đọc mù | 5.010 | 15 | 0 | 1 | 4 | 10/10 | 0 |
+| sau sửa, đọc lại toàn bộ | 5.028 | 15 | **0** | **0** | 3 | 10/10 | 0 |
+
+Nhỏ còn lại: "kiểm định F" chỉ nêu tên; vì sao DW của phần dư ngẫu nhiên gần 2; hình Granger vẽ tương quan chéo — không cản theo dõi.
+**Đạt.** `kiem_de_hieu.py 8` 0; lab, tự chứa đạt; PDF xem lại trang 6 (công thức và danh sách hiển thị đúng).

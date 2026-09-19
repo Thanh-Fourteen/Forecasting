@@ -12,6 +12,7 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 
 from tv import ve
@@ -29,7 +30,7 @@ def hinh_bon_loai(mo: pd.Series, nhan: dict) -> dict:
     su_kien = bt.dan_nhan(mo)
     fig, ax = plt.subplots(figsize=(10.5, 3.8))
     ax.plot(mo, color=M["xam"], linewidth=0.9, label="chuỗi")
-    mau = {"AO (điểm đơn)": M["phu"], "LS (đổi mức)": M["chinh"], "TC (thay đổi tạm)": M["ba"],
+    mau = {"AO (điểm đơn)": M["phu"], "LS (dịch mức)": M["chinh"], "TC (thay đổi tạm)": M["ba"],
            "đổi phương sai": M["bon"]}
     da_ghi = set()
     for _, d in su_kien.iterrows():
@@ -94,6 +95,33 @@ def hinh_tet(tet: pd.Series) -> dict:
             "ngày trong năm": ngay["ngay_trong_nam"].tolist(),
             "biên độ xê dịch (ngày)": int(ngay["ngay_trong_nam"].max() - ngay["ngay_trong_nam"].min()),
             "bảng mất đỉnh": bt.mat_bao_nhieu_dinh_tet(tet).to_dict("records")}
+
+
+def hinh_masking_10_so() -> dict:
+    """Ví dụ tay mục 4.2: 10 số, một rồi hai ngoại lai; ngưỡng trung bình ± 3σ so với trung vị ± 3·MAD."""
+    mot = np.array([10, 12, 11, 13, 12, 50, 11, 12, 13, 12.0])
+    hai = mot.copy()
+    hai[9] = 60.0
+    fig, truc = plt.subplots(1, 2, figsize=(10, 3.4), sharey=True)
+    kq = {}
+    for ax, v, ten in ((truc[0], mot, "một ngoại lai (50)"), (truc[1], hai, "hai ngoại lai (50 và 60)")):
+        tb, s = v.mean(), v.std(ddof=1)
+        tv_, mad = np.median(v), 1.4826 * np.median(np.abs(v - np.median(v)))
+        ax.plot(np.arange(1, 11), v, "o", color=M["chinh"])
+        ax.axhline(tb + 3 * s, color=M["phu"], linestyle="--", label="trung bình + 3σ")
+        ax.axhline(tv_ + 3 * mad, color=M["ba"], linestyle=":", label="trung vị + 3·MAD")
+        ax.set_title(ten, fontsize=9)
+        ax.set_xlabel("vị trí")
+        kq[ten] = {"trung bình": round(float(tb), 2), "σ": round(float(s), 2),
+                   "ngưỡng 3σ": round(float(tb + 3 * s), 1), "ngưỡng MAD": round(float(tv_ + 3 * mad), 2),
+                   "z": [round(float(x), 2) for x in (v - tb) / s]}
+    truc[0].set_ylabel("giá trị")
+    truc[0].legend(fontsize=8)
+    fig.suptitle("Masking trên 10 số: ngoại lai kéo ngưỡng 3σ lên cao hơn chính nó; ngưỡng MAD đứng yên sát dữ liệu",
+                 fontsize=10, fontweight="bold")
+    fig.tight_layout()
+    ve.luu_hinh(fig, HINH / "masking-10-so.png")
+    return kq
 
 
 def hinh_masking(tong: pd.Series) -> dict:
@@ -172,6 +200,7 @@ if __name__ == "__main__":
         print("bốn loại", hinh_bon_loai(mo, nhan))
         print(hinh_nguong_toan_chuoi(tong).to_string(index=False))
         print("tết", hinh_tet(tet))
+        print("masking 10 số", hinh_masking_10_so())
         print("masking", hinh_masking(tong))
         print("điểm gãy", hinh_diem_gay(hk))
         print(hinh_covid(hk).to_string(index=False))

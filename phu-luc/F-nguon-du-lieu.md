@@ -8,7 +8,7 @@ sha256. Nhật ký rà giấy phép đầy đủ: `tools/du-lieu/NGHIEN-CUU.md`.
 **Quy tắc:** CC BY / CC0 / public domain → được mirror (kèm ghi nguồn); giấy phép cấm phân phối lại → học
 viên tự tải bằng tài khoản của mình và luôn có bộ dự phòng mở; nguồn không có giấy phép rõ → không mirror.
 
-Danh mục có **57 bộ**, tổng dung lượng tải khoảng **1.4 GB** (không tính bộ chưa rõ dung lượng).
+Danh mục có **86 bộ**, tổng dung lượng tải khoảng **1.4 GB** (không tính bộ chưa rõ dung lượng).
 
 ## Bảng tổng quan
 
@@ -18,20 +18,45 @@ Danh mục có **57 bộ**, tổng dung lượng tải khoảng **1.4 GB** (khô
 | `bea-nipa-quy` | Public domain (U.S. government) | có | tải trực tiếp | 33.8 MB | 7, 20 | đã chốt |
 | `bea-nipa-thang` | Public domain (U.S. government) | có | tải trực tiếp | 35.0 MB | 5 | đã chốt |
 | `binance-btcusdt-1d-2024-01` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 2.1 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2023-01` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 43.7 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2023-02` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 40.0 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2023-03` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 43.9 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2023-04` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 40.9 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2023-05` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 42.1 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2023-06` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 40.7 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2023-07` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 41.3 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2023-08` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 41.2 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2023-09` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 40.0 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2023-10` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 41.9 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2023-11` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 40.7 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2023-12` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 42.3 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2024-01` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 42.5 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2024-02` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 39.8 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2024-03` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 43.0 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2024-04` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 41.5 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2024-05` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 42.4 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2024-06` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 40.6 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2024-07` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 42.2 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2024-08` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 42.4 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2024-09` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 40.5 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2024-10` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 42.0 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2024-11` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 41.8 KB | 21 | đã chốt |
+| `binance-btcusdt-1h-2024-12` | Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường | không | tải trực tiếp | 43.2 KB | 21 | đã chốt |
 | `bls-cpi-u` | Public domain (U.S. government) | có | tải trực tiếp | 2.6 MB | 5 | đã chốt |
 | `census-marts-ban-le` | Public domain (U.S. government, 17 U.S.C. §105) | có | tải trực tiếp | 430.5 KB | 5 | đã chốt |
 | `ecmwf-aifs-2t-20260101-24h` | CC BY 4.0 + ECMWF Terms of Use | có | tải trực tiếp | 534.1 KB | 33 | đã chốt |
 | `eia-gia-dau-wti` | Public domain (U.S. government) | có | tải trực tiếp | 459.5 KB | 20, 21 | đã chốt |
+| `eia-gia-xang-ny-harbor` | Public domain (U.S. government) | không | tải trực tiếp | 505.0 KB | 20 | đã chốt |
 | `eia930-balance-2024-h1` | Public domain (U.S. government) | có | tải trực tiếp | 39.8 MB | 6, 8, 13, 15, 18, 25, 30, 31, 34, 35, 36, 43 | đã chốt |
 | `eia930-balance-2024-h2` | Public domain (U.S. government) | có | tải trực tiếp | 45.7 MB | 6, 13, 15, 18, 25, 30 | đã chốt |
 | `eia930-balance-2025-h1` | Public domain (U.S. government) | có | tải trực tiếp | 45.4 MB | 15, 25, 34, 35 | đã chốt |
 | `eia930-balance-2025-h2` | Public domain (U.S. government) | có | tải trực tiếp | 46.0 MB | 34, 35 | đã chốt |
 | `ett-h1` | CC BY-ND 4.0 | có | tải trực tiếp | 2.5 MB | 31 | đã chốt |
 | `ett-m1` | CC BY-ND 4.0 | có | tải trực tiếp | 9.9 MB | 31 | đã chốt |
-| `eurostat-hanh-khach-hang-khong` | CC BY 4.0 (Eurostat) | có | tải trực tiếp | 18.4 KB | 11 | đã chốt |
+| `eurostat-hanh-khach-hang-khong` | CC BY 4.0 (Eurostat) | có | tải trực tiếp | 18.4 KB | 11, 16, 18 | đã chốt |
 | `forecastbench-cau-hoi` | CC BY-SA 4.0 | có | tải trực tiếp | 1.2 MB | 37 | đã chốt |
 | `forecastbench-ket-qua` | CC BY-SA 4.0 | có | tải trực tiếp | 116.5 KB | 37 | đã chốt |
-| `frb-g17-san-luong-cong-nghiep` | Public domain (Federal Reserve Board) | có | tải trực tiếp | 22.8 KB | 17 | đã chốt |
+| `frb-g17-san-luong-cong-nghiep` | Public domain (Federal Reserve Board) | có | tải trực tiếp | 22.8 KB | 17, 18 | đã chốt |
 | `frb-h10-ty-gia` | Public domain (Federal Reserve Board) | có | tải trực tiếp | 1.1 MB | 21 | đã chốt |
 | `gdelt-events-20240101` | GDELT — sử dụng tự do, bắt buộc ghi nguồn | có | tải trực tiếp | 72.9 KB | 36 | đã chốt |
 | `ghcnh-noi-bai-2024` | CC0 1.0 (NOAA) | có | tải trực tiếp | 783.5 KB | 10, 33, du-an-1 | đã chốt |
@@ -54,13 +79,17 @@ Danh mục có **57 bộ**, tổng dung lượng tải khoảng **1.4 GB** (khô
 | `nyc-tlc-yellow-2024-11` | NYC Open Data — không giới hạn sử dụng | có | tải trực tiếp | 57.8 MB | 3 | đã chốt |
 | `nyc-tlc-zone-lookup` | NYC Open Data — không giới hạn sử dụng | có | tải trực tiếp | 12.0 KB | 3 | đã chốt |
 | `open-meteo-dallas-2024` | CC BY 4.0 | có | tải trực tiếp | 187.8 KB | 8 | đã chốt |
-| `open-meteo-dallas-du-bao-luu-2024` | CC BY 4.0 | có | tải trực tiếp | 271.5 KB | 13 | đã chốt |
+| `open-meteo-dallas-du-bao-luu-2024` | CC BY 4.0 | có | tải trực tiếp | 271.5 KB | 13, 18 | đã chốt |
 | `open-meteo-ha-noi-2023-2024` | CC BY 4.0 | có | tải trực tiếp | 649.6 KB | 10, 33 | đã chốt |
 | `open-meteo-houston-2024` | CC BY 4.0 | có | tải trực tiếp | 188.3 KB | 8 | đã chốt |
 | `open-meteo-new-york-2024-01` | CC BY 4.0 | có | tải trực tiếp | 26.6 KB | 3 | đã chốt |
 | `open-meteo-new-york-2024-03-11` | CC BY 4.0 | có | tải trực tiếp | 237.3 KB | 3 | đã chốt |
 | `open-meteo-tphcm-2023-2024` | CC BY 4.0 | có | tải trực tiếp | 653.0 KB | du-an-1 | đã chốt |
 | `philly-fed-gdp-thuc-vintage` | Điều khoản Philadelphia Fed — chỉ cho mục đích thông tin, giáo dục, nghiên cứu | không | tải trực tiếp | 237.5 KB | 20 | đã chốt |
+| `philly-fed-gdp-thuc-vintage-thang` | Điều khoản Philadelphia Fed — chỉ cho mục đích thông tin, giáo dục, nghiên cứu | không | tải trực tiếp | 680.1 KB | 20 | đã chốt |
+| `philly-fed-nha-khoi-cong-vintage` | Điều khoản Philadelphia Fed — chỉ cho mục đích thông tin, giáo dục, nghiên cứu | không | tải trực tiếp | 1.7 MB | 20 | đã chốt |
+| `philly-fed-san-luong-cn-vintage` | Điều khoản Philadelphia Fed — chỉ cho mục đích thông tin, giáo dục, nghiên cứu | không | tải trực tiếp | 2.7 MB | 20 | đã chốt |
+| `philly-fed-viec-lam-vintage` | Điều khoản Philadelphia Fed — chỉ cho mục đích thông tin, giáo dục, nghiên cứu | không | tải trực tiếp | 2.1 MB | 20 | đã chốt |
 | `prop99-smoking` | Không có giấy phép từ tác giả gốc; bản CSV nằm trong repo MIT | không | tải trực tiếp | 99.0 KB | 38 | đã chốt |
 | `tourism-australia-tsibble` | GPL-3 (dữ liệu nằm trong gói tsibble) | có | tải trực tiếp | 173.8 KB | 28 | đã chốt |
 | `uci-appliances-energy` | CC BY 4.0 | có | tải trực tiếp | 11.4 MB | 12 | đã chốt |
@@ -123,6 +152,294 @@ Danh mục có **57 bộ**, tổng dung lượng tải khoảng **1.4 GB** (khô
 - **Ghi chú:** Mẫu một tháng; Phase 6 chọn khoảng dài hơn. README: 'Archived files may be updated at a later date as a result of recently discovered issues.' Có tệp .CHECKSUM đi kèm. Lớp thu phí: kiểm lại điều khoản trước khi dùng.
 - **Xác minh:** 2026-09-17: README repo; tải + sha256 (agent: .CHECKSUM khớp)
 
+### `binance-btcusdt-1h-2023-01` — Binance Public Data — nến 1 giờ BTCUSDT tháng 1/2023
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2023-01.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2023-01-01 → 2023-01-31
+- **sha256:** `ea8caf7fd56c7f7143723f56f8d12a2fc0b643badbcdae5c660db2d11454a11d` (43.7 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
+### `binance-btcusdt-1h-2023-02` — Binance Public Data — nến 1 giờ BTCUSDT tháng 2/2023
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2023-02.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2023-02-01 → 2023-02-28
+- **sha256:** `53525b700548a19488fcb8754778acdf7941c9ba0b6e7eb548a51a376ef8d86b` (40.0 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
+### `binance-btcusdt-1h-2023-03` — Binance Public Data — nến 1 giờ BTCUSDT tháng 3/2023
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2023-03.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2023-03-01 → 2023-03-31
+- **sha256:** `7f2afb8e0179a57ac31eab5205660298ba5eb77039ac2e21aef9b715ff3d06ce` (43.9 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
+### `binance-btcusdt-1h-2023-04` — Binance Public Data — nến 1 giờ BTCUSDT tháng 4/2023
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2023-04.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2023-04-01 → 2023-04-30
+- **sha256:** `1787dc83836deafaa77d4276cbe3b3ca1fe0083b3017079e3560605ff4f7a4ba` (40.9 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
+### `binance-btcusdt-1h-2023-05` — Binance Public Data — nến 1 giờ BTCUSDT tháng 5/2023
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2023-05.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2023-05-01 → 2023-05-31
+- **sha256:** `16b33557a4a4040fc56c711f4b1a750ebafb5a7f8dd46c060d9fc8c66cdc1982` (42.1 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
+### `binance-btcusdt-1h-2023-06` — Binance Public Data — nến 1 giờ BTCUSDT tháng 6/2023
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2023-06.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2023-06-01 → 2023-06-30
+- **sha256:** `05f87fb5f004ee0aff019adb7015afab8df0baaaf2b77154d75ae53e18d59b11` (40.7 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
+### `binance-btcusdt-1h-2023-07` — Binance Public Data — nến 1 giờ BTCUSDT tháng 7/2023
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2023-07.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2023-07-01 → 2023-07-31
+- **sha256:** `f49a738a793055a583784e78a54840a43861fd110118cbe1add14ef1afb63032` (41.3 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
+### `binance-btcusdt-1h-2023-08` — Binance Public Data — nến 1 giờ BTCUSDT tháng 8/2023
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2023-08.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2023-08-01 → 2023-08-31
+- **sha256:** `e983243d44536a06ff4707cf35df29f636fe788e6fb69c3b3feed2ef43d343d4` (41.2 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
+### `binance-btcusdt-1h-2023-09` — Binance Public Data — nến 1 giờ BTCUSDT tháng 9/2023
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2023-09.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2023-09-01 → 2023-09-30
+- **sha256:** `28e12ccaf15745bfe11f570b9079793750047fde3d340fe0231858b26bc0f9d9` (40.0 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
+### `binance-btcusdt-1h-2023-10` — Binance Public Data — nến 1 giờ BTCUSDT tháng 10/2023
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2023-10.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2023-10-01 → 2023-10-31
+- **sha256:** `165ec50601f914d6c41b776414096bc73974bf45fcd41aaddfedd1cf66cb6c6e` (41.9 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
+### `binance-btcusdt-1h-2023-11` — Binance Public Data — nến 1 giờ BTCUSDT tháng 11/2023
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2023-11.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2023-11-01 → 2023-11-30
+- **sha256:** `4f550d182d529839dd9cfc28ef0ecca8cd8003e991067e92a2af5b9e92762f49` (40.7 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
+### `binance-btcusdt-1h-2023-12` — Binance Public Data — nến 1 giờ BTCUSDT tháng 12/2023
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2023-12.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2023-12-01 → 2023-12-31
+- **sha256:** `6117d93e3eb6574df6b0087a45cf12e171afe91789b523b0bfcce00d8f1b6e37` (42.3 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
+### `binance-btcusdt-1h-2024-01` — Binance Public Data — nến 1 giờ BTCUSDT tháng 1/2024
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2024-01.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2024-01-01 → 2024-01-31
+- **sha256:** `cf873a185bd5b24b8e00034e49583fcb49928e0c3a45c6fc27a632a683655417` (42.5 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
+### `binance-btcusdt-1h-2024-02` — Binance Public Data — nến 1 giờ BTCUSDT tháng 2/2024
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2024-02.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2024-02-01 → 2024-02-29
+- **sha256:** `b83aa7319ef1d4baa7b923c0fe802b88dfaf241c7456af295f1f656a24379b33` (39.8 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
+### `binance-btcusdt-1h-2024-03` — Binance Public Data — nến 1 giờ BTCUSDT tháng 3/2024
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2024-03.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2024-03-01 → 2024-03-31
+- **sha256:** `b0851daf609d6ab82fdf8f1d1c4fbd974bc1b4e6530a832067516ac1c2be63a6` (43.0 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
+### `binance-btcusdt-1h-2024-04` — Binance Public Data — nến 1 giờ BTCUSDT tháng 4/2024
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2024-04.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2024-04-01 → 2024-04-30
+- **sha256:** `e266707ad2ea3cd4680bf1ac5025f0c1bfeb38e703374a91f8dc193d1ec8d48f` (41.5 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
+### `binance-btcusdt-1h-2024-05` — Binance Public Data — nến 1 giờ BTCUSDT tháng 5/2024
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2024-05.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2024-05-01 → 2024-05-31
+- **sha256:** `077c71eec71a8ecf2edb6e3a3927b600b8f358fd37066ce120c19fb5302a9ab8` (42.4 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
+### `binance-btcusdt-1h-2024-06` — Binance Public Data — nến 1 giờ BTCUSDT tháng 6/2024
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2024-06.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2024-06-01 → 2024-06-30
+- **sha256:** `2e1f968fa34b9feabfb19cc6eec47a146e20d64a706f4b17d0babf4d2f475c39` (40.6 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
+### `binance-btcusdt-1h-2024-07` — Binance Public Data — nến 1 giờ BTCUSDT tháng 7/2024
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2024-07.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2024-07-01 → 2024-07-31
+- **sha256:** `41fd58a70ae40bebb74682555cc5054709f8dde0f5c8193ae2103dac95274e5f` (42.2 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
+### `binance-btcusdt-1h-2024-08` — Binance Public Data — nến 1 giờ BTCUSDT tháng 8/2024
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2024-08.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2024-08-01 → 2024-08-31
+- **sha256:** `88521a975ee7bfdd21f891d81f4243a01b90b977cf525d11747e27c66e3bad60` (42.4 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
+### `binance-btcusdt-1h-2024-09` — Binance Public Data — nến 1 giờ BTCUSDT tháng 9/2024
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2024-09.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2024-09-01 → 2024-09-30
+- **sha256:** `123f402c6dbf19b9b72b4af7ad4d5325c73ba4833148cc398b803d7a34ac5c5f` (40.5 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
+### `binance-btcusdt-1h-2024-10` — Binance Public Data — nến 1 giờ BTCUSDT tháng 10/2024
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2024-10.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2024-10-01 → 2024-10-31
+- **sha256:** `393b18ad2634f0cd3b2fd54321c8286ea143419cf3129b4cc44e089681912b03` (42.0 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
+### `binance-btcusdt-1h-2024-11` — Binance Public Data — nến 1 giờ BTCUSDT tháng 11/2024
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2024-11.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2024-11-01 → 2024-11-30
+- **sha256:** `7a51fe8811c754ff43a2be0ba10e53a6d4218521e27ac765fbc9a1ca0fc15bac` (41.8 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
+### `binance-btcusdt-1h-2024-12` — Binance Public Data — nến 1 giờ BTCUSDT tháng 12/2024
+
+- **Nguồn:** <https://data.binance.vision/>
+- **Tệp tải:** `https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1h/BTCUSDT-1h-2024-12.zip`
+- **Giấy phép:** Không có giấy phép dữ liệu; Điều khoản Binance hạn chế dùng thương mại dữ liệu thị trường — <https://github.com/binance/binance-public-data>
+- **Trích nguyên văn:** "Repo binance-public-data (MIT cho mã nguồn) mô tả dữ liệu là 'Binance's public market data', không kèm giấy phép dữ liệu; dùng cho học tập, không phân phối lại."
+- **Mirror:** không — không có giấy phép dữ liệu — học viên tự tải từ data.binance.vision, không mirror
+- **Khoảng thời gian cố định:** 2024-12-01 → 2024-12-31
+- **sha256:** `dfec812f73a84257b195cbdaed34d020fa77e845625c061c13bd6a60e7ef9372` (43.2 KB)
+- **Trích dẫn:** Binance Public Data, https://github.com/binance/binance-public-data
+- **Xác minh:** 2026-09-19: tác giả tải, sha256 khớp tệp .CHECKSUM của Binance
+
 ### `bls-cpi-u` — BLS CPI-U — mọi chuỗi 'All Items' (có CUSR0000SA0 = CPI-U đã điều chỉnh mùa vụ, tương đương CPIAUCSL)
 
 - **Nguồn:** <https://download.bls.gov/pub/time.series/cu/>
@@ -174,6 +491,19 @@ Danh mục có **57 bộ**, tổng dung lượng tải khoảng **1.4 GB** (khô
 - **Trích dẫn:** Source: U.S. Energy Information Administration, Cushing OK WTI Spot Price FOB (truy cập 2026-09-17).
 - **Ghi chú:** Excel định dạng cũ .xls — buổi dùng cần xlrd. Không có bản CSV.
 - **Xác minh:** 2026-09-17: agent + tác giả tải cùng sha256
+
+### `eia-gia-xang-ny-harbor` — EIA — giá xăng thông thường giao ngay New York Harbor theo ngày (USD/gallon), toàn bộ lịch sử
+
+- **Nguồn:** <https://www.eia.gov/dnav/pet/hist/EER_EPMRU_PF4_Y35NY_DPGD.htm>
+- **Tệp tải:** `https://www.eia.gov/dnav/pet/hist_xls/EER_EPMRU_PF4_Y35NY_DPGd.xls`
+- **Giấy phép:** Public domain (U.S. government) — <https://www.eia.gov/about/copyrights_reuse.php>
+- **Trích nguyên văn:** "U.S. government publications are in the public domain and are not subject to copyright protection. You may use and/or distribute any of our data, files, databases, reports, graphs, charts, and other information products that are on our website"
+- **Mirror:** không — được phép mirror (public domain) nhưng chưa đưa lên mirror — cần HF_TOKEN; tệp nối thêm mỗi tuần nên dùng noi_them
+- **Khoảng thời gian cố định:** 1986-06-02 → 2024-12-31
+- **sha256:** `1305a8b3280701cec8b150249e2811b46672f1fb656a718e586fb43eacefad3c` (505.0 KB)
+- **Trích dẫn:** Source: U.S. Energy Information Administration, New York Harbor Conventional Gasoline Regular Spot Price FOB (truy cập 2026-09-19).
+- **Ghi chú:** Excel .xls cũ (cần xlrd), sheet 'Data 1', 2 dòng tiêu đề.
+- **Xác minh:** 2026-09-19: tác giả tải, sha256
 
 ### `eia930-balance-2024-h1` — EIA-930 BALANCE 2024 tháng 1–6 — nhu cầu, dự báo day-ahead, phát điện theo giờ của mọi vùng điều độ Mỹ
 
@@ -652,6 +982,58 @@ Danh mục có **57 bộ**, tổng dung lượng tải khoảng **1.4 GB** (khô
 - **Trích dẫn:** Federal Reserve Bank of Philadelphia, Real-Time Data Set for Macroeconomists (Croushore & Stark).
 - **Ghi chú:** Mỗi cột là một vintage (ROUTPUT65Q4 …). Tệp ghi đè khi có vintage mới → sha256 đổi mỗi quý; buổi 20 cần kế hoạch khi sha lệch (tải bản mới và cắt tới vintage cố định).
 - **Xác minh:** 2026-09-17: trang terms Philadelphia Fed; agent + tác giả tải cùng sha256
+
+### `philly-fed-gdp-thuc-vintage-thang` — Philadelphia Fed Real-Time Data Set — GDP thực theo quý, vintage THEO THÁNG (ROUTPUT, 65M11 → nay)
+
+- **Nguồn:** <https://www.philadelphiafed.org/surveys-and-data/real-time-data-research/real-time-data-set-for-macroeconomists>
+- **Tệp tải:** `https://www.philadelphiafed.org/-/media/FRBP/Assets/Surveys-And-Data/real-time-data/data-files/xlsx/routputMvQd.xlsx`
+- **Giấy phép:** Điều khoản Philadelphia Fed — chỉ cho mục đích thông tin, giáo dục, nghiên cứu — <https://www.philadelphiafed.org/about-us/privacy-notice>
+- **Trích nguyên văn:** "The content provided on this website may be used for informational, educational, and research purposes only."
+- **Mirror:** không — Philadelphia Fed không phải cơ quan chính phủ, trang ghi 'Copyright 2026. All rights reserved.' — không phân phối lại; học viên tải từ nguồn gốc (lớp thu phí: xin phép)
+- **Khoảng thời gian cố định:** 1947Q1 → 2026Q2
+- **sha256:** `7d8c6ab789648f3d98ef522904e47b378e7a31090c26066c821403a8a078cac5` (680.1 KB)
+- **Trích dẫn:** Federal Reserve Bank of Philadelphia, Real-Time Data Set for Macroeconomists (Croushore & Stark).
+- **Ghi chú:** Cột ROUTPUTyyMm = số liệu có vào giữa tháng đó (26M8 đã có GDP 2026Q2 công bố 30/7). Buổi 20 cắt tới vintage 25M12.
+- **Xác minh:** 2026-09-19: tác giả tải, sha256; trang RTDSM (monthly vintages)
+
+### `philly-fed-nha-khoi-cong-vintage` — Philadelphia Fed Real-Time Data Set — nhà khởi công (HSTARTS, nghìn căn/năm) theo tháng, vintage theo tháng
+
+- **Nguồn:** <https://www.philadelphiafed.org/surveys-and-data/real-time-data-research/real-time-data-set-for-macroeconomists>
+- **Tệp tải:** `https://www.philadelphiafed.org/-/media/FRBP/Assets/Surveys-And-Data/real-time-data/data-files/xlsx/hstartsMvMd.xlsx`
+- **Giấy phép:** Điều khoản Philadelphia Fed — chỉ cho mục đích thông tin, giáo dục, nghiên cứu — <https://www.philadelphiafed.org/about-us/privacy-notice>
+- **Trích nguyên văn:** "The content provided on this website may be used for informational, educational, and research purposes only."
+- **Mirror:** không — Philadelphia Fed không phải cơ quan chính phủ, trang ghi 'Copyright 2026. All rights reserved.' — không phân phối lại; học viên tải từ nguồn gốc (lớp thu phí: xin phép)
+- **Khoảng thời gian cố định:** 1959-01 → 2026-07
+- **sha256:** `2c7527def217ea593929f5c83f5f98011acc713356a9971b7ec82041a988586e` (1.7 MB)
+- **Trích dẫn:** Federal Reserve Bank of Philadelphia, Real-Time Data Set for Macroeconomists (Croushore & Stark).
+- **Ghi chú:** Cột HSTARTSyyMm. Buổi 20 cắt tới vintage 25M12.
+- **Xác minh:** 2026-09-19: tác giả tải, sha256; trang RTDSM (monthly vintages)
+
+### `philly-fed-san-luong-cn-vintage` — Philadelphia Fed Real-Time Data Set — chỉ số sản lượng công nghiệp (IPT) theo tháng, vintage theo tháng
+
+- **Nguồn:** <https://www.philadelphiafed.org/surveys-and-data/real-time-data-research/real-time-data-set-for-macroeconomists>
+- **Tệp tải:** `https://www.philadelphiafed.org/-/media/FRBP/Assets/Surveys-And-Data/real-time-data/data-files/xlsx/iptMvMd.xlsx`
+- **Giấy phép:** Điều khoản Philadelphia Fed — chỉ cho mục đích thông tin, giáo dục, nghiên cứu — <https://www.philadelphiafed.org/about-us/privacy-notice>
+- **Trích nguyên văn:** "The content provided on this website may be used for informational, educational, and research purposes only."
+- **Mirror:** không — Philadelphia Fed không phải cơ quan chính phủ, trang ghi 'Copyright 2026. All rights reserved.' — không phân phối lại; học viên tải từ nguồn gốc (lớp thu phí: xin phép)
+- **Khoảng thời gian cố định:** 1919-01 → 2026-07
+- **sha256:** `b4a6324162c8745d1a6d7740c936ae6502b00c39961e98370536c506ab55af99` (2.7 MB)
+- **Trích dẫn:** Federal Reserve Bank of Philadelphia, Real-Time Data Set for Macroeconomists (Croushore & Stark).
+- **Ghi chú:** Cột IPTyyMm. Buổi 20 cắt tới vintage 25M12.
+- **Xác minh:** 2026-09-19: tác giả tải, sha256; trang RTDSM (monthly vintages)
+
+### `philly-fed-viec-lam-vintage` — Philadelphia Fed Real-Time Data Set — việc làm phi nông nghiệp (EMPLOY, nghìn người) theo tháng, vintage theo tháng
+
+- **Nguồn:** <https://www.philadelphiafed.org/surveys-and-data/real-time-data-research/real-time-data-set-for-macroeconomists>
+- **Tệp tải:** `https://www.philadelphiafed.org/-/media/FRBP/Assets/Surveys-And-Data/real-time-data/data-files/xlsx/employMvMd.xlsx`
+- **Giấy phép:** Điều khoản Philadelphia Fed — chỉ cho mục đích thông tin, giáo dục, nghiên cứu — <https://www.philadelphiafed.org/about-us/privacy-notice>
+- **Trích nguyên văn:** "The content provided on this website may be used for informational, educational, and research purposes only."
+- **Mirror:** không — Philadelphia Fed không phải cơ quan chính phủ, trang ghi 'Copyright 2026. All rights reserved.' — không phân phối lại; học viên tải từ nguồn gốc (lớp thu phí: xin phép)
+- **Khoảng thời gian cố định:** 1939-01 → 2026-07
+- **sha256:** `ae954f940b621d80e9f56c42b151a2d340ecf01744e03c33acad74e58da0aafa` (2.1 MB)
+- **Trích dẫn:** Federal Reserve Bank of Philadelphia, Real-Time Data Set for Macroeconomists (Croushore & Stark).
+- **Ghi chú:** Cột EMPLOYyyMm. Buổi 20 cắt tới vintage 25M12.
+- **Xác minh:** 2026-09-19: tác giả tải, sha256; trang RTDSM (monthly vintages)
 
 ### `prop99-smoking` — Prop 99 California — tiêu thụ thuốc lá theo bang 1970–2000 (Abadie, Diamond & Hainmueller 2010)
 

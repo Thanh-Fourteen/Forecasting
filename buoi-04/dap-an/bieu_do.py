@@ -6,9 +6,6 @@
 # %%
 from __future__ import annotations
 
-import matplotlib
-
-matplotlib.use("Agg")
 import matplotlib.dates
 import matplotlib.pyplot as plt
 import numpy as np
@@ -82,6 +79,8 @@ def ve_mua_vu_tuan(ax, df: pd.DataFrame) -> None:
     ax.plot(bang.index, bang.median(axis=1).to_numpy(), color=MAU["phu"], linewidth=1.5)
     ax.set_xticks(range(0, 168, 24), THU)
     ax.set_ylim(bottom=0)
+    ax.set_xlabel("giờ trong tuần (vạch = 0h của mỗi thứ)")
+    ax.set_ylabel("lượt / giờ")
     ax.set_title("Mỗi tuần một đường: T2–T6 hai đỉnh, T7–CN một đỉnh")
 
 
@@ -95,6 +94,7 @@ def ve_chuoi_con_thang(ax, df: pd.DataFrame) -> None:
         ax.hlines(np.nanmean(v), m - 1 + 0.05, m - 1 + 0.85, color=MAU["phu"])
     ax.set_xticks(np.arange(12) + 0.45, THANG, fontsize=7)
     ax.set_ylim(bottom=0)
+    ax.set_ylabel("lượt / ngày")
     ax.set_title("Chuỗi con theo tháng: mọi tháng đều nhảy bậc sang 2012")
 
 
@@ -102,7 +102,7 @@ def ve_tre(ax, df: pd.DataFrame, cac_tre=(1, 12, 24, 168)) -> None:
     """Bốn lag plot nhỏ lồng trong ax (lưới 2×2), mỗi ô có đường chéo và hệ số tương quan."""
     ax.set_axis_off()
     for i, k in enumerate(cac_tre):
-        o = ax.inset_axes([0.04 + (i % 2) * 0.5, 0.52 - (i // 2) * 0.5, 0.42, 0.42])
+        o = ax.inset_axes([0.1 + (i % 2) * 0.5, 0.58 - (i // 2) * 0.53, 0.36, 0.36])
         cap = cap_tre(df["cnt"], k)
         o.scatter(cap["truoc"], cap["sau"], s=0.5, alpha=0.1, color=MAU["chinh"])
         o.plot([0, 1000], [0, 1000], color=MAU["phu"], linewidth=0.8)
@@ -110,6 +110,8 @@ def ve_tre(ax, df: pd.DataFrame, cac_tre=(1, 12, 24, 168)) -> None:
         o.set_xlim(0, 1000)
         o.set_ylim(0, 1000)
         o.tick_params(labelsize=6)
+        o.set_xlabel(f"lượt lúc t − {k} giờ", fontsize=6)
+        o.set_ylabel("lượt lúc t", fontsize=6)
         o.set_title(f"trễ {k} giờ: r = {cap.corr().iloc[0, 1]:.2f}", fontsize=7)
     ax.set_title("Trễ 168 bám đường chéo nhất, trễ 12 tản thành hai nhánh")
 
@@ -120,7 +122,7 @@ def ve_nhiet_gio_thu(ax, df: pd.DataFrame) -> None:
     ax.set_yticks(range(7), THU)
     ax.set_xticks(range(0, 24, 3))
     ax.set_xlabel("giờ")
-    plt.colorbar(anh, ax=ax, shrink=0.8)
+    plt.colorbar(anh, ax=ax, shrink=0.8, label="lượt / giờ (trung bình)")
     ax.set_title("Giờ × thứ: 8h và 17h chỉ sáng vào ngày làm việc")
 
 
@@ -136,6 +138,7 @@ def ve_hop_theo_gio(ax, df: pd.DataFrame) -> None:
         ax.plot([], [], color=c, linewidth=6, label=ten)
     ax.set_xticks(range(0, 24, 3))
     ax.set_xlabel("giờ")
+    ax.set_ylabel("lượt / giờ")
     ax.legend(fontsize=7)
     ax.set_title("Phân phối theo giờ: ngày nghỉ đỉnh trưa, ngày làm việc đỉnh 8h/17h")
 
@@ -158,7 +161,8 @@ def ve_acf(ax, df: pd.DataFrame, so_tre: int = 336) -> None:
     ax.axhspan(-dai, dai, color=MAU["xam"], alpha=0.3)
     for k in (24, 168, 336):
         ax.axvline(k, color=MAU["phu"], linewidth=0.6, linestyle="--")
-    ax.set_xlabel("độ trễ (giờ)")
+    ax.set_xlabel("độ trễ k (giờ)")
+    ax.set_ylabel("hệ số tự tương quan r_k")
     ax.set_title("ACF: đỉnh ở 24 và cao hơn ở 168 — mùa vụ ngày lồng mùa vụ tuần")
 
 
@@ -198,9 +202,11 @@ def ve_lai_trung_thuc(df: pd.DataFrame) -> plt.Figure:
     fig, (a, b, c) = plt.subplots(1, 3, figsize=(12, 3.5))
     a.plot(thang.index, thang["cnt"], color=MAU["chinh"], marker="o")
     a.set_ylim(bottom=0)
+    a.set_ylabel("lượt / tháng")
     a.set_title("Lượt thuê 2012 theo tháng (trục từ 0)")
     b.plot(thang.index, thang["temp"] * 41, color=MAU["phu"], marker="s")
     b.set_ylim(bottom=0)
+    b.set_ylabel("°C")
     b.set_title("Nhiệt độ trung bình (°C)")
     for ax in (a, b):
         ax.tick_params(axis="x", labelrotation=45)
@@ -208,7 +214,8 @@ def ve_lai_trung_thuc(df: pd.DataFrame) -> plt.Figure:
     for t, hang in thang.iterrows():
         c.annotate(f"{t.month}", (hang["temp"] * 41, hang["cnt"]), fontsize=7)
     c.set_ylim(bottom=0)
-    c.set_xlabel("°C")
+    c.set_ylabel("lượt / tháng")
+    c.set_xlabel("nhiệt độ trung bình tháng (°C)")
     c.set_title(f"Quan hệ: r = {thang['cnt'].corr(thang['temp']):.2f}, T9–T10 lệch khỏi nhiệt độ")
     fig.tight_layout()
     return fig

@@ -1,34 +1,25 @@
-# Phase 9 — Viết lại buổi 9–13 + đề dự án giữa chặng 1 + Phụ lục D cho dễ hiểu 🔲
+# Phase 9 — Viết lại buổi 6–7 ✅
 
-Quy ước + chuẩn dễ hiểu: `todos/quy-uoc.md`. Tiêu đề + **prompt copy-paste** của phase này: `todos.md` ở gốc repo (mục "Phase 9"). Trạng thái ✅/🔲 ở tiêu đề phải khớp với tiêu đề trong `todos.md`.
+Quy ước: `todos/quy-uoc.md` (KHỐI CHUNG). Prompt: `todos.md` mục "Phase 9". Trạng thái ✅/🔲 ở tiêu đề khớp `todos.md`.
 
-Cụm trọng tâm thứ hai (tiền xử lý, khử nhiễu, rò rỉ).
+Cụm trọng tâm (đọc biểu đồ, tương quan).
 
-| Buổi | Đọc thử bản cũ | Viết lại | `kiem_de_hieu` | Đọc thử bản mới | Quiz giải thích | PDF |
+| Buổi | Đọc thử bản cũ | Viết lại | `kiem_de_hieu` | Tự đọc thử + rà gọn | Quiz giải thích | PDF |
 |---|---|---|---|---|---|---|
-| 09 Đặc trưng & khả năng dự báo | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
-| 10 Làm sạch & dữ liệu thiếu | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
-| 11 Ngoại lai & điểm gãy | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
-| 12 Khử nhiễu & miền tần số | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
-| 13 Feature & chống rò rỉ | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
-| Đề dự án giữa chặng 1 | — | 🔲 | 🔲 | 🔲 | — | 🔲 |
-| Phụ lục D | — | 🔲 | 🔲 | 🔲 | — | 🔲 |
+| 06 Phân rã | ✅ 6 chặn | ✅ 6 khái niệm | ✅ 66 → 0 | ✅ 0 chặn / 0 khó | ✅ 10/10 | ✅ 11 → 16 tr |
+| 07 Tự tương quan & tính dừng | ✅ 7 chặn | ✅ 6 khái niệm | ✅ 64 → 0 | ✅ 0 chặn / 0 khó | ✅ 10/10, câu 5 sửa | ✅ 10 → 15 tr |
 
 Bắt buộc:
-- Buổi 9: spectral entropy, catch22, DTW, ABC–XYZ — mỗi cái "đo cái gì, bằng lời" + ví dụ 2 chuỗi nhỏ; vì sao đổi
-  MASE → sMAPE nói bằng ví dụ số
-- Thuật ngữ theo Phụ lục E: buổi 9 bảng đặc trưng ghi "độ lệch" (skewness) → "hệ số lệch"; buổi 11 "đổi mức" → "dịch mức"
-- Buổi 10: 7 cách điền — bảng "khi nào dùng / khi nào không" bằng lời thường; "mốc thiếu mà `isna()` không thấy" có
-  ví dụ 5 dòng
-- Buổi 11: z-score, Hampel, masking, PELT, penalty — ví dụ 10 số tính tay; "masking" giải thích bằng hình
-- Buổi 12: tần số, Nyquist, aliasing — trực giác (bánh xe quay ngược trong phim) trước công thức; "bộ lọc nhân quả"
-  = chỉ dùng quá khứ, ví dụ trung bình trượt 3 điểm tính tay hai kiểu
-- Buổi 13: rò rỉ — mỗi kiểu có ví dụ 6 dòng bảng cho thấy **ô nào nhìn trộm tương lai**
-- Đề dự án giữa chặng 1: học viên đọc đề hiểu phải nộp gì, chấm thế nào, không cần hỏi lại
-- Phụ lục D: mỗi chỉ số có ví dụ 5 số tính tay + "khi nào dùng / bẫy" bằng lời (Phase 10 mở rộng tiếp)
-- Buổi 12 đã có baseline đọc thử (chỗ chặn: MAE/RMSE, phương sai, periodogram, lọc thông thấp, IIR, wavelet, đo trễ
-  bằng tương quan, trích `filtfilt`/SavGol/Hamilton tiếng Anh; "10 cấu hình" bộ lọc chưa liệt kê)
-- **Gọn (D13)**: viết gọn ngay từ đầu theo bài học Phase 7 — mỗi ý một lần, khuôn D2 là trần, sửa chỗ vướng bằng viết lại câu
-  chứ không chèn đoạn; 3.500–6.500 chữ ngoài bảng/code, PDF 10–18 trang; rà gọn bằng biên tập viên (≤ 3 chỗ thừa)
-- **Notebook Lab**: tạo `code/lab.ipynb` (soạn bằng `tools/nb.py`, như buổi 1–3), tài liệu chỉ trỏ "ô bước N" + output cần
-  đọc; lệnh dùng `python lab.py …`, không giải thích cờ lệnh. `kiem_tra_lab.py` phải chạy notebook xanh
+- Buổi 6: xu hướng/mùa vụ/phần dư — ví dụ chuỗi 12 điểm tự phân rã bằng tay; $F_T, F_S$ nói bằng lời
+- Buổi 7: ACF/PACF — tính tay tự tương quan trễ 1 trên 6 số; "dừng" bằng ví dụ đời thường; ADF vs KPSS bằng bảng 2×2
+  có câu "nghĩa là gì" từng ô; giả thuyết không/p-value → "Mượn trước" nếu buổi 2 chưa dạy đủ
+- **Quiz buổi 7 câu 5 có đáp án sai** ($\bar y$ = 52/9, không phải 6; $r_1 ≈ 0{,}020$) — sửa; kiểm lại mọi câu tính trong
+  quiz buổi 6–7 bằng Python. Baseline đọc thử buổi 7 (chỗ chặn: kiểm định/H0/p-value, nghiệm đơn vị, AR(1), trích
+  Zivot/Nau tiếng Anh; ngưỡng sai phân thừa −0,5 hay −0,45 không thống nhất)
+- **Notebook + gọn**: `code/lab.ipynb` (soạn bằng `tools/nb.py`), tài liệu trỏ "ô bước N"; lệnh `python lab.py …`;
+  D13 ngay từ đầu (3.500–6.500 chữ, PDF 10–18 trang); tự đọc thử + tự rà gọn (KHỐI CHUNG Đ)
+
+Kết quả (2026-09-18): chi tiết ở `buoi-06/NGHIEN-CUU.md`, `buoi-07/NGHIEN-CUU.md` (mục "Research viết lại", "Đọc thử (Phase 9)").
+Sửa lỗi bản cũ khi chạy lại: chuỗi lượt thuê theo ngày bị `dropna()` giữa chừng (ACF, `diff(7)` sai; không có đỉnh ở trễ 7) → thay bằng
+bảng sai phân theo giờ; số đợt nắng nóng buổi 6 đo lại bằng MSTL của lab; bài tập 3 buổi 6 sai độ dài chuỗi. `kiem_tra_lab.py 6 7`,
+`kiem_tra_doc_lap.sh 6 7`, ruff buổi 6–7: đạt.

@@ -1,0 +1,40 @@
+# SINH TỰ ĐỘNG bởi tools/sinh_nen.py — KHÔNG SỬA TAY. Sửa buoi-16/lab/nen.toml hoặc tools/nen/phien-ban.toml rồi chạy lại tool.
+
+[project]
+name = "buoi-16-nen"
+version = "0.0.0"
+description = "Môi trường chốt phiên bản của buoi-16 (thư viện trợ giúp: tv/)"
+requires-python = "==3.12.*"
+dependencies = [
+    "matplotlib==3.11.2",
+    "numpy==2.5.3",
+    "pandas==2.3.3",
+    "pyarrow==25.0.1",
+    "scipy==1.18.1",
+    "statsforecast==2.1.1",
+    "statsmodels==0.15.0",
+    "tzdata==2026.4",
+    "utilsforecast==0.2.16",
+]
+
+[dependency-groups]
+dev = [
+    "pytest==9.1.1",
+    "ruff==0.16.8",
+]
+notebook = [
+    "ipykernel==7.3.0",
+    "jupyterlab==4.6.3",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.15,<0.13"]
+build-backend = "uv_build"
+
+[tool.uv]
+exclude-newer = "2026-09-17T00:00:00Z"
+default-groups = ["dev", "notebook"]
+
+[tool.uv.build-backend]
+module-name = "tv"
+module-root = ""

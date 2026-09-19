@@ -1,7 +1,7 @@
 # %% [markdown]
 # # Dự án giữa chặng 1 — khung `feature.py` để bạn điền
 #
-# Bài toán: dự báo **nhiệt độ Nội Bài 24 giờ tới**. Mọi feature phải có sẵn tại thời điểm ra dự báo.
+# Bài toán: dự báo **nhiệt độ Nội Bài 12 giờ tới** (24 bước 30 phút). Mọi feature phải có sẵn tại thời điểm ra dự báo.
 
 # %%
 from __future__ import annotations
@@ -9,7 +9,7 @@ from __future__ import annotations
 import numpy as np  # noqa: F401  (khung rỗng — bạn sẽ dùng)
 import pandas as pd
 
-TAM = 24  # tầm dự báo (bước 30 phút của Nội Bài → 24 bước = 12 giờ; đổi cho đúng bài toán của bạn)
+TAM = 24  # tầm dự báo: 24 bước 30 phút = 12 giờ
 
 
 def bo_feature(y: pd.Series, tam: int = TAM) -> pd.DataFrame:

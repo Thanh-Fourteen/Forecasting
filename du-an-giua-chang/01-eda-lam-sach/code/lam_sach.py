@@ -4,7 +4,7 @@
 # Đây là **khung rỗng**: chữ ký hàm đã cố định để `python lab.py check` chạy được, phần thân là việc của bạn.
 # Mọi công cụ cần thiết đã học ở buổi 10–13; được phép chép lại code của chính mình từ các buổi đó.
 #
-# Nhắc lại thứ tự tám bước (buổi 10, mục 4.9):
+# Thứ tự gợi ý tám bước (buổi 10–11):
 #   1. đọc + ép kiểu   2. lưới thời gian đều, khử mốc trùng, thống nhất UTC   3. bỏ cột rỗng
 #   4. cờ chất lượng của nguồn   5. giá trị trá hình / trần cảm biến   6. độ phân giải → ngưỡng đứng yên
 #   7. đo lại phân bố độ dài lỗ → chọn giới hạn điền   8. xuất dữ liệu + cờ + báo cáo

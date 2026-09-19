@@ -89,7 +89,7 @@ dùng.
 |---|---|---|---|---|
 | trend | xu hướng | Hướng đi lâu dài của chuỗi: đi lên, đi xuống hay đi ngang, bỏ qua dao động ngắn. | Doanh số các năm 100, 104, 108, 112 → xu hướng tăng 4 mỗi năm. | 2, 4, 6 |
 | seasonality | mùa vụ | Mẫu lặp lại đều theo lịch, với chu kỳ cố định và biết trước. | Tải điện cao lúc 19h, thấp lúc 3h, ngày nào cũng vậy → mùa vụ theo ngày. | 1, 4, 6 |
-| seasonal period, $m$ | chu kỳ mùa vụ, $m$ | Số bước dữ liệu trước khi mẫu mùa vụ lặp lại. | Dữ liệu giờ lặp theo ngày → $m$ = 24. Dữ liệu ngày lặp theo tuần → $m$ = 7. | 5 |
+| seasonal period, $m$ | chu kỳ mùa vụ, $m$ | Số bước dữ liệu trước khi mẫu mùa vụ lặp lại. | Dữ liệu giờ lặp theo ngày → $m$ = 24. Dữ liệu ngày lặp theo tuần → $m$ = 7. | 4, 5 |
 | multiple seasonality | mùa vụ kép / đa mùa vụ | Chuỗi có nhiều mẫu lặp cùng lúc, mỗi mẫu một chu kỳ. | Tải điện theo giờ lặp theo ngày ($m$ = 24) và theo tuần ($m$ = 168). | 4, 6, 18 |
 | cycle | chu kỳ | Dao động lên xuống kéo dài nhiều năm, độ dài không cố định. Khác mùa vụ ở chỗ không biết trước. | Kinh tế tăng trưởng 6 năm rồi suy thoái; lần sau lại tăng 9 năm. | 4 |
 | level shift | dịch mức | Mức trung bình của chuỗi đổi đột ngột rồi giữ luôn ở mức mới. Có chỗ trong khoá viết là "đổi mức". | Trước 1/3 bán quanh 100 cái/ngày; từ 1/3 mở thêm quầy, bán quanh 130 cái/ngày. | 1, 11 |
@@ -209,9 +209,24 @@ dùng.
 | Fourier terms | số hạng Fourier | Cặp sin/cos có chu kỳ bằng chu kỳ mùa vụ, dùng làm feature để mô tả mùa vụ trơn. | Mùa vụ năm trên dữ liệu ngày: $\sin(2\pi t/365{,}25)$ và $\cos(2\pi t/365{,}25)$. | 13, 18 |
 | intermittent demand | nhu cầu gián đoạn | Chuỗi có nhiều kỳ bằng 0, thỉnh thoảng mới có số dương. | Bán phụ tùng theo tuần: 0, 0, 3, 0, 0, 0, 1, 0. | 9, 19 |
 | Croston, TSB | Croston, TSB | Dự báo riêng cỡ đơn mỗi lần có bán và khoảng cách giữa hai lần bán, rồi chia nhau. TSB thay khoảng cách bằng xác suất có bán. | Mỗi lần bán 2 cái, cứ 4 kỳ bán một lần → dự báo 2/4 = 0,5 cái mỗi kỳ. | 19 |
+| SBA (Syntetos–Boylan approximation) | SBA | Croston nhân thêm (1 − α/2) để bỏ phần dự báo cao có hệ thống. | Croston 0,8, α = 0,1 → SBA 0,8 × 0,95 = 0,76. | 19 |
+| ADI, CV² (Syntetos–Boylan classification) | ADI, CV² | ADI: số kỳ chia số kỳ có bán. CV²: bình phương (độ lệch chuẩn ÷ trung bình) của lượng khi có bán. Ngưỡng 1,32 và 0,49 chia bốn nhóm mượt / thất thường / gián đoạn / cục. | 12 tháng, 3 tháng có bán, lượng 2, 2, 2 → ADI 4, CV² 0: nhóm gián đoạn. | 19 |
+| ADIDA, IMAPA (temporal aggregation) | gộp thời gian | Cộng nhiều kỳ thành một để bớt số 0, dự báo trên chuỗi gộp rồi chia lại; IMAPA lấy trung bình nhiều mức gộp. | Tháng 0, 2, 0, 0, 1, 0 → quý 2 và 1 → 1,5 mỗi quý → 0,5 mỗi tháng. | 19 |
+| TBATS | TBATS | Mô hình state space cho nhiều mùa vụ: Fourier cho từng chu kỳ, biến đổi Box–Cox, sai số ARMA; không nhận biến ngoài. | Tải điện giờ với chu kỳ 24 và 168. | 18 |
+| Prophet | Prophet | Thư viện của Meta: xu hướng gãy khúc + Fourier + lễ đã khai; sai số coi như độc lập. Không tự biết lễ âm lịch. | Lượt xem = xu hướng 2,44 − tuần 0,02 − năm 0,07 − Tết 0,73 = 1,63 triệu. | 18 |
+| intervention variable (pulse, step, ramp) | biến can thiệp (xung, bậc, dốc) | Biến giả mô tả sự kiện trong hồi quy: xung một kỳ, bậc từ một mốc trở đi, dốc tăng dần từ một mốc. | Sự kiện tháng 3 trong 6 tháng: xung 0,0,1,0,0,0; bậc 0,0,1,1,1,1; dốc 0,0,0,1,2,3. | 18 |
 | state space model, Kalman filter | mô hình không gian trạng thái, bộ lọc Kalman | Mô tả chuỗi qua một "trạng thái" ẩn (như mức thật) thay đổi dần. Bộ lọc Kalman cập nhật trạng thái mỗi khi có số đo mới. | Đang ước lượng 20 °C, đo được 22 °C, tin số đo 50% → cập nhật thành 21 °C. | 10, 20 |
 | VAR, cointegration | VAR, đồng liên kết (cointegration) | VAR dự báo nhiều chuỗi cùng lúc, mỗi chuỗi dùng trễ của mọi chuỗi. Đồng liên kết: hai chuỗi đều trôi nhưng hiệu của chúng dừng. | Giá xăng và giá dầu thô đều trôi, nhưng chênh lệch giữa chúng dao động quanh một mức. | 8, 20 |
 | volatility, GARCH | biến động (volatility), GARCH | Biến động là mức dao động to hay nhỏ của chuỗi, thay đổi theo thời gian. GARCH dự báo mức dao động đó. | Tuần yên ổn giá đổi khoảng ±0,5%/ngày; tuần hoảng loạn ±4%/ngày → biến động gấp 8 lần. | 21 |
+| VECM | VECM | VAR trên sai phân cộng một số hạng kéo khoảng chênh (spread) của hai chuỗi đồng liên kết về cân bằng. | Spread +0,3, hệ số kéo về −0,2 → tuần tới chuỗi giảm thêm 0,06. | 20 |
+| dynamic factor model (DFM) | mô hình nhân tố động | Vài nhân tố ẩn chung điều khiển nhiều chuỗi; ước lượng bằng Kalman, xử lý được tần suất hỗn hợp và ô thiếu. | Nhân tố 0,5; hệ số của GDP 2,0 → GDP ≈ 1,0. | 20 |
+| nowcasting, ragged edge | nowcasting, ragged edge | Dự báo quý hiện tại khi số chính thức chưa công bố; ragged edge: mỗi chuỗi dừng ở một tháng khác nhau. | Giữa tháng 4: việc làm có tới tháng 3, GDP mới tới quý 4. | 20 |
+| vintage (real-time data) | vintage | Toàn bộ số liệu như được biết tại một ngày công bố; số đã sửa về sau là thông tin tương lai. | GDP quý 4/2008: lần đầu −3,9%, bản 2025 −8,9%. | 20 |
+| bridge equation, MIDAS | bridge equation, MIDAS | Hồi quy GDP quý theo trung bình quý của chỉ báo tháng (bridge); hoặc theo từng tháng với trọng số ít tham số (MIDAS). | GDP = 1 + 1,5 × việc làm quý. | 20 |
+| realized volatility, HAR | biến động thực hiện, HAR | RV = tổng bình phương lợi suất trong ngày (từ dữ liệu giờ/phút); HAR hồi quy RV mai theo RV ngày, tuần, tháng. | Bốn lợi suất 0,5; −1; 0,8; −0,3 → RV 1,98 dù cả ngày đóng cửa bằng giá mở. | 21 |
+| Value at Risk, expected shortfall | VaR, ES | VaR 99%: mức lỗ mà 99% số ngày không tệ hơn; ES: lỗ trung bình trong những ngày tệ hơn VaR. | Độ lệch chuẩn 1%, chuẩn → VaR −2,33%, ES −2,67%. | 21 |
+| Kupiec test | kiểm định Kupiec | Kiểm số ngày vượt VaR có khớp tỷ lệ hứa không; vượt quá nhiều hay quá ít đều bị bác. | 1.000 ngày, vượt 20 lần (kỳ vọng 10) → LR 7,8 > 3,84: bác. | 21 |
+| QLIKE | QLIKE | Hàm mất mát cho dự báo phương sai: h/ĥ − ln(h/ĥ) − 1, bằng 0 khi đúng; ít bị vài ngày cực lớn chi phối hơn MSE. | Thật 2, dự báo 1: 2 − ln 2 − 1 ≈ 0,31. | 21 |
 | hierarchical / grouped series | chuỗi phân cấp / phân nhóm | Nhiều chuỗi lồng nhau: chuỗi cấp trên bằng tổng các chuỗi cấp dưới. | Doanh số cả nước = Bắc + Trung + Nam. | 28 |
 | reconciliation (bottom-up, top-down, MinT) | reconciliation | Chỉnh các dự báo sao cho tổng dự báo cấp dưới khớp đúng dự báo cấp trên. | Dự báo Bắc 40 + Nam 50 = 90 nhưng dự báo cả nước 100 → chỉnh để hai bên bằng nhau. | 28 |
 
@@ -285,6 +300,9 @@ dùng.
 | counterfactual | phản thực tế (counterfactual) | Điều lẽ ra đã xảy ra nếu không can thiệp. Tác động = thực tế − phản thực tế. | Bán 150 khi giảm giá; nếu không giảm, ước lượng bán 120 → tác động 30. | 38 |
 | synthetic control | synthetic control | Ghép có trọng số các nơi không bị can thiệp để mô phỏng nơi bị can thiệp như thể không có can thiệp. | Tỉnh A giảm giá; 0,6 × tỉnh B + 0,4 × tỉnh C bám sát A trước đó → dùng làm phản thực tế. | 38 |
 | placebo test | placebo test | Chạy lại phương pháp ở nơi hoặc lúc không có can thiệp; kết quả phải gần 0. | Giả vờ tỉnh B có giảm giá (thật ra không) mà vẫn đo ra +25 → phương pháp đáng ngờ. | 38 |
+| lead time | thời gian dẫn | Thời gian từ lúc đặt hàng tới lúc hàng về. | Đặt cuối tháng 3, hàng về đầu tháng 5: chờ trọn tháng 4. | 19 |
+| order-up-to policy | chính sách order-up-to | Mỗi kỳ xem kho rồi đặt thêm cho (tồn + hàng đang về) đủ lên mức $S$. | $S$ = 5, tồn 2, đang về 1 → đặt 2. | 19 |
+| fill rate | tỷ lệ đáp ứng | Phần nhu cầu bán được ngay từ kho. | Khách hỏi 10 món, có sẵn 8 → 80%. | 19 |
 | confounding | gây nhiễu (confounding) | Có một biến tác động lên cả nguyên nhân lẫn kết quả, làm ta tưởng nhầm quan hệ giữa hai thứ đó. | Trời nóng làm tăng cả lượng kem bán ra lẫn số vụ đuối nước; kem không gây đuối nước. | 8, 39 |
 | DAG | DAG (đồ thị nhân quả) | Sơ đồ mũi tên chỉ cái gì gây ra cái gì, không có vòng lặp. | Nóng → kem bán chạy; nóng → đi bơi nhiều → đuối nước. | 39 |
 | elasticity | độ co giãn | Lượng bán thay đổi bao nhiêu phần trăm khi giá đổi 1%. | Giá tăng 10%, lượng giảm 15% → độ co giãn = −15/10 = −1,5. | 39 |
@@ -319,6 +337,7 @@ dùng.
 | random variable | biến ngẫu nhiên | Một đại lượng chưa biết trước giá trị, chỉ biết khả năng xảy ra của từng giá trị. | Số khách ngày mai có thể là 80, 100 hay 120, mỗi số một xác suất. | 2 |
 | probability distribution | phân phối | Bảng hay đường cong cho biết mỗi giá trị có thể xảy ra với xác suất bao nhiêu. | Xúc xắc cân đối: mỗi mặt 1, 2, …, 6 có xác suất 1/6. | 1, 2 |
 | normal distribution | phân phối chuẩn | Phân phối hình chuông, đối xứng quanh trung bình. Khoảng 95% giá trị nằm trong trung bình ± 2 độ lệch chuẩn (đúng 95% là ± 1,96). | Trung bình 100, độ lệch chuẩn 10 → khoảng 95% giá trị rơi trong 80–120. | 2 |
+| Poisson distribution | phân phối Poisson | Phân phối của số lần một việc hiếm xảy ra trong một khoảng, khi biết số lần trung bình $\mu$: P($k$) = $e^{-\mu}\mu^k / k!$. | $\mu$ = 0,8: P(0) = 0,449; P(≤ 1) = 0,809; P(≤ 2) = 0,953. | 19 |
 | histogram | histogram (bảng đếm dạng cột) | Chia trục giá trị thành các khoảng bằng nhau, đếm mỗi khoảng có bao nhiêu số liệu rồi vẽ thành cột. | 5, 6, 6, 7, 7, 8 → khoảng [5, 7): 3 số; [7, 9): 3 số. | 2 |
 | standard error | sai số chuẩn | Độ lệch chuẩn của chính con số ước lượng (ví dụ trung bình mẫu); nhỏ dần khi có thêm dữ liệu độc lập. | Độ lệch chuẩn 2, n = 100 → sai số chuẩn của trung bình = 2/√100 = 0,2. | 2 |
 | interquartile range, IQR | khoảng tứ phân vị (IQR) | Quantile 0,75 trừ quantile 0,25: độ rộng của nửa giữa dữ liệu, ít bị ngoại lai kéo. | Quantile 0,25 là 6, quantile 0,75 là 9 → IQR = 3. | 2, 11 |

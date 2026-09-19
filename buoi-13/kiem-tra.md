@@ -1,165 +1,148 @@
 # Kiểm tra buổi 13 — Feature engineering và chống rò rỉ
 
-10 câu. Tự làm trước, mở đáp án sau.
+## Nhắc lại khái niệm
 
----
+**Câu 1.** Dự báo doanh thu ngày mai. Feature nào **không** xếp được vào nhóm "biết trước" nào?
 
-**1 (nhắc lại).** Ba nhóm "biết trước bao lâu" là gì? Mỗi nhóm một ví dụ.
+- A. Ngày mai có phải ngày lễ
+- B. Khuyến mãi đã lên lịch cho ngày mai
+- C. Doanh thu trung bình của cả năm nay
+- D. Doanh thu hôm qua
 
-<details><summary>Đáp án</summary>
+<details>
+<summary>Đáp án</summary>
 
-- **Vô hạn** — lịch: thứ, tháng, Fourier, số ngày tới Tết. Không bao giờ rò rỉ.
-- **Kế hoạch / dự báo** — biết tới thời điểm công bố: khuyến mãi đã lên lịch, dự báo thời tiết, dự báo phụ tải của nhà vận hành.
-- **Quá khứ của chuỗi** — chỉ tới $t-h$: lag, rolling đã shift.
-
-Mọi cột không thuộc ba nhóm này đều đáng ngờ.
-
-</details>
-
----
-
-**2 (nhắc lại).** Vì sao phải `shift` trước khi `rolling`? Và vì sao lag nhỏ nhất phải ≥ tầm dự báo?
-
-<details><summary>Đáp án</summary>
-
-`y.rolling(7).mean()` tại $t$ có cửa sổ **kết thúc tại $t$**, tức chứa $y_t$ — với tầm dự báo $h=1$, lúc dự báo $y_{t+1}$ ta **chưa** có
-$y_t$... thực ra ta có, nhưng nếu mục tiêu là $y_t$ thì feature chứa chính đáp án. Quy tắc an toàn: `y.shift(h).rolling(w)`.
-
-Lag < h nghĩa là dùng giá trị chưa xảy ra: dự báo 24 giờ tới mà dùng `lag_1` thì lúc chạy thật không có số đó.
+**C** (mục 4.1): năm chưa hết, nên trung bình cả năm chứa những ngày chưa xảy ra. **A sai**: lịch, biết trước mãi mãi. **B sai**: kế hoạch đã
+công bố. **D sai**: quá khứ của chuỗi.
 
 </details>
 
----
+**Câu 2.** Dự báo trước 1 ngày. Feature "trung bình 7 ngày" viết đúng là:
 
-**3 (nhắc lại).** Fourier term giải quyết vấn đề gì? Nêu công thức và một đánh đổi.
+- A. `y.rolling(7).mean()`
+- B. `y.rolling(7, center=True).mean()`
+- C. `y.shift(1).rolling(7).mean()`
+- D. `y.rolling(7).mean().shift(-1)`
 
-<details><summary>Đáp án</summary>
+<details>
+<summary>Đáp án</summary>
 
-Mùa vụ chu kỳ dài: mùa vụ năm trên dữ liệu ngày cần 365 biến giả. Thay bằng $K$ cặp:
-$\sin(2\pi i t/m)$, $\cos(2\pi i t/m)$ với $i = 1..K$, $m = 365{,}25$ → chỉ $2K$ cột, **không phụ thuộc độ dài chu kỳ**.
-
-Đánh đổi: $K$ nhỏ chỉ bắt được hình dạng trơn; $K$ lớn bắt được đỉnh hẹp nhưng dễ overfit. Chọn $K$ bằng backtest.
-
-</details>
-
----
-
-**4 (nhắc lại).** Vì sao không dùng được thư viện lịch âm Trung Quốc cho dữ liệu Việt Nam?
-
-<details><summary>Đáp án</summary>
-
-Âm lịch tính theo thời điểm sóc **ở múi giờ địa phương**: Việt Nam dùng kinh tuyến 105°Đ (UTC+7), Trung Quốc 120°Đ (UTC+8). Khi thời điểm
-sóc rơi vào khoảng giữa hai múi, ngày mùng 1 lệch nhau. Trong 2000–2035 có đúng hai năm như vậy: **2007** (VN 17/02, TQ 18/02) và **2030**
-(VN 02/02, TQ 03/02).
+**C** (mục 4.2): cửa sổ kết thúc ở ngày $t - 1$. **A sai**: cửa sổ chứa chính $y_t$. **B sai**: chứa cả 3 ngày sau $t$. **D sai**: `shift(-1)`
+kéo số của ngày sau về, còn tệ hơn A.
 
 </details>
 
----
+**Câu 3.** Vì sao không dùng thư viện lịch âm Trung Quốc để tạo feature Tết cho dữ liệu Việt Nam?
 
-**5 (vận dụng).** Bạn viết `kiem_ro_ri`, chạy trên bộ feature của mình và nó báo "sạch". Nêu ba lý do khiến kết quả đó có thể sai.
+- A. Lịch Trung Quốc không có Tết
+- B. Ngày sóc tính theo giờ địa phương; ở UTC+8 có năm Tết lệch một ngày so với UTC+7
+- C. Thư viện Trung Quốc chạy chậm
+- D. Việt Nam không dùng lịch âm
 
-<details><summary>Đáp án</summary>
+<details>
+<summary>Đáp án</summary>
 
-1. **Bỏ qua vài dòng cuối** trước mốc cắt — đúng vùng duy nhất lộ vi phạm của rolling centered.
-2. **Coi NaN vs số là giống nhau**: `rolling(center=True)` không đặt `min_periods` trả NaN ở mép, nên phép so bỏ qua chính chỗ rò rỉ.
-3. **Mốc cắt chọn không có chủ đích**: rò rỉ kiểu `interpolate(limit_direction="both")` chỉ lộ ra khi mốc cắt rơi vào **mép một lỗ hổng**.
-
-Và lý do thứ tư: bài cắt-tương-lai **không** bắt được lag < tầm dự báo — cần thêm bài nhiễu mục tiêu.
-
-</details>
-
----
-
-**6 (vận dụng).** Mô hình dự báo phụ tải 24 giờ tới của bạn dùng feature nhiệt độ. Mô tả cách lấy dữ liệu huấn luyện sao cho đúng.
-
-<details><summary>Đáp án</summary>
-
-Dùng **bản dự báo nhiệt độ đã lưu** (archived forecast) cho đúng tầm sẽ chạy thật — ví dụ Open-Meteo Previous Runs cho giá trị đã dự báo
-trước 1 ngày. **Không** dùng nhiệt độ thật (ERA5/quan trắc) của giờ cần dự báo.
-
-Lý do kép: (a) lúc chạy thật không có nhiệt độ thật; (b) nếu huấn luyện bằng thật rồi chạy bằng dự báo, mô hình chưa từng thấy sai số của
-dự báo (MAE 1,33 °C ở D+1, 2,07 °C ở D+3) nên tin nó quá mức. Đo được: −3,85% (hứa) so với −3,10% (chạy bằng D+1) và **+2,20%** (chạy bằng
-D+3).
+**B** (mục 4.3): trong 2000–2035 có hai năm lệch là 2007 và 2030; ví dụ Tết 2007 ở Việt Nam là 17/2, ở Trung Quốc là 18/2. **A, D sai**: cả hai
+nước đón Tết âm lịch. **C sai**: tốc độ không liên quan; sai là sai ngày.
 
 </details>
 
----
+**Câu 4.** Bài kiểm cắt tương lai **không** bắt được lỗi nào?
 
-**7 (vận dụng).** Feature Tết của bạn cải thiện MAE cả năm 1,9%. Đồng nghiệp đề nghị bỏ vì "không đáng kể". Bạn trả lời sao?
+- A. `rolling` có tâm
+- B. Chuẩn hoá bằng trung bình cả chuỗi
+- C. `lag_1` trong bài dự báo trước 24 giờ
+- D. Target encoding tính trên cả chuỗi
 
-<details><summary>Đáp án</summary>
+<details>
+<summary>Đáp án</summary>
 
-Báo cáo theo **vùng có tác dụng**: quanh Tết (±10 ngày) MAE giảm từ 167.769 xuống 139.478, tức **−16,9%**. Tết chỉ chiếm ~6% số ngày nên
-trung bình cả năm loãng đi.
-
-Thêm lập luận nghiệp vụ: những ngày đó chính là lúc sai số đắt nhất (tồn kho, nhân lực, khuyến mãi). Nguyên tắc chung: **luôn báo cáo cả
-sai số tổng thể lẫn sai số trên phân đoạn mà feature tác động**.
-
-</details>
-
----
-
-**8 (vận dụng).** Bạn ghép dữ liệu thời tiết theo giờ vào chuỗi phụ tải bằng `merge_asof(..., direction="nearest")`. Có vấn đề gì?
-
-<details><summary>Đáp án</summary>
-
-`nearest` lấy cả bản ghi **sau** mốc → rò rỉ. Phải `direction="backward"` và đặt `tolerance` (nếu không, khi nguồn thời tiết thiếu một
-tuần, hàm vẫn kéo giá trị cũ xuống mà không báo).
-
-Kiểm thêm: mốc trùng ở bảng phải (bản công bố và bản sửa) phải khử **trước** khi ghép; và coi chừng quy ước mốc — EIA-930 ghi **cuối giờ**,
-Open-Meteo ghi **đầu giờ**; lệch một giờ là rò rỉ một bước.
+**C** (mục 4.5): `lag_1` không phụ thuộc chuyện dữ liệu bị cắt ở đâu; phải dùng kiểm nhiễu mục tiêu với $h$ = 24. **A, B, D sai**: cả ba dùng số
+của phần sau mốc cắt, nên cắt đi thì giá trị trước mốc đổi và bài kiểm bắt được.
 
 </details>
 
----
+## Vận dụng
 
-**9 (đọc bảng).** Bảng MAE dự báo phụ tải 24 giờ (baseline chỉ lag = 1.909,68 MW):
+**Câu 5.** Chuỗi $(5, 7, 9, 4, 6)$, dự báo trước 1 ngày. Tính feature trung bình 2 ngày tại ngày thứ năm theo `y.rolling(2)` và
+`y.shift(1).rolling(2)`. Cái nào nhìn trộm?
+
+<details>
+<summary>Đáp án</summary>
+
+`y.rolling(2)`: $(4 + 6)/2 = 5$, dùng chính số 6 của ngày thứ năm: **nhìn trộm**. `y.shift(1).rolling(2)`: $(9 + 4)/2 = 6{,}5$, chỉ dùng ngày
+ba và bốn: hợp lệ (mục 4.2). Nhầm hay gặp: nghĩ "cửa sổ nằm hết ở quá khứ" vì không có `center=True`.
+
+</details>
+
+**Câu 6.** Bốn ngày học có doanh thu $(10, 12, 8, 14)$, hai ngày kiểm là $(20, 16)$. Chuẩn hoá đúng cách (tham số chỉ học từ phần học; độ
+lệch chuẩn chia $n - 1$): tính z của số 20.
+
+<details>
+<summary>Đáp án</summary>
+
+Trung bình phần học 11, độ lệch chuẩn ≈ 2,58; z = (20 − 11)/2,58 ≈ **3,49** (mục 4.4a). Chuẩn hoá trên cả sáu ngày cho z ≈ 1,54: số 20 trông
+bình thường vì chính nó đã kéo trung bình và độ lệch chuẩn lên. Nhầm hay gặp: `fit` scaler trên cả tập rồi mới chia.
+
+</details>
+
+**Câu 7.** Bạn ghép nhiệt độ theo giờ vào tải điện bằng `merge_asof(..., direction="nearest")`, không đặt `tolerance`. Chỉ ra hai vấn đề.
+
+<details>
+<summary>Đáp án</summary>
+
+(1) `nearest` lấy cả bản ghi có mốc **sau** giờ cần ghép: rò rỉ; phải `direction="backward"`. (2) Không `tolerance` thì khi nguồn nhiệt độ thiếu
+một tuần, hàm vẫn kéo số cũ xuống mà không báo (mục 4.6). Nhầm hay gặp: thấy cột vừa ghép không có NaN nào là yên tâm.
+
+</details>
+
+**Câu 8.** Thêm 5 feature Tết âm lịch làm MAE cả năm chỉ giảm 1,9%. Đồng nghiệp đề nghị bỏ vì "không đáng kể". Bạn trả lời sao?
+
+<details>
+<summary>Đáp án</summary>
+
+Xem sai số ở **vùng feature có tác dụng**: quanh Tết (±10 ngày) MAE giảm 16,9% (mục 4.3). Tết chỉ chiếm vài phần trăm số ngày trong năm nên trung
+bình cả năm pha loãng hiệu quả. Giữ feature và báo cả hai con số.
+
+</details>
+
+## Đọc biểu đồ / bảng kết quả — tìm chỗ sai
+
+**Câu 9.** Bảng MAE dự báo tải điện 24 giờ tới (chỉ lag + giờ: 1.909,68 MW):
 
 | Bộ feature | MAE (MW) |
 |---|---|
 | + nhiệt độ thật của giờ cần dự báo | 1.836,16 |
 | + dự báo nhiệt độ trước 1 ngày | 1.834,29 |
 | + dự báo nhiệt độ trước 3 ngày | 1.965,47 |
-| huấn luyện bằng thật, chạy bằng dự báo 3 ngày | 1.951,70 |
 
-(a) Vì sao dùng **dự báo** D+1 lại tốt hơn cả dùng **sự thật**? (b) Bạn khuyến nghị gì cho hệ thống chỉ có dự báo thời tiết D+3?
+Báo cáo viết: "Thêm nhiệt độ giảm sai số 3,85%, đề nghị triển khai với nguồn dự báo thời tiết trước 3 ngày." Chỉ ra lỗi.
 
-<details><summary>Đáp án</summary>
+<details>
+<summary>Đáp án</summary>
 
-(a) Vì mô hình được huấn luyện **và** chạy trên cùng loại đầu vào: nó học luôn cả đặc tính sai số của bản dự báo. Mô hình huấn luyện bằng
-sự thật coi nhiệt độ là chính xác, nên gán hệ số lớn hơn mức đáng tin. Chênh lệch nhỏ (1.834,29 so với 1.836,16) nhưng đúng chiều, và nó
-cho thấy "dùng sự thật" không phải là giới hạn trên như nhiều người tưởng.
-
-(b) **Không dùng nhiệt độ** cho tầm đó: D+3 làm MAE tăng 2,92% so với baseline. Hoặc thu thập nguồn dự báo tốt hơn, hoặc dùng nhiệt độ
-**hiện tại** (nhân quả, −2,31%). Và phải báo cáo rằng con số −3,85% trong backtest cũ là ảo.
+Con số −3,85% lấy từ dòng nhiệt độ **thật**, thứ không có lúc chạy (mục 4.6). Với dự báo trước 3 ngày, MAE là 1.965,47, tức **tăng** 2,92%:
+feature làm hại. Chỉ nên dùng nhiệt độ nếu có dự báo trước 1 ngày (−3,95%); nếu không thì dùng nhiệt độ hiện tại hoặc bỏ.
 
 </details>
 
----
-
-**10 (tìm chỗ sai).** Một pull request thêm 5 feature:
+**Câu 10.** Một pull request thêm năm feature, dự báo trước 1 ngày:
 
 ```python
-f["tb_7"]       = y.rolling(7, center=True).mean()
-f["z"]          = (y - y.mean()) / y.std()
-f["tb_thu"]     = y.groupby(y.index.dayofweek).transform("mean")
-f["y_dien"]     = y.interpolate(limit_direction="both")
-f["truoc_tet"]  = (pd.Timestamp("2011-02-03") - y.index).days
+f["tb_7"] = y.rolling(7, center=True).mean()
+f["z"] = (y - y.mean()) / y.std()
+f["tb_thu"] = y.groupby(y.index.dayofweek).transform("mean")
+f["y_dien"] = y.interpolate(limit_direction="both")
+f["truoc_tet"] = (pd.Timestamp("2011-02-03") - y.index).days
 ```
 
-Chỉ ra vấn đề của từng dòng và cách sửa.
+Người viết nói: "`kiem_ro_ri` báo sạch cột `y_dien` và `truoc_tet`, vậy hai cột này ổn." Đúng không? Chỉ ra lỗi của từng dòng.
 
-<details><summary>Đáp án</summary>
+<details>
+<summary>Đáp án</summary>
 
-1. `tb_7` — **rolling không shift + centered**: chứa 3 điểm sau $t$. Sửa: `y.shift(h).rolling(7).mean()`.
-2. `z` — **chuẩn hoá trên toàn bộ dữ liệu**: `mean`/`std` chứa thông tin tập kiểm. Sửa: fit scaler **chỉ trên train**, hoặc dùng thống kê
-   expanding có shift.
-3. `tb_thu` — **target encoding toàn bộ**: mỗi dòng biết trung bình của cả tương lai. Sửa: `y.shift(h).groupby(...).expanding().mean()`.
-4. `y_dien` — **điền hai chiều**: giá trị điền lấy từ tương lai. Sửa: `ffill` (hoặc điền theo mùa vụ), và chỉ điền lỗ ngắn (buổi 10).
-5. `truoc_tet` — **hardcode Tết 2011**: đúng đúng một năm, sai mọi năm khác. Sửa: tính từ lịch âm (`so_ngay_toi_tet`), kiểm với `holidays`
-   cho 2000–2035.
-
-Bốn dòng đầu bị `kiem_ro_ri` bắt; dòng thứ năm **không** rò rỉ (chỉ dùng lịch) nhưng vẫn sai — nó chỉ bị bắt bởi test kiểm ngày Tết từng
-năm. Đó là lý do bộ chấm cần cả hai loại test.
+Không đúng. `tb_7` có tâm, chứa 3 ngày sau (mục 4.2). `z` và `tb_thu` dùng trung bình cả chuỗi (mục 4.4a, b). `y_dien` điền bằng số của ngày sau
+lỗ; bài kiểm chỉ bắt được khi mốc cắt rơi đúng vào một lỗ, và chuỗi đã hết lỗ thì không bao giờ bắt (mục 4.4c, 4.5). `truoc_tet` không rò rỉ
+nhưng sai: ghi cứng Tết 2011, đúng một năm (mục 4.3). Bài kiểm xanh chỉ nói không thấy rò rỉ ở những mốc đã cắt; lỗi lịch cần test riêng.
 
 </details>

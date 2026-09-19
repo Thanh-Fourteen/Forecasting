@@ -1,0 +1,8 @@
+# Buổi 14 — Baseline và chỉ số đánh giá. Nguồn của lab/00-nen/ (python tools/sinh_nen.py 14).
+thu_vien = ["matplotlib", "scipy", "statsmodels", "statsforecast", "utilsforecast", "openpyxl", "pyarrow"]
+du_lieu = ["monash-m4-daily", "uci-online-retail-ii"]
+# học viên tự viết bộ chỉ số → không phát tv.danh_gia
+khung_bo = ["danh_gia"]
+
+[cham]
+code_phai_do = true

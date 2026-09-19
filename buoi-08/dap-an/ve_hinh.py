@@ -114,7 +114,7 @@ def hinh_chu_u(df: pd.DataFrame) -> dict:
     lanh = t <= tq.MOC_DO
     return {"tuong_quan": {k: round(v, 3) for k, v in tq.tuong_quan(t, y).items()},
             "mi": round(tq.thong_tin_tuong_ho(t, y), 3), "r2_tuyen_tinh": round(float(r2_t), 3),
-            "r2_cdd_hdd": round(float(max(r2[int(np.argmin(np.abs(moc - tq.MOC_DO)))], 0)), 3),
+            "r2_cdd_hdd": round(float(1 - np.var(y - np.column_stack([np.ones(y.size), *tq.cdd_hdd(t)]) @ np.linalg.lstsq(np.column_stack([np.ones(y.size), *tq.cdd_hdd(t)]), y, rcond=None)[0]) / y.var()), 4),
             "r2_toi_uu": (float(moc[int(np.argmax(r2))]), round(float(max(r2)), 3)),
             "r_lanh": round(float(np.corrcoef(t[lanh], y[lanh])[0, 1]), 3), "n_lanh": int(lanh.sum()),
             "r_nong": round(float(np.corrcoef(t[~lanh], y[~lanh])[0, 1]), 3), "n_nong": int((~lanh).sum())}

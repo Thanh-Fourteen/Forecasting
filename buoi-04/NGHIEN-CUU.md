@@ -117,3 +117,128 @@ thuật cho "làm trơn che ngoại lai" → tài liệu chứng minh bằng ch�
 | Trục y cắt: bằng chứng là "chọn phạm vi theo độ lớn hiệu ứng", không phải "luôn từ 0" | nhỏ | Dạy: số đếm/tổng bắt đầu từ 0; mức như nhiệt độ không cần |
 | Subseries theo tháng chỉ có 2 năm | nhỏ | Mỗi ô tháng vẽ chuỗi tổng theo ngày của cả hai năm (≈ 60 điểm) + đường trung bình |
 | statsmodels 0.15 thêm `seasonal_diagnostic_plot`, `plot_ccf` | bổ sung | Nhắc; `plot_ccf` dùng ở buổi 8 |
+
+## Research viết lại (Phase 8, 2026-09-18)
+
+Research sư phạm (KHỐI CHUNG R), không đổi code/dữ liệu/phiên bản.
+
+| Nguồn | Truy cập | Dùng cho |
+|---|---|---|
+| CensusAtSchool NZ, *Suggestions for Teaching Time Series*, https://new.censusatschool.org.nz/resource/teaching-timeseries/ | 2026-09-18 | hiểu lầm hay gặp: "mùa" chỉ là bốn mùa (thật ra ngày, tuần, tháng đều là mùa); nhầm chu kỳ với mùa vụ; sa vào dao động ngắn khi tả xu hướng → hộp "Hiểu lầm hay gặp" 4.1, quiz 1 |
+| Monash, *Time series* (Student Academic Success) | 2026-09-18 | cách phân biệt mùa vụ: đếm số điểm từ đỉnh tới đỉnh, số điểm cố định → mùa vụ |
+| *To Cut or Not To Cut? A Systematic Exploration of Y-Axis Truncation*, CHI 2024, doi:10.1145/3613904.3642102 (chỉ tóm tắt, trang ACM chặn 403) | 2026-09-18 | trục cắt: tranh luận còn tiếp, kết luận "tuỳ nhiệm vụ đọc" → giữ quy ước khoá: số đếm/tổng từ 0, đại lượng mức chọn theo độ lớn thay đổi có ý nghĩa |
+| Correll et al. 2020, Few 2008, FPP ch. 2 (đã có ở trên) | | ví dụ trục kép bằng bảng "phần trăm chiều cao hình"; ACF tính tay trên chuỗi lặp 4 bước |
+
+Quyết định: gom 11 mục lý thuyết cũ thành 6 (năm bước đọc + ba mẫu hình; gộp/làm trơn/log; seasonal + subseries; heatmap +
+boxplot; lag plot + ACF; hình nói sai). Bỏ đoạn "tỷ lệ khung hình" (chỉ còn bài tập 3), bỏ công thức heatmap (chỉ là trung bình
+nhóm). Mọi trích tiếng Anh (FPP, Few, Correll, Heer & Agrawala) thay bằng diễn giải tiếng Việt.
+
+Sửa code (không đổi chỗ hở, bộ chấm, số): bỏ `matplotlib.use("Agg")` trong `code/` và `dap-an/bieu_do.py` để notebook hiện hình
+(`cham/` và `ve_hinh.py` tự đặt Agg); `dap-an/` thêm nhãn trục có đơn vị cho mọi hình (buổi dạy chính điều này); `ve_hinh.py`
+vẽ lag plot một hàng 4 ô, thang log ghi số thường. Thêm `dap-an/vi_du_nho.py` (ví dụ tay 4.1–4.6) và `code/lab.ipynb`.
+Số mới đã chạy: seasonal plot có **106** tuần (tính cả tuần đầu/cuối thiếu ngày; bản cũ ghi 104).
+
+## Đọc thử (Phase 8, 2026-09-18)
+
+Tự đọc (không subagent), theo checklist `tools/CHUAN-DE-HIEU.md`. Mọi con số và đáp án quiz tính lại bằng Python
+(`dap-an/vi_du_nho.py`, script kiểm số trên `hour.csv`).
+
+| Vòng | Bản | Chặn | Khó | Nhỏ | Quiz | Ghi chú |
+|---|---|---|---|---|---|---|
+| 0 | bản cũ (2.596 chữ, 12 trang, 78 cờ `kiem_de_hieu`) | 6 | — | — | — | chặn: xu hướng/mùa vụ/chu kỳ định nghĩa bằng trích FPP tiếng Anh; seasonal/subseries chỉ có trích; IQR, "tứ phân vị" không định nghĩa; công thức heatmap ký hiệu tập hợp không giải thích; "Bartlett", ±1,96/√T không giải thích; ý chính trục kép/trục cắt nằm trong trích tiếng Anh. Không hình nào có "Cách đọc hình" 5 bước |
+| 1 | viết lại (6.025 chữ, 19 trang) | 0 | 3 | 4 | 10/10 có căn cứ | khó: "FPP" chưa giải thích; "±1,96/√T" ở bước 3 của hình ACF trước lời giải thích; bài tập 1 (`casual`) không làm được vì `doc_luot_thue` không giữ cột đó. Nhỏ: "tăng 2 trăm lượt mỗi ngày sau một tuần" tối nghĩa; "+43,2%" không nói của đoạn nào; "104 tuần" sai (106); ví dụ "mùa vụ" trong bảng Từ mới |
+| rà gọn | biên tập viên | — | — | — | — | 4 chỗ thừa: đoạn "Gộp tần suất" 4.2 nói lại kết luận hình 4.1; câu "Cách vẽ an toàn" lặp "Tóm lại" 4.2; đoạn °C sau bảng lặp bước 1 của hình scatter; hình lag plot vuông chiếm nửa trang → một hàng 4 ô. Nhận cả 4 |
+| 2 | sau sửa + cắt (6.000 chữ, 18 trang) | **0** | **0** | 3 | 10/10 | **đạt**. Rà gọn cuối: 2 chỗ lặp nhỏ (< 30 chữ: "Nói bằng lời" 4.5 nhắc lại $r_2$ đã tính — giữ, bắt buộc có thay số; bảng Lỗi thường gặp nhắc lại ý lý thuyết — giữ, dạng chẩn đoán) |
+
+Quiz: viết lại cả 10 câu; mỗi đáp án nói vì sao đúng và vì sao từng lựa chọn khác sai; căn cứ: câu 1 → 4.1, 2 → 4.3, 3 → 4.6,
+4 → 4.2, 5 → 4.2/4.4/4.5, 6 → công thức 4.5 ($r_1$ = 0,4, kiểm bằng NumPy), 7 → 4.5, 8 → ví dụ 4.4 (318; 370; 350; 380), 9 → bảng
+4.3 + 4.4, 10 → 4.6. `kiem_de_hieu.py 4`: 78 → **0**. PDF 12 → **18** trang (12 hình, mỗi hình 5 bước). Lab: `kiem_tra_lab.py 4`
+đạt (đáp án 8/8 xanh, code 7/8 đỏ, `lab.ipynb` chạy hết).
+
+## Phụ lục C — viết lại (Phase 8, 2026-09-18)
+
+Phụ lục C không có `NGHIEN-CUU.md` riêng; ghi ở đây. Khung mới cho mỗi loại hình: "Trả lời câu hỏi gì" → "Cách đọc hình" 5 bước
+(bước 5 là câu mẫu) → Bẫy → Đọc đúng/đọc sai → Ví dụ có số (giữ nguyên số đã đo ở Phase 3). Thêm mục 0 "Năm bước đọc mọi hình";
+sắp lại 18 loại theo thứ tự khoá dạy (1–9 dùng từ buổi 4; 10–18 ghi buổi dạy kỹ). Bỏ toàn bộ trích tiếng Anh (FPP, NIST,
+Gneiting, WWRP, Few, Wilke, BoE), diễn giải tiếng Việt kèm nguồn trong ngoặc; PIT định nghĩa bằng ví dụ số. Phụ lục D trỏ "mục 6"
+→ đổi thành "mục 8". 3.631 → 4.954 chữ, 9 → 12 trang; `kiem_de_hieu.py C` 0. Tự đọc trong vai học viên đã học tới buổi tương ứng
+của từng mục: 0 chỗ mơ hồ về "đọc trục nào, nhìn đâu"; rà gọn: rút "Ví dụ có số" của ACF về hai kết quả (buổi 4 dữ liệu thật; buổi 7
+1.000 chuỗi nhiễu trắng), bỏ các con số buổi 7 trùng với mục PACF; nhỏ còn lại: "hexbin" chưa giải thích.
+
+## Đọc thử độc lập (Phase 11, 2026-09-18)
+
+Phiên mới, không mang ngữ cảnh phase 8–10. Chỉ mở `tai-lieu.md` + bản quiz bỏ `<details>`; viết xong A–E mới mở `kiem-tra.md`.
+Mọi ví dụ tay tính lại bằng Python; số liệu dữ liệu thật (ACF, heatmap, tổng theo thứ, tăng tháng 3→4→5/2011, tỷ số 2012/2011, $r$ theo năm)
+tính lại từ `hour.csv` trong cache: khớp hết.
+
+### A. Chỗ vướng (đọc mù)
+
+| # | Mục | Trích | Loại | Vì sao | Mức |
+|---|---|---|---|---|---|
+| 1 | 4.5 Tóm lại | "trễ bằng nửa chu kỳ ghép đỉnh với đáy" | 1 | "chu kỳ" trong bảng Từ mới là *cycle* (độ dài không cố định); ở đây nghĩa là *chu kỳ mùa vụ* $m$. Cùng chữ, hai nghĩa | khó |
+| 2 | 4.2 làm trơn | "chỉ còn là một chỗ lõm xuống 34 hay 43" | 4 | 43 là "cửa sổ 7 ngày" nhưng câu trước gọi là "trung bình cả 7 ngày", không nói là cửa sổ | nhỏ |
+| 3 | 4.6 scatter | "cột `temp` × 41" | 1 | `temp` là gì (nhiệt độ đã chia tỷ lệ) không nói | nhỏ |
+| 4 | 4.3 | "tổng ngày trung bình chỉ chênh vài phần trăm" | 3 | T6 so CN chênh 8%; "Đọc bảng" chỉ so với T2 | nhỏ |
+| 5 | 4.5 | "ACF dùng trung bình và mẫu số của cả chuỗi" | 4 | $r$ của lag plot là Pearson trên các cặp — không nói, phải tự suy | nhỏ |
+
+### B. Giải thích lại (ví dụ số mới)
+
+- **Năm bước + ba mẫu hình**: doanh số quán phở tuần nào cũng đỉnh CN (mùa vụ $m$ = 7), mỗi năm cao hơn 5% (xu hướng), khủng hoảng 2020–2022 (chu kỳ, độ dài không cố định).
+- **Gộp/làm trơn/log**: 10, 10, 0, 10, 10 → trung bình 3 điểm quanh 0 là 6,7: ngày 0 mờ đi. Log: 50 → 100 và 300 → 600 cao bằng nhau (cùng gấp đôi).
+- **Seasonal vs subseries**: 3 năm doanh số quý; seasonal plot 3 đường Q1–Q4 chồng nhau; subseries 4 ô, ô Q1 chứa Q1 của 3 năm.
+- **Heatmap vs boxplot**: 5 giá trị 10, 12, 11, 13, 100 → trung bình 29,2 (heatmap), trung vị 12, hộp 11–13 (boxplot).
+- **Lag plot/ACF**: 1, 5, 1, 5 → trễ 1 ghép đỉnh–đáy, $r_1$ âm (−0,75); trễ 2 cùng pha, dương.
+- **Hình nói sai**: 98 → 102 trên trục 96–104 trông gấp 3; trục từ 0 cho đúng +4%.
+
+### C. Quiz mù
+
+1 B · 2 A · 3 B · 4 B · 5 (a) heatmap giờ × thứ / ACF tới 168, (b) boxplot theo giờ (hộp dài nhất), (c) đường tổng ngày · 6 $r_1$ = 16/40 = 0,4 ·
+7 sai: $r$ âm là đỉnh ghép đáy của nhịp ngày, hai nhánh, không dùng ngược dấu được; dùng trễ 24/168 · 8 trung bình 318; trung vị 370;
+Q0,25 = 350; Q0,75 = 380; trung vị tả "bình thường" tốt hơn · 9 cuối tuần dời giờ (13h cao gấp đôi), tổng ngày chỉ thấp < 4% · 10 trục kép
+(thang phải tuỳ chọn), trục trái cắt 90.000 (số đếm phải từ 0), tiêu đề nói quan hệ nhân quả/khăng khít; scatter: $r$ = 0,91 nhưng tháng 9
+mát hơn tháng 7 mà cao nhất. Mọi câu "chắc", căn cứ: 1 → 4.1; 2 → 4.3; 3, 10 → 4.6; 4 → 4.2; 5 → 4.3–4.5; 6, 7 → 4.5; 8 → 4.4; 9 → 4.3–4.4.
+
+### D. Tổng kết
+
+Chặn 0 / khó 1 / nhỏ 4. Khó nhất: chữ "chu kỳ" hai nghĩa. Sửa một điều: viết "chu kỳ mùa vụ" mỗi khi nói về $m$.
+
+### E. Dài/lặp
+
+| # | Mục | Trích | Vì sao |
+|---|---|---|---|
+| 1 | 4.3 | "Tổng tháng 2012 gấp 1,41 tới 2,57 lần…" | câu đứng một mình sau "Cách đọc hình" đã kết luận cùng ý (≈ 12 chữ, không đáng kể) |
+
+## Đọc thử độc lập Phụ lục C (Phase 11, 2026-09-18)
+
+Vai: học viên vừa xong buổi 4 (mục 0–9) và tra lại khi tới buổi 6–8 (mục 10–13); mục 14–18 đọc lướt như tài liệu "sau này". Không có quiz.
+Số ví dụ đối chiếu với buổi 4, 6, 7, 8 (đã tính lại trong phiên này): khớp.
+
+| # | Mục | Trích | Loại | Vì sao | Mức |
+|---|---|---|---|---|---|
+| 1 | 8 Bẫy | "AR(1) $\rho$ = 0,8" | 1 | buổi 7 viết hệ số AR(1) là $\phi$; $\rho$ ở buổi 7 là hệ số trong hộp nghiệm đơn vị | nhỏ |
+| 2 | 10 | "xu hướng–chu kỳ" | 1 | buổi 6 chỉ nói "xu hướng"; từ ghép này chưa gặp | nhỏ |
+| 3 | 11 | "MA bậc $q$" | 1 | chưa dạy (mục có ghi buổi 17) | nhỏ |
+| 4 | 17 | "hiệu chỉnh tốt" | 1 | cùng chữ "hiệu chỉnh" với "hiệu chỉnh bias" buổi 5, nghĩa khác; có câu "tức…" ngay sau nên đoán được | nhỏ |
+| 5 | 9 bảng | "hexbin" | 1 | chưa định nghĩa | nhỏ |
+
+Chặn 0 / khó 0 / nhỏ 5. Không khái niệm nào "không giải thích được" ở mục 0–13. E: không thấy đoạn ≥ 30 chữ lặp (mục 0 "ba câu tự hỏi"
+và các "Bẫy" nói các ý khác nhau).
+
+### Chấm, sửa, đọc lại
+
+**Quiz mù: 10/10** khớp `kiem-tra.md`; đáp án của ta tính lại bằng Python đúng (câu 6: 0,4; câu 8: 318/370/350/380).
+
+Sửa (viết lại câu, không chèn đoạn): (1) Tóm lại 4.5 "nửa chu kỳ" → "nửa chu kỳ mùa vụ" (cùng lỗi ở buổi 7 mục 2 và Phụ lục C mục 7);
+(2) 4.2 "Trung bình cả 7 ngày" → "Cửa sổ 7 ngày (cả bảy ngày)"; (3) "Đọc bảng" 4.3 thêm chênh lớn nhất T6–CN 8%; (4) 4.5 nói $r$ lag plot
+là hệ số tương quan trên các cặp; (5) Cách đọc hình scatter nói cột `temp` đã chia 41.
+
+| Vòng | Chữ | Trang | Chặn | Khó | Nhỏ | Quiz | Chỗ thừa |
+|---|---|---|---|---|---|---|---|
+| Phase 11 đọc mù | 6.000 | 18 | 0 | 1 | 4 | 10/10 | 0 đáng kể |
+| sau sửa, đọc lại toàn bộ | 6.036 | 18 | **0** | **0** | 0 | 10/10 | 0 đáng kể |
+
+**Đạt.** `kiem_de_hieu.py 4` 0; `kiem_tra_lab.py 4` đạt; `kiem_tra_doc_lap.sh 4` đạt; PDF 18 trang (trần).
+
+Sửa Phụ lục C: mục 7 "nửa chu kỳ mùa vụ"; mục 8 hệ số AR(1) viết $\phi$ cho khớp buổi 7; mục 10 "xu hướng–chu kỳ" → "xu hướng"; mục 9
+giải thích hexbin. Đọc lại toàn bộ: 0 / 0 / 2 (MA chưa dạy — mục ghi buổi 17; "hiệu chỉnh tốt" khác nghĩa "hiệu chỉnh bias" nhưng có câu
+"tức…" ngay sau). 4.954 → 4.955 chữ, 12 trang. **Đạt.**

@@ -156,7 +156,7 @@ def dan_nhan(y: pd.Series, cua_so: int = 15, nhin: int = 20) -> pd.DataFrame:
     xa = y.shift(-3 * nhin).rolling(nhin).mean()
     nguong_muc = 4 * sigma / np.sqrt(nhin)
 
-    # PELT tìm đổi mức phải chạy trên chuỗi ĐÃ BỎ MÙA VỤ, nếu không biên độ mùa vụ sinh điểm gãy giả
+    # PELT tìm dịch mức phải chạy trên chuỗi ĐÃ BỎ MÙA VỤ, nếu không biên độ mùa vụ sinh điểm gãy giả
     khong_mua = y - pd.Series(STL(y, period=7, robust=True).fit().seasonal, index=y.index)
 
     su_kien = []
@@ -167,15 +167,15 @@ def dan_nhan(y: pd.Series, cua_so: int = 15, nhin: int = 20) -> pd.DataFrame:
             continue
         if not np.isfinite(d_xa):
             d_xa = d_gan
-        loai = "TC (thay đổi tạm)" if abs(d_xa) < abs(d_gan) / 2 else "LS (đổi mức)"
-        su_kien.append({"mốc": moc, "loại": loai, "đổi mức": round(float(d_gan), 1)})
+        loai = "TC (thay đổi tạm)" if abs(d_xa) < abs(d_gan) / 2 else "LS (dịch mức)"
+        su_kien.append({"mốc": moc, "loại": loai, "độ lớn": round(float(d_gan), 1)})
     for moc in y.index[co]:
         i = y.index.get_loc(moc)
         if any(abs(y.index.get_loc(s["mốc"]) - i) <= nhin for s in su_kien):
             continue
-        su_kien.append({"mốc": moc, "loại": "AO (điểm đơn)", "đổi mức": round(float(y.iloc[i] - truoc.iloc[i]), 1)})
+        su_kien.append({"mốc": moc, "loại": "AO (điểm đơn)", "độ lớn": round(float(y.iloc[i] - truoc.iloc[i]), 1)})
     for moc, ty in doi_phuong_sai(y):
-        su_kien.append({"mốc": moc, "loại": "đổi phương sai", "đổi mức": round(ty, 2)})
+        su_kien.append({"mốc": moc, "loại": "đổi phương sai", "độ lớn": round(ty, 2)})
     return pd.DataFrame(su_kien).sort_values("mốc").reset_index(drop=True)
 
 
@@ -206,7 +206,7 @@ def doi_phuong_sai(y: pd.Series, chu_ky: int = 7, nhin: int = 30, ty_le: float =
 
 def danh_gia_nhan(su_kien: pd.DataFrame, nhan_that: dict, y: pd.Series, dung_sai: int = 8) -> pd.DataFrame:
     """Với mỗi bất thường cài sẵn: có được phát hiện đúng loại trong phạm vi `dung_sai` bước không?"""
-    ten = {"outlier_cong": "AO (điểm đơn)", "level_shift": "LS (đổi mức)",
+    ten = {"outlier_cong": "AO (điểm đơn)", "level_shift": "LS (dịch mức)",
            "thay_doi_tam": "TC (thay đổi tạm)", "doi_phuong_sai": "đổi phương sai"}
     vi_tri = {m: i for i, m in enumerate(y.index)}
     hang = []
@@ -317,12 +317,12 @@ def ba_cach_xu_ly_covid(y: pd.Series, moc_cat="2023-01-01", tam: int = 12,
     hoc_cat = hoc_goc[hoc_goc.index > covid[1]]
 
     hang = []
-    for ten, hoc in (("giữ nguyên", hoc_goc), ("coi COVID là ngoại lai (nội suy)", hoc_dummy),
+    for ten, hoc in (("giữ nguyên", hoc_goc), ("coi COVID là thiếu (nội suy)", hoc_dummy),
                      ("cắt, chỉ dùng sau hồi phục", hoc_cat)):
         du_bao = _du_bao_mua_vu_xu_huong(hoc, len(kiem))
         mape = float(np.mean(np.abs(du_bao - kiem.to_numpy(float)) / kiem.to_numpy(float)) * 100)
         hang.append({"cách xử lý": ten, "số kỳ học": len(hoc), "MAPE %": round(mape, 2),
-                     "sai số trung bình (nghìn khách)": round(float(np.mean(du_bao - kiem.to_numpy(float)) / 1000))})
+                     "sai số trung bình (nghìn khách)": round(float(np.mean(kiem.to_numpy(float) - du_bao) / 1000))})
     return pd.DataFrame(hang)
 
 

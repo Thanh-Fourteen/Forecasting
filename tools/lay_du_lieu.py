@@ -27,6 +27,10 @@ Các kiểu nguồn (`kieu`):
     eia     EIA API v2 (cần EIA_API_KEY), phân trang, lưu CSV chuẩn hoá
     openaq  OpenAQ API v3 (cần OPENAQ_API_KEY), lưu CSV chuẩn hoá
 
+Trường `noi_them = "<đoạn cố định buổi dùng>"` cho tệp nguồn ghi đè bằng bản NỐI THÊM (Philadelphia Fed thêm
+vintage mỗi tháng, EIA thêm ngày mới) mà không được mirror: sha256 lệch bản chốt thì cảnh báo và nhận, không dừng.
+Buổi dùng bộ đó phải cắt tới mốc cố định và có test kiểm checksum của phần đã cắt.
+
 Trường `truc_tiep = true` chỉ dành cho bài dự báo trực tiếp (dữ liệu chưa tồn tại lúc soạn):
 bỏ kiểm sha256 nhưng ghi lại sha256 thực tế và thời điểm tải.
 """
@@ -300,6 +304,13 @@ def _tai_http_co_kiem(bo: dict, cache: Cache, urls: list[str]) -> Path:
             loi_gap.append(f"lỗi mạng tại {an_bi_mat(url)} sau {SO_LAN_THU} lần thử: {loi_mang}")
             continue
         sha_that = sha256_tep(tam)
+        if sha_chot and sha_that != sha_chot and bo.get("noi_them"):
+            # tệp chỉ NỐI THÊM (vintage/ngày mới) — phần cũ không đổi: nhận, cảnh báo; buổi cắt tới mốc cố định
+            # và bộ chấm kiểm checksum của phần đã cắt (xem `noi_them` trong danh mục)
+            bao(f"    ! sha256 khác bản chốt ({sha_that[:12]} ≠ {sha_chot[:12]}): nguồn đã nối thêm dữ liệu mới.\n"
+                f"      Nhận tệp này; buổi chỉ dùng đoạn cố định ({bo['noi_them']}).")
+            p, _ = cache.them(tam, sha_that)
+            return p
         if sha_chot and sha_that != sha_chot:
             tam.unlink()
             loi_gap.append(
@@ -668,6 +679,10 @@ def kiem_bo(bo: dict) -> list[str]:
             van_de.append(f"{ten}: nguồn kaggle cần tep_sha256 = {{ tệp = sha256 }} đủ 64 hex")
     elif not la_sha(bo.get("sha256")):
         van_de.append(f"{ten}: thiếu sha256 (64 hex) — chỉ bộ truc_tiep mới được bỏ")
+    if bo.get("noi_them") is not None and (not isinstance(bo["noi_them"], str) or len(bo["noi_them"]) < 10):
+        van_de.append(f"{ten}: noi_them phải là chuỗi mô tả đoạn cố định buổi dùng")
+    if bo.get("noi_them") and bo.get("mirror"):
+        van_de.append(f"{ten}: bộ đã mirror thì sha256 cố định — không cần noi_them")
     if not bo.get("truc_tiep") and not bo.get("khoang_thoi_gian") and not bo.get("khong_thoi_gian"):
         van_de.append(f"{ten}: thiếu khoang_thoi_gian cố định [bắt đầu, kết thúc]")
 

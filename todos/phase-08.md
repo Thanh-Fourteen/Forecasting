@@ -1,31 +1,23 @@
-# Phase 8 — Viết lại buổi 4–8 + Phụ lục C cho dễ hiểu 🔲
+# Phase 8 — Viết lại buổi 4–5 + Phụ lục C ✅
 
-Quy ước + chuẩn dễ hiểu: `todos/quy-uoc.md`. Tiêu đề + **prompt copy-paste** của phase này: `todos.md` ở gốc repo (mục "Phase 8"). Trạng thái ✅/🔲 ở tiêu đề phải khớp với tiêu đề trong `todos.md`.
+Quy ước: `todos/quy-uoc.md` (KHỐI CHUNG). Prompt: `todos.md` mục "Phase 8". Trạng thái ✅/🔲 ở tiêu đề khớp `todos.md`.
 
 Cụm trọng tâm của người dùng (đọc biểu đồ, tương quan) — **khó hiểu ở đây là mất giá trị lớn nhất của khoá**.
 
-| Buổi | Đọc thử bản cũ | Viết lại | `kiem_de_hieu` | Đọc thử bản mới | Quiz giải thích | PDF |
+| Buổi | Đọc thử bản cũ | Viết lại | `kiem_de_hieu` | Tự đọc thử + rà gọn | Quiz giải thích | PDF |
 |---|---|---|---|---|---|---|
-| 04 Đọc & vẽ biểu đồ | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
-| 05 Biến đổi & điều chỉnh | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
-| 06 Phân rã | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
-| 07 Tự tương quan & tính dừng | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
-| 08 Tương quan giữa các chuỗi | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
-| Phụ lục C | — | 🔲 | 🔲 | 🔲 | — | 🔲 |
+| 04 Đọc & vẽ biểu đồ | ✅ 6 chặn | ✅ 6 khái niệm, 12 hình × 5 bước | ✅ 78 → 0 | ✅ 0 chặn / 0 khó | ✅ 10/10 | ✅ 12 → 18 tr |
+| 05 Biến đổi & điều chỉnh | ✅ 7 chặn | ✅ 6 khái niệm + Nâng cao | ✅ 61 → 2 (có lý do) | ✅ 0 chặn / 0 khó | ✅ 10/10 | ✅ 10 → 15 tr |
+| Phụ lục C | — | ✅ 18 loại hình × 5 bước | ✅ 0 | ✅ | — | ✅ 9 → 12 tr |
 
 Bắt buộc:
-- Mọi hình: khối "Cách đọc hình" đủ 5 bước (D8) — đây là kỹ năng buổi 4 dạy, tài liệu phải làm mẫu đúng nó
+- Mọi hình: khối "Cách đọc hình" đủ 5 bước (D8) — kỹ năng buổi 4 dạy, tài liệu phải làm mẫu đúng nó
 - Buổi 5: log, Box-Cox, bias khi đổi ngược — ví dụ 3–5 số tính tay trước
-- Buổi 6: xu hướng/mùa vụ/phần dư — ví dụ chuỗi 12 điểm tự phân rã bằng tay; $F_T, F_S$ nói bằng lời
-- Buổi 7: ACF/PACF — tính tay tự tương quan trễ 1 trên 6 số; "dừng" bằng ví dụ đời thường; ADF vs KPSS bằng bảng 2×2
-  có câu "nghĩa là gì" từng ô; giả thuyết không/p-value → "Mượn trước" nếu buổi 2 chưa dạy đủ
-- Buổi 8: 5 tình huống tương quan — mỗi tình huống: câu hỏi → hình → con số → **cái bẫy nói bằng một câu**;
-  prewhitening, mutual information, Granger giải thích bằng trực giác trước công thức
 - Phụ lục C: mỗi loại biểu đồ theo đúng khuôn "Cách đọc hình"
-- **Quiz buổi 7 câu 5 có đáp án sai** ($\bar y$ = 52/9, không phải 6; $r_1 ≈ 0{,}020$) — sửa, và kiểm lại mọi câu tính
-  toán trong quiz buổi 4–8 bằng Python. Buổi 7 đã có baseline đọc thử (chỗ chặn: kiểm định/H0/p-value, nghiệm đơn vị,
-  AR(1), trích Zivot/Nau tiếng Anh; ngưỡng sai phân thừa −0,5 hay −0,45 không thống nhất)
-- **Gọn (D13)**: viết gọn ngay từ đầu theo bài học Phase 7 — mỗi ý một lần, khuôn D2 là trần, sửa chỗ vướng bằng viết lại câu
-  chứ không chèn đoạn; 3.500–6.500 chữ ngoài bảng/code, PDF 10–18 trang; rà gọn bằng biên tập viên (≤ 3 chỗ thừa)
-- **Notebook Lab**: tạo `code/lab.ipynb` (soạn bằng `tools/nb.py`, như buổi 1–3), tài liệu chỉ trỏ "ô bước N" + output cần
-  đọc; lệnh dùng `python lab.py …`, không giải thích cờ lệnh. `kiem_tra_lab.py` phải chạy notebook xanh
+- Kiểm lại mọi câu tính toán trong quiz buổi 4–5 bằng Python
+- **Notebook + gọn**: `code/lab.ipynb` (soạn bằng `tools/nb.py`), tài liệu trỏ "ô bước N"; lệnh `python lab.py …`;
+  D13 ngay từ đầu (3.500–6.500 chữ, PDF 10–18 trang); tự đọc thử + tự rà gọn (KHỐI CHUNG Đ)
+
+Kết quả (2026-09-18): chi tiết ở `buoi-04/NGHIEN-CUU.md` (kèm mục Phụ lục C) và `buoi-05/NGHIEN-CUU.md`, mục "Research viết lại"
+và "Đọc thử (Phase 8)". Số sửa khi chạy lại: seasonal plot 106 tuần (không phải 104); Yeo-Johnson λ = 1,025 (không phải 1,091).
+`kiem_tra_lab.py 4 5` đạt; `kiem_tra_doc_lap.sh 4 5` đạt; ruff sạch ở buổi 4–5 (còn 2 lỗi trong `buoi-14/` chưa commit, ngoài phase).

@@ -50,7 +50,8 @@ Khuôn một mục:
 - Không hiểu gì: tổng dãy là 52, trung bình 52/9 ≈ 5,78, không phải 6. Tính đúng: $r_1 ≈ 0{,}020$, $r_2 ≈ −0{,}800$
   (kiểm bằng Python 2026-09-18). Học viên làm đúng sẽ tưởng mình sai.
 - Đã phải hỏi/tra: subagent đọc thử tự tính ra 0,020.
-- Đã xử lý: 🔲 (Phase 8 — sửa đề cho trung bình tròn, hoặc sửa đáp án; kiểm lại mọi câu tính của quiz 1–13 bằng Python)
+- Đã xử lý: ✅ Phase 9, 2026-09-18 — đổi đề thành chuỗi có trung bình tròn (2, 4, 6, 8, 6, 4, 2, 0 → $r_1$ = 0,5, kiểm Python);
+  mọi câu tính của quiz buổi 4–7 đã kiểm bằng Python (Phase 8–9); buổi 9–13 kiểm ở Phase 15 (2026-09-19), không còn đáp án sai.
 
 ### Buổi 01–03, Phụ lục A, B — cả tài liệu — dài dòng (2026-09-18)
 
@@ -58,7 +59,7 @@ Khuôn một mục:
 - Không hiểu gì: không phải khó hiểu mà **dài dòng** — dễ hiểu hơn bản cũ nhưng đọc lâu, nhiều đoạn nói lại ý đã có.
   Yêu cầu: "viết dễ hiểu nhưng không được dài dòng".
 - Đã phải hỏi/tra: —
-- Đã xử lý: 🔲 (Phase 7 — chuẩn "gọn" D13, rút gọn buổi 1–3 + Phụ lục A, B; mọi phase sau viết gọn ngay từ đầu)
+- Đã xử lý: ✅ Phase 7, 2026-09-18 (chuẩn "gọn" D13, rút gọn buổi 1–3 + Phụ lục A, B; mọi phase sau viết gọn ngay từ đầu)
 
 ### Buổi 01–03, tài liệu nền — quá tường minh, công cụ rối (2026-09-18)
 

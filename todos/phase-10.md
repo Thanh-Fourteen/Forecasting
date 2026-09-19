@@ -1,18 +1,19 @@
-# Phase 10 — Buổi 14–17 · Đánh giá, backtest, ETS, ARIMA 🔲
+# Phase 10 — Viết lại buổi 8 ✅
 
-Quy ước + chuẩn dễ hiểu: `todos/quy-uoc.md`. Tiêu đề + **prompt copy-paste** của phase này: `todos.md` ở gốc repo (mục "Phase 10"). Trạng thái ✅/🔲 ở tiêu đề phải khớp với tiêu đề trong `todos.md`.
+Quy ước: `todos/quy-uoc.md` (KHỐI CHUNG). Prompt: `todos.md` mục "Phase 10". Trạng thái ✅/🔲 ở tiêu đề khớp `todos.md`.
 
-| Buổi | Research | Tài liệu | Code | Lab | Quiz | Đọc thử | PDF |
-|---|---|---|---|---|---|---|---|
-| 14 Baseline & chỉ số | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
-| 15 Backtesting | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
-| 16 ETS & Theta | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
-| 17 ARIMA | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
+Cụm trọng tâm (tương quan giữa các chuỗi).
+
+| Buổi | Đọc thử bản cũ | Viết lại | `kiem_de_hieu` | Tự đọc thử + rà gọn | Quiz giải thích | PDF |
+|---|---|---|---|---|---|---|
+| 08 Tương quan giữa các chuỗi | ✅ 7 chặn | ✅ 6 mục, 5 tình huống + "Cái bẫy" | ✅ 70 → 0 | ✅ 0 chặn / 0 khó | ✅ 10/10 | ✅ 10 → 15 tr |
 
 Bắt buộc:
-- **Bản nháp buổi 14–17 đã có** (thư mục chưa commit, soạn theo chuẩn cũ trước 2026-09-18) — giữ phần code/lab/số đo,
-  nhưng `tai-lieu.md` + `kiem-tra.md` phải viết lại theo D1–D13 (dễ hiểu và gọn, 3.500–6.500 chữ) và qua đọc thử + rà gọn trước khi tick ✅
-- Buổi 14: tự viết 7 chỉ số, đối chiếu utilsforecast; bảng xếp hạng đảo lộn khi đổi chỉ số; viết `phu-luc/D-cong-thuc-chi-so.md`
-- Buổi 15: đo khoảng lạc quan của CV ngẫu nhiên so với hold-out cuối; Diebold–Mariano; ba tập tune/chọn/báo cáo
-- Buổi 16: tự viết SES + Holt tối ưu bằng scipy; kiểm coverage thật của khoảng ETS
-- Buổi 17: tự xác định bậc từ ACF/PACF và so AICc với auto-ARIMA; Ljung-Box phần dư
+- Buổi 8: 5 tình huống tương quan — mỗi tình huống: câu hỏi → hình → con số → **cái bẫy nói bằng một câu**;
+  prewhitening, mutual information, Granger giải thích bằng trực giác trước công thức
+- Kiểm lại mọi câu tính trong quiz buổi 8 bằng Python
+- **Notebook + gọn**: `code/lab.ipynb` (soạn bằng `tools/nb.py`), tài liệu trỏ "ô bước N"; lệnh `python lab.py …`;
+  D13 ngay từ đầu (3.500–6.500 chữ, PDF 10–18 trang); tự đọc thử + tự rà gọn (KHỐI CHUNG Đ)
+
+Kết quả (2026-09-18): chi tiết ở `buoi-08/NGHIEN-CUU.md` mục "Research viết lại", "Đọc thử (Phase 10)". Sửa số: $R^2$ CDD + HDD tại
+đúng mốc 18,33 °C là 0,812 (bản cũ 0,813 lấy ở điểm lưới). `kiem_tra_lab.py 8`, `kiem_tra_doc_lap.sh 8`, ruff: đạt.

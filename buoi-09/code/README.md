@@ -2,23 +2,23 @@
 
 Code **chạy được** nhưng **cố tình sai** đúng chỗ bài học hôm nay sửa. Một tương quan bằng 0 chưa chắc nghĩa là "không liên quan".
 
-| Tệp | Làm gì |
-|---|---|
-| `dac_trung.py` | đọc 48.000 chuỗi M4 (.tsf) và doanh số bán lẻ; 20 đặc trưng tự viết; entropy phổ; sai số thật của seasonal naive; PCA; phân cụm DTW; ABC–XYZ |
+| Tệp | Làm gì | Bạn cần làm gì |
+|---|---|---|
+| `dac_trung.py` | đọc 48.000 chuỗi M4 và doanh số bán lẻ; 20 đặc trưng; spectral entropy; sai số của seasonal naive; bản đồ PCA; phân cụm DTW; ABC–XYZ | sửa `tuong_quan_kho_de`, `de_xuat_chien_luoc`, `phan_cum_dtw` (tài liệu mục 5) |
+| `lab.ipynb` | notebook của Lab, bước 1–5 | chạy từng ô |
 
-**Đang cố tình sai** (triệu chứng nhìn thấy, không nói nguyên nhân):
-- bảng tương quan kết luận entropy phổ **không** liên quan tới độ khó dự báo (r = −0,05)
-- bốn cụm DTW chỉ khác nhau ở độ lớn, không khác nhau ở hình dạng
-- chiến lược đề xuất: tune mô hình cho **cả 4.000 chuỗi**, kể cả chuỗi gần như nhiễu trắng
+**Đang cố tình sai** (chỉ nói triệu chứng, không nói nguyên nhân):
 
-Chạy:
+- Bảng tương quan kết luận spectral entropy **không** liên quan tới độ khó dự báo ($r$ = −0,05).
+- Kế hoạch tune mô hình cho **cả 4.000 chuỗi**, kể cả chuỗi gần như nhiễu.
+- Bốn cụm DTW chỉ khác nhau ở độ lớn, không khác nhau ở hình dạng.
+
+Lệnh (trong `lab/`):
 
 ```bash
-cd lab && python lab.py up          # một lần: môi trường + dữ liệu (~74 MB)
-python lab.py check                 # bộ chấm: đầu buổi ĐỎ (4/10 hỏng), cuối buổi phải XANH
-python lab.py notebook              # mở các tệp .py dưới dạng notebook
-python lab.py chay ../code/dac_trung.py
+python lab.py up           # một lần: môi trường + dữ liệu (M4, Online Retail II), kiểm sha256
+python lab.py notebook     # mở code/lab.ipynb (hoặc mở bằng VS Code)
+python lab.py check        # bộ chấm: đầu buổi ĐỎ (4/10 hỏng), cuối buổi phải XANH 10/10
 ```
 
-Tệp `.py` viết dạng *percent* (`# %%` tách ô): chạy được như script, mở được như notebook.
-Mỗi tệp chỉ định nghĩa hàm ở mức module; phần chạy thử đặt trong `if __name__ == "__main__":`.
+Bạn sửa **tệp `.py`**; notebook `lab.ipynb` nạp lại nó tự động. Dùng conda: `python lab.py up --pip`.

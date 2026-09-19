@@ -106,10 +106,15 @@ def _kpss_p(y) -> float:
 
 
 def dac_trung_mot_chuoi(y, m: int = M) -> dict[str, float]:
-    """20 đặc trưng cho một chuỗi. Tất cả đều KHÔNG phụ thuộc đơn vị đo (trừ hai đặc trưng quy mô đầu)."""
+    """20 đặc trưng cho một chuỗi. Tất cả đều KHÔNG phụ thuộc đơn vị đo, trừ hai đặc trưng quy mô đầu.
+
+    STL chạy trên chuỗi đã chuẩn hoá z-score (như FPP/tsfeatures): nếu không, spike, độ dốc, độ cong đổi theo đơn vị đo.
+    """
     y = np.asarray(y, dtype=float)
     d1 = np.diff(y)
-    kq = STL(pd.Series(y, index=pd.period_range("2000-01", periods=y.size, freq="M").to_timestamp()),
+    sd = np.std(y)
+    z = (y - np.mean(y)) / sd if sd > 0 else y - np.mean(y)
+    kq = STL(pd.Series(z, index=pd.period_range("2000-01", periods=y.size, freq="M").to_timestamp()),
              period=m, robust=False).fit()
     r, t, s = kq.resid.to_numpy(), kq.trend.to_numpy(), kq.seasonal.to_numpy()
     var_r = np.var(r)
@@ -118,7 +123,7 @@ def dac_trung_mot_chuoi(y, m: int = M) -> dict[str, float]:
         "trung_binh": float(np.mean(y)),
         "do_lech_chuan": float(np.std(y, ddof=1)),
         "he_so_bien_thien": float(np.std(y, ddof=1) / np.mean(y)) if np.mean(y) != 0 else np.nan,
-        "do_lech": float(stats.skew(y)),
+        "he_so_lech": float(stats.skew(y)),
         "do_nhon": float(stats.kurtosis(y)),
         "acf1": _acf(y, 1),
         "acf10": float(np.sum([_acf(y, k) ** 2 for k in range(1, 11)])),
@@ -203,9 +208,15 @@ def de_xuat_chien_luoc(bang: pd.DataFrame, nguong_entropy: float = 0.666, nguong
 # ## Không gian đặc trưng và phân cụm hình dạng
 
 # %%
+def cot_ban_do(bang: pd.DataFrame) -> list[str]:
+    """Cột vào bản đồ: chỉ đặc trưng (không có cột sai số smape_…/mase_…), bỏ hai đặc trưng quy mô, bỏ cột có NaN."""
+    return [c for c in bang.columns if bang[c].notna().all() and c not in ("trung_binh", "do_lech_chuan")
+            and not c.startswith(("smape", "mase"))]
+
+
 def khong_gian_dac_trung(bang: pd.DataFrame, so_chieu: int = 2) -> tuple[np.ndarray, PCA]:
-    """PCA sau khi CHUẨN HOÁ: không chuẩn hoá thì hai đặc trưng quy mô (trung bình, độ lệch chuẩn) nuốt hết."""
-    cot = [c for c in bang.columns if bang[c].notna().all()]
+    """PCA trên các đặc trưng không phụ thuộc đơn vị (bỏ trung bình, độ lệch chuẩn), sau khi CHUẨN HOÁ từng cột."""
+    cot = cot_ban_do(bang)
     X = StandardScaler().fit_transform(bang[cot].to_numpy(float))
     pca = PCA(n_components=so_chieu, random_state=0)
     return pca.fit_transform(X), pca

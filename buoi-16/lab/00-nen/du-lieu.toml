@@ -1,0 +1,41 @@
+# SINH TỰ ĐỘNG bởi tools/sinh_nen.py — KHÔNG SỬA TAY. Sửa tools/du-lieu/danh-muc.toml rồi chạy lại tool.
+# Dữ liệu của buoi-16: tải + kiểm sha256 bằng `python lab.py up`.
+
+phien_ban = 1
+
+[[bo]]
+ten = "monash-tourism-monthly"
+kieu = "http"
+tieu_de = "Tourism monthly (366 chuỗi, cuộc thi Tourism Forecasting) — Monash"
+url = "https://zenodo.org/records/4656096/files/tourism_monthly_dataset.zip?download=1"
+sha256 = "6e434ad8a0ef6acb55ebee0e1d1ffe22707ea4e62c05e091326267f3a5b4a93c"
+dung_luong = 199791
+giai_nen = "zip"
+chi_lay = ["tourism_monthly_dataset.tsf"]
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://doi.org/10.5281/zenodo.4656096"
+trich_giay_phep = "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."
+ghi_nguon = "Godahewa et al. (2021). Monash Time Series Forecasting Archive; Athanasopoulos, G., Hyndman, R. J., Song, H. & Wu, D. C. (2011). The tourism forecasting competition. IJF 27(3). https://doi.org/10.1016/j.ijforecast.2010.04.009"
+mirror = false
+ly_do_mirror = "Zenodo ghi CC BY 4.0 nhưng dữ liệu gốc từ cuộc thi Kaggle 'tourism1' — chưa đọc được luật cuộc thi; Zenodo (DOI) đã là nguồn ổn định nên không cần mirror"
+khong_thoi_gian = true
+
+[[bo]]
+ten = "eurostat-hanh-khach-hang-khong"
+kieu = "http"
+tieu_de = "Eurostat avia_paoc — hành khách hàng không EU27 theo tháng (chở có thu tiền, tổng chiều), 2008-01 → nay"
+url = "https://ec.europa.eu/eurostat/api/dissemination/sdmx/3.0/data/dataflow/ESTAT/avia_paoc/1.0/M.PAS.PAS_CRD.TOTAL.TOTAL.EU27_2020?format=csvdata&compress=false"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/105db7d8d51c8ff1229ec06c363f641417124bf3/eurostat-hanh-khach-hang-khong/eurostat-avia-paoc-eu27.csv"
+sha256 = "6ce5178cf876ba9e58c47ed9e6c5c4207383e9041dab1fc9306693c691eff5d0"
+dung_luong = 18866
+ten_tep = "eurostat-avia-paoc-eu27.csv"
+giay_phep = "CC BY 4.0 (Eurostat)"
+link_giay_phep = "https://ec.europa.eu/eurostat/help/copyright-notice"
+trang_nguon = "https://ec.europa.eu/eurostat/databrowser/view/avia_paoc/default/table"
+trich_giay_phep = "Reuse of statistical data, metadata, publications, and other dissemination tools published on this website for commercial or non-commercial purposes is authorised provided the source is acknowledged."
+ghi_nguon = "Eurostat, Air passenger transport by type of schedule (avia_paoc), truy cập 2026-09-18."
+mirror = true
+ly_do_mirror = "BẮT BUỘC mirror: Eurostat sửa số liệu (revision) mỗi kỳ công bố nên sha256 chỉ đúng tới lần sửa kế tiếp"
+khoang_thoi_gian = ["2008-01", "2026-02"]
+ghi_chu = "Dùng endpoint SDMX 3.0: bản SDMX 2.1 có cột 'LAST UPDATE' đổi mỗi lần tải nên sha256 không ổn định. 218 tháng; cột TIME_PERIOD (YYYY-MM) và OBS_VALUE. Vỡ COVID rất rõ: 2020-01 66.046.231 → 2020-04 890.607 (−98,7%), hồi phục 2021-07 48.960.587. Thay US BTS T-100 (transtats chỉ có bảng HTML, data.bts.gov trả 403)."
