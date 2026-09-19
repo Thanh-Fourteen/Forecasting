@@ -8,6 +8,8 @@ Quy ước: `todos/quy-uoc.md` (KHỐI CHUNG). Prompt: `todos.md` mục "Phase 2
 | 23 Gradient boosting | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
 
 Bắt buộc:
+- **Tóm tắt** (KHỐI CHUNG bước T): mỗi buổi kèm `tom-tat.md` + `TOM-TAT-buoi-NN.pdf` theo `todos/quy-uoc.md` mục
+  "File tóm tắt"
 - Buổi 22: test bắt lag < horizon trong chiến lược direct; sai số theo h của recursive/direct/MIMO; cây không ngoại suy xu hướng
 - Buổi 23: Tweedie vs L2 trên WRMSSE; Optuna CV thời gian vs KFold ngẫu nhiên; SHAP cho **một dự báo cụ thể**; monotone
   constraint cho giá; M5 cần tài khoản Kaggle (luật cuộc thi) — luôn có bộ dự phòng mở UCI Online Retail II

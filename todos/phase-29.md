@@ -10,6 +10,8 @@ Nặng tài nguyên: 16 GB RAM, CPU chạy được nhưng chậm; cấu hình r
 | 30 N-BEATS … TiDE | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
 
 Bắt buộc:
+- **Tóm tắt** (KHỐI CHUNG bước T): mỗi buổi kèm `tom-tat.md` + `TOM-TAT-buoi-NN.pdf` theo `todos/quy-uoc.md` mục
+  "File tóm tắt"
 - Buổi 29: test "không chồng lấn cửa sổ"; tự viết MLP/LSTM/TCN huấn luyện < 10 phút CPU; **bảng so baseline kể cả khi DL thua**
 - Buổi 30: cấu hình có covariate khai sai loại để học viên tìm; đo "cái giá rò rỉ" của `futr_exog`
 - - **Notebook + gọn**: `code/lab.ipynb` (soạn bằng `tools/nb.py`), tài liệu trỏ "ô bước N"; lệnh `python lab.py …`;

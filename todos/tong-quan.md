@@ -26,6 +26,13 @@
 | [19](phase-19.md) | Buổi 18–19 · Hồi quy động, nhu cầu gián đoạn | 2 buổi soạn mới; Prophet 1.4.0 vào bảng phiên bản; hồi quy động ngang seasonal naive trên ERCOT (báo trung thực); chi phí tồn kho ≠ RMSSE | ✅ |
 | [20](phase-20.md) | Buổi 20–21 · Đa biến & nowcasting, tài chính | cột mốc M2; nowcast bằng vintage thật (Philadelphia Fed); demo đoán giá thua naive; cơ chế `noi_them` | ✅ |
 | [21](phase-21.md) | Đọc thử độc lập buổi 18–21 | DT — 4 buổi đạt (0 chặn, quiz mù 39/40 → 40/40); Lab buổi 18, 20, 21 chỉ rõ lệnh thư viện cần viết (SARIMAX bỏ 13 phần dư đầu, Johansen, quantile Student-t) | ✅ |
+| [T1](phase-t1.md) | Tóm tắt buổi 1–3 | mẫu chuẩn khung thẻ; `xuat_pdf.py --tom-tat` | ✅ |
+| [T2](phase-t2.md) | Tóm tắt buổi 4–6 | 3 tóm tắt + PDF | 🔲 |
+| [T3](phase-t3.md) | Tóm tắt buổi 7–9 | 3 tóm tắt + PDF | 🔲 |
+| [T4](phase-t4.md) | Tóm tắt buổi 10–12 | 3 tóm tắt + PDF | 🔲 |
+| [T5](phase-t5.md) | Tóm tắt buổi 13–15 | 3 tóm tắt + PDF | 🔲 |
+| [T6](phase-t6.md) | Tóm tắt buổi 16–18 | 3 tóm tắt + PDF | 🔲 |
+| [T7](phase-t7.md) | Tóm tắt buổi 19–21 | 3 tóm tắt + PDF | 🔲 |
 | [22](phase-22.md) | Buổi 22–23 · Dự báo thành hồi quy, gradient boosting |  | 🔲 |
 | [23](phase-23.md) | Buổi 24 + dự án giữa chặng 2 | cột mốc M3 | 🔲 |
 | [24](phase-24.md) | Đọc thử độc lập buổi 22–24 + dự án giữa chặng 2 | DT | 🔲 |
@@ -53,7 +60,7 @@
 | [46](phase-46.md) | Đánh giá (b) · Đề thực hành, đề tìm rò rỉ |  | 🔲 |
 | [47](phase-47.md) | Xuất bản & đóng gói |  | 🔲 |
 | [48](phase-48.md) | Kiểm định chất lượng |  | 🔲 |
-| | **TỔNG** | **44 buổi · 44 PDF · 2 dự án giữa chặng · 1 dự án cuối** | **22/49 phase** |
+| | **TỔNG** | **44 buổi · 44 PDF · 2 dự án giữa chặng · 1 dự án cuối** | **23/56 phase** |
 
 ## Thứ tự làm bắt buộc
 Phase 0 → 1 trước tiên (mọi buổi đều dựa vào: `sinh_nen.py`, `lay_du_lieu.py`, `kiem_ro_ri`,

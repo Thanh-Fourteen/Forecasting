@@ -9,7 +9,7 @@ Repo: `/home/tony/Tony/Forecasting/` — repo độc lập, mọi đường dẫ
 
 **Cách tổ chức kế hoạch** (file này chỉ giữ tiêu đề + trạng thái + prompt, để autoclick theo dõi):
 
-- [`todos/quy-uoc.md`](todos/quy-uoc.md) — **KHỐI CHUNG** (R research · V viết · L lab · Đ đọc thử + rà gọn · X xong phase: mọi prompt
+- [`todos/quy-uoc.md`](todos/quy-uoc.md) — **KHỐI CHUNG** (R research · V viết · L lab · Đ đọc thử + rà gọn · T tóm tắt · X xong phase: mọi prompt
   dưới đây chạy theo nó), giao thức research, **chuẩn dễ hiểu + gọn D1–D13**, cấu trúc
   thư mục, nguyên tắc nội dung, Definition of Done, bảng 44 buổi + chỗ hở cố ý. **Đọc trước mọi phase.**
 - [`todos/tong-quan.md`](todos/tong-quan.md) — Progress Summary, thứ tự làm bắt buộc, ước lượng, ghi chú rủi ro
@@ -24,6 +24,10 @@ Repo: `/home/tony/Tony/Forecasting/` — repo độc lập, mọi đường dẫ
   `tools/CHUAN-DE-HIEU.md`; tiêu chí đạt giữ nguyên.
 - Vì không có subagent nên **chia nhỏ phase** (Phase 8–48): mỗi phase soạn 1–2 buổi; sau mỗi cụm một phase **đọc thử độc
   lập** (phiên mới, quiz mù); deep learning và foundation model & LLM có phase **research riêng** trước khi soạn.
+
+**Quyết định của người dùng (2026-09-19):** mỗi buổi có thêm `tom-tat.md` + PDF tóm tắt dạng thẻ khái niệm/mô hình/phương
+pháp, trả lời mục tiêu đầu bài, thuật ngữ kèm tiếng Anh (khung: `todos/quy-uoc.md` mục "File tóm tắt"). Buổi đã soạn: Phase
+T1–T7; buổi mới: KHỐI CHUNG bước T.
 
 Xong phase: đổi 🔲 → ✅ ở **cả hai** tiêu đề (ở đây và trong `todos/phase-NN.md`), rồi cập nhật Progress Summary
 trong `todos/tong-quan.md`.
@@ -309,14 +313,103 @@ Phiên MỚI (/clear). Tài liệu: Buổi 18, Buổi 19, Buổi 20, Buổi 21.
 
 ---
 
+## Phase T1 — Tóm tắt buổi 1–3 + khung thẻ ✅
+
+Chi tiết: [`todos/phase-t1.md`](todos/phase-t1.md)
+
+### Prompt copy-paste cho Phase T1:
+```
+Forecasting | /home/tony/Tony/Forecasting | Phase 21 xong → Phase T1: tóm tắt buổi 1–3 (mẫu chuẩn của khung thẻ).
+Theo todos/quy-uoc.md mục "File tóm tắt" + todos/phase-t1.md.
+```
+
+---
+
+## Phase T2 — Tóm tắt buổi 4–6 🔲
+
+Chi tiết: [`todos/phase-t2.md`](todos/phase-t2.md)
+
+### Prompt copy-paste cho Phase T2:
+```
+Forecasting | /home/tony/Tony/Forecasting | Phase T1 xong → Phase T2: viết buoi-NN/tom-tat.md cho buổi 4, 5, 6.
+Theo todos/quy-uoc.md mục "File tóm tắt" + todos/phase-t2.md. Mẫu chuẩn: buoi-01/tom-tat.md, buoi-02/tom-tat.md, buoi-03/tom-tat.md.
+Mỗi buổi: đọc TOÀN BỘ tai-lieu.md trước; mỗi mục tiêu một phần + "Kết luận của phần"; thẻ khái niệm/mô hình/phương pháp đủ
+trường; tiêu đề thẻ kèm tiếng Anh theo Phụ lục E; mọi con số chép từ tai-lieu.md (grep kiểm từng số); không hình/lab/quiz.
+Xong: xuat_pdf.py --tom-tat 4 5 6 → mở PDF kiểm bảng, công thức → 🔲→✅ → commit.
+```
+
+---
+
+## Phase T3 — Tóm tắt buổi 7–9 🔲
+
+Chi tiết: [`todos/phase-t3.md`](todos/phase-t3.md)
+
+### Prompt copy-paste cho Phase T3:
+```
+Forecasting | /home/tony/Tony/Forecasting | Phase T2 xong → Phase T3: viết buoi-NN/tom-tat.md cho buổi 7, 8, 9.
+Theo todos/quy-uoc.md mục "File tóm tắt" + todos/phase-t3.md. Cùng yêu cầu Phase T2. Xong: xuat_pdf.py --tom-tat 7 8 9.
+```
+
+---
+
+## Phase T4 — Tóm tắt buổi 10–12 🔲
+
+Chi tiết: [`todos/phase-t4.md`](todos/phase-t4.md)
+
+### Prompt copy-paste cho Phase T4:
+```
+Forecasting | /home/tony/Tony/Forecasting | Phase T3 xong → Phase T4: viết buoi-NN/tom-tat.md cho buổi 10, 11, 12.
+Theo todos/quy-uoc.md mục "File tóm tắt" + todos/phase-t4.md. Cùng yêu cầu Phase T2. Xong: xuat_pdf.py --tom-tat 10 11 12.
+```
+
+---
+
+## Phase T5 — Tóm tắt buổi 13–15 🔲
+
+Chi tiết: [`todos/phase-t5.md`](todos/phase-t5.md)
+
+### Prompt copy-paste cho Phase T5:
+```
+Forecasting | /home/tony/Tony/Forecasting | Phase T4 xong → Phase T5: viết buoi-NN/tom-tat.md cho buổi 13, 14, 15.
+Theo todos/quy-uoc.md mục "File tóm tắt" + todos/phase-t5.md. Cùng yêu cầu Phase T2. Xong: xuat_pdf.py --tom-tat 13 14 15.
+```
+
+---
+
+## Phase T6 — Tóm tắt buổi 16–18 🔲
+
+Chi tiết: [`todos/phase-t6.md`](todos/phase-t6.md)
+
+### Prompt copy-paste cho Phase T6:
+```
+Forecasting | /home/tony/Tony/Forecasting | Phase T5 xong → Phase T6: viết buoi-NN/tom-tat.md cho buổi 16, 17, 18.
+Theo todos/quy-uoc.md mục "File tóm tắt" + todos/phase-t6.md. Cùng yêu cầu Phase T2. Xong: xuat_pdf.py --tom-tat 16 17 18.
+```
+
+---
+
+## Phase T7 — Tóm tắt buổi 19–21 🔲
+
+Chi tiết: [`todos/phase-t7.md`](todos/phase-t7.md)
+
+### Prompt copy-paste cho Phase T7:
+```
+Forecasting | /home/tony/Tony/Forecasting | Phase T6 xong → Phase T7: viết buoi-NN/tom-tat.md cho buổi 19, 20, 21.
+Theo todos/quy-uoc.md mục "File tóm tắt" + todos/phase-t7.md. Cùng yêu cầu Phase T2. Xong: xuat_pdf.py --tom-tat 19 20 21.
+Từ Phase 22, tóm tắt viết ngay trong phase soạn buổi (KHỐI CHUNG bước T).
+```
+
+---
+
 ## Phase 22 — Buổi 22–23 · Dự báo thành hồi quy, gradient boosting 🔲
 
 Chi tiết: [`todos/phase-22.md`](todos/phase-22.md)
 
 ### Prompt copy-paste cho Phase 22:
 ```
-Forecasting | /home/tony/Tony/Forecasting | Phase 21 xong → Phase 22: buổi 22–23 (machine learning).
+Forecasting | /home/tony/Tony/Forecasting | Phase T7 xong → Phase 22: buổi 22–23 (machine learning).
 Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-22.md.
+Tóm tắt: mỗi buổi kèm tom-tat.md (KHỐI CHUNG bước T, quy-uoc mục "File tóm tắt") viết SAU khi đọc thử đạt; PDF bằng xuat_pdf.py --tom-tat NN.
 Research riêng: global vs local (Montero-Manso & Hyndman); chiến lược đa bước (Taieb et al.); lời giải top + tổng kết M5
 accuracy; mlforecast + LightGBM mới; Optuna mới.
 ```
@@ -331,6 +424,7 @@ Chi tiết: [`todos/phase-23.md`](todos/phase-23.md)
 ```
 Forecasting | /home/tony/Tony/Forecasting | Phase 22 xong → Phase 23: buổi 24 + du-an-giua-chang/02-thi-du-bao/.
 Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-23.md.
+Tóm tắt: mỗi buổi kèm tom-tat.md (KHỐI CHUNG bước T, quy-uoc mục "File tóm tắt") viết SAU khi đọc thử đạt; PDF bằng xuat_pdf.py --tom-tat NN.
 Research riêng: AutoGluon-TimeSeries mới (preset, model zoo); forecast combination puzzle; FFORMA; cold start; EIA-930 API v2
 (endpoint, day-ahead forecast, độ trễ công bố, sửa số liệu lùi).
 Riêng: dự án chấm trên dữ liệu TƯƠNG LAI THẬT (chưa tồn tại lúc nộp), so với day-ahead của đơn vị điều độ trong EIA-930; script
@@ -347,6 +441,7 @@ Chi tiết: [`todos/phase-24.md`](todos/phase-24.md)
 ```
 Forecasting | /home/tony/Tony/Forecasting | Phase 23 xong → Phase 24: ĐỌC THỬ ĐỘC LẬP buổi 22–24 + dự án giữa chặng 2 (KHỐI CHUNG DT, phiên MỚI).
 Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-24.md.
+Đọc thử cả tom-tat.md mỗi buổi: đủ mục tiêu và thẻ, tiêu đề thẻ có tiếng Anh, mọi số khớp tai-lieu.md.
 Phiên MỚI (/clear). Tài liệu: Buổi 22, Buổi 23, Buổi 24, Đề dự án giữa chặng 2.
 ```
 
@@ -360,6 +455,7 @@ Chi tiết: [`todos/phase-25.md`](todos/phase-25.md)
 ```
 Forecasting | /home/tony/Tony/Forecasting | Phase 24 xong → Phase 25: buổi 25–26 (Giai đoạn 4 — Bất định).
 Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-25.md.
+Tóm tắt: mỗi buổi kèm tom-tat.md (KHỐI CHUNG bước T, quy-uoc mục "File tóm tắt") viết SAU khi đọc thử đạt; PDF bằng xuat_pdf.py --tom-tat NN.
 Research riêng: Gneiting & Raftery (proper scoring), calibration/sharpness; WIS (Bracher et al. 2021); conformal cho chuỗi
 thời gian — ACI (Gibbs & Candès), EnbPI, benchmark 2026, MAPIE mới.
 Riêng: từ phase này mọi dự báo có khoảng đã kiểm calibration.
@@ -375,6 +471,7 @@ Chi tiết: [`todos/phase-26.md`](todos/phase-26.md)
 ```
 Forecasting | /home/tony/Tony/Forecasting | Phase 25 xong → Phase 26: buổi 27–28 (Giai đoạn 4 — Bất định).
 Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-26.md.
+Tóm tắt: mỗi buổi kèm tom-tat.md (KHỐI CHUNG bước T, quy-uoc mục "File tóm tắt") viết SAU khi đọc thử đạt; PDF bằng xuat_pdf.py --tom-tat NN.
 Research riêng: pymc + pymc-extras statespace mới; GP kernel cho chuỗi thời gian; FPP ch. 11, MinT (Wickramasuriya et al.),
 probabilistic reconciliation mới, hierarchicalforecast mới; giấy phép Tourism Australia.
 Riêng: mọi khoảng đã kiểm calibration; buổi 27 không dùng posterior chưa chẩn đoán hội tụ. Cuối buổi 28: M4.
@@ -390,6 +487,7 @@ Chi tiết: [`todos/phase-27.md`](todos/phase-27.md)
 ```
 Forecasting | /home/tony/Tony/Forecasting | Phase 26 xong → Phase 27: ĐỌC THỬ ĐỘC LẬP buổi 25–28 (KHỐI CHUNG DT, phiên MỚI).
 Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-27.md.
+Đọc thử cả tom-tat.md mỗi buổi: đủ mục tiêu và thẻ, tiêu đề thẻ có tiếng Anh, mọi số khớp tai-lieu.md.
 Phiên MỚI (/clear). Tài liệu: Buổi 25, Buổi 26, Buổi 27, Buổi 28.
 ```
 
@@ -420,6 +518,7 @@ Chi tiết: [`todos/phase-29.md`](todos/phase-29.md)
 ```
 Forecasting | /home/tony/Tony/Forecasting | Phase 28 xong → Phase 29: buổi 29–30 (Giai đoạn 5 — Deep learning).
 Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-29.md.
+Tóm tắt: mỗi buổi kèm tom-tat.md (KHỐI CHUNG bước T, quy-uoc mục "File tóm tắt") viết SAU khi đọc thử đạt; PDF bằng xuat_pdf.py --tom-tat NN.
 Riêng: mọi lab chạy CPU trong thời gian hợp lý (ghi phút), có cấu hình rút gọn máy 8 GB; mọi bảng so sánh có seasonal
 naive + một mô hình thống kê + LightGBM, kể cả khi DL thua; model/checkpoint chốt revision. Research: đọc NGHIEN-CUU.md từ phase 28, rà bổ sung.
 ```
@@ -434,6 +533,7 @@ Chi tiết: [`todos/phase-30.md`](todos/phase-30.md)
 ```
 Forecasting | /home/tony/Tony/Forecasting | Phase 29 xong → Phase 30: buổi 31–32 (Giai đoạn 5 — Deep learning).
 Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-30.md.
+Tóm tắt: mỗi buổi kèm tom-tat.md (KHỐI CHUNG bước T, quy-uoc mục "File tóm tắt") viết SAU khi đọc thử đạt; PDF bằng xuat_pdf.py --tom-tat NN.
 Riêng: mọi lab chạy CPU trong thời gian hợp lý (ghi phút), có cấu hình rút gọn máy 8 GB; mọi bảng so sánh có seasonal
 naive + một mô hình thống kê + LightGBM, kể cả khi DL thua; model/checkpoint chốt revision. Research: đọc NGHIEN-CUU.md từ phase 28, rà bổ sung.
 ```
@@ -448,6 +548,7 @@ Chi tiết: [`todos/phase-31.md`](todos/phase-31.md)
 ```
 Forecasting | /home/tony/Tony/Forecasting | Phase 30 xong → Phase 31: buổi 33 (Giai đoạn 5 — Deep learning).
 Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-31.md.
+Tóm tắt: mỗi buổi kèm tom-tat.md (KHỐI CHUNG bước T, quy-uoc mục "File tóm tắt") viết SAU khi đọc thử đạt; PDF bằng xuat_pdf.py --tom-tat NN.
 Riêng: mọi lab chạy CPU trong thời gian hợp lý (ghi phút), có cấu hình rút gọn máy 8 GB; mọi bảng so sánh có seasonal
 naive + một mô hình thống kê + LightGBM, kể cả khi DL thua; model/checkpoint chốt revision. Research: đọc NGHIEN-CUU.md từ phase 28, rà bổ sung. Cuối buổi 33: M5.
 ```
@@ -462,6 +563,7 @@ Chi tiết: [`todos/phase-32.md`](todos/phase-32.md)
 ```
 Forecasting | /home/tony/Tony/Forecasting | Phase 31 xong → Phase 32: ĐỌC THỬ ĐỘC LẬP buổi 29–33 (KHỐI CHUNG DT, phiên MỚI).
 Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-32.md.
+Đọc thử cả tom-tat.md mỗi buổi: đủ mục tiêu và thẻ, tiêu đề thẻ có tiếng Anh, mọi số khớp tai-lieu.md.
 Phiên MỚI (/clear). Tài liệu: Buổi 29, Buổi 30, Buổi 31, Buổi 32, Buổi 33.
 ```
 
@@ -494,6 +596,7 @@ Chi tiết: [`todos/phase-34.md`](todos/phase-34.md)
 ```
 Forecasting | /home/tony/Tony/Forecasting | Phase 33 xong → Phase 34: buổi 34–35 (Giai đoạn 6).
 Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-34.md.
+Tóm tắt: mỗi buổi kèm tom-tat.md (KHỐI CHUNG bước T, quy-uoc mục "File tóm tắt") viết SAU khi đọc thử đạt; PDF bằng xuat_pdf.py --tom-tat NN.
 Riêng: mọi đánh giá foundation model/LLM trên dữ liệu SAU mốc cắt, ghi mốc trong "Trạng thái đầu buổi"; model chốt
 revision. Research: đọc NGHIEN-CUU.md từ phase 33, rà lại phần model/phiên bản nếu cũ hơn 1 tháng.
 ```
@@ -508,6 +611,7 @@ Chi tiết: [`todos/phase-35.md`](todos/phase-35.md)
 ```
 Forecasting | /home/tony/Tony/Forecasting | Phase 34 xong → Phase 35: buổi 36–37 (Giai đoạn 6).
 Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-35.md.
+Tóm tắt: mỗi buổi kèm tom-tat.md (KHỐI CHUNG bước T, quy-uoc mục "File tóm tắt") viết SAU khi đọc thử đạt; PDF bằng xuat_pdf.py --tom-tat NN.
 Riêng: mọi đánh giá foundation model/LLM trên dữ liệu SAU mốc cắt, ghi mốc trong "Trạng thái đầu buổi"; model chốt
 revision. Research: đọc NGHIEN-CUU.md từ phase 33, rà lại phần model/phiên bản nếu cũ hơn 1 tháng.
 Buổi 36–37 chạy được không cần API key trả phí (model mở local + bản ghi phản hồi). Cuối buổi 37: M6.
@@ -523,6 +627,7 @@ Chi tiết: [`todos/phase-36.md`](todos/phase-36.md)
 ```
 Forecasting | /home/tony/Tony/Forecasting | Phase 35 xong → Phase 36: ĐỌC THỬ ĐỘC LẬP buổi 34–37 (KHỐI CHUNG DT, phiên MỚI).
 Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-36.md.
+Đọc thử cả tom-tat.md mỗi buổi: đủ mục tiêu và thẻ, tiêu đề thẻ có tiếng Anh, mọi số khớp tai-lieu.md.
 Phiên MỚI (/clear). Tài liệu: Buổi 34, Buổi 35, Buổi 36, Buổi 37.
 ```
 
@@ -536,6 +641,7 @@ Chi tiết: [`todos/phase-37.md`](todos/phase-37.md)
 ```
 Forecasting | /home/tony/Tony/Forecasting | Phase 36 xong → Phase 37: buổi 38–39 (Giai đoạn 7 — Nhân quả).
 Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-37.md.
+Tóm tắt: mỗi buổi kèm tom-tat.md (KHỐI CHUNG bước T, quy-uoc mục "File tóm tắt") viết SAU khi đọc thử đạt; PDF bằng xuat_pdf.py --tom-tat NN.
 Research riêng: CausalImpact Python còn sống (tfcausalimpact / causalimpact / PyMC-Marketing / CausalPy — chọn cái đang bảo
 trì); synthetic control (Abadie), synthetic DiD; DoubleML/EconML mới.
 Riêng: mọi phương pháp nhân quả kiểm trên dữ liệu mô phỏng có đáp án TRƯỚC khi áp lên dữ liệu thật.
@@ -551,6 +657,7 @@ Chi tiết: [`todos/phase-38.md`](todos/phase-38.md)
 ```
 Forecasting | /home/tony/Tony/Forecasting | Phase 37 xong → Phase 38: buổi 40 (Giai đoạn 7).
 Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-38.md.
+Tóm tắt: mỗi buổi kèm tom-tat.md (KHỐI CHUNG bước T, quy-uoc mục "File tóm tắt") viết SAU khi đọc thử đạt; PDF bằng xuat_pdf.py --tom-tat NN.
 Research riêng: forecast value added (Gilliland); newsvendor + inventory policy với dự báo xác suất; FPP ch. 6 (judgmental);
 truyền đạt bất định cho người không chuyên (fan chart).
 Riêng: buổi 40 quy ra tiền.
@@ -566,6 +673,7 @@ Chi tiết: [`todos/phase-39.md`](todos/phase-39.md)
 ```
 Forecasting | /home/tony/Tony/Forecasting | Phase 38 xong → Phase 39: ĐỌC THỬ ĐỘC LẬP buổi 38–40 (KHỐI CHUNG DT, phiên MỚI).
 Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-39.md.
+Đọc thử cả tom-tat.md mỗi buổi: đủ mục tiêu và thẻ, tiêu đề thẻ có tiếng Anh, mọi số khớp tai-lieu.md.
 Phiên MỚI (/clear). Tài liệu: Buổi 38, Buổi 39, Buổi 40.
 ```
 
@@ -579,6 +687,7 @@ Chi tiết: [`todos/phase-40.md`](todos/phase-40.md)
 ```
 Forecasting | /home/tony/Tony/Forecasting | Phase 39 xong → Phase 40: buổi 41–42 (Giai đoạn 8 — Production).
 Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-40.md.
+Tóm tắt: mỗi buổi kèm tom-tat.md (KHỐI CHUNG bước T, quy-uoc mục "File tóm tắt") viết SAU khi đọc thử đạt; PDF bằng xuat_pdf.py --tom-tat NN.
 Research riêng: Prefect vs Dagster mới (chọn một, ghi lý do); pandera, MLflow, DVC mới; point-in-time/feature store cho chuỗi
 thời gian; statsforecast/mlforecast phân tán (Ray, Spark, Dask qua Fugue) còn hỗ trợ?; phục vụ foundation model trên CPU.
 Riêng: buổi 41 tái lập từng byte.
@@ -594,6 +703,7 @@ Chi tiết: [`todos/phase-41.md`](todos/phase-41.md)
 ```
 Forecasting | /home/tony/Tony/Forecasting | Phase 40 xong → Phase 41: buổi 43 (Giai đoạn 8).
 Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-41.md.
+Tóm tắt: mỗi buổi kèm tom-tat.md (KHỐI CHUNG bước T, quy-uoc mục "File tóm tắt") viết SAU khi đọc thử đạt; PDF bằng xuat_pdf.py --tom-tat NN.
 Research riêng: drift detection (PSI, ADWIN, Page–Hinkley — river mới); bài học vận hành hệ dự báo lớn công khai gần đây
 (Uber, Amazon, Walmart…).
 Riêng: replay dữ liệu thật với sự cố cài sẵn, không mô phỏng tay từng cảnh báo. Cuối buổi 43: M7.
@@ -609,6 +719,7 @@ Chi tiết: [`todos/phase-42.md`](todos/phase-42.md)
 ```
 Forecasting | /home/tony/Tony/Forecasting | Phase 41 xong → Phase 42: ĐỌC THỬ ĐỘC LẬP buổi 41–43 (KHỐI CHUNG DT, phiên MỚI).
 Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-42.md.
+Đọc thử cả tom-tat.md mỗi buổi: đủ mục tiêu và thẻ, tiêu đề thẻ có tiếng Anh, mọi số khớp tai-lieu.md.
 Phiên MỚI (/clear). Tài liệu: Buổi 41, Buổi 42, Buổi 43.
 ```
 
@@ -679,7 +790,7 @@ Chi tiết: [`todos/phase-47.md`](todos/phase-47.md)
 
 ### Prompt copy-paste cho Phase 47:
 ```
-Forecasting | /home/tony/Tony/Forecasting | Phase 46 xong → Phase 47: xuất bản — 44 PDF, đóng gói phat-de/, cập nhật README.md và CLAUDE.md.
+Forecasting | /home/tony/Tony/Forecasting | Phase 46 xong → Phase 47: xuất bản — 44 PDF + 44 PDF tóm tắt (--tom-tat), đóng gói phat-de/, cập nhật README.md và CLAUDE.md.
 Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-47.md.
 Research (thay R): phiên bản mới nhất của MỌI thư viện/model đã chốt; dataset đổi URL/giấy phép; bảng xếp hạng
 GIFT-Eval/fev-bench/ForecastBench → NGHIEN-CUU-XUAT-BAN.md bảng "đã chốt → mới nhất → cần cập nhật buổi nào". Lệch lớn (API hỏng
@@ -712,5 +823,5 @@ Forecasting 44 buổi | /home/tony/Tony/Forecasting | Đọc todos.md, làm phas
 (theo KHỐI CHUNG trong todos/quy-uoc.md + todos/phase-NN.md). Tóm tắt ràng buộc cứng (chi tiết ở CLAUDE.md, quy-uoc):
 research trước khi viết, lệch lớn báo trước; buổi tự chứa tuyệt đối; chỗ hở cố ý (rò rỉ tương lai, đánh giá không trung
 thực); mọi số từ lần chạy thật; chốt phiên bản; CPU chạy được; dữ liệu có giấy phép; dap-an/NGHIEN-CUU/lời giải không vào
-zip; DỄ HIỂU NHƯNG GỌN (tường minh quá cũng là khó hiểu); tự đọc thử + tự rà gọn (không subagent) trước khi tick ✅.
+zip; mỗi buổi kèm tom-tat.md dạng thẻ (quy-uoc "File tóm tắt"); DỄ HIỂU NHƯNG GỌN (tường minh quá cũng là khó hiểu); tự đọc thử + tự rà gọn (không subagent) trước khi tick ✅.
 ```

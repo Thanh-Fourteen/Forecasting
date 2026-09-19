@@ -4,6 +4,7 @@
     python xuat_pdf.py            # trang le (lo trinh, phu luc, de du an) + ca 44 buoi
     python xuat_pdf.py 5 6        # rieng buoi 05 va 06
     python xuat_pdf.py lo-trinh   # rieng cac trang le co chuoi "lo-trinh" trong duong dan
+    python xuat_pdf.py --tom-tat 1 2   # chi xuat tom-tat.md -> TOM-TAT-buoi-NN.pdf (khong so --kiem 10-18 trang)
     python xuat_pdf.py --kiem     # dem so trang moi PDF da sinh, bao buoi ngoai 10-18 trang, phu luc tren 18
 
 Can:  pip install -r tools/requirements.txt
@@ -342,6 +343,16 @@ def xuat_buoi(buoi):
     print(f"  buoi-{buoi:02d}/{ten_pdf:<36} {ket_qua}")
 
 
+def xuat_tom_tat(buoi):
+    """buoi-NN/tom-tat.md -> buoi-NN/TOM-TAT-buoi-NN.pdf; buổi chưa có tóm tắt thì im lặng bỏ qua."""
+    thu_muc = os.path.join(GOC, f"buoi-{buoi:02d}")
+    ten_pdf = f"TOM-TAT-buoi-{buoi:02d}.pdf"
+    ket_qua = xuat(os.path.join(thu_muc, "tom-tat.md"),
+                   os.path.join(thu_muc, ten_pdf), f"{BUOI[buoi][1]} — tóm tắt")
+    if not ket_qua.startswith("BỎ QUA"):
+        print(f"  buoi-{buoi:02d}/{ten_pdf:<36} {ket_qua}")
+
+
 def kiem_so_trang():
     """In số trang mọi PDF đã sinh; buổi nằm ngoài TRANG_TOI_THIEU–TRANG_TOI_DA bị đánh dấu."""
     from pypdf import PdfReader
@@ -381,6 +392,13 @@ def main():
     tham_so = sys.argv[1:]
     if "--kiem" in tham_so:
         sys.exit(1 if kiem_so_trang() else 0)
+    chi_tom_tat = "--tom-tat" in tham_so
+    tham_so = [t for t in tham_so if t != "--tom-tat"]
+    if chi_tom_tat:
+        cac_buoi = [int(t) for t in tham_so if t.isdigit()] or sorted(BUOI)
+        for buoi in cac_buoi:
+            xuat_tom_tat(buoi)
+        return
 
     chi_le = [t for t in tham_so if not t.isdigit()]
     cac_buoi = [int(t) for t in tham_so if t.isdigit()]
@@ -397,6 +415,7 @@ def main():
 
     for buoi in (cac_buoi or (sorted(BUOI) if not chi_le else [])):
         xuat_buoi(buoi)
+        xuat_tom_tat(buoi)
 
 
 if __name__ == "__main__":

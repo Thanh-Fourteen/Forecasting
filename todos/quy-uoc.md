@@ -120,6 +120,34 @@ BƯỚC CUỐI — ĐỌC THỬ NHƯ HỌC VIÊN MỚI (bắt buộc trước kh
    đã sửa thế nào.
 ```
 
+## File tóm tắt `buoi-NN/tom-tat.md` (thêm 2026-09-19)
+
+Tài liệu xem lại sau khi học, giúp nắm lại ngay định nghĩa và các yếu tố quan trọng. Không thay `tai-lieu.md`: không
+có hình, lab, quiz. Mẫu chuẩn: `buoi-01/tom-tat.md`, `buoi-02/tom-tat.md`. Căn cứ: Frayer model (Frayer, Frederick &
+Klausmeier, 1969 — định nghĩa, đặc điểm, ví dụ, phản ví dụ) và cách trình bày của NIST/SEMATECH e-Handbook of
+Statistical Methods (mục đích, định nghĩa, câu hỏi trả lời được, ví dụ, tầm quan trọng, kỹ thuật liên quan).
+
+- **Bố cục:** chép nguyên "Mục tiêu" của `tai-lieu.md`. Mỗi mục tiêu thành một phần `##`, mở bằng **Kết luận của phần**
+  (trả lời thẳng mục tiêu đó, 1–3 câu). Dưới đó là các thẻ `###`, mỗi thẻ một khái niệm, mô hình hoặc phương pháp.
+- **Ba loại thẻ.** Bỏ trường không có nội dung; giữ đúng thứ tự:
+
+  | Loại | Trường |
+  |---|---|
+  | Khái niệm | Định nghĩa · Giải thích · Ví dụ · Cách diễn giải · Tính chất · Vai trò trong dự báo · Phân biệt |
+  | Mô hình | Ý tưởng · Kiến trúc · Điểm đặc biệt · Ưu điểm · Nhược điểm · Ví dụ · Khi nào dùng |
+  | Phương pháp | Mục đích · Quy trình · Giả định · Ưu điểm · Nhược điểm · Khi nào hỏng |
+
+- **Nghĩa của từng trường.**
+  - *Cách diễn giải*: đọc giá trị theo dấu, độ lớn, hoặc so sánh (ví dụ hệ số lệch âm là lệch trái).
+  - *Phân biệt*: cái dễ nhầm là khái niệm này nhưng không phải (phản ví dụ, nhầm hay gặp).
+  - *Kiến trúc*: đầu vào → cách tính → đầu ra; tham số là gì; khớp là làm gì.
+- **Nội dung.** Mọi con số chép từ `tai-lieu.md`. Dùng thuật ngữ thống kê chuẩn (định nghĩa, tính chất, diễn giải),
+  không dùng lời nói thường.
+- **Thuật ngữ tiếng Anh (Phụ lục E).** Tiêu đề mỗi thẻ ghi thuật ngữ tiếng Việt kèm tiếng Anh trong ngoặc:
+  `### Trung vị (median)`, `### Khoảng dự báo (prediction interval)`. Từ nào giữ nguyên tiếng Anh (quantile, baseline,
+  bootstrap…) thì để nguyên. Thuật ngữ phụ trong thân thẻ cũng ghi kèm tiếng Anh ở lần đầu, ví dụ ngoại lai (outlier),
+  mẫu (sample), tổng thể (population), có hoàn lại (with replacement).
+
 ## KHỐI CHUNG — mọi prompt phase trong `todos.md` chạy theo khối này (2026-09-18)
 
 Prompt từng phase chỉ ghi phần **riêng**; mọi yêu cầu chung nằm ở đây. Không dùng subagent: mỗi phase soạn chỉ 1–2 buổi;
@@ -177,8 +205,15 @@ DT chưa ✅. Văn bản không phải buổi: viết lại được đúng "là
 khuôn nếu chưa có) + bảng "lộ trình ↔ hiện tại ↔ quyết định"; lệch lớn → cập nhật lo-trinh + todos, **báo người dùng**.
 Phase soạn sau đọc các `NGHIEN-CUU.md` đó và chỉ rà bổ sung (research cũ hơn 1 tháng thì rà lại phần phiên bản/model).
 
+**T — Tóm tắt (thêm 2026-09-19; sau Đ, khi `tai-lieu.md` đã chốt).** Viết `buoi-NN/tom-tat.md` theo mục "File tóm tắt"
+(dưới): mỗi mục tiêu một phần + "Kết luận của phần"; thẻ khái niệm/mô hình/phương pháp; tiêu đề thẻ kèm tiếng Anh; mọi con
+số chép từ `tai-lieu.md`. Tự kiểm: mỗi từ trong bảng "Từ mới" có thẻ hoặc nằm trong một thẻ; grep từng con số trong
+`tai-lieu.md`. PDF: `xuat_pdf.py --tom-tat NN` → `TOM-TAT-buoi-NN.pdf` (không tính vào trần 10–18 trang). Phase DT đọc thử cả
+tóm tắt: đủ mục tiêu và thẻ, số khớp tài liệu.
+
 **X — Xong phase.** `ruff check .` → `kiem_de_hieu.py NN` (0 vi phạm hoặc có lý do) → `kiem_tra_lab.py NN` (đáp án xanh, `code/`
-đỏ đúng chỗ, `lab.ipynb` chạy hết; check < 10 phút CPU 4 nhân) → `kiem_tra_doc_lap.sh` → `xuat_pdf.py NN` + `--kiem` → ghi
+đỏ đúng chỗ, `lab.ipynb` chạy hết; check < 10 phút CPU 4 nhân) → `kiem_tra_doc_lap.sh` → `xuat_pdf.py NN` + `--kiem` (cũng xuất
+`TOM-TAT-buoi-NN.pdf`) → ghi
 `NGHIEN-CUU.md` mục "Đọc thử" (vòng, chặn/khó/nhỏ, quiz, chữ/trang trước → sau) → 🔲→✅ ở `todos.md` + `phase-NN.md` +
 `tong-quan.md` → báo người dùng bảng trước/sau.
 
@@ -307,6 +342,7 @@ Phase soạn sau đọc các `NGHIEN-CUU.md` đó và chỉ rà bổ sung (resea
 - [ ] **Đạt D1–D13** (`tools/kiem_de_hieu.py NN` sạch, trong trần độ dài) và **rà gọn đạt** (≤ 3 chỗ thừa) và **đọc thử đạt** (tự đọc, không subagent): 0 chỗ chặn, ≤ 5
       chỗ khó, không khái niệm nào giải thích không nổi, mọi câu quiz có căn cứ trong tài liệu; ghi mục "Đọc thử" trong
       `NGHIEN-CUU.md`; đã xử lý `phan-hoi-hoc-vien.md`
+- [ ] **`tom-tat.md`** + `TOM-TAT-buoi-NN.pdf` theo mục "File tóm tắt" (KHỐI CHUNG bước T)
 - [ ] `code/` chạy được, có chỗ hở cố ý, có `README.md` ngắn
 - [ ] `dap-an/` là bản đã sửa, `python lab.py check --dap-an` xanh
 - [ ] `lab/00-nen/` dựng đúng nền **từ máy trắng** (`uv sync --frozen` + dữ liệu qua sha256)

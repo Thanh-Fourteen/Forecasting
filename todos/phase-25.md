@@ -8,6 +8,8 @@ Quy ước: `todos/quy-uoc.md` (KHỐI CHUNG). Prompt: `todos.md` mục "Phase 2
 | 26 Conformal | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
 
 Bắt buộc:
+- **Tóm tắt** (KHỐI CHUNG bước T): mỗi buổi kèm `tom-tat.md` + `TOM-TAT-buoi-NN.pdf` theo `todos/quy-uoc.md` mục
+  "File tóm tắt"
 - Buổi 25: tự viết pinball, CRPS từ mẫu, WIS; PIT + reliability diagram của 3 mô hình có lỗi calibration khác nhau; peaks-over-threshold
 - Buổi 26: coverage trượt theo thời gian của split / CQR / EnbPI / ACI trên dữ liệu có drift thật
 - - **Notebook + gọn**: `code/lab.ipynb` (soạn bằng `tools/nb.py`), tài liệu trỏ "ô bước N"; lệnh `python lab.py …`;

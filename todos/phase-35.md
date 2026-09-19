@@ -10,6 +10,8 @@ Ollama/llama.cpp với model mở, hoặc API key LLM (trần chi phí < 5 USD/b
 | 37 Dự báo sự kiện bằng LLM | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
 
 Bắt buộc:
+- **Tóm tắt** (KHỐI CHUNG bước T): mỗi buổi kèm `tom-tat.md` + `TOM-TAT-buoi-NN.pdf` theo `todos/quy-uoc.md` mục
+  "File tóm tắt"
 - Buổi 36: test tự động "không bịa số" (mọi con số trong báo cáo LLM có trong output công cụ); agent không được tự chọn tập test;
   **bản ghi phản hồi LLM** để chấm không cần API key; nhánh model mở chạy local
 - Buổi 37: Brier score **chỉ trên câu hỏi resolve sau mốc cắt kiến thức**, đo "khoảng rò rỉ"; học viên tự dự báo
