@@ -96,6 +96,10 @@ baseline hợp lệ, cách chấm và con số nên báo.
   - Theo giờ B thắng; theo tổng A thắng.
 - **Phân biệt.** "MAE theo giờ nhỏ thì tổng tuần cũng chính xác" là sai.
 
+![Tổng tuần: thứ hạng đảo](hinh/tong-tuan.png)
+
+**Đọc hình.** Cộng lên tổng tuần thì thứ hạng đảo.
+
 ### Công suất (power) và điện năng (energy)
 
 - **Định nghĩa.**
@@ -115,6 +119,10 @@ baseline hợp lệ, cách chấm và con số nên báo.
   - theo năm: mùa đông cao, tháng 8 gần như vắng nhà.
 - **Vai trò trong dự báo.** Mùa vụ là nguồn thông tin chính. Baseline "cùng thời điểm của chu kỳ trước" khai thác trực
   tiếp mùa vụ.
+
+![Điện tiêu thụ theo ngày của một hộ](hinh/mot-duong.png)
+
+**Đọc hình.** Mùa đông cao, tháng 8 gần như vắng nhà, năm sau giống năm trước.
 
 ---
 
@@ -151,6 +159,14 @@ lịch: nhìn trộm cho MAE **0,380**, chấm trung thực cho **0,508** kWh/gi
 - **Tính chất.** Mô hình càng nhiều tham số (parameter) càng dễ khớp hoàn hảo dữ liệu đã thấy (overfitting). Vì vậy phần dư nhỏ không đảm bảo dự
   báo tốt.
 - **Vì sao chênh lệch lớn ở lab.** Khoảng 22% số liệu trong mỗi ô bảng lịch chính là các giờ đang được chấm.
+
+![Sai số ảo và bảng xếp hạng thật](hinh/sai-so-ao.png)
+
+**Đọc hình.** Nhìn trộm thì bảng lịch đứng đầu; chấm trung thực thì nó thua trung bình 4 tuần.
+
+![Một tuần: dự báo đã thấy đáp án](hinh/mot-tuan.png)
+
+**Đọc hình.** Đây là tuần hai cách chấm chênh nhất; đường cam "trúng" hơn chỉ vì mỗi ô đã chứa chính giờ đang chấm.
 
 ### Dự báo cuốn (rolling forecast) — phương pháp
 
@@ -296,3 +312,7 @@ chấm để chọn con số này.
 
 - Dòng 2 rẻ hơn 18,6% dù MAE tệ hơn. Chấm bằng thước đo không khớp chi phí thì sẽ chọn sai.
 - Tỷ lệ giờ thiếu 20,1% sát mức 20% mà quantile 0,8 hứa.
+
+![Cộng thêm vào dự báo làm chi phí giảm dù MAE tăng](hinh/chi-phi-bat-doi-xung.png)
+
+**Đọc hình.** Chấm bằng thước đo sai thì sẽ chọn sai.

@@ -123,7 +123,7 @@ BƯỚC CUỐI — ĐỌC THỬ NHƯ HỌC VIÊN MỚI (bắt buộc trước kh
 ## File tóm tắt `buoi-NN/tom-tat.md` (thêm 2026-09-19)
 
 Tài liệu xem lại sau khi học, giúp nắm lại ngay định nghĩa và các yếu tố quan trọng. Không thay `tai-lieu.md`: không
-có hình, lab, quiz. Mẫu chuẩn: `buoi-01/tom-tat.md`, `buoi-02/tom-tat.md`. Căn cứ: Frayer model (Frayer, Frederick &
+có lab, quiz. Mẫu chuẩn: `buoi-01/tom-tat.md`, `buoi-02/tom-tat.md`. Căn cứ: Frayer model (Frayer, Frederick &
 Klausmeier, 1969 — định nghĩa, đặc điểm, ví dụ, phản ví dụ) và cách trình bày của NIST/SEMATECH e-Handbook of
 Statistical Methods (mục đích, định nghĩa, câu hỏi trả lời được, ví dụ, tầm quan trọng, kỹ thuật liên quan).
 
@@ -141,6 +141,10 @@ Statistical Methods (mục đích, định nghĩa, câu hỏi trả lời đư�
   - *Cách diễn giải*: đọc giá trị theo dấu, độ lớn, hoặc so sánh (ví dụ hệ số lệch âm là lệch trái).
   - *Phân biệt*: cái dễ nhầm là khái niệm này nhưng không phải (phản ví dụ, nhầm hay gặp).
   - *Kiến trúc*: đầu vào → cách tính → đầu ra; tham số là gì; khớp là làm gì.
+- **Hình (thêm 2026-09-21).** Mỗi hình đã có trong `hinh/` và đã dùng trong `tai-lieu.md` được đặt lại vào thẻ mà nó
+  minh hoạ, kèm đúng **một dòng** `**Đọc hình.**` — chép câu kết luận (bước 5 của "Cách đọc hình" trong `tai-lieu.md`),
+  không chép cả 5 bước. **Không vẽ hình mới cho tóm tắt**: thẻ nào chưa có hình thì để nguyên chữ. Hình của mục Lab
+  (đo tốc độ, ảnh chụp màn hình) không đưa vào.
 - **Nội dung.** Mọi con số chép từ `tai-lieu.md`. Dùng thuật ngữ thống kê chuẩn (định nghĩa, tính chất, diễn giải),
   không dùng lời nói thường.
 - **Thuật ngữ tiếng Anh (Phụ lục E).** Tiêu đề mỗi thẻ ghi thuật ngữ tiếng Việt kèm tiếng Anh trong ngoặc:
@@ -207,7 +211,7 @@ Phase soạn sau đọc các `NGHIEN-CUU.md` đó và chỉ rà bổ sung (resea
 
 **T — Tóm tắt (thêm 2026-09-19; sau Đ, khi `tai-lieu.md` đã chốt).** Viết `buoi-NN/tom-tat.md` theo mục "File tóm tắt"
 (dưới): mỗi mục tiêu một phần + "Kết luận của phần"; thẻ khái niệm/mô hình/phương pháp; tiêu đề thẻ kèm tiếng Anh; mọi con
-số chép từ `tai-lieu.md`. Tự kiểm: mỗi từ trong bảng "Từ mới" có thẻ hoặc nằm trong một thẻ; grep từng con số trong
+số chép từ `tai-lieu.md`; hình của buổi đặt lại vào thẻ tương ứng kèm một dòng "Đọc hình" (không vẽ hình mới). Tự kiểm: mỗi từ trong bảng "Từ mới" có thẻ hoặc nằm trong một thẻ; grep từng con số trong
 `tai-lieu.md`. PDF: `xuat_pdf.py --tom-tat NN` → `TOM-TAT-buoi-NN.pdf` (không tính vào trần 10–18 trang). Phase DT đọc thử cả
 tóm tắt: đủ mục tiêu và thẻ, số khớp tài liệu.
 

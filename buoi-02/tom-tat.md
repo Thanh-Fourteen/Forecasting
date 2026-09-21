@@ -44,6 +44,10 @@ Con số nên báo làm dự báo không cố định: nó do hàm mất mát (l
   giá trị ngoại lai (outlier) không. Cột cao bên trái rồi thấp dần sang phải là lệch phải.
 - **Tính chất.** Hình dạng nhìn thấy phụ thuộc độ rộng cột (bin width): cột quá rộng che mất chi tiết, cột quá hẹp thì lởm chởm.
 
+![Histogram lệch phải và đường tích luỹ của lượt thuê theo giờ](hinh/histogram-tich-luy.png)
+
+**Đọc hình.** Lệch phải; trung bình (189) lớn hơn trung vị (142) vì vài giờ rất đông kéo lên.
+
 ### Hàm phân phối tích luỹ (cumulative distribution function, CDF), $F(y)$
 
 - **Định nghĩa.** $F(y)$ là tỷ lệ quan sát nhỏ hơn hoặc bằng $y$:
@@ -148,6 +152,10 @@ Con số nên báo làm dự báo không cố định: nó do hàm mất mát (l
   - $\tau$ = 0,5: thiếu và thừa như nhau, pinball tương đương sai số tuyệt đối.
 - **Vai trò trong dự báo.** Phải biết dự báo sẽ bị chấm bằng hàm mất mát nào trước khi chọn con số để báo.
 
+![Ba hàm mất mát, ba con số tối ưu](hinh/ham-mat-mat.png)
+
+**Đọc hình.** Mỗi cách phạt chọn một con số khác nhau, như ví dụ 9 giờ.
+
 ---
 
 ## 2. Tương quan (correlation)
@@ -173,6 +181,10 @@ cong, và $r$ lớn không chứng minh nhân quả.
 - **Phân biệt.**
   - $r = 0$ không có nghĩa là không liên quan. Với $y = x^2$ thì $r = 0$, dù $y$ hoàn toàn do $x$ quyết định.
   - Tương quan không phải nhân quả (correlation is not causation).
+
+![Nhiệt độ và giờ trong ngày so với lượt thuê](hinh/tuong-quan.png)
+
+**Đọc hình.** $r$ chỉ đo quan hệ **thẳng**; giờ quyết định lượt thuê rất mạnh nhưng theo đường cong.
 
 ### Biến gây nhiễu (confounder)
 
@@ -361,6 +373,10 @@ nghĩa thì bác bỏ $H_0$. Không bác bỏ thì chưa kết luận được g
   p-value thật thường **lớn hơn** số tính được.
 - **Lưu ý.** Cộng 1 ở tử và mẫu để p không bao giờ bằng 0.
 
+![Phân phối chênh lệch khi xáo nhãn](hinh/hoan-vi.png)
+
+**Đọc hình.** Chênh thật ở ô trái hiếm khi do xáo ngẫu nhiên; ở ô phải, với ít ngày, thì không hiếm.
+
 ---
 
 ## 5. Vì sao chuỗi thời gian cần block bootstrap
@@ -446,3 +462,7 @@ nhạy với độ dài khối.
 - **Khi nào dùng.** Khoảng tin cậy cho thống kê trên chuỗi thời gian. Chọn khối ≈ căn bậc ba của $n$ theo kinh
   nghiệm, và luôn báo độ nhạy theo vài độ dài khối.
 - **Khi nào hỏng.** Chuỗi có xu hướng: mỗi khối mang mức của mùa nó được cắt ra, nên khoảng rộng mãi theo độ dài khối.
+
+![Bootstrap i.i.d. quá hẹp; độ dài khối là quyết định nhạy](hinh/bootstrap-do-dai-khoi.png)
+
+**Đọc hình.** Bootstrap i.i.d. cho khoảng quá hẹp khi dữ liệu tự tương quan; độ dài khối là quyết định nhạy.

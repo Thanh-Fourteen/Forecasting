@@ -15,6 +15,8 @@ Bắt buộc:
   (Ý tưởng · Kiến trúc · Điểm đặc biệt · Ưu điểm · Nhược điểm · Ví dụ · Khi nào dùng), thẻ phương pháp (Mục đích · Quy trình ·
   Giả định · Ưu điểm · Nhược điểm · Khi nào hỏng); bỏ trường trống, giữ thứ tự
 - Tiêu đề thẻ: tiếng Việt kèm tiếng Anh trong ngoặc theo Phụ lục E; từ giữ nguyên tiếng Anh thì để nguyên
-- Mọi con số chép từ `tai-lieu.md`; grep kiểm từng số; không hình, không lab, không quiz
+- Mọi con số chép từ `tai-lieu.md`; grep kiểm từng số; không lab, không quiz
+- Hình: đặt lại hình đã có trong `hinh/` vào thẻ nó minh hoạ, mỗi hình một dòng **Đọc hình** (câu kết luận trong
+  `tai-lieu.md`); không vẽ hình mới, không lấy hình của mục Lab
 - Mỗi từ trong bảng "Từ mới trong buổi" có thẻ riêng hoặc nằm trong một thẻ
 - PDF: `xuat_pdf.py --tom-tat N…`; mở kiểm bảng, công thức, dấu tiếng Việt

@@ -61,6 +61,10 @@ trước khi làm bất cứ việc gì khác.
 - **Phân biệt.** Việt Nam không có giờ mùa hè. Độ lệch New York–UTC là 4 giờ **chỉ** từ 10/3 đến 3/11/2024, ngoài
   khoảng đó là 5 giờ.
 
+![Giờ UTC chạy đều; đồng hồ New York mất một giờ ngày 10/3 và lặp một giờ ngày 3/11](hinh/truc-thoi-gian.png)
+
+**Đọc hình.** Giờ UTC chạy đều; đồng hồ New York mất một giờ ngày 10/3 và lặp một giờ ngày 3/11.
+
 ### Thời gian naive và aware
 
 - **Định nghĩa.**
@@ -111,6 +115,10 @@ chuyến giả** ngày 10/3/2024 và **một giờ gấp đôi** ngày 3/11/2024
     trong đó 1.001 chuyến đón lúc 01:xx ngày 3/11.
 - **Cách xử lý.** Bỏ các dòng mơ hồ, ghi số dòng bỏ vào `df.attrs`, và ghi **NaN** cho cả hai mốc UTC chúng có thể thuộc
   về (05:00Z, 06:00Z), thay vì một con số bị đếm thiếu.
+
+![Resample trên giờ naive sinh giờ 0 chuyến giả và gộp hai giờ thật](hinh/dst-hai-ngay.png)
+
+**Đọc hình.** Resample trên giờ naive sinh giờ 0 chuyến giả (10/3) và gộp hai giờ thật (3/11).
 
 ### Chẩn đoán một cột thời gian — phương pháp
 
@@ -234,6 +242,10 @@ dữ liệu, có thể **đổi dấu tương quan**. Ghép theo thời gian g�
 - **Ví dụ.** Ghép đúng: nóng nhất lúc **16 giờ**. Code đầu buổi: `gio_nong_nhat()` trả **20**, tức New York "nóng nhất
   lúc 8 giờ tối", vô lý dễ thấy.
 - **Ưu điểm.** Rẻ, không cần kiến thức chuyên môn: ai cũng biết buổi chiều nóng hơn buổi tối.
+
+![Ghép lệch múi giờ làm New York nóng nhất lúc 8 giờ tối](hinh/gio-nong-nhat.png)
+
+**Đọc hình.** Ghép lệch múi giờ làm New York "nóng nhất lúc 8 giờ tối", một điều vô lý dễ thấy.
 
 ### `merge_asof` (as-of join) — phương pháp
 
