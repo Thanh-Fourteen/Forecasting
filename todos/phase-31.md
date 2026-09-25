@@ -9,8 +9,6 @@ Quy ước: `todos/quy-uoc.md` (KHỐI CHUNG). Prompt: `todos.md` mục "Phase 3
 | 33 Không gian–thời gian & thời tiết AI | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
 
 Bắt buộc:
-- **Tóm tắt** (KHỐI CHUNG bước T): mỗi buổi kèm `tom-tat.md` + `TOM-TAT-buoi-NN.pdf` theo `todos/quy-uoc.md` mục
-  "File tóm tắt"
 - Buổi 33: **kiểm chứng AIFS mở tại trạm Nội Bài chỉ trên thời gian sau mốc huấn luyện**; MOS giảm sai số hệ thống;
   GNN nhỏ chạy CPU. **Cột mốc M5**
 - - **Notebook + gọn**: `code/lab.ipynb` (soạn bằng `tools/nb.py`), tài liệu trỏ "ô bước N"; lệnh `python lab.py …`;

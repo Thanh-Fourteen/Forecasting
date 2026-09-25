@@ -8,8 +8,6 @@ Quy ước: `todos/quy-uoc.md` (KHỐI CHUNG). Prompt: `todos.md` mục "Phase 3
 | 39 Kịch bản & what-if | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
 
 Bắt buộc:
-- **Tóm tắt** (KHỐI CHUNG bước T): mỗi buổi kèm `tom-tat.md` + `TOM-TAT-buoi-NN.pdf` theo `todos/quy-uoc.md` mục
-  "File tóm tắt"
 - Buổi 38: **dữ liệu mô phỏng có đáp án** kiểm phương pháp trước; placebo test theo thời gian và theo đơn vị; synthetic control Prop 99
 - Buổi 39: mô phỏng confounding cho độ co giãn **sai dấu**, sửa bằng DoubleML về đúng ±0.2; DAG vẽ trong tài liệu
 - - **Notebook + gọn**: `code/lab.ipynb` (soạn bằng `tools/nb.py`), tài liệu trỏ "ô bước N"; lệnh `python lab.py …`;

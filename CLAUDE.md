@@ -26,7 +26,7 @@ Nội dung từng buổi: `lo-trinh/lo-trinh-forecasting.md`.
 |---|---|
 | `lo-trinh/` | Lộ trình 44 buổi, nguồn của mọi buổi |
 | `phu-luc/` | Phụ lục A–F dùng chung (Python, xác suất, đọc biểu đồ, công thức chỉ số, từ điển, nguồn dữ liệu) |
-| `buoi-NN/` | Một buổi tự chứa: `tai-lieu.md`, PDF, `NGHIEN-CUU.md`, `hinh/`, `code/`, `dap-an/`, `lab/`, `kiem-tra.md`, `tom-tat.md` (thẻ khái niệm/mô hình/phương pháp để xem lại — khung ở `todos/quy-uoc.md`) |
+| `buoi-NN/` | Một buổi tự chứa: `tai-lieu.md`, PDF, `NGHIEN-CUU.md`, `hinh/`, `code/`, `dap-an/`, `lab/`, `kiem-tra.md` |
 | `buoi-NN/lab/nen.toml` | **Viết tay**: tên thư viện + tên bộ dữ liệu buổi cần (`[ghi_de]` có lý do nếu phải lệch bảng chung) |
 | `buoi-NN/lab/00-nen/` | **Nền của buổi — sinh tự động**: `pyproject.toml` + `uv.lock`, `du-lieu.toml` (URL + sha256 + giấy phép), `lay_du_lieu.py`, `requirements.txt` (cho conda/pip), `tv/` (khung trợ giúp, `import tv`); kèm `lab/lab.py` (`python lab.py up/check/chay/notebook/down`, thay Makefile từ 2026-09-18) |
 | `du-an-giua-chang/` | 01 EDA & làm sạch, 02 thi dự báo trên dữ liệu tương lai |
@@ -113,7 +113,6 @@ có nguồn và ngày. Lệch lớn so với lộ trình → cập nhật `lo-tr
 - Đạt chuẩn dễ hiểu + gọn: `tools/kiem_de_hieu.py NN` sạch + **tự đọc thử** (vai học viên mới) và **tự rà gọn** (vai
   biên tập viên) — hai lượt đọc riêng, **không dùng subagent**, theo checklist trong `tools/CHUAN-DE-HIEU.md` (0 chỗ chặn,
   ≤ 5 chỗ khó, mọi câu quiz có căn cứ trong tài liệu, ≤ 3 chỗ thừa), ghi mục "Đọc thử" trong `NGHIEN-CUU.md`
-- `tom-tat.md` dạng thẻ (khung ở `todos/quy-uoc.md` mục "File tóm tắt") + `TOM-TAT-buoi-NN.pdf` (`xuat_pdf.py --tom-tat NN`)
 - `code/` chạy được, có chỗ hở cố ý, kèm `README.md` ngắn
 - `dap-an/` là bản đã sửa, `python lab.py check --dap-an` xanh; `code/` thì `python lab.py check` đỏ đúng chỗ hở
 - `lab/00-nen/` dựng đúng nền **từ venv trắng** (`uv sync --frozen` + dữ liệu qua sha256)
@@ -132,7 +131,6 @@ uv venv .venv && uv pip install --python .venv/bin/python -r tools/requirements.
 
 .venv/bin/python tools/xuat_pdf.py [5 6 | lo-trinh]   # md -> PDF nằm cạnh file nguồn
 .venv/bin/python tools/xuat_pdf.py --kiem             # đếm trang, báo buổi ngoài 10–16
-.venv/bin/python tools/xuat_pdf.py --tom-tat 1 2      # chỉ tom-tat.md -> TOM-TAT-buoi-NN.pdf
 cp -r tools/khuon-buoi buoi-07                        # buổi mới từ khuôn, rồi sửa buoi-07/lab/nen.toml
 .venv/bin/python tools/sinh_nen.py 7                  # sinh buoi-07/lab/00-nen/ + uv lock  (--kiem, --tat-ca, --nang-cap)
 .venv/bin/python tools/lay_du_lieu.py buoi-07         # tải + kiểm sha256  (--tom-tat: bảng cho "Trạng thái đầu buổi")
@@ -164,4 +162,5 @@ Mặc định: **Python 3.12 + uv, CPU 4 nhân, 16 GB RAM**, không cần GPU, k
 | 29–35 | 16 GB RAM; có cấu hình rút gọn cho máy 8 GB; GPU tuỳ chọn |
 | 33 | ~5 GB đĩa cho dữ liệu AIFS/ERA5 cắt nhỏ |
 | 36–37 | Ollama/llama.cpp với model mở, hoặc API key LLM (trần chi phí < 5 USD/buổi) |
-| 41–43, dự án giữa chặng 2, đề B | API key EIA (miễn phí), Docker |
+| 41–43, đề B | API key EIA (miễn phí), Docker |
+| dự án giữa chặng 2 | mạng khi nộp/chấm (tệp EIA-930 sáu tháng + Open-Meteo, không cần key) |

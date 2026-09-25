@@ -1,0 +1,43 @@
+# SINH TỰ ĐỘNG bởi tools/sinh_nen.py — KHÔNG SỬA TAY. Sửa tools/du-lieu/danh-muc.toml rồi chạy lại tool.
+# Dữ liệu của buoi-27: tải + kiểm sha256 bằng `python lab.py up`.
+
+phien_ban = 1
+
+[[bo]]
+ten = "monash-car-parts"
+kieu = "http"
+tieu_de = "Car Parts — nhu cầu phụ tùng ô tô theo tháng, có giá trị thiếu (2.674 chuỗi) — Monash"
+url = "https://zenodo.org/records/4656022/files/car_parts_dataset_with_missing_values.zip?download=1"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/105db7d8d51c8ff1229ec06c363f641417124bf3/monash-car-parts/car_parts_dataset_with_missing_values.zip"
+sha256 = "80557703397c7dca6c007bd28930b0e213e529f428afd02e5af87804fdc38ee1"
+dung_luong = 39656
+giai_nen = "zip"
+chi_lay = ["car_parts_dataset_with_missing_values.tsf"]
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://doi.org/10.5281/zenodo.4656022"
+trich_giay_phep = "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."
+ghi_nguon = "Godahewa et al. (2021). Monash Time Series Forecasting Archive; dữ liệu gốc từ gói R expsmooth (Hyndman)."
+mirror = true
+khong_thoi_gian = true
+ghi_chu = "Zenodo ghi nguồn 'extracted from R expsmooth package' (gói GPL). Dự phòng mở cho M5 ở bài nhu cầu gián đoạn."
+
+[[bo]]
+ten = "uci-bike-sharing"
+kieu = "http"
+tieu_de = "UCI Bike Sharing Dataset (Capital Bikeshare, Washington D.C.)"
+url = "https://archive.ics.uci.edu/static/public/275/bike+sharing+dataset.zip"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/105db7d8d51c8ff1229ec06c363f641417124bf3/uci-bike-sharing/bike+sharing+dataset.zip"
+sha256 = "b70182d0d0508e9abbb79306ce5c0cec34869000f8220175ac83d11dbe845401"
+dung_luong = 279992
+giai_nen = "zip"
+chi_lay = ["Readme.txt", "day.csv", "hour.csv"]
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://archive.ics.uci.edu/dataset/275/bike+sharing+dataset"
+trich_giay_phep = "This dataset is licensed under a Creative Commons Attribution 4.0 International (CC BY 4.0) license. This allows for the sharing and adaptation of the datasets for any purpose, provided that the appropriate credit is given."
+ghi_nguon = "Fanaee-T, H. (2013). Bike Sharing [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5W894"
+mirror = true
+khoang_thoi_gian = ["2011-01-01", "2012-12-31"]
+dang_dai = { "tep" = "hour.csv", "ds" = "dteday", "gio" = "hr", "y" = "cnt", "id" = "bike-sharing" }
+ghi_chu = "Giờ theo giờ địa phương Washington D.C., không có thông tin múi giờ; tệp CSV xuống dòng CRLF. API metadata UCI báo 17.389 bản ghi nhưng hour.csv có 17.379 dòng — không kiểm số dòng theo metadata."

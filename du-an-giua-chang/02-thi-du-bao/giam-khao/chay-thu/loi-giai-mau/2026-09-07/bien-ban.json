@@ -1,0 +1,15 @@
+{
+ "moc": "2026-09-07T00:00Z",
+ "nhom": "loi-giai-mau",
+ "tao_luc": "2026-09-24T09:23:42+00:00",
+ "thu_qua_khu": true,
+ "thoi_tiet_tai_luc": "2026-09-24T09:22:20+00:00",
+ "sha256_ma": "f9f065f500347442cdacf559c8d9f9a936e686e40ac889b116bef417a99af463",
+ "thu_muc_ma": "/home/tony/Tony/Forecasting/du-an-giua-chang/02-thi-du-bao/giam-khao/loi-giai-mau",
+ "tep": {
+  "backtest.csv": "4729bb55fdc81896a27549ed88a302ac4de6116e6df64c921c197cbc74cc8181",
+  "dau-vao.parquet": "8e232e8947b8b7915955a72fbbfad190c9177767b5f305b30136935c202aec66",
+  "du-bao.csv": "6093df53da71c0d6d4f847abc95a377ccfd4c0e8ae096bb6c79b6b67b64871f0",
+  "thoi-tiet.parquet": "19f44d9220366645d3860553e3e20f578910d5ae19164a97d0a7cc9d6e286593"
+ }
+}

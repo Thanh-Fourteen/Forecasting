@@ -1,0 +1,15 @@
+# Buổi 25 — Dự báo xác suất. Nguồn của lab/00-nen/ (python tools/sinh_nen.py 25).
+# Không sửa tay bất cứ gì trong lab/00-nen/.
+
+# Thư viện buổi dùng — chỉ ghi TÊN; phiên bản lấy từ tools/nen/phien-ban.toml.
+thu_vien = ["matplotlib", "scipy", "scikit-learn", "lightgbm", "scoringrules", "pyarrow"]
+
+# Bộ dữ liệu — tên trong tools/du-lieu/danh-muc.toml.
+du_lieu = ["eia930-balance-2024-h1", "eia930-balance-2024-h2", "eia930-balance-2025-h1", "eia930-balance-2025-h2",
+           "open-meteo-du-bao-luu-erco-2024-2025", "open-meteo-dallas-tmax-1940-2025"]
+
+# Buổi này học viên tự viết pinball, CRPS từ mẫu, WIS → không phát tv.danh_gia (lời giải).
+khung_bo = ["danh_gia"]
+
+[cham]
+code_phai_do = true

@@ -1,0 +1,18 @@
+# Dự án giữa chặng 2 — Thi dự báo trên dữ liệu tương lai. Nguồn của lab/00-nen/
+#     python tools/sinh_nen.py du-an-giua-chang/02-thi-du-bao
+# Không sửa tay bất cứ gì trong lab/00-nen/.
+
+# Thư viện — chỉ ghi TÊN; phiên bản lấy từ tools/nen/phien-ban.toml.
+thu_vien = ["matplotlib", "scikit-learn", "lightgbm", "statsmodels", "pyarrow"]
+
+# Dữ liệu lịch sử CỐ ĐỊNH (sha256). Dữ liệu mới từ 2026 trở đi và tuần cần chấm do cong-cu/lay_du_lieu_moi.py tải trực tiếp.
+du_lieu = ["eia930-balance-2024-h1", "eia930-balance-2024-h2", "eia930-balance-2025-h1", "eia930-balance-2025-h2",
+           "open-meteo-du-bao-luu-ciso-2024-2025", "open-meteo-du-bao-luu-erco-2024-2025",
+           "open-meteo-du-bao-luu-miso-2024-2025", "open-meteo-du-bao-luu-nyis-2024-2025",
+           "open-meteo-du-bao-luu-pjm-2024-2025"]
+
+khung_bo = []
+
+[cham]
+# code/ lúc phát là khung có chỗ hở (thời tiết thật trong backtest) → python lab.py check phải ĐỎ.
+code_phai_do = true

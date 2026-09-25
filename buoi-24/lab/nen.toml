@@ -1,0 +1,19 @@
+# Buổi 24 — Ensemble, AutoML và ca khó. Nguồn của lab/00-nen/ (python tools/sinh_nen.py 24).
+# Nền của buổi — NGUỒN của lab/00-nen/. Sửa tệp này rồi chạy:
+#     python tools/sinh_nen.py NN
+# Không sửa tay bất cứ gì trong lab/00-nen/ (bị ghi đè và bị tools/kiem_tra_doc_lap.sh chặn).
+
+# Thư viện buổi dùng — chỉ ghi TÊN; phiên bản lấy từ tools/nen/phien-ban.toml (chung cả khoá).
+# pytest, ruff, jupyterlab, jupytext, ipykernel, tzdata luôn có sẵn, không cần ghi.
+thu_vien = ["matplotlib", "lightgbm", "statsforecast", "autogluon.timeseries", "openpyxl", "pyarrow"]
+
+# Bộ dữ liệu — tên trong tools/du-lieu/danh-muc.toml (có URL, sha256, giấy phép đã xác minh).
+du_lieu = ["monash-m4-monthly", "uci-online-retail-ii"]
+
+# Module của tools/khung/ KHÔNG chép vào tv/ — buổi dạy học viên tự viết công cụ đó
+# (buổi 4: "ve", buổi 13: "ro_ri", buổi 14: "danh_gia", buổi 15: "backtest").
+khung_bo = []
+
+[cham]
+# python lab.py check trên code/ phải ĐỎ (chỗ hở cố ý còn nguyên). Buổi không có chỗ hở (44) thì đặt false.
+code_phai_do = true

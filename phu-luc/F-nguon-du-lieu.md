@@ -8,7 +8,7 @@ sha256. Nhật ký rà giấy phép đầy đủ: `tools/du-lieu/NGHIEN-CUU.md`.
 **Quy tắc:** CC BY / CC0 / public domain → được mirror (kèm ghi nguồn); giấy phép cấm phân phối lại → học
 viên tự tải bằng tài khoản của mình và luôn có bộ dự phòng mở; nguồn không có giấy phép rõ → không mirror.
 
-Danh mục có **86 bộ**, tổng dung lượng tải khoảng **1.4 GB** (không tính bộ chưa rõ dung lượng).
+Danh mục có **92 bộ**, tổng dung lượng tải khoảng **1.4 GB** (không tính bộ chưa rõ dung lượng).
 
 ## Bảng tổng quan
 
@@ -80,6 +80,12 @@ Danh mục có **86 bộ**, tổng dung lượng tải khoảng **1.4 GB** (khô
 | `nyc-tlc-zone-lookup` | NYC Open Data — không giới hạn sử dụng | có | tải trực tiếp | 12.0 KB | 3 | đã chốt |
 | `open-meteo-dallas-2024` | CC BY 4.0 | có | tải trực tiếp | 187.8 KB | 8 | đã chốt |
 | `open-meteo-dallas-du-bao-luu-2024` | CC BY 4.0 | có | tải trực tiếp | 271.5 KB | 13, 18 | đã chốt |
+| `open-meteo-dallas-tmax-1940-2025` | CC BY 4.0 | có | tải trực tiếp | 488.9 KB | 25 | đã chốt |
+| `open-meteo-du-bao-luu-ciso-2024-2025` | CC BY 4.0 | có | tải trực tiếp | 970.6 KB | du-an-giua-chang-2 | đã chốt |
+| `open-meteo-du-bao-luu-erco-2024-2025` | CC BY 4.0 | có | tải trực tiếp | 960.4 KB | 25, du-an-giua-chang-2 | đã chốt |
+| `open-meteo-du-bao-luu-miso-2024-2025` | CC BY 4.0 | có | tải trực tiếp | 943.7 KB | du-an-giua-chang-2 | đã chốt |
+| `open-meteo-du-bao-luu-nyis-2024-2025` | CC BY 4.0 | có | tải trực tiếp | 934.5 KB | du-an-giua-chang-2 | đã chốt |
+| `open-meteo-du-bao-luu-pjm-2024-2025` | CC BY 4.0 | có | tải trực tiếp | 937.6 KB | du-an-giua-chang-2 | đã chốt |
 | `open-meteo-ha-noi-2023-2024` | CC BY 4.0 | có | tải trực tiếp | 649.6 KB | 10, 33 | đã chốt |
 | `open-meteo-houston-2024` | CC BY 4.0 | có | tải trực tiếp | 188.3 KB | 8 | đã chốt |
 | `open-meteo-new-york-2024-01` | CC BY 4.0 | có | tải trực tiếp | 26.6 KB | 3 | đã chốt |
@@ -97,7 +103,7 @@ Danh mục có **86 bộ**, tổng dung lượng tải khoảng **1.4 GB** (khô
 | `uci-bike-sharing` | CC BY 4.0 | có | tải trực tiếp | 273.4 KB | 2, 4, 7, 27 | đã chốt |
 | `uci-electricity-load` | CC BY 4.0 | có | tải trực tiếp | 249.2 MB | 29, 30, 32 | đã chốt |
 | `uci-household-power` | CC BY 4.0 | có | tải trực tiếp | 19.7 MB | 1 | đã chốt |
-| `uci-online-retail-ii` | CC BY 4.0 | có | tải trực tiếp | 43.5 MB | 9, 13, 14, 22, 24, 39, 44 | đã chốt |
+| `uci-online-retail-ii` | CC BY 4.0 | có | tải trực tiếp | 43.5 MB | 9, 13, 14, 22, 23, 24, 39, 44 | đã chốt |
 | `wikipedia-vi-tet` | CC0 1.0 | có | tải trực tiếp | 553.5 KB | 11, 13 | đã chốt |
 | `wikipedia-vi-tong` | CC0 1.0 | có | tải trực tiếp | 453.1 KB | 11, 18, 38 | đã chốt |
 
@@ -906,6 +912,84 @@ Danh mục có **86 bộ**, tổng dung lượng tải khoảng **1.4 GB** (khô
 - **Ghi chú:** Cột `temperature_2m` là giá trị đã biết sau (ERA5 reanalysis, KHÔNG dùng làm feature ex-ante); `_previous_day1`/`_previous_day3` là giá trị dự báo trước 1 và 3 ngày — dùng làm feature hợp lệ. 8.784 dòng, 2 dòng metadata + 1 dòng trống ở đầu (đọc bằng skiprows=2). NaN ở các giờ đầu 2024-01 (chưa có lượt chạy trước đó). Lưu trữ previous-runs chỉ có từ 01/2024.
 - **Xác minh:** 2026-09-18: tác giả tải 2 lần cùng sha256; docs API + trang licence
 
+### `open-meteo-dallas-tmax-1940-2025` — Open-Meteo Historical Weather (ERA5) — Dallas TX, nhiệt độ tối đa ngày 1940–2025, giờ Texas
+
+- **Nguồn:** <https://open-meteo.com/en/docs/historical-weather-api>
+- **Tệp tải:** `https://archive-api.open-meteo.com/v1/archive?latitude=32.7767&longitude=-96.797&start_date=1940-01-01&end_date=2025-12-31&daily=temperature_2m_max&timezone=America%2FChicago&models=era5&format=csv`
+- **Giấy phép:** CC BY 4.0 — <https://open-meteo.com/en/licence>
+- **Trích nguyên văn:** "API data are offered under Attribution 4.0 International (CC BY 4.0)… You must give appropriate credit, provide a link to the licence, and indicate if changes were made."
+- **Mirror:** được — API miễn phí chỉ cho mục đích phi thương mại (https://open-meteo.com/en/terms) — tác giả tải một lần, học viên lấy bản mirror khi có HF_TOKEN của khoá
+- **Khoảng thời gian cố định:** 1940-01-01 → 2025-12-31
+- **sha256:** `15bc72f4d84549cf0c05f95c25d397f9d6cdd80bade6a9edd3e950ad160116ad` (488.9 KB)
+- **Trích dẫn:** Weather data by Open-Meteo.com (https://open-meteo.com/), mô hình ERA5.
+- **Ghi chú:** 31.412 ngày, không thiếu; 3 dòng đầu là metadata ô lưới (32.75, -96.75; cao 137 m) + 1 dòng trống → skiprows=3. Ngày theo giờ Texas. Bản không ghi models=era5 (best_match) khác số từ 1950 — luôn ghi models=era5. API giới hạn tần suất: tải liền tay có thể nhận JSON lỗi thay cho CSV.
+- **Xác minh:** 2026-09-24: tải 3 lần (cách nhau ≥ 20 s) cùng sha256; một lần bị giới hạn tần suất trả JSON lỗi; trang licence + terms
+
+### `open-meteo-du-bao-luu-ciso-2024-2025` — Open-Meteo Previous Runs — Los Angeles CA (vùng điều độ CISO), 2024–2025: nhiệt độ lượt chạy mới nhất và nhiệt độ ĐÃ DỰ BÁO trước 1…7 ngày
+
+- **Nguồn:** <https://open-meteo.com/en/docs/previous-runs-api>
+- **Tệp tải:** `https://previous-runs-api.open-meteo.com/v1/forecast?latitude=34.0522&longitude=-118.2437&start_date=2024-01-01&end_date=2025-12-31&hourly=temperature_2m,temperature_2m_previous_day1,temperature_2m_previous_day2,temperature_2m_previous_day3,temperature_2m_previous_day4,temperature_2m_previous_day5,temperature_2m_previous_day6,temperature_2m_previous_day7&timezone=UTC&format=csv`
+- **Giấy phép:** CC BY 4.0 — <https://open-meteo.com/en/licence>
+- **Trích nguyên văn:** "The data obtained through the API is provided under the terms of the CC-BY 4.0 licence"
+- **Mirror:** được — CC BY 4.0 cho phân phối lại; API miễn phí chỉ cho mục đích phi thương mại — cần mirror khi có HF_TOKEN của khoá
+- **Khoảng thời gian cố định:** 2024-01-01 → 2025-12-31
+- **sha256:** `5e2c8eac02482f4f7968944f8710b98f438746dcdc2bb710c1c9e40777c0640b` (970.6 KB)
+- **Trích dẫn:** Weather data by Open-Meteo.com (https://open-meteo.com/), Previous Runs API.
+- **Ghi chú:** 17.544 dòng giờ UTC; 2 dòng metadata ô lưới (34.060257,-118.23433,91.0,0,GMT,GMT) + 1 dòng trống → skiprows=3. `temperature_2m` = lượt chạy mới nhất cho giờ đó (sát thực tế, chỉ biết SAU); `_previous_dayK` = giá trị đã dự báo trước 24·K giờ — feature hợp lệ cho tầm ≤ 24·K giờ. `_previous_day1` có từ 2024-01-19, `_day7` từ 2024-01-25.
+- **Xác minh:** 2026-09-24: tải 2 lần cùng sha256; docs Previous Runs API + trang licence
+
+### `open-meteo-du-bao-luu-erco-2024-2025` — Open-Meteo Previous Runs — Dallas TX (vùng điều độ ERCO), 2024–2025: nhiệt độ lượt chạy mới nhất và nhiệt độ ĐÃ DỰ BÁO trước 1…7 ngày
+
+- **Nguồn:** <https://open-meteo.com/en/docs/previous-runs-api>
+- **Tệp tải:** `https://previous-runs-api.open-meteo.com/v1/forecast?latitude=32.7767&longitude=-96.797&start_date=2024-01-01&end_date=2025-12-31&hourly=temperature_2m,temperature_2m_previous_day1,temperature_2m_previous_day2,temperature_2m_previous_day3,temperature_2m_previous_day4,temperature_2m_previous_day5,temperature_2m_previous_day6,temperature_2m_previous_day7&timezone=UTC&format=csv`
+- **Giấy phép:** CC BY 4.0 — <https://open-meteo.com/en/licence>
+- **Trích nguyên văn:** "The data obtained through the API is provided under the terms of the CC-BY 4.0 licence"
+- **Mirror:** được — CC BY 4.0 cho phân phối lại; API miễn phí chỉ cho mục đích phi thương mại — cần mirror khi có HF_TOKEN của khoá
+- **Khoảng thời gian cố định:** 2024-01-01 → 2025-12-31
+- **sha256:** `ad8753a7ffe9aff6d80b5dc310c351fa70b68caf5bb53907c4edbd0a96c679d7` (960.4 KB)
+- **Trích dẫn:** Weather data by Open-Meteo.com (https://open-meteo.com/), Previous Runs API.
+- **Ghi chú:** 17.544 dòng giờ UTC; 2 dòng metadata ô lưới (32.784855,-96.80359,137.0,0,GMT,GMT) + 1 dòng trống → skiprows=3. `temperature_2m` = lượt chạy mới nhất cho giờ đó (sát thực tế, chỉ biết SAU); `_previous_dayK` = giá trị đã dự báo trước 24·K giờ — feature hợp lệ cho tầm ≤ 24·K giờ. `_previous_day1` có từ 2024-01-19, `_day7` từ 2024-01-25.
+- **Xác minh:** 2026-09-24: tải 2 lần cùng sha256; docs Previous Runs API + trang licence
+
+### `open-meteo-du-bao-luu-miso-2024-2025` — Open-Meteo Previous Runs — Indianapolis IN (vùng điều độ MISO), 2024–2025: nhiệt độ lượt chạy mới nhất và nhiệt độ ĐÃ DỰ BÁO trước 1…7 ngày
+
+- **Nguồn:** <https://open-meteo.com/en/docs/previous-runs-api>
+- **Tệp tải:** `https://previous-runs-api.open-meteo.com/v1/forecast?latitude=39.7684&longitude=-86.1581&start_date=2024-01-01&end_date=2025-12-31&hourly=temperature_2m,temperature_2m_previous_day1,temperature_2m_previous_day2,temperature_2m_previous_day3,temperature_2m_previous_day4,temperature_2m_previous_day5,temperature_2m_previous_day6,temperature_2m_previous_day7&timezone=UTC&format=csv`
+- **Giấy phép:** CC BY 4.0 — <https://open-meteo.com/en/licence>
+- **Trích nguyên văn:** "The data obtained through the API is provided under the terms of the CC-BY 4.0 licence"
+- **Mirror:** được — CC BY 4.0 cho phân phối lại; API miễn phí chỉ cho mục đích phi thương mại — cần mirror khi có HF_TOKEN của khoá
+- **Khoảng thời gian cố định:** 2024-01-01 → 2025-12-31
+- **sha256:** `195cd9b61c6a3c7c059a1174a6a7ad90a1676ae40ae7b538541fe4d82a0a688f` (943.7 KB)
+- **Trích dẫn:** Weather data by Open-Meteo.com (https://open-meteo.com/), Previous Runs API.
+- **Ghi chú:** 17.544 dòng giờ UTC; 2 dòng metadata ô lưới (39.766758,-86.14396,214.0,0,GMT,GMT) + 1 dòng trống → skiprows=3. `temperature_2m` = lượt chạy mới nhất cho giờ đó (sát thực tế, chỉ biết SAU); `_previous_dayK` = giá trị đã dự báo trước 24·K giờ — feature hợp lệ cho tầm ≤ 24·K giờ. `_previous_day1` có từ 2024-01-19, `_day7` từ 2024-01-25.
+- **Xác minh:** 2026-09-24: tải 2 lần cùng sha256; docs Previous Runs API + trang licence
+
+### `open-meteo-du-bao-luu-nyis-2024-2025` — Open-Meteo Previous Runs — New York NY (vùng điều độ NYIS), 2024–2025: nhiệt độ lượt chạy mới nhất và nhiệt độ ĐÃ DỰ BÁO trước 1…7 ngày
+
+- **Nguồn:** <https://open-meteo.com/en/docs/previous-runs-api>
+- **Tệp tải:** `https://previous-runs-api.open-meteo.com/v1/forecast?latitude=40.7128&longitude=-74.006&start_date=2024-01-01&end_date=2025-12-31&hourly=temperature_2m,temperature_2m_previous_day1,temperature_2m_previous_day2,temperature_2m_previous_day3,temperature_2m_previous_day4,temperature_2m_previous_day5,temperature_2m_previous_day6,temperature_2m_previous_day7&timezone=UTC&format=csv`
+- **Giấy phép:** CC BY 4.0 — <https://open-meteo.com/en/licence>
+- **Trích nguyên văn:** "The data obtained through the API is provided under the terms of the CC-BY 4.0 licence"
+- **Mirror:** được — CC BY 4.0 cho phân phối lại; API miễn phí chỉ cho mục đích phi thương mại — cần mirror khi có HF_TOKEN của khoá
+- **Khoảng thời gian cố định:** 2024-01-01 → 2025-12-31
+- **sha256:** `d8e82a184f08c3700383017c8bea067072a5e4cbbbfe7b187a7783108c8e1f9b` (934.5 KB)
+- **Trích dẫn:** Weather data by Open-Meteo.com (https://open-meteo.com/), Previous Runs API.
+- **Ghi chú:** 17.544 dòng giờ UTC; 2 dòng metadata ô lưới (40.710335,-73.99308,32.0,0,GMT,GMT) + 1 dòng trống → skiprows=3. `temperature_2m` = lượt chạy mới nhất cho giờ đó (sát thực tế, chỉ biết SAU); `_previous_dayK` = giá trị đã dự báo trước 24·K giờ — feature hợp lệ cho tầm ≤ 24·K giờ. `_previous_day1` có từ 2024-01-19, `_day7` từ 2024-01-25.
+- **Xác minh:** 2026-09-24: tải 2 lần cùng sha256; docs Previous Runs API + trang licence
+
+### `open-meteo-du-bao-luu-pjm-2024-2025` — Open-Meteo Previous Runs — Philadelphia PA (vùng điều độ PJM), 2024–2025: nhiệt độ lượt chạy mới nhất và nhiệt độ ĐÃ DỰ BÁO trước 1…7 ngày
+
+- **Nguồn:** <https://open-meteo.com/en/docs/previous-runs-api>
+- **Tệp tải:** `https://previous-runs-api.open-meteo.com/v1/forecast?latitude=39.9526&longitude=-75.1652&start_date=2024-01-01&end_date=2025-12-31&hourly=temperature_2m,temperature_2m_previous_day1,temperature_2m_previous_day2,temperature_2m_previous_day3,temperature_2m_previous_day4,temperature_2m_previous_day5,temperature_2m_previous_day6,temperature_2m_previous_day7&timezone=UTC&format=csv`
+- **Giấy phép:** CC BY 4.0 — <https://open-meteo.com/en/licence>
+- **Trích nguyên văn:** "The data obtained through the API is provided under the terms of the CC-BY 4.0 licence"
+- **Mirror:** được — CC BY 4.0 cho phân phối lại; API miễn phí chỉ cho mục đích phi thương mại — cần mirror khi có HF_TOKEN của khoá
+- **Khoảng thời gian cố định:** 2024-01-01 → 2025-12-31
+- **sha256:** `cd64cbbcbdb048fbfc8114d54c8043dd6d6bdabaf30c36da94d2e819d42edff4` (937.6 KB)
+- **Trích dẫn:** Weather data by Open-Meteo.com (https://open-meteo.com/), Previous Runs API.
+- **Ghi chú:** 17.544 dòng giờ UTC; 2 dòng metadata ô lưới (39.96188,-75.15539,32.0,0,GMT,GMT) + 1 dòng trống → skiprows=3. `temperature_2m` = lượt chạy mới nhất cho giờ đó (sát thực tế, chỉ biết SAU); `_previous_dayK` = giá trị đã dự báo trước 24·K giờ — feature hợp lệ cho tầm ≤ 24·K giờ. `_previous_day1` có từ 2024-01-19, `_day7` từ 2024-01-25.
+- **Xác minh:** 2026-09-24: tải 2 lần cùng sha256; docs Previous Runs API + trang licence
+
 ### `open-meteo-ha-noi-2023-2024` — Open-Meteo Historical Weather (ERA5) — Hà Nội, theo giờ 2023–2024, UTC
 
 - **Nguồn:** <https://open-meteo.com/en/docs/historical-weather-api>
@@ -1053,7 +1137,7 @@ Danh mục có **86 bộ**, tổng dung lượng tải khoảng **1.4 GB** (khô
 - **Nguồn:** <https://github.com/tidyverts/tsibble>
 - **Tệp tải:** `https://raw.githubusercontent.com/tidyverts/tsibble/e7a409f666e5a021123299171cf0c0bf99501199/data/tourism.rda`
 - **Giấy phép:** GPL-3 (dữ liệu nằm trong gói tsibble) — <https://www.gnu.org/licenses/gpl-3.0.html>
-- **Trích nguyên văn:** "License: GPL-3 (CRAN DESCRIPTION của tsibble); tài liệu dữ liệu chỉ ghi nguồn Tourism Research Australia (https://www.tra.gov.au)."
+- **Trích nguyên văn:** "License: GPL-3 (CRAN DESCRIPTION của tsibble); tài liệu dữ liệu ghi nguồn Tourism Research Australia (https://www.tra.gov.au). Nguồn gốc: 'Unless otherwise noted, content on the Websites is licenced under a Creative Commons Attribution—4.0 International licence' — Site disclaimer của Austrade, áp dụng cho tra.gov.au (https://www.austrade.gov.au/en/site-information/site-disclaimer, truy cập 2026-09-24)."
 - **Mirror:** được — GPL-3 cho phép phân phối lại nguyên vẹn kèm văn bản giấy phép; giấy phép gốc của Tourism Research Australia CHƯA xác minh
 - **Bộ dự phòng mở:** `uci-online-retail-ii`
 - **Khoảng thời gian cố định:** 1998-01-01 → 2017-12-31

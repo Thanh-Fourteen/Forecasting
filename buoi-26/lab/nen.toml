@@ -1,0 +1,13 @@
+# Buổi 26 — Conformal prediction cho chuỗi thời gian. Nguồn của lab/00-nen/ (python tools/sinh_nen.py 26).
+# Không sửa tay bất cứ gì trong lab/00-nen/.
+
+# Thư viện buổi dùng — chỉ ghi TÊN; phiên bản lấy từ tools/nen/phien-ban.toml.
+thu_vien = ["matplotlib", "scikit-learn", "lightgbm", "mapie", "pyarrow"]
+
+# Bộ dữ liệu — tên trong tools/du-lieu/danh-muc.toml.
+du_lieu = ["uci-beijing-air"]
+
+khung_bo = []
+
+[cham]
+code_phai_do = true

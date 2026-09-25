@@ -1,0 +1,24 @@
+# SINH TỰ ĐỘNG bởi tools/sinh_nen.py — KHÔNG SỬA TAY. Sửa tools/du-lieu/danh-muc.toml rồi chạy lại tool.
+# Dữ liệu của buoi-28: tải + kiểm sha256 bằng `python lab.py up`.
+
+phien_ban = 1
+
+[[bo]]
+ten = "tourism-australia-tsibble"
+kieu = "http"
+tieu_de = "Tourism Australia theo quý — số đêm lưu trú theo bang × vùng × mục đích (dữ liệu 'tourism' của gói R tsibble)"
+url = "https://raw.githubusercontent.com/tidyverts/tsibble/e7a409f666e5a021123299171cf0c0bf99501199/data/tourism.rda"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/105db7d8d51c8ff1229ec06c363f641417124bf3/tourism-australia-tsibble/tourism.rda"
+sha256 = "79262e8ee3beae8c7e91dac59ea9857314ae1c0102121571b4b75ff33847f9cb"
+dung_luong = 177920
+ten_tep = "tourism.rda"
+giay_phep = "GPL-3 (dữ liệu nằm trong gói tsibble)"
+link_giay_phep = "https://www.gnu.org/licenses/gpl-3.0.html"
+trang_nguon = "https://github.com/tidyverts/tsibble"
+trich_giay_phep = "License: GPL-3 (CRAN DESCRIPTION của tsibble); tài liệu dữ liệu ghi nguồn Tourism Research Australia (https://www.tra.gov.au). Nguồn gốc: 'Unless otherwise noted, content on the Websites is licenced under a Creative Commons Attribution—4.0 International licence' — Site disclaimer của Austrade, áp dụng cho tra.gov.au (https://www.austrade.gov.au/en/site-information/site-disclaimer, truy cập 2026-09-24)."
+ghi_nguon = "Wang, E., Cook, D. & Hyndman, R. J. tsibble (R package); Tourism Research Australia."
+mirror = true
+ly_do_mirror = "GPL-3 cho phép phân phối lại nguyên vẹn kèm văn bản giấy phép; giấy phép gốc của Tourism Research Australia CHƯA xác minh"
+khoang_thoi_gian = ["1998-01-01", "2017-12-31"]
+ghi_chu = "Tệp .rda của R — buổi 28 đọc bằng gói Python đọc được .rda (chốt ở Phase 8). Bộ phân cấp dự phòng: tự dựng phân cấp từ UCI Online Retail II (quốc gia → sản phẩm)."
+du_phong = "uci-online-retail-ii"

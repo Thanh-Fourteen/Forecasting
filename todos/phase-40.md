@@ -10,8 +10,6 @@ Cần Docker, API key EIA.
 | 42 Phục vụ quy mô lớn | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
 
 Bắt buộc:
-- **Tóm tắt** (KHỐI CHUNG bước T): mỗi buổi kèm `tom-tat.md` + `TOM-TAT-buoi-NN.pdf` theo `todos/quy-uoc.md` mục
-  "File tóm tắt"
 - Buổi 41: chạy hai lần **giống từng byte**; pandera chặn đổi đơn vị; backfill không dùng dữ liệu sau ngày dự báo; kho dữ liệu as-of
 - Buổi 42: đo thời gian vòng for → `n_jobs` → Ray, ghi con số; API p95 bằng `locust`; Docker
 - - **Notebook + gọn**: `code/lab.ipynb` (soạn bằng `tools/nb.py`), tài liệu trỏ "ô bước N"; lệnh `python lab.py …`;

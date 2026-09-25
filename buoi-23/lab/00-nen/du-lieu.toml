@@ -1,0 +1,23 @@
+# SINH TỰ ĐỘNG bởi tools/sinh_nen.py — KHÔNG SỬA TAY. Sửa tools/du-lieu/danh-muc.toml rồi chạy lại tool.
+# Dữ liệu của buoi-23: tải + kiểm sha256 bằng `python lab.py up`.
+
+phien_ban = 1
+
+[[bo]]
+ten = "uci-online-retail-ii"
+kieu = "http"
+tieu_de = "UCI Online Retail II (bán lẻ trực tuyến Anh, 2009–2011)"
+url = "https://archive.ics.uci.edu/static/public/502/online+retail+ii.zip"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/105db7d8d51c8ff1229ec06c363f641417124bf3/uci-online-retail-ii/online+retail+ii.zip"
+sha256 = "572e36277c2390fbfde10664750731e0a86f55e33470d91919085f0408e67bfb"
+dung_luong = 45622418
+giai_nen = "zip"
+chi_lay = ["online_retail_II.xlsx"]
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://archive.ics.uci.edu/dataset/502/online+retail+ii"
+trich_giay_phep = "This dataset is licensed under a Creative Commons Attribution 4.0 International (CC BY 4.0) license. This allows for the sharing and adaptation of the datasets for any purpose, provided that the appropriate credit is given."
+ghi_nguon = "Chen, D. (2012). Online Retail II [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5CG6D"
+mirror = true
+khoang_thoi_gian = ["2009-12-01", "2011-12-09"]
+ghi_chu = "Excel hai sheet 'Year 2009-2010' (525.461 dòng) và 'Year 2010-2011' (541.910 dòng) — buổi dùng cần openpyxl. Là dự phòng mở cho M5."

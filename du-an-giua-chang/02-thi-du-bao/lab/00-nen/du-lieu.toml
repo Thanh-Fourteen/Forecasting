@@ -1,0 +1,168 @@
+# SINH TỰ ĐỘNG bởi tools/sinh_nen.py — KHÔNG SỬA TAY. Sửa tools/du-lieu/danh-muc.toml rồi chạy lại tool.
+# Dữ liệu của 02-thi-du-bao: tải + kiểm sha256 bằng `python lab.py up`.
+
+phien_ban = 1
+
+[[bo]]
+ten = "eia930-balance-2024-h1"
+kieu = "http"
+tieu_de = "EIA-930 BALANCE 2024 tháng 1–6 — nhu cầu, dự báo day-ahead, phát điện theo giờ của mọi vùng điều độ Mỹ"
+url = "https://www.eia.gov/electricity/gridmonitor/sixMonthFiles/EIA930_BALANCE_2024_Jan_Jun.csv"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/105db7d8d51c8ff1229ec06c363f641417124bf3/eia930-balance-2024-h1/EIA930_BALANCE_2024_Jan_Jun.csv"
+sha256 = "26768c495c3ba987e29d79df2e40d4e741f9dbcff086f53c12ff774465756a10"
+dung_luong = 41742812
+ten_tep = "EIA930_BALANCE_2024_Jan_Jun.csv"
+giay_phep = "Public domain (U.S. government)"
+link_giay_phep = "https://www.eia.gov/about/copyrights_reuse.php"
+trang_nguon = "https://www.eia.gov/electricity/gridmonitor/"
+trich_giay_phep = "U.S. government publications are in the public domain and are not subject to copyright protection. You may use and/or distribute any of our data, files, databases, reports, graphs, charts, and other information products that are on our website"
+ghi_nguon = "Source: U.S. Energy Information Administration, Form EIA-930 Hourly Electric Grid Monitor (truy cập 2026-09-17)."
+mirror = true
+ly_do_mirror = "BẮT BUỘC mirror: mọi tệp sáu tháng được EIA dựng lại hằng ngày (Last-Modified 2026-09-16) và số liệu được sửa lùi tới 30 ngày"
+khoang_thoi_gian = ["2024-01-01", "2024-06-30"]
+ghi_chu = "Cột thời gian 'UTC Time at End of Hour' (nhãn là cuối giờ); 'Demand Forecast (MW)' là dự báo day-ahead của đơn vị điều độ. Từ 2024 H2 bảng cột thay đổi (tách nguồn mặt trời/gió/thuỷ điện)."
+
+[[bo]]
+ten = "eia930-balance-2024-h2"
+kieu = "http"
+tieu_de = "EIA-930 BALANCE 2024 tháng 7–12"
+url = "https://www.eia.gov/electricity/gridmonitor/sixMonthFiles/EIA930_BALANCE_2024_Jul_Dec.csv"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/105db7d8d51c8ff1229ec06c363f641417124bf3/eia930-balance-2024-h2/EIA930_BALANCE_2024_Jul_Dec.csv"
+sha256 = "a602a8e577cfdd2fa3083413eaa4dd8ba7f0d2b26a2986f8f6d22917465ea49f"
+dung_luong = 47928993
+ten_tep = "EIA930_BALANCE_2024_Jul_Dec.csv"
+giay_phep = "Public domain (U.S. government)"
+link_giay_phep = "https://www.eia.gov/about/copyrights_reuse.php"
+trang_nguon = "https://www.eia.gov/electricity/gridmonitor/"
+trich_giay_phep = "U.S. government publications are in the public domain and are not subject to copyright protection. You may use and/or distribute any of our data, files, databases, reports, graphs, charts, and other information products that are on our website"
+ghi_nguon = "Source: U.S. Energy Information Administration, Form EIA-930 Hourly Electric Grid Monitor (truy cập 2026-09-17)."
+mirror = true
+ly_do_mirror = "BẮT BUỘC mirror: tệp dựng lại hằng ngày, số liệu sửa lùi"
+khoang_thoi_gian = ["2024-07-01", "2024-12-31"]
+
+[[bo]]
+ten = "eia930-balance-2025-h1"
+kieu = "http"
+tieu_de = "EIA-930 BALANCE 2025 tháng 1–6"
+url = "https://www.eia.gov/electricity/gridmonitor/sixMonthFiles/EIA930_BALANCE_2025_Jan_Jun.csv"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/105db7d8d51c8ff1229ec06c363f641417124bf3/eia930-balance-2025-h1/EIA930_BALANCE_2025_Jan_Jun.csv"
+sha256 = "fac4bb991dfa1dab3b4b35300ccab54ac99be13a40ce91954db8ddafb2816242"
+dung_luong = 47565054
+ten_tep = "EIA930_BALANCE_2025_Jan_Jun.csv"
+giay_phep = "Public domain (U.S. government)"
+link_giay_phep = "https://www.eia.gov/about/copyrights_reuse.php"
+trang_nguon = "https://www.eia.gov/electricity/gridmonitor/"
+trich_giay_phep = "U.S. government publications are in the public domain and are not subject to copyright protection. You may use and/or distribute any of our data, files, databases, reports, graphs, charts, and other information products that are on our website"
+ghi_nguon = "Source: U.S. Energy Information Administration, Form EIA-930 Hourly Electric Grid Monitor (truy cập 2026-09-17)."
+mirror = true
+ly_do_mirror = "BẮT BUỘC mirror: tệp dựng lại hằng ngày, số liệu sửa lùi"
+khoang_thoi_gian = ["2025-01-01", "2025-06-30"]
+
+[[bo]]
+ten = "eia930-balance-2025-h2"
+kieu = "http"
+tieu_de = "EIA-930 BALANCE 2025 tháng 7–12"
+url = "https://www.eia.gov/electricity/gridmonitor/sixMonthFiles/EIA930_BALANCE_2025_Jul_Dec.csv"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/105db7d8d51c8ff1229ec06c363f641417124bf3/eia930-balance-2025-h2/EIA930_BALANCE_2025_Jul_Dec.csv"
+sha256 = "1146158b972439db7c7f4cc7d0491e07644ddbf244d03b8ecb44cb2c833d10f1"
+dung_luong = 48256021
+ten_tep = "EIA930_BALANCE_2025_Jul_Dec.csv"
+giay_phep = "Public domain (U.S. government)"
+link_giay_phep = "https://www.eia.gov/about/copyrights_reuse.php"
+trang_nguon = "https://www.eia.gov/electricity/gridmonitor/"
+trich_giay_phep = "U.S. government publications are in the public domain and are not subject to copyright protection. You may use and/or distribute any of our data, files, databases, reports, graphs, charts, and other information products that are on our website"
+ghi_nguon = "Source: U.S. Energy Information Administration, Form EIA-930 Hourly Electric Grid Monitor (truy cập 2026-09-17)."
+mirror = true
+ly_do_mirror = "BẮT BUỘC mirror: tệp dựng lại hằng ngày, số liệu sửa lùi"
+khoang_thoi_gian = ["2025-07-01", "2025-12-31"]
+ghi_chu = "Sau mốc phát hành của nhiều foundation model — dùng đánh giá zero-shot sạch (kiểm lại mốc ở Phase 10)."
+
+[[bo]]
+ten = "open-meteo-du-bao-luu-ciso-2024-2025"
+kieu = "http"
+tieu_de = "Open-Meteo Previous Runs — Los Angeles CA (vùng điều độ CISO), 2024–2025: nhiệt độ lượt chạy mới nhất và nhiệt độ ĐÃ DỰ BÁO trước 1…7 ngày"
+url = "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=34.0522&longitude=-118.2437&start_date=2024-01-01&end_date=2025-12-31&hourly=temperature_2m,temperature_2m_previous_day1,temperature_2m_previous_day2,temperature_2m_previous_day3,temperature_2m_previous_day4,temperature_2m_previous_day5,temperature_2m_previous_day6,temperature_2m_previous_day7&timezone=UTC&format=csv"
+sha256 = "5e2c8eac02482f4f7968944f8710b98f438746dcdc2bb710c1c9e40777c0640b"
+dung_luong = 993891
+ten_tep = "open-meteo-du-bao-luu-ciso-2024-2025.csv"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://open-meteo.com/en/licence"
+trang_nguon = "https://open-meteo.com/en/docs/previous-runs-api"
+trich_giay_phep = "The data obtained through the API is provided under the terms of the CC-BY 4.0 licence"
+ghi_nguon = "Weather data by Open-Meteo.com (https://open-meteo.com/), Previous Runs API."
+mirror = true
+ly_do_mirror = "CC BY 4.0 cho phân phối lại; API miễn phí chỉ cho mục đích phi thương mại — cần mirror khi có HF_TOKEN của khoá"
+khoang_thoi_gian = ["2024-01-01", "2025-12-31"]
+ghi_chu = "17.544 dòng giờ UTC; 2 dòng metadata ô lưới (34.060257,-118.23433,91.0,0,GMT,GMT) + 1 dòng trống → skiprows=3. `temperature_2m` = lượt chạy mới nhất cho giờ đó (sát thực tế, chỉ biết SAU); `_previous_dayK` = giá trị đã dự báo trước 24·K giờ — feature hợp lệ cho tầm ≤ 24·K giờ. `_previous_day1` có từ 2024-01-19, `_day7` từ 2024-01-25."
+
+[[bo]]
+ten = "open-meteo-du-bao-luu-erco-2024-2025"
+kieu = "http"
+tieu_de = "Open-Meteo Previous Runs — Dallas TX (vùng điều độ ERCO), 2024–2025: nhiệt độ lượt chạy mới nhất và nhiệt độ ĐÃ DỰ BÁO trước 1…7 ngày"
+url = "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=32.7767&longitude=-96.797&start_date=2024-01-01&end_date=2025-12-31&hourly=temperature_2m,temperature_2m_previous_day1,temperature_2m_previous_day2,temperature_2m_previous_day3,temperature_2m_previous_day4,temperature_2m_previous_day5,temperature_2m_previous_day6,temperature_2m_previous_day7&timezone=UTC&format=csv"
+sha256 = "ad8753a7ffe9aff6d80b5dc310c351fa70b68caf5bb53907c4edbd0a96c679d7"
+dung_luong = 983445
+ten_tep = "open-meteo-du-bao-luu-erco-2024-2025.csv"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://open-meteo.com/en/licence"
+trang_nguon = "https://open-meteo.com/en/docs/previous-runs-api"
+trich_giay_phep = "The data obtained through the API is provided under the terms of the CC-BY 4.0 licence"
+ghi_nguon = "Weather data by Open-Meteo.com (https://open-meteo.com/), Previous Runs API."
+mirror = true
+ly_do_mirror = "CC BY 4.0 cho phân phối lại; API miễn phí chỉ cho mục đích phi thương mại — cần mirror khi có HF_TOKEN của khoá"
+khoang_thoi_gian = ["2024-01-01", "2025-12-31"]
+ghi_chu = "17.544 dòng giờ UTC; 2 dòng metadata ô lưới (32.784855,-96.80359,137.0,0,GMT,GMT) + 1 dòng trống → skiprows=3. `temperature_2m` = lượt chạy mới nhất cho giờ đó (sát thực tế, chỉ biết SAU); `_previous_dayK` = giá trị đã dự báo trước 24·K giờ — feature hợp lệ cho tầm ≤ 24·K giờ. `_previous_day1` có từ 2024-01-19, `_day7` từ 2024-01-25."
+
+[[bo]]
+ten = "open-meteo-du-bao-luu-miso-2024-2025"
+kieu = "http"
+tieu_de = "Open-Meteo Previous Runs — Indianapolis IN (vùng điều độ MISO), 2024–2025: nhiệt độ lượt chạy mới nhất và nhiệt độ ĐÃ DỰ BÁO trước 1…7 ngày"
+url = "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=39.7684&longitude=-86.1581&start_date=2024-01-01&end_date=2025-12-31&hourly=temperature_2m,temperature_2m_previous_day1,temperature_2m_previous_day2,temperature_2m_previous_day3,temperature_2m_previous_day4,temperature_2m_previous_day5,temperature_2m_previous_day6,temperature_2m_previous_day7&timezone=UTC&format=csv"
+sha256 = "195cd9b61c6a3c7c059a1174a6a7ad90a1676ae40ae7b538541fe4d82a0a688f"
+dung_luong = 966308
+ten_tep = "open-meteo-du-bao-luu-miso-2024-2025.csv"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://open-meteo.com/en/licence"
+trang_nguon = "https://open-meteo.com/en/docs/previous-runs-api"
+trich_giay_phep = "The data obtained through the API is provided under the terms of the CC-BY 4.0 licence"
+ghi_nguon = "Weather data by Open-Meteo.com (https://open-meteo.com/), Previous Runs API."
+mirror = true
+ly_do_mirror = "CC BY 4.0 cho phân phối lại; API miễn phí chỉ cho mục đích phi thương mại — cần mirror khi có HF_TOKEN của khoá"
+khoang_thoi_gian = ["2024-01-01", "2025-12-31"]
+ghi_chu = "17.544 dòng giờ UTC; 2 dòng metadata ô lưới (39.766758,-86.14396,214.0,0,GMT,GMT) + 1 dòng trống → skiprows=3. `temperature_2m` = lượt chạy mới nhất cho giờ đó (sát thực tế, chỉ biết SAU); `_previous_dayK` = giá trị đã dự báo trước 24·K giờ — feature hợp lệ cho tầm ≤ 24·K giờ. `_previous_day1` có từ 2024-01-19, `_day7` từ 2024-01-25."
+
+[[bo]]
+ten = "open-meteo-du-bao-luu-nyis-2024-2025"
+kieu = "http"
+tieu_de = "Open-Meteo Previous Runs — New York NY (vùng điều độ NYIS), 2024–2025: nhiệt độ lượt chạy mới nhất và nhiệt độ ĐÃ DỰ BÁO trước 1…7 ngày"
+url = "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=40.7128&longitude=-74.006&start_date=2024-01-01&end_date=2025-12-31&hourly=temperature_2m,temperature_2m_previous_day1,temperature_2m_previous_day2,temperature_2m_previous_day3,temperature_2m_previous_day4,temperature_2m_previous_day5,temperature_2m_previous_day6,temperature_2m_previous_day7&timezone=UTC&format=csv"
+sha256 = "d8e82a184f08c3700383017c8bea067072a5e4cbbbfe7b187a7783108c8e1f9b"
+dung_luong = 956924
+ten_tep = "open-meteo-du-bao-luu-nyis-2024-2025.csv"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://open-meteo.com/en/licence"
+trang_nguon = "https://open-meteo.com/en/docs/previous-runs-api"
+trich_giay_phep = "The data obtained through the API is provided under the terms of the CC-BY 4.0 licence"
+ghi_nguon = "Weather data by Open-Meteo.com (https://open-meteo.com/), Previous Runs API."
+mirror = true
+ly_do_mirror = "CC BY 4.0 cho phân phối lại; API miễn phí chỉ cho mục đích phi thương mại — cần mirror khi có HF_TOKEN của khoá"
+khoang_thoi_gian = ["2024-01-01", "2025-12-31"]
+ghi_chu = "17.544 dòng giờ UTC; 2 dòng metadata ô lưới (40.710335,-73.99308,32.0,0,GMT,GMT) + 1 dòng trống → skiprows=3. `temperature_2m` = lượt chạy mới nhất cho giờ đó (sát thực tế, chỉ biết SAU); `_previous_dayK` = giá trị đã dự báo trước 24·K giờ — feature hợp lệ cho tầm ≤ 24·K giờ. `_previous_day1` có từ 2024-01-19, `_day7` từ 2024-01-25."
+
+[[bo]]
+ten = "open-meteo-du-bao-luu-pjm-2024-2025"
+kieu = "http"
+tieu_de = "Open-Meteo Previous Runs — Philadelphia PA (vùng điều độ PJM), 2024–2025: nhiệt độ lượt chạy mới nhất và nhiệt độ ĐÃ DỰ BÁO trước 1…7 ngày"
+url = "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=39.9526&longitude=-75.1652&start_date=2024-01-01&end_date=2025-12-31&hourly=temperature_2m,temperature_2m_previous_day1,temperature_2m_previous_day2,temperature_2m_previous_day3,temperature_2m_previous_day4,temperature_2m_previous_day5,temperature_2m_previous_day6,temperature_2m_previous_day7&timezone=UTC&format=csv"
+sha256 = "cd64cbbcbdb048fbfc8114d54c8043dd6d6bdabaf30c36da94d2e819d42edff4"
+dung_luong = 960139
+ten_tep = "open-meteo-du-bao-luu-pjm-2024-2025.csv"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://open-meteo.com/en/licence"
+trang_nguon = "https://open-meteo.com/en/docs/previous-runs-api"
+trich_giay_phep = "The data obtained through the API is provided under the terms of the CC-BY 4.0 licence"
+ghi_nguon = "Weather data by Open-Meteo.com (https://open-meteo.com/), Previous Runs API."
+mirror = true
+ly_do_mirror = "CC BY 4.0 cho phân phối lại; API miễn phí chỉ cho mục đích phi thương mại — cần mirror khi có HF_TOKEN của khoá"
+khoang_thoi_gian = ["2024-01-01", "2025-12-31"]
+ghi_chu = "17.544 dòng giờ UTC; 2 dòng metadata ô lưới (39.96188,-75.15539,32.0,0,GMT,GMT) + 1 dòng trống → skiprows=3. `temperature_2m` = lượt chạy mới nhất cho giờ đó (sát thực tế, chỉ biết SAU); `_previous_dayK` = giá trị đã dự báo trước 24·K giờ — feature hợp lệ cho tầm ≤ 24·K giờ. `_previous_day1` có từ 2024-01-19, `_day7` từ 2024-01-25."

@@ -1,0 +1,65 @@
+{
+ "moc": "2026-09-07T00:00Z",
+ "nhom": "loi-giai-mau",
+ "cham_luc": "2026-09-24T09:29:49+00:00",
+ "hop_le": false,
+ "tinh_diem": false,
+ "loi_bien_ban": [],
+ "so_gio_co_thuc_te": 840,
+ "mase": {
+  "CISO": 1.376,
+  "ERCO": 0.757,
+  "MISO": 0.483,
+  "NYIS": 0.506,
+  "PJM": 0.514
+ },
+ "mase_tb": 0.727,
+ "mase_backtest": {
+  "CISO": 0.932,
+  "ERCO": 1.169,
+  "MISO": 0.916,
+  "NYIS": 0.676,
+  "PJM": 0.761
+ },
+ "mase_backtest_tb": 0.891,
+ "ty_so_voi_seasonal_naive": 0.679,
+ "ty_so_that_tren_backtest": 0.817,
+ "mae": {
+  "CISO": 3477.0,
+  "ERCO": 2370.0,
+  "MISO": 3066.0,
+  "NYIS": 1021.0,
+  "PJM": 4821.0
+ },
+ "mae_seasonal_naive": {
+  "CISO": 5757.0,
+  "ERCO": 1675.0,
+  "MISO": 8729.0,
+  "NYIS": 1662.0,
+  "PJM": 11679.0
+ },
+ "mae_df": {
+  "CISO": 3084.0,
+  "ERCO": 990.0,
+  "MISO": 1339.0,
+  "NYIS": 413.0,
+  "PJM": 4435.0
+ },
+ "mase_df_tb": 0.485,
+ "mase_seasonal_naive_tb": 1.252,
+ "lech_tai_lap_mw": 1.4551915228366852e-11,
+ "sha256_ma_luc_nop": "f9f065f500347442cdacf559c8d9f9a936e686e40ac889b116bef417a99af463",
+ "sha256_ma_luc_cham": "f9f065f500347442cdacf559c8d9f9a936e686e40ac889b116bef417a99af463",
+ "thoi_tiet_backtest": {
+  "dat": true,
+  "lech_trung_vi_voi_du_bao": 0.0,
+  "lech_trung_vi_voi_thuc": 1.6
+ },
+ "diem_tu_dong": {
+  "A_sai_so_tuong_lai": 28.1,
+  "B_trung_thuc_backtest": 20.0,
+  "C_chay_lai_giong_het": 12.0,
+  "D_thoi_tiet_la_du_bao": 8.0,
+  "thuong_thang_df": 0
+ }
+}

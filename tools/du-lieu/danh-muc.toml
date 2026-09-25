@@ -105,7 +105,7 @@ trich_giay_phep = "This dataset is licensed under a Creative Commons Attribution
 ghi_nguon = "Chen, D. (2012). Online Retail II [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5CG6D"
 mirror = true
 khoang_thoi_gian = ["2009-12-01", "2011-12-09"]
-buoi = [9, 13, 14, 22, 24, 39, 44]
+buoi = [9, 13, 14, 22, 23, 24, 39, 44]
 ghi_chu = "Excel hai sheet 'Year 2009-2010' (525.461 dòng) và 'Year 2010-2011' (541.910 dòng) — buổi dùng cần openpyxl. Là dự phòng mở cho M5."
 xac_minh = "2026-09-17: giấy phép trên trang dataset; tải + sha256 bởi agent research"
 
@@ -431,7 +431,7 @@ ten_tep = "tourism.rda"
 giay_phep = "GPL-3 (dữ liệu nằm trong gói tsibble)"
 link_giay_phep = "https://www.gnu.org/licenses/gpl-3.0.html"
 trang_nguon = "https://github.com/tidyverts/tsibble"
-trich_giay_phep = "License: GPL-3 (CRAN DESCRIPTION của tsibble); tài liệu dữ liệu chỉ ghi nguồn Tourism Research Australia (https://www.tra.gov.au)."
+trich_giay_phep = "License: GPL-3 (CRAN DESCRIPTION của tsibble); tài liệu dữ liệu ghi nguồn Tourism Research Australia (https://www.tra.gov.au). Nguồn gốc: 'Unless otherwise noted, content on the Websites is licenced under a Creative Commons Attribution—4.0 International licence' — Site disclaimer của Austrade, áp dụng cho tra.gov.au (https://www.austrade.gov.au/en/site-information/site-disclaimer, truy cập 2026-09-24)."
 ghi_nguon = "Wang, E., Cook, D. & Hyndman, R. J. tsibble (R package); Tourism Research Australia."
 mirror = true
 ly_do_mirror = "GPL-3 cho phép phân phối lại nguyên vẹn kèm văn bản giấy phép; giấy phép gốc của Tourism Research Australia CHƯA xác minh"
@@ -693,6 +693,25 @@ buoi = [8]
 ghi_chu = "3 dòng đầu là metadata vị trí (ô lưới trả về 32.75, -96.75; cao 137 m); đọc bằng skiprows=3. 8.784 dòng, không thiếu. Nhiệt độ ERA5 là giá trị tức thời tại mốc; EIA-930 đánh mốc CUỐI giờ."
 xac_minh = "2026-09-18: agent research tải 2 lần cùng sha256; trang licence + terms"
 
+[bo.open-meteo-dallas-tmax-1940-2025]
+kieu = "http"
+tieu_de = "Open-Meteo Historical Weather (ERA5) — Dallas TX, nhiệt độ tối đa ngày 1940–2025, giờ Texas"
+url = "https://archive-api.open-meteo.com/v1/archive?latitude=32.7767&longitude=-96.797&start_date=1940-01-01&end_date=2025-12-31&daily=temperature_2m_max&timezone=America%2FChicago&models=era5&format=csv"
+sha256 = "15bc72f4d84549cf0c05f95c25d397f9d6cdd80bade6a9edd3e950ad160116ad"
+dung_luong = 500585
+ten_tep = "open-meteo-dallas-tmax-1940-2025.csv"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://open-meteo.com/en/licence"
+trang_nguon = "https://open-meteo.com/en/docs/historical-weather-api"
+trich_giay_phep = "API data are offered under Attribution 4.0 International (CC BY 4.0)… You must give appropriate credit, provide a link to the licence, and indicate if changes were made."
+ghi_nguon = "Weather data by Open-Meteo.com (https://open-meteo.com/), mô hình ERA5."
+mirror = true
+ly_do_mirror = "API miễn phí chỉ cho mục đích phi thương mại (https://open-meteo.com/en/terms) — tác giả tải một lần, học viên lấy bản mirror khi có HF_TOKEN của khoá"
+khoang_thoi_gian = ["1940-01-01", "2025-12-31"]
+buoi = [25]
+ghi_chu = "31.412 ngày, không thiếu; 3 dòng đầu là metadata ô lưới (32.75, -96.75; cao 137 m) + 1 dòng trống → skiprows=3. Ngày theo giờ Texas. Bản không ghi models=era5 (best_match) khác số từ 1950 — luôn ghi models=era5. API giới hạn tần suất: tải liền tay có thể nhận JSON lỗi thay cho CSV."
+xac_minh = "2026-09-24: tải 3 lần (cách nhau ≥ 20 s) cùng sha256; một lần bị giới hạn tần suất trả JSON lỗi; trang licence + terms"
+
 [bo.open-meteo-houston-2024]
 kieu = "http"
 tieu_de = "Open-Meteo Historical Weather (ERA5) — Houston TX, nhiệt độ 2 m theo giờ năm 2024, UTC"
@@ -732,6 +751,97 @@ khoang_thoi_gian = ["2024-01-01", "2024-12-31"]
 buoi = [13, 18]
 ghi_chu = "Cột `temperature_2m` là giá trị đã biết sau (ERA5 reanalysis, KHÔNG dùng làm feature ex-ante); `_previous_day1`/`_previous_day3` là giá trị dự báo trước 1 và 3 ngày — dùng làm feature hợp lệ. 8.784 dòng, 2 dòng metadata + 1 dòng trống ở đầu (đọc bằng skiprows=2). NaN ở các giờ đầu 2024-01 (chưa có lượt chạy trước đó). Lưu trữ previous-runs chỉ có từ 01/2024."
 xac_minh = "2026-09-18: tác giả tải 2 lần cùng sha256; docs API + trang licence"
+
+[bo.open-meteo-du-bao-luu-ciso-2024-2025]
+kieu = "http"
+tieu_de = "Open-Meteo Previous Runs — Los Angeles CA (vùng điều độ CISO), 2024–2025: nhiệt độ lượt chạy mới nhất và nhiệt độ ĐÃ DỰ BÁO trước 1…7 ngày"
+url = "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=34.0522&longitude=-118.2437&start_date=2024-01-01&end_date=2025-12-31&hourly=temperature_2m,temperature_2m_previous_day1,temperature_2m_previous_day2,temperature_2m_previous_day3,temperature_2m_previous_day4,temperature_2m_previous_day5,temperature_2m_previous_day6,temperature_2m_previous_day7&timezone=UTC&format=csv"
+sha256 = "5e2c8eac02482f4f7968944f8710b98f438746dcdc2bb710c1c9e40777c0640b"
+dung_luong = 993891
+ten_tep = "open-meteo-du-bao-luu-ciso-2024-2025.csv"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://open-meteo.com/en/licence"
+trang_nguon = "https://open-meteo.com/en/docs/previous-runs-api"
+trich_giay_phep = "The data obtained through the API is provided under the terms of the CC-BY 4.0 licence"
+ghi_nguon = "Weather data by Open-Meteo.com (https://open-meteo.com/), Previous Runs API."
+mirror = true
+ly_do_mirror = "CC BY 4.0 cho phân phối lại; API miễn phí chỉ cho mục đích phi thương mại — cần mirror khi có HF_TOKEN của khoá"
+khoang_thoi_gian = ["2024-01-01", "2025-12-31"]
+buoi = ["du-an-giua-chang-2"]
+ghi_chu = "17.544 dòng giờ UTC; 2 dòng metadata ô lưới (34.060257,-118.23433,91.0,0,GMT,GMT) + 1 dòng trống → skiprows=3. `temperature_2m` = lượt chạy mới nhất cho giờ đó (sát thực tế, chỉ biết SAU); `_previous_dayK` = giá trị đã dự báo trước 24·K giờ — feature hợp lệ cho tầm ≤ 24·K giờ. `_previous_day1` có từ 2024-01-19, `_day7` từ 2024-01-25."
+xac_minh = "2026-09-24: tải 2 lần cùng sha256; docs Previous Runs API + trang licence"
+[bo.open-meteo-du-bao-luu-erco-2024-2025]
+kieu = "http"
+tieu_de = "Open-Meteo Previous Runs — Dallas TX (vùng điều độ ERCO), 2024–2025: nhiệt độ lượt chạy mới nhất và nhiệt độ ĐÃ DỰ BÁO trước 1…7 ngày"
+url = "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=32.7767&longitude=-96.797&start_date=2024-01-01&end_date=2025-12-31&hourly=temperature_2m,temperature_2m_previous_day1,temperature_2m_previous_day2,temperature_2m_previous_day3,temperature_2m_previous_day4,temperature_2m_previous_day5,temperature_2m_previous_day6,temperature_2m_previous_day7&timezone=UTC&format=csv"
+sha256 = "ad8753a7ffe9aff6d80b5dc310c351fa70b68caf5bb53907c4edbd0a96c679d7"
+dung_luong = 983445
+ten_tep = "open-meteo-du-bao-luu-erco-2024-2025.csv"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://open-meteo.com/en/licence"
+trang_nguon = "https://open-meteo.com/en/docs/previous-runs-api"
+trich_giay_phep = "The data obtained through the API is provided under the terms of the CC-BY 4.0 licence"
+ghi_nguon = "Weather data by Open-Meteo.com (https://open-meteo.com/), Previous Runs API."
+mirror = true
+ly_do_mirror = "CC BY 4.0 cho phân phối lại; API miễn phí chỉ cho mục đích phi thương mại — cần mirror khi có HF_TOKEN của khoá"
+khoang_thoi_gian = ["2024-01-01", "2025-12-31"]
+buoi = [25, "du-an-giua-chang-2"]
+ghi_chu = "17.544 dòng giờ UTC; 2 dòng metadata ô lưới (32.784855,-96.80359,137.0,0,GMT,GMT) + 1 dòng trống → skiprows=3. `temperature_2m` = lượt chạy mới nhất cho giờ đó (sát thực tế, chỉ biết SAU); `_previous_dayK` = giá trị đã dự báo trước 24·K giờ — feature hợp lệ cho tầm ≤ 24·K giờ. `_previous_day1` có từ 2024-01-19, `_day7` từ 2024-01-25."
+xac_minh = "2026-09-24: tải 2 lần cùng sha256; docs Previous Runs API + trang licence"
+[bo.open-meteo-du-bao-luu-miso-2024-2025]
+kieu = "http"
+tieu_de = "Open-Meteo Previous Runs — Indianapolis IN (vùng điều độ MISO), 2024–2025: nhiệt độ lượt chạy mới nhất và nhiệt độ ĐÃ DỰ BÁO trước 1…7 ngày"
+url = "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=39.7684&longitude=-86.1581&start_date=2024-01-01&end_date=2025-12-31&hourly=temperature_2m,temperature_2m_previous_day1,temperature_2m_previous_day2,temperature_2m_previous_day3,temperature_2m_previous_day4,temperature_2m_previous_day5,temperature_2m_previous_day6,temperature_2m_previous_day7&timezone=UTC&format=csv"
+sha256 = "195cd9b61c6a3c7c059a1174a6a7ad90a1676ae40ae7b538541fe4d82a0a688f"
+dung_luong = 966308
+ten_tep = "open-meteo-du-bao-luu-miso-2024-2025.csv"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://open-meteo.com/en/licence"
+trang_nguon = "https://open-meteo.com/en/docs/previous-runs-api"
+trich_giay_phep = "The data obtained through the API is provided under the terms of the CC-BY 4.0 licence"
+ghi_nguon = "Weather data by Open-Meteo.com (https://open-meteo.com/), Previous Runs API."
+mirror = true
+ly_do_mirror = "CC BY 4.0 cho phân phối lại; API miễn phí chỉ cho mục đích phi thương mại — cần mirror khi có HF_TOKEN của khoá"
+khoang_thoi_gian = ["2024-01-01", "2025-12-31"]
+buoi = ["du-an-giua-chang-2"]
+ghi_chu = "17.544 dòng giờ UTC; 2 dòng metadata ô lưới (39.766758,-86.14396,214.0,0,GMT,GMT) + 1 dòng trống → skiprows=3. `temperature_2m` = lượt chạy mới nhất cho giờ đó (sát thực tế, chỉ biết SAU); `_previous_dayK` = giá trị đã dự báo trước 24·K giờ — feature hợp lệ cho tầm ≤ 24·K giờ. `_previous_day1` có từ 2024-01-19, `_day7` từ 2024-01-25."
+xac_minh = "2026-09-24: tải 2 lần cùng sha256; docs Previous Runs API + trang licence"
+[bo.open-meteo-du-bao-luu-nyis-2024-2025]
+kieu = "http"
+tieu_de = "Open-Meteo Previous Runs — New York NY (vùng điều độ NYIS), 2024–2025: nhiệt độ lượt chạy mới nhất và nhiệt độ ĐÃ DỰ BÁO trước 1…7 ngày"
+url = "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=40.7128&longitude=-74.006&start_date=2024-01-01&end_date=2025-12-31&hourly=temperature_2m,temperature_2m_previous_day1,temperature_2m_previous_day2,temperature_2m_previous_day3,temperature_2m_previous_day4,temperature_2m_previous_day5,temperature_2m_previous_day6,temperature_2m_previous_day7&timezone=UTC&format=csv"
+sha256 = "d8e82a184f08c3700383017c8bea067072a5e4cbbbfe7b187a7783108c8e1f9b"
+dung_luong = 956924
+ten_tep = "open-meteo-du-bao-luu-nyis-2024-2025.csv"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://open-meteo.com/en/licence"
+trang_nguon = "https://open-meteo.com/en/docs/previous-runs-api"
+trich_giay_phep = "The data obtained through the API is provided under the terms of the CC-BY 4.0 licence"
+ghi_nguon = "Weather data by Open-Meteo.com (https://open-meteo.com/), Previous Runs API."
+mirror = true
+ly_do_mirror = "CC BY 4.0 cho phân phối lại; API miễn phí chỉ cho mục đích phi thương mại — cần mirror khi có HF_TOKEN của khoá"
+khoang_thoi_gian = ["2024-01-01", "2025-12-31"]
+buoi = ["du-an-giua-chang-2"]
+ghi_chu = "17.544 dòng giờ UTC; 2 dòng metadata ô lưới (40.710335,-73.99308,32.0,0,GMT,GMT) + 1 dòng trống → skiprows=3. `temperature_2m` = lượt chạy mới nhất cho giờ đó (sát thực tế, chỉ biết SAU); `_previous_dayK` = giá trị đã dự báo trước 24·K giờ — feature hợp lệ cho tầm ≤ 24·K giờ. `_previous_day1` có từ 2024-01-19, `_day7` từ 2024-01-25."
+xac_minh = "2026-09-24: tải 2 lần cùng sha256; docs Previous Runs API + trang licence"
+[bo.open-meteo-du-bao-luu-pjm-2024-2025]
+kieu = "http"
+tieu_de = "Open-Meteo Previous Runs — Philadelphia PA (vùng điều độ PJM), 2024–2025: nhiệt độ lượt chạy mới nhất và nhiệt độ ĐÃ DỰ BÁO trước 1…7 ngày"
+url = "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=39.9526&longitude=-75.1652&start_date=2024-01-01&end_date=2025-12-31&hourly=temperature_2m,temperature_2m_previous_day1,temperature_2m_previous_day2,temperature_2m_previous_day3,temperature_2m_previous_day4,temperature_2m_previous_day5,temperature_2m_previous_day6,temperature_2m_previous_day7&timezone=UTC&format=csv"
+sha256 = "cd64cbbcbdb048fbfc8114d54c8043dd6d6bdabaf30c36da94d2e819d42edff4"
+dung_luong = 960139
+ten_tep = "open-meteo-du-bao-luu-pjm-2024-2025.csv"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://open-meteo.com/en/licence"
+trang_nguon = "https://open-meteo.com/en/docs/previous-runs-api"
+trich_giay_phep = "The data obtained through the API is provided under the terms of the CC-BY 4.0 licence"
+ghi_nguon = "Weather data by Open-Meteo.com (https://open-meteo.com/), Previous Runs API."
+mirror = true
+ly_do_mirror = "CC BY 4.0 cho phân phối lại; API miễn phí chỉ cho mục đích phi thương mại — cần mirror khi có HF_TOKEN của khoá"
+khoang_thoi_gian = ["2024-01-01", "2025-12-31"]
+buoi = ["du-an-giua-chang-2"]
+ghi_chu = "17.544 dòng giờ UTC; 2 dòng metadata ô lưới (39.96188,-75.15539,32.0,0,GMT,GMT) + 1 dòng trống → skiprows=3. `temperature_2m` = lượt chạy mới nhất cho giờ đó (sát thực tế, chỉ biết SAU); `_previous_dayK` = giá trị đã dự báo trước 24·K giờ — feature hợp lệ cho tầm ≤ 24·K giờ. `_previous_day1` có từ 2024-01-19, `_day7` từ 2024-01-25."
+xac_minh = "2026-09-24: tải 2 lần cùng sha256; docs Previous Runs API + trang licence"
 
 [bo.ghcnh-noi-bai-2024]
 kieu = "http"

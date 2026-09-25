@@ -1,0 +1,24 @@
+# SINH TỰ ĐỘNG bởi tools/sinh_nen.py — KHÔNG SỬA TAY. Sửa tools/du-lieu/danh-muc.toml rồi chạy lại tool.
+# Dữ liệu của buoi-26: tải + kiểm sha256 bằng `python lab.py up`.
+
+phien_ban = 1
+
+[[bo]]
+ten = "uci-beijing-air"
+kieu = "http"
+tieu_de = "UCI Beijing Multi-Site Air Quality (12 trạm, theo giờ)"
+url = "https://archive.ics.uci.edu/static/public/501/beijing+multi+site+air+quality+data.zip"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/105db7d8d51c8ff1229ec06c363f641417124bf3/uci-beijing-air/beijing+multi+site+air+quality+data.zip"
+sha256 = "b04da438b2f331ac0ffd45aebdfec0d20d2367feb5f6948c4b1f7ce1191e33c4"
+dung_luong = 8192212
+giai_nen = "zip"
+chi_lay = ["PRSA2017_Data_20130301-20170228.zip"]
+giai_nen_long = ["PRSA2017_Data_20130301-20170228.zip"]
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://archive.ics.uci.edu/dataset/501/beijing+multi+site+air+quality+data"
+trich_giay_phep = "This dataset is licensed under a Creative Commons Attribution 4.0 International (CC BY 4.0) license. This allows for the sharing and adaptation of the datasets for any purpose, provided that the appropriate credit is given."
+ghi_nguon = "Chen, S. (2017). Beijing Multi-Site Air Quality [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5RK5G"
+mirror = true
+khoang_thoi_gian = ["2013-03-01", "2017-02-28"]
+ghi_chu = "Zip ngoài chứa zip trong (12 CSV) và hai tệp data.csv/test.csv là giá cổ phiếu KHÔNG liên quan — chỉ lấy zip trong."

@@ -1,0 +1,21 @@
+# SINH TỰ ĐỘNG bởi tools/sinh_nen.py — KHÔNG SỬA TAY. Sửa tools/du-lieu/danh-muc.toml rồi chạy lại tool.
+# Dữ liệu của buoi-22: tải + kiểm sha256 bằng `python lab.py up`.
+
+phien_ban = 1
+
+[[bo]]
+ten = "monash-web-traffic"
+kieu = "http"
+tieu_de = "Kaggle Web Traffic — lượt xem Wikipedia theo ngày, 145.063 chuỗi, không thiếu — Monash"
+url = "https://zenodo.org/records/4656075/files/kaggle_web_traffic_dataset_without_missing_values.zip?download=1"
+sha256 = "29912f202cb81c782a33b16691eac2afc70c2fb7c68592409c4d3358b25b0e48"
+dung_luong = 145140849
+giai_nen = "zip"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://doi.org/10.5281/zenodo.4656075"
+trich_giay_phep = "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."
+ghi_nguon = "Godahewa et al. (2021). Monash Time Series Forecasting Archive."
+mirror = false
+ly_do_mirror = "dữ liệu gốc từ cuộc thi Kaggle — chưa đọc được luật; Zenodo (DOI) đã ổn định"
+khong_thoi_gian = true

@@ -140,6 +140,11 @@ def dung_pyproject(buoi: Path, cau_hinh: dict, pb: dict, cac_bo: list[dict]) -> 
         goc, phien_ban = bang[khoa]
         return f"{goc}=={phien_ban}"
 
+    # gói của index riêng (torch CPU) bị kéo GIÁN TIẾP qua ràng buộc (autogluon → torch): [tool.uv.sources] chỉ áp cho
+    # phụ thuộc trực tiếp, nên đưa gói đó thành phụ thuộc trực tiếp — nếu không uv lấy torch bản CUDA (~6 GB) từ PyPI
+    for idx in pb.get("index", {}).values():
+        thu_vien += [g for g in idx["goi"] if chuan_ten(g) in ep and chuan_ten(g) not in ten_trong_buoi]
+    ten_trong_buoi = {chuan_ten(t) for t in thu_vien}
     thu_vien = list(dict.fromkeys(thu_vien))
     phu_thuoc = sorted((ghim(t) for t in thu_vien), key=str.lower)
     nhom = {ten: sorted((ghim(t) for t in ds), key=str.lower) for ten, ds in pb["nhom"].items()}

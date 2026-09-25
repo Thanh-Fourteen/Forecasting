@@ -164,7 +164,7 @@ Không có dự án xuyên suốt, nên cột mốc đo **năng lực** chứ kh
 | M1 | 13 | Nhận một bộ dữ liệu bẩn lạ, trong 1 ngày ra báo cáo EDA + pipeline làm sạch có test — **dự án giữa chặng 1** |
 | M2 | 21 | Dựng bậc thang mô hình thống kê trên backtest chuẩn, chọn chỉ số theo quyết định |
 | M3 | 24 | Dự báo hàng nghìn chuỗi bằng ML, thắng thống kê có kiểm định — **dự án giữa chặng 2** |
-| M4 | 28 | Mọi dự báo đều có khoảng tin cậy đã calibrate, cộng khớp giữa các cấp |
+| M4 | 28 | Mọi dự báo cộng khớp tuyệt đối giữa các cấp; mọi khoảng được kiểm coverage từng cấp trên backtest, hiệu chỉnh ngoài mẫu, và chỗ chưa calibrate được giải thích bằng số |
 | M5 | 33 | Chọn đúng kiến trúc deep learning và biết khi nào nó không đáng |
 | M6 | 37 | Dùng foundation model và LLM có kiểm chứng, không bị benchmark hay rò rỉ thời gian đánh lừa |
 | M7 | 43 | Đưa dự báo vào quyết định có giá trị tiền, vận hành tái lập + giám sát trong production |
@@ -667,7 +667,9 @@ $$\mathrm{MASE} = \frac{\frac{1}{h}\sum_{t=1}^{h} |y_{T+t} - \hat{y}_{T+t}|}{\fr
 3. Chuỗi có số 0: MAPE ra `inf`/khổng lồ — bảng xếp hạng mô hình đảo lộn khi đổi chỉ số
 4. Hai dự báo: một tối ưu MAE, một tối ưu RMSE trên dữ liệu lệch — chúng khác nhau thế nào, vì sao
 
-**Dữ liệu:** M4 (Monash, CC BY 4.0); UCI Online Retail II (CC BY 4.0).
+**Dữ liệu:** M4 theo tháng (Monash, CC BY 4.0) — 1.000 chuỗi, 3 cửa sổ 18 tháng (chọn trên 2 cửa sổ đầu, báo cáo trên cửa sổ cuối);
+UCI Online Retail II (CC BY 4.0). (Cập nhật Phase 23, 2026-09-24: bỏ AutoARIMA khỏi 30 ứng viên vì ~1 giây/chuỗi trên CPU; analog
+theo danh mục đoán từ tên không thắng "trung bình danh mục", analog theo giá thì thắng — xem `buoi-24/NGHIEN-CUU.md`.)
 
 **Xong khi:** có hàm `danh_gia()` trả bảng 7 chỉ số + baseline, và giải thích được bằng ví dụ
 số vì sao đổi chỉ số làm đổi mô hình "tốt nhất".
@@ -919,16 +921,17 @@ và giải thích được sai số theo h của 3 chiến lược.
 - Bài học M5: feature quan trọng hơn mô hình, chuẩn bị dữ liệu quyết định thứ hạng
 
 **Lab:**
-1. M5 (một bang, ~10.000 chuỗi SKU × cửa hàng): LightGBM L2 vs Tweedie trên WRMSSE
+1. Online Retail II (500 mã hàng; M5 một bang nếu có tài khoản Kaggle): LightGBM L2 vs Tweedie trên WRMSSE
 2. Optuna 50 thử nghiệm với CV thời gian; so với tune bằng KFold ngẫu nhiên → chọn sai tham số
 3. SHAP: vì sao dự báo ngày X của SKU Y cao bất thường
 4. Partial dependence của giá bán — phát hiện chiều sai, thêm monotone constraint
 
-**Dữ liệu:** M5 Forecasting (Walmart qua Kaggle/IIF — học viên tự tải bằng tài khoản Kaggle, không
-phân phối lại; xem Phụ lục F). Dự phòng: UCI Online Retail II (CC BY 4.0).
+**Dữ liệu:** UCI Online Retail II (CC BY 4.0) — 500 mã hàng × 604 ngày bán hàng, WRMSSE cấp mã hàng
+(cập nhật Phase 22, 2026-09-24: M5 cần tài khoản Kaggle và chưa chốt sha256 trong danh mục, nên chuyển
+thành bài tập về nhà cho ai có tài khoản; xem Phụ lục F).
 
-**Xong khi:** LightGBM Tweedie thắng L2 và thắng AutoETS trên WRMSSE; có một biểu đồ SHAP giải
-thích một dự báo cụ thể cho người không biết ML.
+**Xong khi:** LightGBM Tweedie đã tune bằng CV thời gian thắng L2 và thắng AutoETS trên WRMSSE; có một
+biểu đồ SHAP giải thích một dự báo cụ thể cho người không biết ML.
 
 ### Buổi 24 — Ensemble, AutoML và ca khó
 
@@ -950,10 +953,14 @@ ngoài đời: chuỗi ngắn, sản phẩm mới.
 **Lab:**
 1. Ensemble trung bình của AutoETS + AutoTheta + LightGBM vs mô hình tốt nhất đơn lẻ
 2. Chọn "mô hình tốt nhất" trong 30 mô hình trên cùng test: đo khoảng lạc quan khi đánh giá lại trên tập mới
-3. AutoGluon-TimeSeries preset `medium_quality`, giới hạn 20 phút, đọc leaderboard và ensemble weight
-4. Cold start: 200 sản phẩm mới trong Online Retail II, dự báo 8 tuần đầu bằng analog theo danh mục
+3. AutoGluon-TimeSeries preset `medium_quality` (loại Chronos-2, Toto-2 vì đã thấy M4), giới hạn 300 giây, đọc leaderboard và ensemble weight;
+   `high_quality` 20 phút là bài tập về nhà
+4. Cold start: 200 sản phẩm mới trong Online Retail II, dự báo 8 tuần đầu bằng analog — theo danh mục đoán từ tên và theo giá ra mắt;
+   chọn "tương tự theo gì" và số analog trên tập ra mắt sớm hơn
 
-**Dữ liệu:** M4 (Monash, CC BY 4.0); UCI Online Retail II (CC BY 4.0).
+**Dữ liệu:** M4 theo tháng (Monash, CC BY 4.0) — 1.000 chuỗi, 3 cửa sổ 18 tháng (chọn trên 2 cửa sổ đầu, báo cáo trên cửa sổ cuối);
+UCI Online Retail II (CC BY 4.0). (Cập nhật Phase 23, 2026-09-24: bỏ AutoARIMA khỏi 30 ứng viên vì ~1 giây/chuỗi trên CPU; analog
+theo danh mục đoán từ tên không thắng "trung bình danh mục", analog theo giá thì thắng — xem `buoi-24/NGHIEN-CUU.md`.)
 
 **Xong khi:** ensemble thắng mô hình tốt nhất đơn lẻ trên tập báo cáo **chưa từng dùng để chọn**;
 cold start thắng "trung bình danh mục".
@@ -968,12 +975,16 @@ EIA-930 có sẵn **dự báo day-ahead do chính đơn vị điều độ công
 **Luật:** nộp dự báo trước 00:00 UTC thứ Hai; **dữ liệu chấm chưa tồn tại lúc nộp bài**. Chấm
 tự động sau khi EIA cập nhật. Leaderboard trên MASE và so với dự báo của đơn vị điều độ.
 
-**Nộp:** code tái lập được (`make du-bao NGAY=...`), backtest nội bộ 8 cửa sổ, báo cáo ngắn so
+**Nộp:** code tái lập được (`python lab.py chay ../cong-cu/nop.py --moc ...`), backtest nội bộ 8 cửa sổ, báo cáo ngắn so
 bậc thang: seasonal naive → hồi quy động → LightGBM global → ensemble.
 
 **Chấm (100):** sai số trên dữ liệu tương lai 35 · khoảng cách backtest nội bộ vs sai số thật
 (trung thực của backtest) 20 · tái lập được 20 · chống rò rỉ (thời tiết dự báo, không dùng thời
 tiết thật) 15 · báo cáo 10. **Thưởng +5** nếu thắng dự báo của đơn vị điều độ. **Cột mốc M3.**
+
+(Cập nhật Phase 23, 2026-09-24: 5 vùng CISO, ERCO, MISO, NYIS, PJM; dữ liệu mới lấy từ tệp sáu tháng của EIA, không cần API key;
+nhu cầu chỉ biết tới mốc − 48 giờ; thời tiết là dự báo lưu trữ Open-Meteo Previous Runs, giờ thứ h dùng dự báo trước ⌈h/24⌉ ngày; thưởng +1
+mỗi vùng thắng `df`, tối đa +5. Chi tiết: `du-an-giua-chang/02-thi-du-bao/`.)
 
 ---
 
@@ -996,13 +1007,13 @@ tiết thật) 15 · báo cáo 10. **Thưởng +5** nếu thắng dự báo củ
 - Khoảng dự báo nhiều bước: phụ thuộc giữa các bước, vì sao không cộng quantile
 
 **Lab:**
-1. Tải điện theo giờ: khoảng dự báo từ ETS (chuẩn) vs bootstrap — coverage thật trên backtest
+1. Tải điện theo giờ: khoảng từ phần dư trong mẫu giả định chuẩn vs quantile phần dư ngoài mẫu — coverage thật trên backtest
 2. LightGBM quantile cho 9 quantile, sửa quantile crossing
 3. Tự viết pinball loss, CRPS từ mẫu, WIS; so với thư viện
 4. PIT histogram + reliability diagram cho 3 mô hình, đọc: quá tự tin / quá thận trọng / lệch
-5. Peaks-over-threshold cho tải đỉnh ngày: dự báo mức tải 1-trong-10-năm
+5. Peaks-over-threshold cho nhiệt độ tối đa ngày 1940–2025 (2 năm tải quá ngắn cho đuôi): mức 10 năm, quy ra tải đỉnh
 
-**Dữ liệu:** EIA-930 (public domain); Open-Meteo (CC BY 4.0).
+**Dữ liệu:** EIA-930 (public domain); Open-Meteo (CC BY 4.0) — nhiệt độ đã dự báo và ERA5 Dallas 1940–2025.
 
 **Xong khi:** dự báo 9 quantile có coverage từng mức lệch < 5 điểm phần trăm trên backtest, và đọc
 đúng lỗi calibration từ PIT histogram của một mô hình lạ.
@@ -1025,12 +1036,12 @@ tiết thật) 15 · báo cáo 10. **Thưởng +5** nếu thắng dự báo củ
 1. PM2.5 theo giờ: split conformal trên mô hình LightGBM — coverage đẹp năm đầu, trượt dần khi mùa đổi
 2. CQR: khoảng rộng vào mùa đông ô nhiễm, hẹp vào mùa hè
 3. ACI và EnbPI: vẽ coverage trượt theo thời gian của 4 phương pháp
-4. `ConformalIntervals` trong statsforecast và MAPIE, so với tự viết
+4. MAPIE `TimeSeriesRegressor` (ACI), so với tự viết (statsforecast `ConformalIntervals` chỉ nhắc — benchmark 2026: không đạt coverage)
 
 **Dữ liệu:** UCI Beijing Multi-Site Air-Quality (CC BY 4.0).
 
-**Xong khi:** khoảng 90% của ACI giữ coverage trượt 30 ngày trong [85%, 95%] suốt 2 năm có drift,
-trong khi split conformal rơi ra ngoài; giải thích được vì sao.
+**Xong khi:** khoảng 90% của ACI (γ định trước, không tune trên đoạn kiểm) giữ coverage trượt 30 ngày trong [85%, 95%]
+quá 98% thời gian của 2 năm có drift, trong khi split conformal rơi ra ngoài gần 30% thời gian; giải thích được vì sao.
 
 ### Buổi 27 — Dự báo Bayes và Gaussian Process
 
@@ -1048,11 +1059,11 @@ trong khi split conformal rơi ra ngoài; giải thích được vì sao.
 - So với tần suất: khi nào Bayes đáng công (dữ liệu ít, cần prior nghiệp vụ, cần bất định tham số)
 
 **Lab:**
-1. Prior predictive check cho mô hình local level: prior mặc định sinh ra số lượng âm và khổng lồ — sửa
-2. Hierarchical Poisson cho 300 chuỗi phụ tùng thưa: no pooling vs complete pooling vs partial pooling
+1. Prior predictive check cho Poisson phân cấp: prior rộng sinh ra hàng chục triệu món một tháng — sửa
+2. Hierarchical Poisson cho 300 chuỗi phụ tùng thưa (lịch sử 3–24 tháng): no pooling vs complete pooling vs partial pooling
 3. BSTS trong PyMC cho lượt thuê xe ngày, đọc thành phần xu hướng/mùa vụ có dải bất định
 4. GP với kernel tổng (trend + periodic tuần + periodic năm + noise), so ETS
-5. Cố tình chạy mô hình có divergence, đọc chẩn đoán, reparameterize (non-centered)
+5. Mô hình GP ba thành phần có divergence thật (thành phần tranh nhau), đọc chẩn đoán, sửa cấu trúc; non-centered minh hoạ trên ví dụ 8 trường (Car Parts có τ ≈ 1 nên centered không divergence)
 
 **Dữ liệu:** Car Parts (Monash, CC BY 4.0); UCI Bike Sharing (CC BY 4.0).
 
@@ -1080,11 +1091,14 @@ giải thích bằng hình vì sao partial pooling kéo chuỗi ít dữ liệu 
 4. Temporal hierarchy: dự báo tháng và quý khớp nhau
 
 **Dữ liệu:** Tourism Australia theo quý — dữ liệu `tourism` của gói R tsibble (GPL-3, chốt commit;
-giấy phép gốc của Tourism Research Australia chưa xác minh được — Phụ lục F); dự phòng mở: phân cấp dựng
+nguồn gốc Tourism Research Australia: CC BY 4.0 theo điều khoản Austrade, xác minh 2026-09-24); dự phòng mở: phân cấp dựng
 từ UCI Online Retail II (M5 không phân phối lại được nên không làm dự phòng mặc định).
 
-**Xong khi:** dự báo khớp tuyệt đối mọi cấp (sai lệch cộng = 0), MinT thắng base forecast ở ≥ 3/4
-cấp, và coverage xác suất cấp trên đạt mức danh nghĩa ± 5%. **Cột mốc M4.**
+**Xong khi:** dự báo khớp tuyệt đối mọi cấp (sai lệch cộng = 0); bảng sai số từng cấp của base, bottom-up, top-down,
+OLS, MinT, kèm sai số có dấu để giải thích vì sao MinT thua base ở cấp trên khi dự báo cấp dưới chệch; coverage khoảng
+xác suất từng cấp trước và sau hiệu chỉnh ngoài mẫu, phần còn thiếu so với danh nghĩa được giải thích. **Cột mốc M4.**
+*(Phase 26, 2026-09-24: trên du lịch Úc 2014–2017, MinT thắng base 2/4 cấp; khoảng 90% cấp tổng phủ 58% → 79% sau
+hiệu chỉnh ngoài mẫu — người dùng chọn dạy trung thực thay vì đổi dữ liệu.)*
 
 ---
 

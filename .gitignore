@@ -44,3 +44,15 @@ du-an-*/**/phat/
 Dang hc/
 Dang hoc/
 Đang học/
+
+# dự án giữa chặng 2: dữ liệu tải trực tiếp (không cố định) và bài nộp của học viên
+**/du-lieu/moi/
+du-an-giua-chang/02-thi-du-bao/nop/
+du-an-giua-chang/02-thi-du-bao/giam-khao/chay-thu/**/backtest.csv
+
+# ghi chú cá nhân / file tạm của Word — không thuộc nội dung khoá học
+Note.docx
+.~Note.docx
+note.txt
+.vscode/
+/uv.lock

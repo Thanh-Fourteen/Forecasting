@@ -26,19 +26,12 @@
 | [19](phase-19.md) | Buổi 18–19 · Hồi quy động, nhu cầu gián đoạn | 2 buổi soạn mới; Prophet 1.4.0 vào bảng phiên bản; hồi quy động ngang seasonal naive trên ERCOT (báo trung thực); chi phí tồn kho ≠ RMSSE | ✅ |
 | [20](phase-20.md) | Buổi 20–21 · Đa biến & nowcasting, tài chính | cột mốc M2; nowcast bằng vintage thật (Philadelphia Fed); demo đoán giá thua naive; cơ chế `noi_them` | ✅ |
 | [21](phase-21.md) | Đọc thử độc lập buổi 18–21 | DT — 4 buổi đạt (0 chặn, quiz mù 39/40 → 40/40); Lab buổi 18, 20, 21 chỉ rõ lệnh thư viện cần viết (SARIMAX bỏ 13 phần dư đầu, Johansen, quantile Student-t) | ✅ |
-| [T1](phase-t1.md) | Tóm tắt buổi 1–3 | mẫu chuẩn khung thẻ; `xuat_pdf.py --tom-tat` | ✅ |
-| [T2](phase-t2.md) | Tóm tắt buổi 4–6 | 3 tóm tắt + PDF | 🔲 |
-| [T3](phase-t3.md) | Tóm tắt buổi 7–9 | 3 tóm tắt + PDF | 🔲 |
-| [T4](phase-t4.md) | Tóm tắt buổi 10–12 | 3 tóm tắt + PDF | 🔲 |
-| [T5](phase-t5.md) | Tóm tắt buổi 13–15 | 3 tóm tắt + PDF | 🔲 |
-| [T6](phase-t6.md) | Tóm tắt buổi 16–18 | 3 tóm tắt + PDF | 🔲 |
-| [T7](phase-t7.md) | Tóm tắt buổi 19–21 | 3 tóm tắt + PDF | 🔲 |
-| [22](phase-22.md) | Buổi 22–23 · Dự báo thành hồi quy, gradient boosting |  | 🔲 |
-| [23](phase-23.md) | Buổi 24 + dự án giữa chặng 2 | cột mốc M3 | 🔲 |
-| [24](phase-24.md) | Đọc thử độc lập buổi 22–24 + dự án giữa chặng 2 | DT | 🔲 |
-| [25](phase-25.md) | Buổi 25–26 · Dự báo xác suất, conformal |  | 🔲 |
-| [26](phase-26.md) | Buổi 27–28 · Bayes & GP, dự báo phân cấp | cột mốc M4 | 🔲 |
-| [27](phase-27.md) | Đọc thử độc lập buổi 25–28 | DT | 🔲 |
+| [22](phase-22.md) | Buổi 22–23 · Dự báo thành hồi quy, gradient boosting | 2 buổi soạn mới; global LightGBM thắng AutoETS trên 10.000 trang; buổi 23 dùng Online Retail II thay M5, Tweedie tune CV thời gian thắng AutoETS | ✅ |
+| [23](phase-23.md) | Buổi 24 + dự án giữa chặng 2 | cột mốc M3; ensemble thắng mô hình đơn trên đoạn chưa dùng để chọn; bộ nộp/chấm dữ liệu tương lai EIA-930 + thời tiết dự báo lưu trữ; một bài nộp thật chờ chấm | ✅ |
+| [24](phase-24.md) | Đọc thử độc lập buổi 22–24 + dự án giữa chặng 2 | DT — 4 tài liệu đạt (0 chặn, quiz mù 30/30); sửa số SHAP buổi 23 (5,527), số lạc quan buổi 24 (≈ 0,01); đề rõ seasonal naive của phần A; chấm bài nộp thật chuyển Phase 27 | ✅ |
+| [25](phase-25.md) | Buổi 25–26 · Dự báo xác suất, conformal | buổi 25 (khoảng ngoài mẫu, 9 quantile, pinball/CRPS/WIS, PIT, POT 86 năm nhiệt độ) + buổi 26 (split, CQR, EnbPI, ACI, MAPIE; coverage trượt); quy tắc 9b: mọi khoảng phải kiểm calibration | ✅ |
+| [26](phase-26.md) | Buổi 27–28 · Bayes & GP, dự báo phân cấp | buổi 27 (prior predictive, cổng r_hat/ESS/divergence, partial pooling, BSTS, GP/HSGP) + buổi 28 (S, hoà giải, khoảng khớp, coverage từng cấp); cột mốc M4 định nghĩa lại (MinT thắng 2/4 cấp, coverage 58% → 79% — dạy trung thực) | ✅ |
+| [27](phase-27.md) | Đọc thử độc lập buổi 25–28 | DT — 4 tài liệu đạt (0 chặn, quiz mù 40/40); sửa ví dụ MinT tính tay, nói rõ bảng coverage buổi 28 gộp hai đoạn chấm, nhắc phân phối chuẩn buổi 27; chấm bài nộp thật chuyển Phase 32 | ✅ |
 | [28](phase-28.md) | Research deep learning (buổi 29–33) | RS | 🔲 |
 | [29](phase-29.md) | Buổi 29–30 · Nền DL, N-BEATS … TiDE |  | 🔲 |
 | [30](phase-30.md) | Buổi 31–32 · Transformer, mô hình sinh |  | 🔲 |
@@ -60,7 +53,7 @@
 | [46](phase-46.md) | Đánh giá (b) · Đề thực hành, đề tìm rò rỉ |  | 🔲 |
 | [47](phase-47.md) | Xuất bản & đóng gói |  | 🔲 |
 | [48](phase-48.md) | Kiểm định chất lượng |  | 🔲 |
-| | **TỔNG** | **44 buổi · 44 PDF · 2 dự án giữa chặng · 1 dự án cuối** | **23/56 phase** |
+| | **TỔNG** | **44 buổi · 44 PDF · 2 dự án giữa chặng · 1 dự án cuối** | **23/49 phase** |
 
 ## Thứ tự làm bắt buộc
 Phase 0 → 1 trước tiên (mọi buổi đều dựa vào: `sinh_nen.py`, `lay_du_lieu.py`, `kiem_ro_ri`,

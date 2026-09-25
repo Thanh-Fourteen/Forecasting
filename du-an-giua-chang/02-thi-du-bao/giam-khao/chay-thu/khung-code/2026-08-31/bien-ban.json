@@ -1,0 +1,15 @@
+{
+ "moc": "2026-08-31T00:00Z",
+ "nhom": "khung-code",
+ "tao_luc": "2026-09-24T09:23:28+00:00",
+ "thu_qua_khu": true,
+ "thoi_tiet_tai_luc": "2026-09-24T09:22:20+00:00",
+ "sha256_ma": "3c84b97f620f671fd5cc4b43a9fa67d9216a94a0de46185127add31f95f57915",
+ "thu_muc_ma": "/home/tony/Tony/Forecasting/du-an-giua-chang/02-thi-du-bao/code",
+ "tep": {
+  "backtest.csv": "d7ae8b41602fc892dd8934ae7bced7123f01958fdeebae589fbd5d308d8df449",
+  "dau-vao.parquet": "1652501c1c0c95e1574962d1f19133e4ebb19b855e1211e1c7c0adda0e0708a1",
+  "du-bao.csv": "a409b84a99b58924f4c3130a2e1a59965d92cd10906f8b6ef7a7966fac6d43e2",
+  "thoi-tiet.parquet": "b7fa54068420981203c0fdf42e9bfeaa8746b236cc28df568b3df75246db5023"
+ }
+}
