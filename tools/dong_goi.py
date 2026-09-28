@@ -63,7 +63,8 @@ def bi_loai(rel: Path) -> str | None:
 
 def chon(tham_so: list[str], tat_ca: bool) -> list[Path]:
     if tat_ca:
-        return sorted(p for p in GOC.glob("buoi-*") if p.is_dir())
+        # bỏ buổi mới research (chỉ có NGHIEN-CUU.md, chưa soạn)
+        return sorted(p for p in GOC.glob("buoi-*") if (p / "tai-lieu.md").is_file())
     ra: list[Path] = []
     for t in tham_so:
         if t.isdigit():

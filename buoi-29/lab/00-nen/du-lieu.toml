@@ -1,0 +1,22 @@
+# SINH TỰ ĐỘNG bởi tools/sinh_nen.py — KHÔNG SỬA TAY. Sửa tools/du-lieu/danh-muc.toml rồi chạy lại tool.
+# Dữ liệu của buoi-29: tải + kiểm sha256 bằng `python lab.py up`.
+
+phien_ban = 1
+
+[[bo]]
+ten = "monash-electricity-hourly"
+kieu = "http"
+tieu_de = "Electricity hourly — 321 khách hàng Bồ Đào Nha, theo giờ 2012–2014 (bản gộp của UCI ElectricityLoadDiagrams) — Monash"
+url = "https://zenodo.org/records/4656140/files/electricity_hourly_dataset.zip?download=1"
+url_mirror = "https://huggingface.co/datasets/Tony2202/khoa-forecasting-du-lieu/resolve/105db7d8d51c8ff1229ec06c363f641417124bf3/monash-electricity-hourly/electricity_hourly_dataset.zip"
+sha256 = "eff447075dde68dca0105ab7e2851c5637967ae3bb21556fd8b931f196d5968c"
+dung_luong = 11823931
+giai_nen = "zip"
+giay_phep = "CC BY 4.0"
+link_giay_phep = "https://creativecommons.org/licenses/by/4.0/"
+trang_nguon = "https://doi.org/10.5281/zenodo.4656140"
+trich_giay_phep = "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."
+ghi_nguon = "Godahewa et al. (2021). Monash Time Series Forecasting Archive; dữ liệu gốc Trindade, A. (2015), UCI ElectricityLoadDiagrams20112014, https://doi.org/10.24432/C58C86; bản gộp theo Lai et al. (2017)."
+mirror = true
+khong_thoi_gian = true
+ghi_chu = "Zenodo mô tả: 'an aggregated version of the original dataset used by Lai et al. (2017). It contains 321 hourly time series from 2012 to 2014.' Thay cho uci-electricity-load (UCI tải ~2,5 KB/s)."

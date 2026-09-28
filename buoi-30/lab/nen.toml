@@ -1,0 +1,17 @@
+# Buổi 30 — N-BEATS, N-HiTS, DeepAR, TFT, TiDE. Nguồn của lab/00-nen/ (python tools/sinh_nen.py 30).
+# Không sửa tay bất cứ gì trong lab/00-nen/.
+
+# Thư viện buổi dùng — chỉ ghi TÊN; phiên bản lấy từ tools/nen/phien-ban.toml.
+# neuralforecast kéo theo torch, pytorch-lightning, ray (venv ~1,6 GB — NGHIEN-CUU.md).
+thu_vien = ["neuralforecast", "torch", "matplotlib", "statsforecast", "mlforecast", "lightgbm"]
+
+# Bộ dữ liệu — tên trong tools/du-lieu/danh-muc.toml.
+# EIA-930: nhu cầu điện 5 vùng điều độ; Open-Meteo: nhiệt độ thực và nhiệt độ đã dự báo trước 1…7 ngày; bike: số đếm cho DeepAR.
+du_lieu = ["eia930-balance-2024-h1", "eia930-balance-2024-h2", "eia930-balance-2025-h1", "eia930-balance-2025-h2",
+           "open-meteo-du-bao-luu-ciso-2024-2025", "open-meteo-du-bao-luu-erco-2024-2025", "open-meteo-du-bao-luu-miso-2024-2025",
+           "open-meteo-du-bao-luu-nyis-2024-2025", "open-meteo-du-bao-luu-pjm-2024-2025", "uci-bike-sharing"]
+
+khung_bo = []
+
+[cham]
+code_phai_do = true

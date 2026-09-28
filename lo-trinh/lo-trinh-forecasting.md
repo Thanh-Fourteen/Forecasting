@@ -1104,6 +1104,11 @@ hiệu chỉnh ngoài mẫu — người dùng chọn dạy trung thực thay v�
 
 ## Giai đoạn 5 — Deep learning (buổi 29–33)
 
+*(Rà soát Phase 28, 2026-09-25 — chi tiết `buoi-29…33/NGHIEN-CUU.md`: 12 tháng qua không có kiến trúc có giám sát nào thắng bền
+nên giữ nguyên danh sách mô hình; neuralforecast 3.2.2 + torch 2.14 CPU chạy được, 1,2–3,2 GB RAM/mô hình (TFT mặc định > 6 GB →
+`windows_batch_size=256`); đổi Lab 1 buổi 32,
+GNN buổi 33 tự viết, bảng AIFS tầm 1–7 ngày.)*
+
 ### Buổi 29 — Nền deep learning cho chuỗi thời gian
 
 **Mục tiêu:** tự viết mô hình DL cho dự báo bằng PyTorch, hiểu từng bước từ cửa sổ dữ liệu tới vòng huấn luyện.
@@ -1119,8 +1124,9 @@ hiệu chỉnh ngoài mẫu — người dùng chọn dạy trung thực thay v�
 - Vì sao DL thường **thua** mô hình thống kê trên ít chuỗi ngắn, **thắng** trên nhiều chuỗi dài có liên quan
 
 **Lab:**
-1. Tiêu thụ điện 370 khách hàng: cắt cửa sổ đúng và sai (chồng lấn), đo khoảng lạc quan
-2. Tự viết MLP, LSTM, TCN — huấn luyện trên CPU < 10 phút
+1. Tiêu thụ điện 50 trong 321 khách hàng: cắt cửa sổ đúng và sai (chồng lấn), đo khoảng lạc quan — lộ rõ trên tập nhỏ 5 khách
+   (val MASE 0,98, test thật 1,41), gần như không thấy trên 50 khách vì mạng không học thuộc nổi (Phase 29)
+2. Tự viết MLP, LSTM, TCN — cả notebook khoảng 10 phút trên CPU 4 nhân; cố định `MKL_CBWR` để cùng seed ra cùng số
 3. Có/không RevIN khi mức tiêu thụ đổi theo năm
 4. So với seasonal naive và LightGBM trên cùng backtest — viết nhận định trung thực
 
@@ -1146,13 +1152,15 @@ và có bảng so với baseline — kể cả khi DL thua.
 
 **Lab:**
 1. 5 kiến trúc qua neuralforecast trên tải điện + nhiệt độ, cùng backtest
-2. TFT: đưa nhiệt độ **thực tế** vào `futr_exog` (rò rỉ) vs **nhiệt độ dự báo** — đo chênh lệch
+2. N-HiTS: đưa nhiệt độ **thực tế** vào `futr_exog` (rò rỉ) vs **nhiệt độ dự báo** — đo chênh lệch (Phase 29: backtest
+   đẹp giả ~2,5% ở tầm 24 giờ, vì dự báo nhiệt độ 1 ngày chỉ lệch ~1,3 °C)
 3. Đọc variable importance của TFT và basis của N-BEATS diễn giải được
-4. DeepAR phân phối âm nhị thức cho dữ liệu đếm, kiểm calibration
+4. Kiểm calibration khoảng 80/90% của DeepAR theo tầm; phân phối âm nhị thức cho dữ liệu đếm (xe đạp) là bài tập — Phase 29 đo:
+   mọi phân phối đếm của DeepAR (neuralforecast 3.2.2) phủ 13–27% thay vì 80%
 
-**Dữ liệu:** Electricity hourly (Monash, CC BY 4.0); EIA-930 (public domain); Open-Meteo (CC BY 4.0).
+**Dữ liệu:** EIA-930 (public domain); Open-Meteo lưu dự báo (CC BY 4.0); UCI Bike Sharing (CC BY 4.0, bài tập).
 
-**Xong khi:** bảng so 5 kiến trúc + LightGBM + seasonal naive có thời gian huấn luyện, và chỉ ra
+**Xong khi:** bảng so 5 kiến trúc + MSTL + LightGBM + seasonal naive + dự báo day-ahead của vùng điều độ có thời gian huấn luyện, và chỉ ra
 được covariate nào bị khai sai loại trong một cấu hình cho sẵn.
 
 ### Buổi 31 — Transformer cho chuỗi thời gian
@@ -1197,15 +1205,17 @@ và có bảng so với baseline — kể cả khi DL thua.
 - **Energy score, variogram score** — chấm dự báo nhiều chiều
 
 **Lab:**
-1. Sample path từ DeepAR vs quantile độc lập: tồn kho tích luỹ 14 ngày khác nhau thế nào
+1. Sample path (ghép quantile bằng copula / Schaake shuffle — `nf.simulate`) vs quantile độc lập: tồn kho tích luỹ 14 ngày
+   khác nhau thế nào; tự viết lấy mẫu tổ tiên cho một LSTM nhỏ (DeepAR của neuralforecast đưa **trung bình** trở lại làm
+   đầu vào nên không sinh quỹ đạo thật)
 2. CSDI (bản nhỏ, CPU) điền + dự báo PM2.5 nhiều trạm, so với buổi 10
 3. Sinh dữ liệu tổng hợp tải điện, chấm fidelity + TSTR + memorization
 4. Một mô hình sinh "quá tốt": chép nguyên chuỗi train — phát hiện bằng khoảng cách gần nhất
 
 **Dữ liệu:** UCI Beijing Multi-Site Air-Quality (CC BY 4.0); Electricity hourly (Monash, CC BY 4.0).
 
-**Xong khi:** báo cáo đánh giá dữ liệu tổng hợp đủ 3 trục, và energy score cho thấy sample path có
-phụ thuộc thắng quantile độc lập.
+**Xong khi:** báo cáo đánh giá dữ liệu tổng hợp đủ 3 trục, và variogram score + CRPS của tổng tích luỹ 14 ngày cho thấy
+sample path có phụ thuộc thắng quantile độc lập (energy score báo cáo kèm — nó kém nhạy với cấu trúc phụ thuộc, Phase 28).
 
 ### Buổi 33 — Không gian–thời gian và thời tiết AI
 
@@ -1216,8 +1226,8 @@ dùng được mô hình thời tiết AI một cách có kiểm chứng.
 - Dữ liệu không gian–thời gian: đồ thị cảm biến, lưới điểm (grid)
 - **Graph Neural Network**: truyền thông điệp; STGCN, Graph WaveNet, DCRNN (trực giác + một cài đặt nhỏ)
 - Ma trận kề từ khoảng cách vs học được
-- **Thời tiết AI**: GraphCast, GenCast (ensemble diffusion), WeatherNext 2, **ECMWF AIFS** (đã vận
-  hành, dữ liệu mở), Aurora — so với dự báo số trị (NWP)
+- **Thời tiết AI**: GraphCast, GenCast (ensemble diffusion), WeatherNext 3 (08/2026), **ECMWF AIFS** (vận
+  hành, dữ liệu mở; v2 từ 12/05/2026), Aurora — so với dự báo số trị (NWP)
 - Dữ liệu tái phân tích ERA5, WeatherBench 2, chỉ số RMSE/ACC/CRPS theo biến và tầm
 - **Kiểm chứng tại điểm**: dự báo lưới vs trạm quan trắc — nội suy, hiệu chỉnh độ cao, **hiệu chỉnh
   thống kê sau mô hình (MOS / post-processing)**
@@ -1225,8 +1235,10 @@ dùng được mô hình thời tiết AI một cách có kiểm chứng.
 - Rủi ro: đánh giá trên năm nằm trong tập huấn luyện ERA5; sự kiện cực đoan
 
 **Lab:**
-1. METR-LA: GNN nhỏ trên CPU vs mô hình từng cảm biến vs seasonal naive
-2. Tải dự báo AIFS mở (GRIB) cho điểm Nội Bài 30 ngày gần nhất, so với quan trắc trạm Nội Bài
+1. Traffic 862 cảm biến: GNN nhỏ tự viết bằng PyTorch (đồ thị dựng từ tương quan trên đoạn train) trên CPU vs mô hình
+   từng cảm biến vs seasonal naive (PyTorch Geometric Temporal không cài được với torch 2.14 CPU)
+2. Đọc một bản tin AIFS mở (GRIB2); lấy dự báo AIFS theo điểm Nội Bài tầm 1–7 ngày, 03–12/2025 (Open-Meteo, sau mốc
+   huấn luyện), so với quan trắc trạm Nội Bài
 3. Hiệu chỉnh thống kê (hồi quy tuyến tính theo tầm) giảm sai số nhiệt độ bao nhiêu
 4. Dùng nhiệt độ AIFS đã hiệu chỉnh làm covariate cho dự báo tải — so với Open-Meteo
 
@@ -1235,7 +1247,7 @@ phép dữ liệu** nên chỉ là tuỳ chọn học viên tự tải); ECMWF O
 trạm Nội Bài `VMI0000VVNB` (CC0; ISD cũ đã dừng trạm này từ 08/2025 và dữ liệu ngoài Mỹ của ISD
 không được phân phối lại theo WMO Res 40); Open-Meteo (CC BY 4.0).
 
-**Xong khi:** kiểm chứng AIFS tại điểm có bảng sai số theo tầm 1–10 ngày trên dữ liệu **sau** mốc
+**Xong khi:** kiểm chứng AIFS tại điểm có bảng sai số theo tầm 1–7 ngày trên dữ liệu **sau** mốc
 huấn luyện, và hiệu chỉnh thống kê giảm được sai số hệ thống. **Cột mốc M5.**
 
 ---
