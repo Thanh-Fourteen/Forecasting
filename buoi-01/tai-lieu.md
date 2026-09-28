@@ -163,6 +163,10 @@ Một giờ **đủ số đo** khi có ít nhất nửa số phút đo được;
 Trong ngày cũng có nhịp: thấp nhất lúc 4h, cao nhất lúc 20h; cuối tuần dùng nhiều hơn ngày thường. Mẫu lặp lại đều như
 vậy gọi là **mùa vụ**; chuỗi này có mùa vụ theo ngày, tuần và năm.
 
+![mùa vụ](hinh/kn-mua-vu.png)
+
+**Cách đọc hình.** Trục ngang là ngày (3 tuần), trục dọc là lượng điện; dải cam là cuối tuần. Ngày nào cũng một nhịp lên xuống, cuối tuần cao hơn: mùa vụ theo ngày và theo tuần.
+
 **Tóm lại.** **Điền 6 ô trước khi mở dữ liệu, rồi vẽ và viết câu hỏi (Lab bước 2).**
 
 **Tự kiểm tra.** Máy lạnh 1,5 kW chạy 40 phút rồi tắt 20 phút. Giờ đó dùng bao nhiêu kWh?
@@ -188,6 +192,10 @@ lớp": cách dự báo đơn giản ai cũng làm được (FPP §5.2).
 - **Gốc dự báo**: lúc ra dự báo, ngay sau $T$ (00:00 thứ Hai 4/1). Từ gốc trở đi coi như chưa biết.
 - $h$: số giờ tính từ $T$. $T + 1$ là 00:00 thứ Hai; $T + 168$ là 23:00 Chủ nhật 10/1.
 - $y_T$: số đo ở giờ $T$. $\hat y_{T+h}$ ("y mũ") là số **dự báo** cho giờ $T + h$.
+
+![tầm dự báo, h](hinh/kn-tam-du-bao-h.png)
+
+**Cách đọc hình.** Trục ngang là giờ tính từ gốc dự báo (vạch cam); đường xám là số đo đã biết. Dải xanh là 168 giờ phải dự báo, tất cả nằm bên phải gốc.
 
 **Ví dụ số nhỏ — tự tính tay.** Dự báo 19:00 thứ Ba 5/1. Từ 23:00 Chủ nhật tới đó là 24 + 20 = 44 giờ, nên $h = 44$.
 Số giả định: lúc $T$ nhà dùng 0,6 kWh; trung bình mọi giờ đã biết là 1,1 kWh; 19:00 thứ Ba của bốn tuần trước (xa tới
@@ -290,6 +298,10 @@ Mô hình đủ nhiều tham số luôn khớp hoàn hảo dữ liệu đã th�
 
 **Cách chấm trung thực — dự báo cuốn.** Tại mỗi thứ Hai 00:00 năm 2010: chỉ dùng dữ liệu *trước* gốc, dự báo 168 giờ
 tới, rồi mới so với số đo. Xong thì dời gốc sang thứ Hai sau.
+
+![dự báo cuốn](hinh/kn-du-bao-cuon.png)
+
+**Cách đọc hình.** Mỗi hàng là một gốc dự báo: phần xám là dữ liệu được dùng, ô xanh là tuần được dự báo và chấm. Xuống mỗi hàng, gốc dời thêm một tuần.
 
 ```python
 for goc in cac_goc:                                  # mỗi thứ Hai 00:00
@@ -413,6 +425,14 @@ bình không phải cách tốt nhất.
 > - Quantile 0,5 là mốc chia đôi, còn gọi là **trung vị**. Với số lượng chẵn, sách phổ thông lấy trung bình hai số giữa
 >   (7,5 ở dãy trên); cách đếm này lấy số thứ 5 (7). Hai quy ước chỉ khác khi có hai số đứng giữa.
 
+![quantile, trung vị](hinh/kn-quantile-trung-vi.png)
+
+**Cách đọc hình.** Mười ngày xếp tăng dần. Vạch cam là quantile 0,8, bằng 9 kWh; vạch xanh lá là trung vị, bằng 7 kWh.
+
+![phân phối](hinh/kn-phan-phoi.png)
+
+**Cách đọc hình.** Trục ngang là lượng điện lúc 19 giờ, trục dọc là số ngày gặp mức đó. Mức 6–9 hay gặp, 12 chỉ gặp một lần.
+
 **Trực giác.** Với người bán bánh mì, hết bánh (mất khách) đắt hơn dư bánh (lỗ tiền bột), nên họ làm **dư ra một
 chút** so với lượng bán trung bình. Thiếu điện đắt gấp 4 lần thừa, nên cũng mua cao hơn trung bình.
 
@@ -476,6 +496,10 @@ Trường hợp cuối giải thích câu "MAE nhắm trung vị": MAE phạt m�
 con số làm MAE nhỏ nhất là trung vị.
 
 Bài toán này tên là **newsvendor** (người bán báo nhập báo mỗi sáng).
+
+![bài toán newsvendor](hinh/kn-bai-toan-newsvendor.png)
+
+**Cách đọc hình.** Trục ngang là lượng mua mỗi ngày, trục dọc là tiền mất trong 10 ngày. Đáy ở 9 kWh (chấm cam), nằm bên phải mức trung bình 7,7.
 
 **Tự viết bằng NumPy.**
 
@@ -554,6 +578,10 @@ ngày vì thừa đắt hơn thiếu. Nhầm hay gặp là đảo $C_u$ và $C_o
 > - Cùng ý đó từ phía chấm điểm (Gneiting, 2011): phải nói trước dự báo sẽ bị chấm bằng gì, vì mỗi thước đo có con số
 >   tốt nhất riêng (MAE: trung vị; chi phí 4 : 1: quantile 0,8).
 
+![hàm phân phối tích luỹ](hinh/kn-ham-phan-phoi-tich-luy.png)
+
+**Cách đọc hình.** Trục ngang là mốc x, trục dọc là tỷ lệ ngày dùng không quá x. Đi ngang từ 0,8 tới đường rồi thả xuống, gặp 9: đó là quantile 0,8.
+
 ## 5. Lab từng bước
 
 Lệnh gõ trong terminal, đứng ở thư mục `lab/`. Code của bước 1, 2, 4, 5 nằm sẵn trong `code/lab.ipynb`: mở bằng
@@ -612,6 +640,10 @@ Năm câu mẫu:
 3. **Đơn vị là gì?** Đã trả lời ở mục 4.2.
 4. **Mốc thời gian là giờ địa phương hay UTC?** UTC là giờ chuẩn quốc tế; giờ Pháp lệch nó 1–2 giờ tuỳ mùa (buổi 3).
 5. **Có dịch mức không?** Tức mức trung bình đổi hẳn rồi ở luôn đó, ví dụ nhà có thêm người.
+
+![dịch mức](hinh/kn-dich-muc.png)
+
+**Cách đọc hình.** Trục ngang là thời gian; đường cam là mức trung bình của từng giai đoạn. Mức nhảy lên một bậc rồi ở luôn đó.
 
 ### Bước 3 — Ba phiếu bài toán
 

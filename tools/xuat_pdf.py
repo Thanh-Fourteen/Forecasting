@@ -5,7 +5,7 @@
     python xuat_pdf.py 5 6        # rieng buoi 05 va 06
     python xuat_pdf.py lo-trinh   # rieng cac trang le co chuoi "lo-trinh" trong duong dan
     python xuat_pdf.py --tom-tat 1 2   # chi xuat tom-tat.md -> TOM-TAT-buoi-NN.pdf (khong so --kiem 10-18 trang)
-    python xuat_pdf.py --kiem     # dem so trang moi PDF da sinh, bao buoi ngoai 10-18 trang, phu luc tren 18
+    python xuat_pdf.py --kiem     # dem so trang moi PDF da sinh, bao buoi ngoai 10-22 trang, phu luc tren 18
 
 Can:  pip install -r tools/requirements.txt
       (markdown-it-py, mdit-py-plugins, weasyprint, ziamath, pypdf)
@@ -113,7 +113,7 @@ TRANG_LE = [
 ]
 
 # So trang cho phep cua PDF moi buoi (CLAUDE.md quy tac 13 — doi 2026-09-18 theo chuan gon D13, Phase 7)
-TRANG_TOI_THIEU, TRANG_TOI_DA = 10, 18
+TRANG_TOI_THIEU, TRANG_TOI_DA = 10, 22   # 22: có hình minh hoạ khái niệm (2026-09-28)
 TRANG_PHU_LUC_TOI_DA = 18
 
 
@@ -155,6 +155,7 @@ hr + h2 { border-top: none; margin-top: 6pt; }
 strong { color: #0A2540; }
 img { max-width: 100%; }
 p > img:only-child { display: block; margin: 6pt auto; }
+img[src*="hinh/kn-"] { width: 58%; }   /* hình minh hoạ khái niệm (tools/tu_hoc): nửa khổ, đặt ngay chỗ khái niệm */
 .cong-thuc-khoi { text-align: center; margin: 8pt 0; page-break-inside: avoid; }
 .cong-thuc-khoi img { max-width: 100%; }
 /* LaTeX gốc nằm trong lớp chữ vô hình ngay sau ảnh công thức: copy từ PDF ra vẫn còn công thức */

@@ -224,9 +224,17 @@ phút (dư một giờ vì 02:xx không tồn tại).
 **Vấn đề.** Taxi là chuỗi **không đều** (mỗi chuyến ở một giây bất kỳ); mô hình cần chuỗi **đều**, mỗi giờ một con số.
 Phải trả lời ba câu: sự kiện đúng 10:00 thuộc giờ nào, gộp bằng cộng hay trung bình, giờ trống ghi gì?
 
+![chuỗi đều / chuỗi không đều](hinh/kn-chuoi-deu-chuoi-khong-deu.png)
+
+**Cách đọc hình.** Trên: mỗi vạch là một sự kiện, rải rác lúc dày lúc thưa. Dưới: gộp thành số sự kiện mỗi giờ, các mốc cách đều nhau.
+
 **Khoảng và nhãn.** Pandas chia trục thời gian thành các khoảng dài bằng tần suất, ví dụ [9:00, 10:00). Dấu `[` nghĩa là
 **có** tính 9:00, dấu `)` nghĩa là **không** tính 10:00: khoảng "đóng bên trái" (`closed="left"`). Kết quả được ghi tên
 bằng mốc đầu, 9:00 (`label="left"`).
+
+![closed, label](hinh/kn-closed-label.png)
+
+**Cách đọc hình.** Hai ô là hai khoảng giờ, chấm cam là bốn chuyến. Chuyến đúng 10:00 thuộc ô xanh lá [10:00, 11:00), không thuộc ô 9:00.
 
 **Ví dụ số nhỏ — tự tính tay.** Bốn chuyến lúc 9:00, 9:40, 10:00, 10:20. Đếm theo giờ bằng cách cộng số chuyến:
 
@@ -381,6 +389,10 @@ dấu: mô hình học từ bảng ghép lệch sẽ tin rằng mưa làm giảm
 chỉ được ghi khi thay đổi. `merge_asof` ghép mỗi dòng bên trái với dòng bên phải **gần nhất theo thời gian**. Tham số
 `direction` chọn hướng; mặc định `"backward"` là nhìn về **quá khứ**. Ví dụ:
 
+![ghép as-of (merge_asof)](hinh/kn-ghep-as-of-merge-asof.png)
+
+**Cách đọc hình.** Dòng 10:00 (chấm xanh) tìm giá gần nhất. Mũi tên xanh về giá 9:30 đã có là đúng; mũi tên đỏ tới giá 10:30 là lấy tương lai.
+
 | Bảng bên phải: thời điểm | 09:30 | 10:30 | 11:00 |
 |---|---|---|---|
 | giá | 9 | 10 | 11 |
@@ -429,6 +441,10 @@ số (A, B). Thêm khu vực thì dạng dài chỉ thêm dòng, không thêm c�
 
 **Lưới chung.** Mọi chuỗi phải có **cùng một danh sách mốc**, gọi là lưới chung: khu vực vắng lúc 3 giờ sáng vẫn cần dòng
 "3 giờ sáng, 0 chuyến". Nhờ vậy các buổi sau làm **backtest** cùng mốc cắt cho mọi chuỗi. Lưới tháng 3/2024:
+
+![backtest](hinh/kn-backtest.png)
+
+**Cách đọc hình.** Mỗi hàng là một mốc cắt: phần xám là dữ liệu được dùng, ô xanh là ngày được dự báo và chấm.
 
 - Đầu tháng: 00:00 ngày 1/3/2024 New York (EST) là 05:00Z. Cuối tháng: 00:00 ngày 1/4/2024 (EDT) là 04:00Z.
 - Tham số `khoang=("2024-03-01 05:00", "2024-04-01 04:00")` hiểu là khoảng nửa mở [05:00Z ngày 1/3/2024, 04:00Z ngày

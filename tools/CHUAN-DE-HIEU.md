@@ -316,7 +316,7 @@ xích đó vào câu, rồi tìm một câu thừa quanh đó để bỏ bù.
 
 **Phép thử mỗi đoạn:** *"Bỏ đoạn này thì học viên mất gì?"* Không mất gì → xoá. Mất một ý → giữ đúng một câu mang ý đó.
 
-**Độ dài:** 3.500–6.500 chữ ngoài bảng/code mỗi `tai-lieu.md` (mã `do_dai`), PDF 10–18 trang. Bộ kiểm còn bắt
+**Độ dài:** 3.500–6.500 chữ ngoài bảng/code mỗi `tai-lieu.md` (mã `do_dai`), PDF 10–22 trang (hình minh hoạ khái niệm D14 cần chỗ). Bộ kiểm còn bắt
 `cau_rong` (cụm câu rỗng) và `lap_y` ("Tóm lại" chép lại câu trong mục; hai đoạn gần như trùng nhau).
 
 ### Trước/sau lấy từ bài thật (Phase 7)

@@ -19,5 +19,5 @@ Bắt buộc:
 
 Kết quả (2026-09-25): chi tiết ở mục "Đọc thử độc lập" của `NGHIEN-CUU.md` từng buổi. Quiz mù 40/40; 9 chỗ khó → 0. `kiem_tra_lab.py 25–28` đạt
 (đáp án xanh, `code/` đỏ đúng chỗ, notebook chạy hết), `kiem_tra_doc_lap.sh` đạt, `ruff` sạch. Chấm bài nộp thật dự án giữa chặng 2: **chờ** (chưa tới
-9/10) — chuyển Phase 32. Còn mở (buổi 28): dòng coverage trong mẫu và ngoài mẫu chấm trên hai đoạn khác nhau — tài liệu đã nói rõ; chấm lại trên cùng
+9/10) — chuyển Phase 39. Còn mở (buổi 28): dòng coverage trong mẫu và ngoài mẫu chấm trên hai đoạn khác nhau — tài liệu đã nói rõ; chấm lại trên cùng
 17 mốc cần đổi `dap-an/` và `cham/`.

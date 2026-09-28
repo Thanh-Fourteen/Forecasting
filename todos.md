@@ -22,7 +22,7 @@ Repo: `/home/tony/Tony/Forecasting/` — repo độc lập, mọi đường dẫ
 - Prompt phase ngắn: yêu cầu chung ở KHỐI CHUNG (`todos/quy-uoc.md`), prompt chỉ ghi phần riêng.
 - **Không dùng subagent**: đọc thử và rà gọn do chính người làm phase tự làm, hai lượt đọc riêng theo checklist trong
   `tools/CHUAN-DE-HIEU.md`; tiêu chí đạt giữ nguyên.
-- Vì không có subagent nên **chia nhỏ phase** (Phase 8–48): mỗi phase soạn 1–2 buổi; sau mỗi cụm một phase **đọc thử độc
+- Vì không có subagent nên **chia nhỏ phase** (Phase 8–55): mỗi phase soạn 1–2 buổi; sau mỗi cụm một phase **đọc thử độc
   lập** (phiên mới, quiz mù); deep learning và foundation model & LLM có phase **research riêng** trước khi soạn.
 
 Xong phase: đổi 🔲 → ✅ ở **cả hai** tiêu đề (ở đây và trong `todos/phase-NN.md`), rồi cập nhật Progress Summary
@@ -395,7 +395,7 @@ Phiên MỚI (/clear). Tài liệu: Buổi 25, Buổi 26, Buổi 27, Buổi 28.
 
 ---
 
-## Phase 28 — Research deep learning (buổi 29–33) 🔲
+## Phase 28 — Research deep learning (buổi 29–33) ✅
 
 Chi tiết: [`todos/phase-28.md`](todos/phase-28.md)
 
@@ -412,7 +412,7 @@ thời gian + RAM chạy CPU của từng mô hình dự kiến.
 
 ---
 
-## Phase 29 — Buổi 29–30 · Nền DL, N-BEATS … TiDE 🔲
+## Phase 29 — Buổi 29–30 · Nền DL, N-BEATS … TiDE ✅
 
 Chi tiết: [`todos/phase-29.md`](todos/phase-29.md)
 
@@ -426,55 +426,160 @@ naive + một mô hình thống kê + LightGBM, kể cả khi DL thua; model/che
 
 ---
 
-## Phase 30 — Buổi 31–32 · Transformer, mô hình sinh 🔲
+## Phase 30 — Notebook tự học + hình khái niệm · buổi 4–8 🔲
 
 Chi tiết: [`todos/phase-30.md`](todos/phase-30.md)
 
 ### Prompt copy-paste cho Phase 30:
 ```
-Forecasting | /home/tony/Tony/Forecasting | Phase 29 xong → Phase 30: buổi 31–32 (Giai đoạn 5 — Deep learning).
-Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-30.md.
+Forecasting | /home/tony/Tony/Forecasting | Phase 29 xong → Phase 30: notebook tự học + hình khái niệm (D14), buổi 4–8.
+Theo tools/tu_hoc/HUONG-DAN.md + todos/quy-uoc.md (D14, KHỐI CHUNG V7) + todos/phase-30.md. Mẫu: buổi 1–3.
+Mỗi buổi: moi_truong.py N → sinh.py N --khung → viết nốt TODO (gọn, đủ ý, hộp "tên · English", HINH cho khái niệm có hình
+dạng) → sinh.py N --chay 0 lỗi, mọi số khớp tai-lieu.md → xem lại từng hình (notebook + PDF) → kiem_de_hieu.py N không lỗi
+mới, PDF ≤ 22 trang. Tick từng buổi trong phase-30.md ngay khi xong.
+```
+
+---
+
+## Phase 31 — Notebook tự học + hình khái niệm · buổi 9–13 🔲
+
+Chi tiết: [`todos/phase-31.md`](todos/phase-31.md)
+
+### Prompt copy-paste cho Phase 31:
+```
+Forecasting | /home/tony/Tony/Forecasting | Phase 30 xong → Phase 31: notebook tự học + hình khái niệm (D14), buổi 9–13.
+Theo tools/tu_hoc/HUONG-DAN.md + todos/quy-uoc.md (D14, KHỐI CHUNG V7) + todos/phase-31.md. Mẫu: buổi 1–3.
+Mỗi buổi: moi_truong.py N → sinh.py N --khung → viết nốt TODO (gọn, đủ ý, hộp "tên · English", HINH cho khái niệm có hình
+dạng) → sinh.py N --chay 0 lỗi, mọi số khớp tai-lieu.md → xem lại từng hình (notebook + PDF) → kiem_de_hieu.py N không lỗi
+mới, PDF ≤ 22 trang. Tick từng buổi trong phase-31.md ngay khi xong.
+```
+
+---
+
+## Phase 32 — Notebook tự học + hình khái niệm · buổi 14–17 🔲
+
+Chi tiết: [`todos/phase-32.md`](todos/phase-32.md)
+
+### Prompt copy-paste cho Phase 32:
+```
+Forecasting | /home/tony/Tony/Forecasting | Phase 31 xong → Phase 32: notebook tự học + hình khái niệm (D14), buổi 14–17.
+Theo tools/tu_hoc/HUONG-DAN.md + todos/quy-uoc.md (D14, KHỐI CHUNG V7) + todos/phase-32.md. Mẫu: buổi 1–3.
+Mỗi buổi: moi_truong.py N → sinh.py N --khung → viết nốt TODO (gọn, đủ ý, hộp "tên · English", HINH cho khái niệm có hình
+dạng) → sinh.py N --chay 0 lỗi, mọi số khớp tai-lieu.md → xem lại từng hình (notebook + PDF) → kiem_de_hieu.py N không lỗi
+mới, PDF ≤ 22 trang. Tick từng buổi trong phase-32.md ngay khi xong.
+```
+
+---
+
+## Phase 33 — Notebook tự học + hình khái niệm · buổi 18–21 🔲
+
+Chi tiết: [`todos/phase-33.md`](todos/phase-33.md)
+
+### Prompt copy-paste cho Phase 33:
+```
+Forecasting | /home/tony/Tony/Forecasting | Phase 32 xong → Phase 33: notebook tự học + hình khái niệm (D14), buổi 18–21.
+Theo tools/tu_hoc/HUONG-DAN.md + todos/quy-uoc.md (D14, KHỐI CHUNG V7) + todos/phase-33.md. Mẫu: buổi 1–3.
+Mỗi buổi: moi_truong.py N → sinh.py N --khung → viết nốt TODO (gọn, đủ ý, hộp "tên · English", HINH cho khái niệm có hình
+dạng) → sinh.py N --chay 0 lỗi, mọi số khớp tai-lieu.md → xem lại từng hình (notebook + PDF) → kiem_de_hieu.py N không lỗi
+mới, PDF ≤ 22 trang. Tick từng buổi trong phase-33.md ngay khi xong.
+```
+
+---
+
+## Phase 34 — Notebook tự học + hình khái niệm · buổi 22–24 🔲
+
+Chi tiết: [`todos/phase-34.md`](todos/phase-34.md)
+
+### Prompt copy-paste cho Phase 34:
+```
+Forecasting | /home/tony/Tony/Forecasting | Phase 33 xong → Phase 34: notebook tự học + hình khái niệm (D14), buổi 22–24.
+Theo tools/tu_hoc/HUONG-DAN.md + todos/quy-uoc.md (D14, KHỐI CHUNG V7) + todos/phase-34.md. Mẫu: buổi 1–3.
+Mỗi buổi: moi_truong.py N → sinh.py N --khung → viết nốt TODO (gọn, đủ ý, hộp "tên · English", HINH cho khái niệm có hình
+dạng) → sinh.py N --chay 0 lỗi, mọi số khớp tai-lieu.md → xem lại từng hình (notebook + PDF) → kiem_de_hieu.py N không lỗi
+mới, PDF ≤ 22 trang. Tick từng buổi trong phase-34.md ngay khi xong.
+```
+
+---
+
+## Phase 35 — Notebook tự học + hình khái niệm · buổi 25–28 🔲
+
+Chi tiết: [`todos/phase-35.md`](todos/phase-35.md)
+
+### Prompt copy-paste cho Phase 35:
+```
+Forecasting | /home/tony/Tony/Forecasting | Phase 34 xong → Phase 35: notebook tự học + hình khái niệm (D14), buổi 25–28.
+Theo tools/tu_hoc/HUONG-DAN.md + todos/quy-uoc.md (D14, KHỐI CHUNG V7) + todos/phase-35.md. Mẫu: buổi 1–3.
+Mỗi buổi: moi_truong.py N → sinh.py N --khung → viết nốt TODO (gọn, đủ ý, hộp "tên · English", HINH cho khái niệm có hình
+dạng) → sinh.py N --chay 0 lỗi, mọi số khớp tai-lieu.md → xem lại từng hình (notebook + PDF) → kiem_de_hieu.py N không lỗi
+mới, PDF ≤ 22 trang. Tick từng buổi trong phase-35.md ngay khi xong.
+```
+
+---
+
+## Phase 36 — Notebook tự học + hình khái niệm · buổi 29–30 🔲
+
+Chi tiết: [`todos/phase-36.md`](todos/phase-36.md)
+
+### Prompt copy-paste cho Phase 36:
+```
+Forecasting | /home/tony/Tony/Forecasting | Phase 35 xong → Phase 36: notebook tự học + hình khái niệm (D14), buổi 29–30.
+Theo tools/tu_hoc/HUONG-DAN.md + todos/quy-uoc.md (D14, KHỐI CHUNG V7) + todos/phase-36.md. Mẫu: buổi 1–3.
+Mỗi buổi: moi_truong.py N → sinh.py N --khung → viết nốt TODO (gọn, đủ ý, hộp "tên · English", HINH cho khái niệm có hình
+dạng) → sinh.py N --chay 0 lỗi, mọi số khớp tai-lieu.md → xem lại từng hình (notebook + PDF) → kiem_de_hieu.py N không lỗi
+mới, PDF ≤ 22 trang. Tick từng buổi trong phase-36.md ngay khi xong.
+```
+
+---
+
+## Phase 37 — Buổi 31–32 · Transformer, mô hình sinh 🔲
+
+Chi tiết: [`todos/phase-37.md`](todos/phase-37.md)
+
+### Prompt copy-paste cho Phase 37:
+```
+Forecasting | /home/tony/Tony/Forecasting | Phase 36 xong → Phase 37: buổi 31–32 (Giai đoạn 5 — Deep learning).
+Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-37.md.
 Riêng: mọi lab chạy CPU trong thời gian hợp lý (ghi phút), có cấu hình rút gọn máy 8 GB; mọi bảng so sánh có seasonal
 naive + một mô hình thống kê + LightGBM, kể cả khi DL thua; model/checkpoint chốt revision. Research: đọc NGHIEN-CUU.md từ phase 28, rà bổ sung.
 ```
 
 ---
 
-## Phase 31 — Buổi 33 · Không gian–thời gian & thời tiết AI 🔲
+## Phase 38 — Buổi 33 · Không gian–thời gian & thời tiết AI 🔲
 
-Chi tiết: [`todos/phase-31.md`](todos/phase-31.md)
+Chi tiết: [`todos/phase-38.md`](todos/phase-38.md)
 
-### Prompt copy-paste cho Phase 31:
+### Prompt copy-paste cho Phase 38:
 ```
-Forecasting | /home/tony/Tony/Forecasting | Phase 30 xong → Phase 31: buổi 33 (Giai đoạn 5 — Deep learning).
-Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-31.md.
+Forecasting | /home/tony/Tony/Forecasting | Phase 37 xong → Phase 38: buổi 33 (Giai đoạn 5 — Deep learning).
+Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-38.md.
 Riêng: mọi lab chạy CPU trong thời gian hợp lý (ghi phút), có cấu hình rút gọn máy 8 GB; mọi bảng so sánh có seasonal
 naive + một mô hình thống kê + LightGBM, kể cả khi DL thua; model/checkpoint chốt revision. Research: đọc NGHIEN-CUU.md từ phase 28, rà bổ sung. Cuối buổi 33: M5.
 ```
 
 ---
 
-## Phase 32 — Đọc thử độc lập buổi 29–33 🔲
+## Phase 39 — Đọc thử độc lập buổi 29–33 🔲
 
-Chi tiết: [`todos/phase-32.md`](todos/phase-32.md)
+Chi tiết: [`todos/phase-39.md`](todos/phase-39.md)
 
-### Prompt copy-paste cho Phase 32:
+### Prompt copy-paste cho Phase 39:
 ```
-Forecasting | /home/tony/Tony/Forecasting | Phase 31 xong → Phase 32: ĐỌC THỬ ĐỘC LẬP buổi 29–33 (KHỐI CHUNG DT, phiên MỚI).
-Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-32.md.
+Forecasting | /home/tony/Tony/Forecasting | Phase 38 xong → Phase 39: ĐỌC THỬ ĐỘC LẬP buổi 29–33 (KHỐI CHUNG DT, phiên MỚI).
+Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-39.md.
 Phiên MỚI (/clear). Tài liệu: Buổi 29, Buổi 30, Buổi 31, Buổi 32, Buổi 33.
 ```
 
 ---
 
-## Phase 33 — Research foundation model & LLM (buổi 34–37) 🔲
+## Phase 40 — Research foundation model & LLM (buổi 34–37) 🔲
 
-Chi tiết: [`todos/phase-33.md`](todos/phase-33.md)
+Chi tiết: [`todos/phase-40.md`](todos/phase-40.md)
 
-### Prompt copy-paste cho Phase 33:
+### Prompt copy-paste cho Phase 40:
 ```
-Forecasting | /home/tony/Tony/Forecasting | Phase 32 xong → Phase 33: RESEARCH RIÊNG cụm foundation model & LLM, buổi 34–37 (KHỐI CHUNG RS — chưa soạn).
-Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-33.md.
+Forecasting | /home/tony/Tony/Forecasting | Phase 39 xong → Phase 40: RESEARCH RIÊNG cụm foundation model & LLM, buổi 34–37 (KHỐI CHUNG RS — chưa soạn).
+Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-40.md.
 Research riêng — KỸ HƠN mọi phase (lĩnh vực đổi hàng tháng):
 - GIFT-Eval, fev-bench HIỆN TẠI: top model, cột "không rò dữ liệu", model mới sau Chronos-2 / TimesFM 2.5 / Moirai 2 / TiRex /
   Toto 2.0 / Sundial → cập nhật danh sách model của buổi; ngày phát hành + dữ liệu huấn luyện từng model (chọn dữ liệu sạch)
@@ -486,56 +591,56 @@ Research riêng — KỸ HƠN mọi phase (lĩnh vực đổi hàng tháng):
 
 ---
 
-## Phase 34 — Buổi 34–35 · Foundation model, fine-tune & benchmark 🔲
+## Phase 41 — Buổi 34–35 · Foundation model, fine-tune & benchmark 🔲
 
-Chi tiết: [`todos/phase-34.md`](todos/phase-34.md)
+Chi tiết: [`todos/phase-41.md`](todos/phase-41.md)
 
-### Prompt copy-paste cho Phase 34:
+### Prompt copy-paste cho Phase 41:
 ```
-Forecasting | /home/tony/Tony/Forecasting | Phase 33 xong → Phase 34: buổi 34–35 (Giai đoạn 6).
-Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-34.md.
+Forecasting | /home/tony/Tony/Forecasting | Phase 40 xong → Phase 41: buổi 34–35 (Giai đoạn 6).
+Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-41.md.
 Riêng: mọi đánh giá foundation model/LLM trên dữ liệu SAU mốc cắt, ghi mốc trong "Trạng thái đầu buổi"; model chốt
-revision. Research: đọc NGHIEN-CUU.md từ phase 33, rà lại phần model/phiên bản nếu cũ hơn 1 tháng.
+revision. Research: đọc NGHIEN-CUU.md từ phase 40, rà lại phần model/phiên bản nếu cũ hơn 1 tháng.
 ```
 
 ---
 
-## Phase 35 — Buổi 36–37 · LLM & agent, dự báo sự kiện 🔲
+## Phase 42 — Buổi 36–37 · LLM & agent, dự báo sự kiện 🔲
 
-Chi tiết: [`todos/phase-35.md`](todos/phase-35.md)
+Chi tiết: [`todos/phase-42.md`](todos/phase-42.md)
 
-### Prompt copy-paste cho Phase 35:
+### Prompt copy-paste cho Phase 42:
 ```
-Forecasting | /home/tony/Tony/Forecasting | Phase 34 xong → Phase 35: buổi 36–37 (Giai đoạn 6).
-Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-35.md.
+Forecasting | /home/tony/Tony/Forecasting | Phase 41 xong → Phase 42: buổi 36–37 (Giai đoạn 6).
+Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-42.md.
 Riêng: mọi đánh giá foundation model/LLM trên dữ liệu SAU mốc cắt, ghi mốc trong "Trạng thái đầu buổi"; model chốt
-revision. Research: đọc NGHIEN-CUU.md từ phase 33, rà lại phần model/phiên bản nếu cũ hơn 1 tháng.
+revision. Research: đọc NGHIEN-CUU.md từ phase 40, rà lại phần model/phiên bản nếu cũ hơn 1 tháng.
 Buổi 36–37 chạy được không cần API key trả phí (model mở local + bản ghi phản hồi). Cuối buổi 37: M6.
 ```
 
 ---
 
-## Phase 36 — Đọc thử độc lập buổi 34–37 🔲
+## Phase 43 — Đọc thử độc lập buổi 34–37 🔲
 
-Chi tiết: [`todos/phase-36.md`](todos/phase-36.md)
+Chi tiết: [`todos/phase-43.md`](todos/phase-43.md)
 
-### Prompt copy-paste cho Phase 36:
+### Prompt copy-paste cho Phase 43:
 ```
-Forecasting | /home/tony/Tony/Forecasting | Phase 35 xong → Phase 36: ĐỌC THỬ ĐỘC LẬP buổi 34–37 (KHỐI CHUNG DT, phiên MỚI).
-Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-36.md.
+Forecasting | /home/tony/Tony/Forecasting | Phase 42 xong → Phase 43: ĐỌC THỬ ĐỘC LẬP buổi 34–37 (KHỐI CHUNG DT, phiên MỚI).
+Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-43.md.
 Phiên MỚI (/clear). Tài liệu: Buổi 34, Buổi 35, Buổi 36, Buổi 37.
 ```
 
 ---
 
-## Phase 37 — Buổi 38–39 · Tác động can thiệp, kịch bản & what-if 🔲
+## Phase 44 — Buổi 38–39 · Tác động can thiệp, kịch bản & what-if 🔲
 
-Chi tiết: [`todos/phase-37.md`](todos/phase-37.md)
+Chi tiết: [`todos/phase-44.md`](todos/phase-44.md)
 
-### Prompt copy-paste cho Phase 37:
+### Prompt copy-paste cho Phase 44:
 ```
-Forecasting | /home/tony/Tony/Forecasting | Phase 36 xong → Phase 37: buổi 38–39 (Giai đoạn 7 — Nhân quả).
-Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-37.md.
+Forecasting | /home/tony/Tony/Forecasting | Phase 43 xong → Phase 44: buổi 38–39 (Giai đoạn 7 — Nhân quả).
+Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-44.md.
 Research riêng: CausalImpact Python còn sống (tfcausalimpact / causalimpact / PyMC-Marketing / CausalPy — chọn cái đang bảo
 trì); synthetic control (Abadie), synthetic DiD; DoubleML/EconML mới.
 Riêng: mọi phương pháp nhân quả kiểm trên dữ liệu mô phỏng có đáp án TRƯỚC khi áp lên dữ liệu thật.
@@ -543,14 +648,14 @@ Riêng: mọi phương pháp nhân quả kiểm trên dữ liệu mô phỏng c�
 
 ---
 
-## Phase 38 — Buổi 40 · Dự báo → quyết định 🔲
+## Phase 45 — Buổi 40 · Dự báo → quyết định 🔲
 
-Chi tiết: [`todos/phase-38.md`](todos/phase-38.md)
+Chi tiết: [`todos/phase-45.md`](todos/phase-45.md)
 
-### Prompt copy-paste cho Phase 38:
+### Prompt copy-paste cho Phase 45:
 ```
-Forecasting | /home/tony/Tony/Forecasting | Phase 37 xong → Phase 38: buổi 40 (Giai đoạn 7).
-Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-38.md.
+Forecasting | /home/tony/Tony/Forecasting | Phase 44 xong → Phase 45: buổi 40 (Giai đoạn 7).
+Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-45.md.
 Research riêng: forecast value added (Gilliland); newsvendor + inventory policy với dự báo xác suất; FPP ch. 6 (judgmental);
 truyền đạt bất định cho người không chuyên (fan chart).
 Riêng: buổi 40 quy ra tiền.
@@ -558,27 +663,27 @@ Riêng: buổi 40 quy ra tiền.
 
 ---
 
-## Phase 39 — Đọc thử độc lập buổi 38–40 🔲
+## Phase 46 — Đọc thử độc lập buổi 38–40 🔲
 
-Chi tiết: [`todos/phase-39.md`](todos/phase-39.md)
+Chi tiết: [`todos/phase-46.md`](todos/phase-46.md)
 
-### Prompt copy-paste cho Phase 39:
+### Prompt copy-paste cho Phase 46:
 ```
-Forecasting | /home/tony/Tony/Forecasting | Phase 38 xong → Phase 39: ĐỌC THỬ ĐỘC LẬP buổi 38–40 (KHỐI CHUNG DT, phiên MỚI).
-Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-39.md.
+Forecasting | /home/tony/Tony/Forecasting | Phase 45 xong → Phase 46: ĐỌC THỬ ĐỘC LẬP buổi 38–40 (KHỐI CHUNG DT, phiên MỚI).
+Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-46.md.
 Phiên MỚI (/clear). Tài liệu: Buổi 38, Buổi 39, Buổi 40.
 ```
 
 ---
 
-## Phase 40 — Buổi 41–42 · Pipeline tái lập, phục vụ quy mô lớn 🔲
+## Phase 47 — Buổi 41–42 · Pipeline tái lập, phục vụ quy mô lớn 🔲
 
-Chi tiết: [`todos/phase-40.md`](todos/phase-40.md)
+Chi tiết: [`todos/phase-47.md`](todos/phase-47.md)
 
-### Prompt copy-paste cho Phase 40:
+### Prompt copy-paste cho Phase 47:
 ```
-Forecasting | /home/tony/Tony/Forecasting | Phase 39 xong → Phase 40: buổi 41–42 (Giai đoạn 8 — Production).
-Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-40.md.
+Forecasting | /home/tony/Tony/Forecasting | Phase 46 xong → Phase 47: buổi 41–42 (Giai đoạn 8 — Production).
+Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-47.md.
 Research riêng: Prefect vs Dagster mới (chọn một, ghi lý do); pandera, MLflow, DVC mới; point-in-time/feature store cho chuỗi
 thời gian; statsforecast/mlforecast phân tán (Ray, Spark, Dask qua Fugue) còn hỗ trợ?; phục vụ foundation model trên CPU.
 Riêng: buổi 41 tái lập từng byte.
@@ -586,14 +691,14 @@ Riêng: buổi 41 tái lập từng byte.
 
 ---
 
-## Phase 41 — Buổi 43 · Giám sát & drift 🔲
+## Phase 48 — Buổi 43 · Giám sát & drift 🔲
 
-Chi tiết: [`todos/phase-41.md`](todos/phase-41.md)
+Chi tiết: [`todos/phase-48.md`](todos/phase-48.md)
 
-### Prompt copy-paste cho Phase 41:
+### Prompt copy-paste cho Phase 48:
 ```
-Forecasting | /home/tony/Tony/Forecasting | Phase 40 xong → Phase 41: buổi 43 (Giai đoạn 8).
-Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-41.md.
+Forecasting | /home/tony/Tony/Forecasting | Phase 47 xong → Phase 48: buổi 43 (Giai đoạn 8).
+Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-48.md.
 Research riêng: drift detection (PSI, ADWIN, Page–Hinkley — river mới); bài học vận hành hệ dự báo lớn công khai gần đây
 (Uber, Amazon, Walmart…).
 Riêng: replay dữ liệu thật với sự cố cài sẵn, không mô phỏng tay từng cảnh báo. Cuối buổi 43: M7.
@@ -601,27 +706,27 @@ Riêng: replay dữ liệu thật với sự cố cài sẵn, không mô phỏng
 
 ---
 
-## Phase 42 — Đọc thử độc lập buổi 41–43 🔲
+## Phase 49 — Đọc thử độc lập buổi 41–43 🔲
 
-Chi tiết: [`todos/phase-42.md`](todos/phase-42.md)
+Chi tiết: [`todos/phase-49.md`](todos/phase-49.md)
 
-### Prompt copy-paste cho Phase 42:
+### Prompt copy-paste cho Phase 49:
 ```
-Forecasting | /home/tony/Tony/Forecasting | Phase 41 xong → Phase 42: ĐỌC THỬ ĐỘC LẬP buổi 41–43 (KHỐI CHUNG DT, phiên MỚI).
-Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-42.md.
+Forecasting | /home/tony/Tony/Forecasting | Phase 48 xong → Phase 49: ĐỌC THỬ ĐỘC LẬP buổi 41–43 (KHỐI CHUNG DT, phiên MỚI).
+Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-49.md.
 Phiên MỚI (/clear). Tài liệu: Buổi 41, Buổi 42, Buổi 43.
 ```
 
 ---
 
-## Phase 43 — Dự án cuối (a) · Đề, rubric, bộ chấm 🔲
+## Phase 50 — Dự án cuối (a) · Đề, rubric, bộ chấm 🔲
 
-Chi tiết: [`todos/phase-43.md`](todos/phase-43.md)
+Chi tiết: [`todos/phase-50.md`](todos/phase-50.md)
 
-### Prompt copy-paste cho Phase 43:
+### Prompt copy-paste cho Phase 50:
 ```
-Forecasting | /home/tony/Tony/Forecasting | Phase 42 xong → Phase 43: du-an-cuoi/ phần (a): đề, rubric, khuôn, bộ chấm, hạ tầng nguồn dữ liệu của lớp.
-Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-43.md.
+Forecasting | /home/tony/Tony/Forecasting | Phase 49 xong → Phase 50: du-an-cuoi/ phần (a): đề, rubric, khuôn, bộ chấm, hạ tầng nguồn dữ liệu của lớp.
+Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-50.md.
 Research ghi du-an-cuoi/NGHIEN-CUU.md. Research riêng: tổ chức thi dự báo trực tiếp (M6, GEFCom, ForecastBench, cuộc thi VN
 nếu có); EIA-930 API và OpenAQ hiện tại (trạm Hà Nội/TP.HCM còn chạy?, độ trễ); rubric chấm dự án ML thực tế; model card
 (Mitchell et al.) mới.
@@ -631,56 +736,56 @@ liệu TƯƠNG LAI THẬT (dấu thời gian dự báo có trước dữ liệu)
 
 ---
 
-## Phase 44 — Dự án cuối (b) · Ngày dữ liệu hỏng, lời giải mẫu, chạy thử thật 🔲
+## Phase 51 — Dự án cuối (b) · Ngày dữ liệu hỏng, lời giải mẫu, chạy thử thật 🔲
 
-Chi tiết: [`todos/phase-44.md`](todos/phase-44.md)
+Chi tiết: [`todos/phase-51.md`](todos/phase-51.md)
 
-### Prompt copy-paste cho Phase 44:
+### Prompt copy-paste cho Phase 51:
 ```
-Forecasting | /home/tony/Tony/Forecasting | Phase 43 xong → Phase 44: du-an-cuoi/ phần (b): ngày dữ liệu hỏng, lời giải mẫu, chạy thử 3 ngày thật, PDF, đọc thử độc lập đề.
-Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-44.md.
+Forecasting | /home/tony/Tony/Forecasting | Phase 50 xong → Phase 51: du-an-cuoi/ phần (b): ngày dữ liệu hỏng, lời giải mẫu, chạy thử 3 ngày thật, PDF, đọc thử độc lập đề.
+Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-51.md.
 Riêng: "ngày dữ liệu hỏng" do giám khảo giữ, không được bỏ; lời giải mẫu và ngay-du-lieu-hong/ KHÔNG vào zip; chạy thử 3
 ngày dự báo trực tiếp thật; đề xuất PDF. Đọc thử độc lập đề trong phiên MỚI.
 ```
 
 ---
 
-## Phase 45 — Đánh giá (a) · Ngân hàng câu hỏi, đề đọc biểu đồ 🔲
+## Phase 52 — Đánh giá (a) · Ngân hàng câu hỏi, đề đọc biểu đồ 🔲
 
-Chi tiết: [`todos/phase-45.md`](todos/phase-45.md)
+Chi tiết: [`todos/phase-52.md`](todos/phase-52.md)
 
-### Prompt copy-paste cho Phase 45:
+### Prompt copy-paste cho Phase 52:
 ```
-Forecasting | /home/tony/Tony/Forecasting | Phase 44 xong → Phase 45: danh-gia/ phần (a).
-Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-45.md.
+Forecasting | /home/tony/Tony/Forecasting | Phase 51 xong → Phase 52: danh-gia/ phần (a).
+Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-52.md.
 Research ghi danh-gia/NGHIEN-CUU.md. Research riêng: rà 44 buổi tìm nội dung đã lỗi thời (API đổi, model mới) — liệt kê TRƯỚC
 khi viết câu hỏi dựa trên nó; cách viết câu hỏi đánh giá hiểu sâu; khung năng lực dự báo (IIF CPF…).
 ```
 
 ---
 
-## Phase 46 — Đánh giá (b) · Đề thực hành, đề tìm rò rỉ 🔲
+## Phase 53 — Đánh giá (b) · Đề thực hành, đề tìm rò rỉ 🔲
 
-Chi tiết: [`todos/phase-46.md`](todos/phase-46.md)
+Chi tiết: [`todos/phase-53.md`](todos/phase-53.md)
 
-### Prompt copy-paste cho Phase 46:
+### Prompt copy-paste cho Phase 53:
 ```
-Forecasting | /home/tony/Tony/Forecasting | Phase 45 xong → Phase 46: danh-gia/ phần (b) + đọc thử độc lập toàn bộ danh-gia/.
-Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-46.md.
+Forecasting | /home/tony/Tony/Forecasting | Phase 52 xong → Phase 53: danh-gia/ phần (b) + đọc thử độc lập toàn bộ danh-gia/.
+Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-53.md.
 Riêng: 2 đề thực hành có script chấm; đề tìm rò rỉ chấm tự động; mọi câu trỏ về buổi dạy nó. Cuối phase: đọc thử độc lập
 toàn bộ danh-gia/ trong phiên MỚI.
 ```
 
 ---
 
-## Phase 47 — Xuất bản & đóng gói 🔲
+## Phase 54 — Xuất bản & đóng gói 🔲
 
-Chi tiết: [`todos/phase-47.md`](todos/phase-47.md)
+Chi tiết: [`todos/phase-54.md`](todos/phase-54.md)
 
-### Prompt copy-paste cho Phase 47:
+### Prompt copy-paste cho Phase 54:
 ```
-Forecasting | /home/tony/Tony/Forecasting | Phase 46 xong → Phase 47: xuất bản — 44 PDF, đóng gói phat-de/, cập nhật README.md và CLAUDE.md.
-Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-47.md.
+Forecasting | /home/tony/Tony/Forecasting | Phase 53 xong → Phase 54: xuất bản — 44 PDF, đóng gói phat-de/, cập nhật README.md và CLAUDE.md.
+Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-54.md.
 Research (thay R): phiên bản mới nhất của MỌI thư viện/model đã chốt; dataset đổi URL/giấy phép; bảng xếp hạng
 GIFT-Eval/fev-bench/ForecastBench → NGHIEN-CUU-XUAT-BAN.md bảng "đã chốt → mới nhất → cần cập nhật buổi nào". Lệch lớn (API hỏng
 lab, model vượt hẳn) → báo người dùng TRƯỚC, đề xuất phase cập nhật, không tự sửa hàng loạt. Cập nhật "Rà soát gần nhất" của lộ trình.
@@ -691,14 +796,14 @@ loi-giai-mau/, ngay-du-lieu-hong/.
 
 ---
 
-## Phase 48 — Kiểm định chất lượng 🔲
+## Phase 55 — Kiểm định chất lượng 🔲
 
-Chi tiết: [`todos/phase-48.md`](todos/phase-48.md)
+Chi tiết: [`todos/phase-55.md`](todos/phase-55.md)
 
-### Prompt copy-paste cho Phase 48:
+### Prompt copy-paste cho Phase 55:
 ```
-Forecasting | /home/tony/Tony/Forecasting | Phase 47 xong → Phase 48: kiểm định — kiem_tra_lab.py cả 44 buổi trên venv trắng, rà mạch kiến thức và M0–M7.
-Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-48.md.
+Forecasting | /home/tony/Tony/Forecasting | Phase 54 xong → Phase 55: kiểm định — kiem_tra_lab.py cả 44 buổi trên venv trắng, rà mạch kiến thức và M0–M7.
+Theo KHỐI CHUNG (todos/quy-uoc.md) + todos/phase-55.md.
 Kết quả ghi KIEM-DINH.md. Research (thay R): thư viện/model/dataset nào đổi kể từ ngày trong từng NGHIEN-CUU.md → bảng "buổi
 có nguy cơ lỗi thời" TRƯỚC khi chạy (tách lỗi nội dung với lỗi môi trường).
 Báo cáo bảng: buổi xanh/hỏng, hỏng ở bước nào, thời gian chạy. Không sửa lấy được — nêu rõ trước.

@@ -33,7 +33,7 @@ Nội dung từng buổi: `lo-trinh/lo-trinh-forecasting.md`.
 | `du-an-cuoi/` | 3 đề thực tế, rubric 100+20, bộ chấm, "ngày dữ liệu hỏng" |
 | `danh-gia/` | Ngân hàng câu hỏi, đề thực hành, đề đọc biểu đồ, đề tìm rò rỉ |
 | `phat-de/` | Sinh ra: `buoi-NN.zip` phát cho học viên (gitignore) |
-| `tools/` | `CHUAN-DE-HIEU.md` (chuẩn dễ hiểu + prompt đọc thử), `kiem_de_hieu.py`, `xuat_pdf.py`, `sinh_nen.py`, `lay_du_lieu.py`, `kiem_tra_doc_lap.sh`, `kiem_tra_lab.py`, `dong_goi.py`, `khung/` (nguồn của `tv/`), `nen/phien-ban.toml` (phiên bản chung), `nen/lab.py` (nguồn của `lab/lab.py`), `nb.py` (soạn `code/lab.ipynb`), `du-lieu/danh-muc.toml`, `khuon-buoi/`, `NGHIEN-CUU.md` |
+| `tools/` | `CHUAN-DE-HIEU.md` (chuẩn dễ hiểu + prompt đọc thử), `kiem_de_hieu.py`, `xuat_pdf.py`, `sinh_nen.py`, `lay_du_lieu.py`, `kiem_tra_doc_lap.sh`, `kiem_tra_lab.py`, `dong_goi.py`, `khung/` (nguồn của `tv/`), `nen/phien-ban.toml` (phiên bản chung), `nen/lab.py` (nguồn của `lab/lab.py`), `nb.py` (soạn `code/lab.ipynb`), `tu_hoc/` (notebook tự học `buoi-NN/tu-hoc.ipynb` — `HUONG-DAN.md`, `sinh.py`, `buoi_NN.py`, `du_lieu.toml`, môi trường dùng chung), `du-lieu/danh-muc.toml`, `khuon-buoi/`, `NGHIEN-CUU.md` |
 | `todos.md`, `todos/` | `todos.md`: tiêu đề phase + prompt (autoclick theo dõi); `todos/quy-uoc.md`, `todos/tong-quan.md`, `todos/phase-NN.md`. Xong phase → đổi 🔲→✅ ở `todos.md` VÀ `todos/phase-NN.md` |
 | `phan-hoi-hoc-vien.md` | Người học ghi đoạn khó hiểu — đọc trước khi soạn/viết lại buổi |
 | `MOI-TRUONG.md`, `pyproject.toml` | Hướng dẫn cài cho học viên; cấu hình ruff (repo **không** phải dự án uv — cấm `[tool.uv.workspace]`) |
@@ -91,8 +91,10 @@ có nguồn và ngày. Lệch lớn so với lộ trình → cập nhật `lo-tr
     - *Trạng thái đầu buổi* là bảng: dữ liệu (file, số dòng, khoảng thời gian, sha256 rút gọn),
       môi trường, `code/` có gì, **cái gì đang cố tình sai và triệu chứng**
 12. **Công thức** viết LaTeX: `$...$` trong dòng, `$$...$$` khối riêng — `xuat_pdf.py` render ra SVG.
-    **Hình** sinh bằng `dap-an/ve_hinh.py` → `hinh/*.png`, không vẽ tay; tiêu đề hình nói kết luận.
-13. **Độ dài:** `tai-lieu.md` 3.500–6.500 chữ ngoài bảng/code (`kiem_de_hieu.py`), PDF 10–18 trang (`python tools/xuat_pdf.py --kiem`)
+    **Hình** sinh bằng `dap-an/ve_hinh.py` → `hinh/*.png`, không vẽ tay; tiêu đề hình nói kết luận. **Hình minh hoạ khái
+    niệm** (`hinh/kn-*.png`, D14) sinh bằng `dap-an/ve_hinh_khai_niem.py` — script do `tools/tu_hoc/sinh.py` ghi từ bảng
+    `HINH` — đặt ngay chỗ khái niệm xuất hiện lần đầu, kèm "Cách đọc hình" 1–2 câu; không sửa tay khối đó trong tài liệu.
+13. **Độ dài:** `tai-lieu.md` 3.500–6.500 chữ ngoài bảng/code (`kiem_de_hieu.py`), PDF 10–22 trang (`python tools/xuat_pdf.py --kiem`; 22 nhờ hình khái niệm)
     — số chốt ở Phase 7. Giới hạn thật là số khái niệm (≤ 6) — thừa thì bỏ bớt/chuyển "Nâng cao", **không nén chữ,
     không độn chữ**.
 14. **Dễ hiểu là tiêu chí nghiệm thu** (bài học 2026-09-18: người dùng học buổi 1–13 phải hỏi ChatGPT mới
@@ -121,7 +123,9 @@ có nguồn và ngày. Lệch lớn so với lộ trình → cập nhật `lo-tr
 - `ruff check` sạch; Lab có notebook `code/lab.ipynb` phát sẵn (soạn bằng `tools/nb.py`), commit **không output**,
   chạy hết không lỗi (`kiem_tra_lab.py` chạy nó)
 - `tools/kiem_tra_doc_lap.sh` xanh
-- PDF sinh ra, mở kiểm tra bảng, khối code, công thức, ảnh; 10–18 trang
+- PDF sinh ra, mở kiểm tra bảng, khối code, công thức, ảnh; 10–22 trang
+- Notebook tự học `buoi-NN/tu-hoc.ipynb` (`tools/tu_hoc/sinh.py N --chay` 0 lỗi, đủ ý) + hình khái niệm `hinh/kn-*.png`
+  trong notebook, `tai-lieu.md`, PDF — quy trình: `tools/tu_hoc/HUONG-DAN.md`
 - Chạy thử toàn bộ lab trên **venv trắng** một lần rồi mới tick ✅ trong `todos.md`
 
 ## Công cụ
@@ -140,6 +144,10 @@ cp -r tools/khuon-buoi buoi-07                        # buổi mới từ khuôn
 .venv/bin/python tools/dong_goi.py 7                  # phat-de/buoi-07.zip, lọc đáp án  (--liet-ke)
 .venv/bin/ruff check .                                # lint toàn repo
 python3 tools/kiem_de_hieu.py [7] [--chi-tiet]        # kiểm máy chuẩn dễ hiểu D1–D13 (test: tools/test_kiem_de_hieu.py)
+python tools/tu_hoc/moi_truong.py 7                  # venv + kernel DÙNG CHUNG theo hồ sơ (pandas3/nixtla/autogluon), ở ~/.cache
+python tools/tu_hoc/sinh.py --thieu                  # buổi đã soạn mà chưa có notebook tự học (việc nền đầu mọi phase)
+python tools/tu_hoc/sinh.py 7 --khung                # dựng tools/tu_hoc/buoi_07.py khung từ tai-lieu.md (TODO) — cách viết: tools/tu_hoc/HUONG-DAN.md
+python tools/tu_hoc/sinh.py 7 --chay                 # buoi-07/tu-hoc.ipynb: ôn gọn + khái niệm có hình + code đáp án, tự chứa  (--tat-ca)
 .venv/bin/python tools/kiem_khung.py                  # test tools/khung/ ở hồ sơ pandas3 + nixtla
 .venv/bin/python tools/du-lieu/tai_danh_muc.py --may-trang   # tải TOÀN BỘ danh mục, kiểm sha256
 .venv/bin/python tools/du-lieu/sinh_phu_luc_f.py      # Phụ lục F từ danh mục (không sửa tay)

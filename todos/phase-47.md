@@ -1,13 +1,16 @@
-# Phase 47 — Xuất bản & đóng gói 🔲
+# Phase 47 — Buổi 41–42 · Pipeline tái lập, phục vụ quy mô lớn 🔲
 
 Quy ước: `todos/quy-uoc.md` (KHỐI CHUNG). Prompt: `todos.md` mục "Phase 47". Trạng thái ✅/🔲 ở tiêu đề khớp `todos.md`.
 
-Checklist:
-- [ ] `python tools/xuat_pdf.py` — sinh đủ 44 PDF + trang lẻ; `--kiem` mọi buổi 10–18 trang; mở kiểm tra ngẫu
-  nhiên 6 file (bảng, khối code, **công thức**, ảnh, tiếng Việt có dấu)
-- [ ] `python tools/dong_goi.py` — `phat-de/buoi-NN.zip`; xác nhận **không** file nào chứa `dap-an/`, `NGHIEN-CUU.md`,
-  `loi-giai-mau/`, `ngay-du-lieu-hong/`, lỗi cài sẵn của dự án giữa chặng
-- [ ] Cập nhật `README.md` — bảng 44 buổi, bảng chỗ hở cố ý, **bảng "học theo cụm"**, cách dạy lẻ một buổi
-- [ ] Cập nhật `CLAUDE.md` nếu quy ước đổi trong lúc soạn
-- [ ] Push lên remote; cân nhắc GitHub Pages cho lộ trình; công bố bộ dữ liệu mirror trên Hugging Face kèm ghi nguồn
-- [ ] Tổng hợp: số file, số trang PDF, dung lượng, tổng dung lượng dữ liệu tải — ghi vào Progress Summary
+Cần Docker, API key EIA.
+
+| Buổi | Research | Tài liệu | Code | Lab + notebook | Quiz | Tự đọc thử + rà gọn | PDF |
+|---|---|---|---|---|---|---|---|
+| 41 Pipeline tái lập | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
+| 42 Phục vụ quy mô lớn | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
+
+Bắt buộc:
+- Buổi 41: chạy hai lần **giống từng byte**; pandera chặn đổi đơn vị; backfill không dùng dữ liệu sau ngày dự báo; kho dữ liệu as-of
+- Buổi 42: đo thời gian vòng for → `n_jobs` → Ray, ghi con số; API p95 bằng `locust`; Docker
+- - **Notebook + gọn**: `code/lab.ipynb` (soạn bằng `tools/nb.py`), tài liệu trỏ "ô bước N"; lệnh `python lab.py …`;
+  D13 ngay từ đầu (3.500–6.500 chữ, PDF 10–18 trang); tự đọc thử + tự rà gọn (KHỐI CHUNG Đ)

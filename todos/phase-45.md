@@ -1,8 +1,12 @@
-# Phase 45 — Đánh giá (a) · Ngân hàng câu hỏi, đề đọc biểu đồ 🔲
+# Phase 45 — Buổi 40 · Dự báo → quyết định 🔲
 
 Quy ước: `todos/quy-uoc.md` (KHỐI CHUNG). Prompt: `todos.md` mục "Phase 45". Trạng thái ✅/🔲 ở tiêu đề khớp `todos.md`.
 
-Checklist:
-- [ ] `danh-gia/ngan-hang-cau-hoi.md` — gộp 440 câu quiz của 44 buổi, gắn nhãn mức (nhắc lại / vận dụng / đọc biểu đồ-chẩn đoán) và giai đoạn
-- [ ] `danh-gia/de-doc-bieu-do.md` — **30 biểu đồ thật, mỗi hình hỏi "đọc ra gì / sai ở đâu"** (hình sinh bằng script, lưu trong repo)
-- [ ] Bảng đối chiếu: buổi ↔ chương FPP ↔ đề kiểm tra; mọi câu hỏi trỏ về buổi dạy nó
+| Buổi | Research | Tài liệu | Code | Lab + notebook | Quiz | Tự đọc thử + rà gọn | PDF |
+|---|---|---|---|---|---|---|---|
+| 40 Dự báo → quyết định | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 | 🔲 |
+
+Bắt buộc:
+- Buổi 40: newsvendor 500 SKU báo **số tiền** tiết kiệm; FVA; một trang dashboard fan chart **thử với người không chuyên**
+- - **Notebook + gọn**: `code/lab.ipynb` (soạn bằng `tools/nb.py`), tài liệu trỏ "ô bước N"; lệnh `python lab.py …`;
+  D13 ngay từ đầu (3.500–6.500 chữ, PDF 10–18 trang); tự đọc thử + tự rà gọn (KHỐI CHUNG Đ)

@@ -17,7 +17,7 @@
 #   K7  cài đặt ngoài lock: pip install / uv add / uv pip install trong code của buổi
 #   K8  code/ hoặc lab/cham/ trỏ tới dap-an/ (lộ đáp án, và dap-an/ không có trong zip)
 #   K9  git đang theo dõi dữ liệu (.csv .parquet .zip …, tệp > 2 MB) trong buổi; notebook chỉ được là
-#       code/*.ipynb và phải sạch output (không outputs, không execution_count)
+#       code/*.ipynb hoặc tu-hoc.ipynb (notebook tự học) và phải sạch output (không outputs, không execution_count)
 #   K10 pyproject.toml gốc có [tool.uv.workspace] hoặc [project] (uv sẽ nuốt uv.lock của buổi)
 set -euo pipefail
 GOC="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -58,7 +58,9 @@ def bao(ma: str, buoi: str, mo_ta: str) -> None:
 
 def chon_buoi() -> list[Path]:
     if not tham_so:
-        return sorted(p for p in GOC.glob("buoi-*") if p.is_dir())
+        # Buổi chỉ có NGHIEN-CUU.md = đã research (phase RS), chưa soạn → chưa có gì để kiểm
+        return sorted(p for p in GOC.glob("buoi-*")
+                      if p.is_dir() and {q.name for q in p.iterdir()} != {"NGHIEN-CUU.md"})
     ra = []
     for t in tham_so:
         ten = f"buoi-{int(t):02d}" if t.isdigit() else Path(t.rstrip("/")).name
@@ -244,7 +246,7 @@ def kiem_buoi(buoi: Path) -> None:
             if not p.is_file():
                 continue
             if p.suffix.lower() == ".ipynb":
-                if not re.fullmatch(rf"{re.escape(ten)}/code/[^/]+\.ipynb", rel):
+                if not re.fullmatch(rf"{re.escape(ten)}/(?:code/[^/]+|tu-hoc)\.ipynb", rel):
                     bao("K9", ten, f"git theo dõi notebook ngoài code/: {rel}")
                 else:
                     try:

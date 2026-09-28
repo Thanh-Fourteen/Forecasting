@@ -55,12 +55,13 @@ forecasting; tự học một mình, không có giảng viên bên cạnh. **Ti�
 | D5 | **Chưa dạy thì chưa dùng.** Buộc phải dùng sớm → hộp **"Mượn trước"**: 2–4 câu + ví dụ số nhỏ + "buổi N học kỹ" (chỉ nhắc tên buổi, không trỏ file) |
 | D6 | **Trích nguồn**: không chen trích nguyên văn tiếng Anh vào lý thuyết. Diễn giải tiếng Việt, nguồn ghi gọn trong ngoặc (FPP §5.2). Nguyên văn chỉ khi câu chữ gốc quan trọng — tối đa 1 lần/mục, kèm bản dịch. Lịch sử, tên bài báo, định lý → "Đọc thêm" |
 | D7 | **Mật độ**: câu ≤ ~30 chữ, một ý một câu; một đoạn ≤ 3 con số **kết quả** — nhiều hơn thì làm bảng (phép tính từng bước và dãy dữ liệu của ví dụ nhỏ không tính); không viết tắt tự chế ("TB 4 tuần" → "trung bình của 4 tuần trước, cùng giờ") |
-| D8 | **Mỗi hình** có khối "Cách đọc hình" theo thứ tự: trục ngang → trục dọc (đơn vị) → màu/đường nào là gì → nhìn vào đâu → kết luận. **Mỗi bảng kết quả** có "Đọc bảng": so dòng nào với dòng nào, kết luận, vì sao |
+| D8 | **Mỗi hình** có khối "Cách đọc hình" theo thứ tự: trục ngang → trục dọc (đơn vị) → màu/đường nào là gì → nhìn vào đâu → kết luận. Riêng **hình minh hoạ khái niệm** (`hinh/kn-*.png`, D14) dùng "Cách đọc hình" rút gọn 1–2 câu (trục + kết luận). **Mỗi bảng kết quả** có "Đọc bảng": so dòng nào với dòng nào, kết luận, vì sao |
 | D9 | **≤ 6 khái niệm chính** trong Lý thuyết. Phần học thuật/mở rộng → hộp **"Nâng cao — có thể bỏ qua lần đọc đầu"** hoặc "Đọc thêm". Hết chỗ thì **bỏ bớt nội dung, không nén chữ** |
 | D10 | Mỗi mục lý thuyết kết thúc bằng 1 câu **"Tự kiểm tra"**, đáp án trong `<details>` |
 | D11 | **Lab**: trước mỗi bước nói "bước này để làm gì / sẽ thấy gì"; sau bước nói "thấy X nghĩa là Y, thấy Z thì kiểm lại …" |
 | D12 | **Quiz**: đáp án giải thích *vì sao đúng* và *vì sao các lựa chọn khác sai*; trả lời được chỉ bằng tài liệu buổi đó |
 | D13 | **Gọn — mỗi ý nói một lần** (thêm 2026-09-18, xem dưới). Dễ hiểu nhờ *đúng chỗ*, không nhờ *nhiều chữ* |
+| D14 | **Hình minh hoạ khái niệm** (thêm 2026-09-28, người dùng: "từ khoá có hình ảnh nên chèn hình"). Khái niệm có hình dạng (phân phối, histogram, quantile, mùa vụ, dịch mức, dự báo cuốn, tương quan, giờ mùa hè…) có một hình nhỏ dữ liệu tự tạo, **đặt ngay sau đoạn khái niệm xuất hiện lần đầu** trong `tai-lieu.md` và trong hộp khái niệm của notebook tự học. Nguồn: bảng `HINH` trong `tools/tu_hoc/buoi_NN.py` (`ve` code · `doc` cách đọc 1–2 câu · `sau` mốc chèn, `None` nếu tài liệu đã có hình cùng ý); `sinh.py` ghi `dap-an/ve_hinh_khai_niem.py` (tự chứa), vẽ `hinh/kn-*.png`, chèn vào tài liệu, xuất lại PDF. PDF in hình này nửa khổ |
 
 **D13 — Gọn (thêm 2026-09-18).** Người dùng đọc bản viết lại buổi 1–3: *"dễ hiểu hơn nhưng dài dòng quá"*. Nguyên nhân:
 mỗi vòng đọc thử chỉ **thêm** giải thích, không ai **bỏ**; khuôn D2 bị hiểu là phải đủ 10 bước cho mọi khái niệm.
@@ -83,7 +84,7 @@ Sau Phase 6, buổi 1–3 có 6.900–9.000 chữ ngoài bảng/code (19–22 tr
   + `code/lab.ipynb` phát sẵn.
 
 **Độ dài mới** (từ Phase 7, thay 4.000–9.000): `tai-lieu.md` **3.500–6.500 chữ** ngoài bảng/code, PDF **10–18 trang**; phụ lục
-≤ 18 trang. Phase 7 đo lại trên buổi 1–3 đã rút gọn rồi chốt số trong `kiem_de_hieu.py` + `xuat_pdf.py --kiem`.
+≤ 18 trang. **Từ 2026-09-28 trần PDF buổi là 22 trang** để chứa hình minh hoạ khái niệm (D14); trần chữ giữ nguyên. Phase 7 đo lại trên buổi 1–3 đã rút gọn rồi chốt số trong `kiem_de_hieu.py` + `xuat_pdf.py --kiem`.
 
 **Độ dài Phase 5–6** (thay 2.500–4.000 chữ / 10–16 trang; từ Phase 7 thay bằng trần D13 ở trên): `tai-lieu.md` **4.000–9.000 chữ** (đếm chữ ngoài bảng và code — `kiem_de_hieu.py`, mã `do_dai`), PDF **12–24 trang**.
 Giới hạn thật là số khái niệm (D9), không phải số chữ.
@@ -141,10 +142,20 @@ Viết lại: research sư phạm — mỗi khái niệm chính 2–3 cách gi�
 4. **Dễ hiểu nhưng gọn**: mỗi ý một lần; khuôn D2 là trần; không câu rỗng. **Tường minh quá cũng là khó hiểu**: chỉ viết cái
    cần để hiểu ý chính hoặc làm bước kế, không giải thích mọi cờ/ngoại lệ. **Công cụ cần giải thích dài → sửa công cụ.** Sửa
    chỗ vướng bằng viết lại câu, không chèn đoạn. Không bỏ ngày/số cụ thể chỉ để qua bộ đếm.
-5. Trần 3.500–6.500 chữ ngoài bảng/code, PDF 10–18 trang. Chỉ vượt khi đọc thử chứng minh cắt thêm làm khó hiểu lại — ghi lý do
+5. Trần 3.500–6.500 chữ ngoài bảng/code, PDF 10–22 trang (22 nhờ hình khái niệm D14). Chỉ vượt khi đọc thử chứng minh cắt thêm làm khó hiểu lại — ghi lý do
    trong `NGHIEN-CUU.md` (tiền lệ: buổi 2, +44 chữ).
 6. `kiem-tra.md` 10 câu (4 nhắc lại, 4 vận dụng, 2 đọc biểu đồ/bảng tìm chỗ sai); đáp án nói vì sao đúng + vì sao lựa chọn
    khác sai; trả lời được chỉ bằng tài liệu buổi đó.
+7. **Notebook tự học + hình khái niệm** (sau khi `tai-lieu.md` và `dap-an/` xong): `python tools/tu_hoc/sinh.py N --khung`,
+   viết nốt theo `tools/tu_hoc/HUONG-DAN.md` (gọn, đủ ý, hộp khái niệm "**tên** · *English*", bảng `HINH` cho khái niệm
+   có hình dạng), rồi `sinh.py N --chay`: notebook 0 lỗi, số khớp tài liệu; hình `kn-*` đã chèn vào tài liệu + PDF (D14) —
+   xem lại từng hình; `kiem_de_hieu.py N` không có lỗi mới do hình.
+
+**Việc nền — notebook tự học (thêm 2026-09-28, người dùng: "buổi nào chưa gen thì lần sau chủ động luôn, khỏi cần phase
+mới").** Đầu MỌI phase soạn/viết lại/đọc thử: chạy `python tools/tu_hoc/sinh.py --thieu`. Buổi đã có `tai-lieu.md` + `dap-an/`
+mà chưa có notebook tự học → làm bù (bước V7) sau phần chính của phase, ưu tiên buổi số nhỏ; không cần phase riêng, ghi vào
+`todos/phase-NN.md` của phase đang làm. Sửa `tai-lieu.md`/`dap-an/` của một buổi đã có notebook → chạy lại `sinh.py N --chay`
+để số và hình khớp.
 
 **L — Lab.** Theo `CLAUDE.md` "Quy tắc soạn nội dung": buổi tự chứa; nền sinh bằng `sinh_nen.py` (không sửa tay `00-nen/`,
 `lab/lab.py`); chỗ hở cố ý đúng bảng cuối file — `code/` sai đúng chỗ, `dap-an/` sửa; từ buổi 12 `cham/` có test rò rỉ; mọi
@@ -319,7 +330,9 @@ Phase soạn sau đọc các `NGHIEN-CUU.md` đó và chỉ rà bổ sung (resea
       biểu đồ/bảng kết quả tìm chỗ sai**; đáp án trong `<details>`
 - [ ] `ruff check` sạch; `code/lab.ipynb` phát sẵn, commit không output, chạy hết không lỗi
 - [ ] `tools/kiem_tra_doc_lap.sh` xanh
-- [ ] PDF sinh ra, mở kiểm tra bảng, khối code, **công thức**, ảnh; 10–18 trang
+- [ ] PDF sinh ra, mở kiểm tra bảng, khối code, **công thức**, ảnh; 10–22 trang
+- [ ] **Notebook tự học** `buoi-NN/tu-hoc.ipynb` (`tools/tu_hoc/sinh.py N --chay` 0 lỗi, đủ ý: mọi mục 4.x, mọi bài tập, mọi
+      từ mới có hộp); **hình minh hoạ khái niệm** `hinh/kn-*.png` có trong notebook, `tai-lieu.md` và PDF (D14)
 - [ ] Chạy thử toàn bộ lab trên **máy/venv trắng** một lần trước khi tick ✅
 
 ## 44 buổi, tên PDF và chỗ hở cố ý

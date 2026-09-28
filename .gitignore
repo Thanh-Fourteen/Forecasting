@@ -29,6 +29,8 @@ buoi-*/**/*.ipynb
 du-an-*/**/*.ipynb
 danh-gia/**/*.ipynb
 !buoi-*/code/*.ipynb
+# notebook tự học (tools/tu_hoc/sinh.py): commit KHÔNG output; dong_goi.py vẫn loại khỏi zip (chứa code đáp án)
+!buoi-*/tu-hoc.ipynb
 !du-an-*/*/code/*.ipynb
 .pytest_cache/
 
@@ -39,6 +41,9 @@ tools/du-lieu/mirror/
 
 # dữ liệu bẩn sinh cho dự án (giám khảo sinh lại bằng giam-khao/tiem_loi.py)
 du-an-*/**/phat/
+
+# cache model/chạy thử nặng, tái tạo được bằng lab.py — không commit (trừ cache nhỏ dạng .json)
+**/lab/du-lieu/cache/*/
 
 # thư mục học cá nhân của người dùng — không đưa lên git
 Dang hc/

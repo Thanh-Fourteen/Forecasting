@@ -1,0 +1,72 @@
+# Mô tả bộ dữ liệu cho notebook tự học — nguồn của mục "Bộ dữ liệu" mà `nb.du_lieu()` tự chèn vào phần 0.
+#
+# Viết MỘT lần cho mỗi bộ; mọi buổi dùng bộ đó dùng lại. Khoá là tên bộ trong tools/du-lieu/danh-muc.toml, hoặc
+# mẫu có dấu * cho một họ bộ (vd "binance-btcusdt-1h-*": nhiều tháng chung một mô tả).
+# Nguồn trích dẫn, giấy phép, dung lượng tải lấy tự động từ danh mục — không chép lại ở đây.
+#
+#   ten         tên bộ dữ liệu (thường là tên gốc tiếng Anh)
+#   gioi_thieu  2–4 câu, giọng kể: ai thu, thu cái gì, ở đâu, khoảng thời gian, mỗi dòng là gì, tệp gồm những gì
+#   [<khoá>.cot]  cột → nghĩa (theo thứ tự hiện ra trong bảng); chỉ các cột buổi học dùng hoặc dễ gây thắc mắc
+#
+# Thiếu mô tả cho một bộ mà buổi dùng → `python tools/tu_hoc/sinh.py N` dừng và báo khoá cần thêm.
+
+["uci-household-power"]
+ten = "Individual Household Electric Power Consumption"
+gioi_thieu = """Một hộ gia đình ở Sceaux, ngoại ô Paris, gắn công tơ ghi số **mỗi phút** từ 16/12/2006 tới 26/11/2010 — gần
+4 năm, hơn 2 triệu dòng. Chỉ có một tệp `household_power_consumption.txt`, các cột cách nhau bằng dấu `;`, số đo bị mất
+ghi là `?`."""
+
+["uci-household-power".cot]
+"Date, Time" = "ngày (ngày/tháng/năm) và phút đo"
+Global_active_power = "**công suất** cả nhà đang dùng trong phút đó, kW"
+"Global_reactive_power, Voltage, Global_intensity" = "các đại lượng điện khác (công suất phản kháng, điện áp, cường độ)"
+"Sub_metering_1, _2, _3" = "điện năng (Wh) của ba nhóm thiết bị: bếp; giặt giũ; bình nóng lạnh và máy lạnh"
+
+["uci-bike-sharing"]
+ten = "Bike Sharing"
+gioi_thieu = """Nhóm tác giả ở Đại học Porto lấy nhật ký mọi lượt thuê của **Capital Bikeshare** — hệ thống xe đạp công cộng ở
+Washington D.C., lấy xe ở trạm này, trả ở trạm khác — trong **hai năm 2011–2012**, đếm số lượt theo từng giờ và từng
+ngày, rồi ghép thêm thời tiết và lịch nghỉ lễ. Hai bảng: `hour.csv` mỗi dòng là **một giờ** (17.379 dòng), `day.csv`
+mỗi dòng là **một ngày** (731 dòng). Số lượt là của **cả hệ thống**, không phải một trạm."""
+
+["uci-bike-sharing".cot]
+cnt = "**số lượt thuê** trong giờ (hoặc ngày) đó — thứ cần dự báo; bằng `casual` (khách vãng lai) + `registered` (hội viên)"
+"dteday, hr" = "ngày, và giờ trong ngày (0–23; `day.csv` không có `hr`)"
+yr = "năm: 0 là 2011, 1 là 2012"
+"weekday, workingday" = "thứ trong tuần (0 = Chủ nhật, 6 = thứ Bảy); ngày làm việc (1) hay nghỉ — cuối tuần, lễ (0)"
+weathersit = "thời tiết: 1 quang đãng, 2 sương mù/nhiều mây, 3 mưa nhẹ/tuyết nhẹ, 4 mưa to/bão"
+"temp, hum" = "nhiệt độ và độ ẩm, đã chia cho giá trị lớn nhất (41 °C, 100%) nên nằm trong 0–1"
+
+["nyc-tlc-yellow-*"]
+ten = "NYC Yellow Taxi Trip Records"
+gioi_thieu = """Cơ quan quản lý taxi New York (TLC) công bố **mọi chuyến taxi vàng**, mỗi tháng một tệp Parquet — định dạng
+lưu bảng theo từng cột, có nén, đọc nhanh hơn CSV. Mỗi dòng là **một chuyến**: đón lúc nào, ở đâu, trả lúc nào, ở
+đâu, đi bao xa, trả bao nhiêu tiền. Một tháng khoảng 3,5 triệu chuyến, 19 cột. Cột giờ **không ghi múi giờ** — từ
+điển dữ liệu của TLC cũng không nói; ta sẽ phải tự tìm ra đó là giờ gì."""
+
+["nyc-tlc-yellow-*".cot]
+tpep_pickup_datetime = "giờ **đón** khách (lúc đồng hồ tính tiền bật)"
+tpep_dropoff_datetime = "giờ **trả** khách"
+"PULocationID, DOLocationID" = "mã khu vực đón / trả (1–265), tra tên trong bảng khu vực"
+"passenger_count, trip_distance" = "số khách, quãng đường (dặm)"
+"fare_amount, tip_amount, total_amount" = "tiền cước, tiền boa, tổng tiền (USD)"
+
+["nyc-tlc-zone-lookup"]
+ten = "Taxi Zone Lookup Table"
+gioi_thieu = """Bảng tra của TLC: New York được chia thành **265 khu vực** đón/trả khách; bảng cho biết mỗi mã khu vực là
+khu nào, thuộc quận nào."""
+
+["nyc-tlc-zone-lookup".cot]
+LocationID = "mã khu vực, khớp `PULocationID` / `DOLocationID` của bảng chuyến"
+"Borough, Zone" = "quận (Manhattan, Queens…) và tên khu vực (Midtown Center, JFK Airport…)"
+
+["open-meteo-new-york-*"]
+ten = "Open-Meteo Historical Weather (ERA5)"
+gioi_thieu = """Thời tiết **theo giờ** tại một điểm lưới giữa Manhattan, lấy từ dịch vụ Open-Meteo (dữ liệu tái phân tích
+ERA5 của châu Âu). Tệp CSV có 3 dòng đầu là thông tin điểm lưới (toạ độ, độ cao, múi giờ), rồi mới tới bảng. Tệp được
+tải với tuỳ chọn `timezone=UTC`, nên cột giờ là **giờ UTC** — khác với cột giờ của taxi."""
+
+["open-meteo-new-york-*".cot]
+time = "giờ đo, **UTC**, không ghi hậu tố múi giờ"
+"temperature_2m (°C)" = "nhiệt độ ở độ cao 2 m"
+"precipitation (mm), rain (mm), snowfall (cm)" = "tổng mưa + tuyết quy ra nước; riêng mưa; riêng tuyết, trong giờ đó"

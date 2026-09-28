@@ -31,28 +31,35 @@
 | [24](phase-24.md) | Đọc thử độc lập buổi 22–24 + dự án giữa chặng 2 | DT — 4 tài liệu đạt (0 chặn, quiz mù 30/30); sửa số SHAP buổi 23 (5,527), số lạc quan buổi 24 (≈ 0,01); đề rõ seasonal naive của phần A; chấm bài nộp thật chuyển Phase 27 | ✅ |
 | [25](phase-25.md) | Buổi 25–26 · Dự báo xác suất, conformal | buổi 25 (khoảng ngoài mẫu, 9 quantile, pinball/CRPS/WIS, PIT, POT 86 năm nhiệt độ) + buổi 26 (split, CQR, EnbPI, ACI, MAPIE; coverage trượt); quy tắc 9b: mọi khoảng phải kiểm calibration | ✅ |
 | [26](phase-26.md) | Buổi 27–28 · Bayes & GP, dự báo phân cấp | buổi 27 (prior predictive, cổng r_hat/ESS/divergence, partial pooling, BSTS, GP/HSGP) + buổi 28 (S, hoà giải, khoảng khớp, coverage từng cấp); cột mốc M4 định nghĩa lại (MinT thắng 2/4 cấp, coverage 58% → 79% — dạy trung thực) | ✅ |
-| [27](phase-27.md) | Đọc thử độc lập buổi 25–28 | DT — 4 tài liệu đạt (0 chặn, quiz mù 40/40); sửa ví dụ MinT tính tay, nói rõ bảng coverage buổi 28 gộp hai đoạn chấm, nhắc phân phối chuẩn buổi 27; chấm bài nộp thật chuyển Phase 32 | ✅ |
-| [28](phase-28.md) | Research deep learning (buổi 29–33) | RS | 🔲 |
-| [29](phase-29.md) | Buổi 29–30 · Nền DL, N-BEATS … TiDE |  | 🔲 |
-| [30](phase-30.md) | Buổi 31–32 · Transformer, mô hình sinh |  | 🔲 |
-| [31](phase-31.md) | Buổi 33 · Không gian–thời gian & thời tiết AI | cột mốc M5 | 🔲 |
-| [32](phase-32.md) | Đọc thử độc lập buổi 29–33 | DT | 🔲 |
-| [33](phase-33.md) | Research foundation model & LLM (buổi 34–37) | RS | 🔲 |
-| [34](phase-34.md) | Buổi 34–35 · Foundation model, fine-tune & benchmark |  | 🔲 |
-| [35](phase-35.md) | Buổi 36–37 · LLM & agent, dự báo sự kiện | cột mốc M6 | 🔲 |
-| [36](phase-36.md) | Đọc thử độc lập buổi 34–37 | DT | 🔲 |
-| [37](phase-37.md) | Buổi 38–39 · Tác động can thiệp, kịch bản & what-if |  | 🔲 |
-| [38](phase-38.md) | Buổi 40 · Dự báo → quyết định |  | 🔲 |
-| [39](phase-39.md) | Đọc thử độc lập buổi 38–40 | DT | 🔲 |
-| [40](phase-40.md) | Buổi 41–42 · Pipeline tái lập, phục vụ quy mô lớn |  | 🔲 |
-| [41](phase-41.md) | Buổi 43 · Giám sát & drift | cột mốc M7 | 🔲 |
-| [42](phase-42.md) | Đọc thử độc lập buổi 41–43 | DT | 🔲 |
-| [43](phase-43.md) | Dự án cuối (a) · Đề, rubric, bộ chấm |  | 🔲 |
-| [44](phase-44.md) | Dự án cuối (b) · Ngày dữ liệu hỏng, lời giải mẫu, chạy thử thật |  | 🔲 |
-| [45](phase-45.md) | Đánh giá (a) · Ngân hàng câu hỏi, đề đọc biểu đồ |  | 🔲 |
-| [46](phase-46.md) | Đánh giá (b) · Đề thực hành, đề tìm rò rỉ |  | 🔲 |
-| [47](phase-47.md) | Xuất bản & đóng gói |  | 🔲 |
-| [48](phase-48.md) | Kiểm định chất lượng |  | 🔲 |
+| [27](phase-27.md) | Đọc thử độc lập buổi 25–28 | DT — 4 tài liệu đạt (0 chặn, quiz mù 40/40); sửa ví dụ MinT tính tay, nói rõ bảng coverage buổi 28 gộp hai đoạn chấm, nhắc phân phối chuẩn buổi 27; chấm bài nộp thật chuyển Phase 39 | ✅ |
+| [28](phase-28.md) | Research deep learning (buổi 29–33) | RS — `NGHIEN-CUU.md` buổi 29–33; đo CPU 16 mô hình + GNN + khuếch tán; lệch lớn: Lab 1 + "Xong khi" buổi 32, GNN tự viết + AIFS tầm 1–7 ngày buổi 33 (đã sửa lộ trình) | ✅ |
+| [29](phase-29.md) | Buổi 29–30 · Nền DL, N-BEATS … TiDE | buổi 29: MSTL, LightGBM thắng 3 mạng tự viết; rò rỉ chồng lấn chỉ lộ khi ít dữ liệu; tái lập cần 1 luồng. Buổi 30: N-HiTS, N-BEATS thắng MSTL; rò rỉ nhiệt độ chỉ đẹp giả 2,5% ở tầm 24 giờ; DeepAR phủ 31% thay vì 80%; Lab DeepAR đếm → bài tập | ✅ |
+| [30](phase-30.md) | Notebook tự học + hình khái niệm buổi 4–8 | `tu-hoc.ipynb` + `hinh/kn-*.png` (D14) · pandas3 | 🔲 |
+| [31](phase-31.md) | Notebook tự học + hình khái niệm buổi 9–13 | `tu-hoc.ipynb` + `hinh/kn-*.png` (D14) · pandas3 | 🔲 |
+| [32](phase-32.md) | Notebook tự học + hình khái niệm buổi 14–17 | `tu-hoc.ipynb` + `hinh/kn-*.png` (D14) · nixtla | 🔲 |
+| [33](phase-33.md) | Notebook tự học + hình khái niệm buổi 18–21 | `tu-hoc.ipynb` + `hinh/kn-*.png` (D14) · nixtla, pandas3 | 🔲 |
+| [34](phase-34.md) | Notebook tự học + hình khái niệm buổi 22–24 | `tu-hoc.ipynb` + `hinh/kn-*.png` (D14) · nixtla, autogluon | 🔲 |
+| [35](phase-35.md) | Notebook tự học + hình khái niệm buổi 25–28 | `tu-hoc.ipynb` + `hinh/kn-*.png` (D14) · pandas3, nixtla | 🔲 |
+| [36](phase-36.md) | Notebook tự học + hình khái niệm buổi 29–30 | `tu-hoc.ipynb` + `hinh/kn-*.png` (D14) · nixtla (torch) | 🔲 |
+| [37](phase-37.md) | Buổi 31–32 · Transformer, mô hình sinh |  | 🔲 |
+| [38](phase-38.md) | Buổi 33 · Không gian–thời gian & thời tiết AI | cột mốc M5 | 🔲 |
+| [39](phase-39.md) | Đọc thử độc lập buổi 29–33 | DT | 🔲 |
+| [40](phase-40.md) | Research foundation model & LLM (buổi 34–37) | RS | 🔲 |
+| [41](phase-41.md) | Buổi 34–35 · Foundation model, fine-tune & benchmark |  | 🔲 |
+| [42](phase-42.md) | Buổi 36–37 · LLM & agent, dự báo sự kiện | cột mốc M6 | 🔲 |
+| [43](phase-43.md) | Đọc thử độc lập buổi 34–37 | DT | 🔲 |
+| [44](phase-44.md) | Buổi 38–39 · Tác động can thiệp, kịch bản & what-if |  | 🔲 |
+| [45](phase-45.md) | Buổi 40 · Dự báo → quyết định |  | 🔲 |
+| [46](phase-46.md) | Đọc thử độc lập buổi 38–40 | DT | 🔲 |
+| [47](phase-47.md) | Buổi 41–42 · Pipeline tái lập, phục vụ quy mô lớn |  | 🔲 |
+| [48](phase-48.md) | Buổi 43 · Giám sát & drift | cột mốc M7 | 🔲 |
+| [49](phase-49.md) | Đọc thử độc lập buổi 41–43 | DT | 🔲 |
+| [50](phase-50.md) | Dự án cuối (a) · Đề, rubric, bộ chấm |  | 🔲 |
+| [51](phase-51.md) | Dự án cuối (b) · Ngày dữ liệu hỏng, lời giải mẫu, chạy thử thật |  | 🔲 |
+| [52](phase-52.md) | Đánh giá (a) · Ngân hàng câu hỏi, đề đọc biểu đồ |  | 🔲 |
+| [53](phase-53.md) | Đánh giá (b) · Đề thực hành, đề tìm rò rỉ |  | 🔲 |
+| [54](phase-54.md) | Xuất bản & đóng gói |  | 🔲 |
+| [55](phase-55.md) | Kiểm định chất lượng |  | 🔲 |
 | | **TỔNG** | **44 buổi · 44 PDF · 2 dự án giữa chặng · 1 dự án cuối** | **23/49 phase** |
 
 ## Thứ tự làm bắt buộc
@@ -64,12 +71,12 @@ lập trong phiên mới, thay "mắt mới" của subagent); cụm đổi nhanh
 (research riêng) trước khi soạn. Định nghĩa: KHỐI CHUNG trong `quy-uoc.md`.
 
 **Phase 5 → 15 (chuẩn dễ hiểu, viết lại, rút gọn, đọc thử độc lập buổi 1–13) làm TRƯỚC Phase 16**: chuẩn mới phải có và được
-thử trên 13 buổi đã viết trước khi soạn buổi mới — nếu không, 31 buổi còn lại lặp đúng lỗi cũ. Phase 2 → 42 theo đúng thứ tự
+thử trên 13 buổi đã viết trước khi soạn buổi mới — nếu không, 31 buổi còn lại lặp đúng lỗi cũ. Phase 2 → 49 theo đúng thứ tự
 buổi. **Lý do là mạch kiến thức và quy trình sản xuất, không phải phụ thuộc file:** khung `tools/khung/` được mở rộng dần (buổi 15
 thêm backtest, buổi 25 thêm chỉ số xác suất…) và mỗi lần mở rộng phải chạy lại `sinh_nen.py` cho các buổi đã có. Sinh xong thì
 `tv/` nằm vật lý trong buổi, **buổi N không còn dính gì tới buổi khác**. Phase DT của một cụm làm ngay sau phase soạn cuối của cụm đó.
 
-Phase 43–46 (dự án cuối, đánh giá) làm song song được sau Phase 42. Phase 47 → 48 cuối cùng, không đảo.
+Phase 50–53 (dự án cuối, đánh giá) làm song song được sau Phase 49. Phase 54 → 55 cuối cùng, không đảo.
 
 **Muốn làm bản ngắn?** Lõi 21 buổi (1–21) + dự án giữa chặng 1 và 2 đã là một khoá dự báo thống
 kê hoàn chỉnh (M0–M3). Các cụm khác xem bảng "Học theo cụm" trong lộ trình.

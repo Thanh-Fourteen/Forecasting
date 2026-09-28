@@ -156,6 +156,10 @@ Xếp tăng: 1, 3, 4, 7, 10. Vị trí 0,6 × 5 = 3, đã là số nguyên nên 
 4. **Phương sai**: 894 / (9 − 1) = 111,75 (đơn vị: lượt bình phương).
 5. **Độ lệch chuẩn**: √111,75 ≈ 10,57 lượt. Đây là "khoảng cách điển hình" từ một số tới trung bình.
 
+![phương sai, độ lệch chuẩn](hinh/kn-phuong-sai-do-lech-chuan.png)
+
+**Cách đọc hình.** Hai đường cùng trung bình 0. Đường cam có độ lệch chuẩn 3 nên trải rộng gấp ba đường xanh (độ lệch chuẩn 1).
+
 **$s$ và $\sigma$.** Chia $n - 1$ như trên cho $s$ = 10,57, dùng khi ước lượng tổng thể từ một mẫu. Chia $n$ cho
 $\sigma$ (sigma) = 9,97, dùng khi các số đang có là cả tổng thể; nên $\sigma$ còn là **độ lệch chuẩn của tổng thể**.
 Vì sao chia $n - 1$: Phụ lục B, mục 5.
@@ -163,6 +167,10 @@ Vì sao chia $n - 1$: Phụ lục B, mục 5.
 **Hệ số lệch** đo đuôi dài về phía nào: trung bình của $(\text{độ lệch}/s)^3$. Lập phương giữ dấu và phóng đại số
 lớn, nên số 36 (lệch +25) góp gần hết: kết quả **+1,35**, đuôi phải dài. scipy và pandas dùng quy ước hơi khác, cùng
 dấu (Phụ lục B, mục 6).
+
+![hệ số lệch](hinh/kn-he-so-lech.png)
+
+**Cách đọc hình.** Trái: số liệu đối xứng quanh giữa, hệ số lệch gần 0. Phải: dồn bên trái, đuôi dài bên phải, hệ số lệch dương.
 
 **Công thức.**
 
@@ -201,6 +209,10 @@ Dự báo mọi giờ bằng cùng một con số $c$, tính phạt trung bình 
   cân khi tỷ lệ số nằm dưới $c$ đúng bằng $\tau$.
 
 **Pinball loss** là cách phạt của bài toán chi phí lệch ở buổi 1:
+
+![pinball loss](hinh/kn-pinball-loss.png)
+
+**Cách đọc hình.** Trục ngang là thật trừ dự báo (dương là dự báo thiếu), trục dọc là tiền phạt. Đường xanh bên phải dốc gấp 4 lần bên trái: thiếu bị phạt nặng hơn thừa.
 
 $$
 L_\tau(y, c) = \begin{cases} \tau\,(y - c) & \text{nếu } y \ge c \text{ (dự báo thiếu)} \\ (1-\tau)\,(c - y) & \text{nếu } y < c \text{ (dự báo thừa)} \end{cases}
@@ -263,11 +275,19 @@ Trung bình chỉ tốt nhất khi phạt theo bình phương.
 
 **Trực giác.** Nói "mai 28–33 độ, 95%" nhiều lần mà cứ 100 lần trúng 95 thì lời hứa giữ được: **tỷ lệ phủ** đạt 95%.
 
+![tỷ lệ phủ](hinh/kn-ty-le-phu.png)
+
+**Cách đọc hình.** Mỗi chấm là giá trị thật của một lần dự báo, dải xanh là khoảng đã báo, dấu x đỏ là lần rơi ra ngoài. Tỷ lệ chấm rơi trong dải là tỷ lệ phủ.
+
 **Đường cong thay cho histogram.** Chia chiều cao mỗi cột cho (tổng số giờ × độ rộng cột) thì tổng diện tích các cột bằng một. Khi đó diện tích mỗi cột
 là tỷ lệ số giờ rơi vào cột ấy (cột có diện tích 0,2 chứa 20% số giờ). Cột thật hẹp thì đỉnh các cột thành đường cong trơn: **diện tích dưới đường cong bên trái $y$ = tỷ lệ giá trị ≤ $y$**.
 
 **Con số 1,96 đến từ phân phối chuẩn**, đường cong hình chuông đối xứng quanh trung bình. Theo `scipy.stats.norm.cdf`
 (tỷ lệ bên trái một mốc), phần nằm giữa:
+
+![phân phối chuẩn](hinh/kn-phan-phoi-chuan.png)
+
+**Cách đọc hình.** Đường hình chuông đối xứng quanh trung bình. Phần xanh trong ±1,96 độ lệch chuẩn chiếm 95%; mỗi phần cam ở hai đuôi chiếm 2,5%.
 
 | Khoảng quanh trung bình | Tỷ lệ giá trị nằm trong |
 |---|---|
@@ -387,6 +407,10 @@ trên: 850 / 922,0 = 0,922, gần 1, tức gần như cùng tăng theo một đ�
 $r$ = 1 là cùng chiều hoàn hảo trên đường thẳng, −1 ngược chiều hoàn hảo, 0 là không có quan hệ **thẳng**. Đổi đơn
 vị không đổi $r$, vì tử và mẫu cùng nhân lên.
 
+![tương quan, hệ số r](hinh/kn-tuong-quan-he-so-r.png)
+
+**Cách đọc hình.** Bốn đám chấm: nghiêng lên (r gần 0,9), tản mát (r gần 0), nghiêng xuống (r gần −0,9), và hình chữ U: liên quan chặt nhưng r gần 0 vì không thẳng.
+
 ![Nhiệt độ và giờ trong ngày so với lượt thuê](hinh/tuong-quan.png)
 
 **Cách đọc hình.**
@@ -439,6 +463,10 @@ vì kem gây đuối nước. Nhưng biến không gây ra $y$ **vẫn có thể
 >   Chia tổng bình phương độ lệch của cả chuỗi (1 + 1 + 1 + 1 = 4) được −0,75: lên xuống xen kẽ. Mẫu số là của
 >   **cả chuỗi**, không như $r$ ở trên, nên không ra đúng −1; chuỗi dài thì hai cách gần như bằng nhau.
 > - Lượt thuê theo giờ có tự tương quan trễ 1 là **0,844**. Mục 4.6 cho thấy điều này làm hỏng bootstrap.
+
+![tự tương quan](hinh/kn-tu-tuong-quan.png)
+
+**Cách đọc hình.** Đường xám (tự tương quan gần 0) lên xuống lộn xộn. Đường xanh (gần 0,9) lên thì ở trên một lúc, xuống thì ở dưới một lúc.
 
 **Tóm lại.** **$r$ đo hai đại lượng cùng tăng giảm theo đường thẳng tới đâu. $r$ gần 0 vẫn có thể có quan hệ cong.
 $r$ lớn chưa chắc là nhân quả, vì có thể có biến gây nhiễu.**
@@ -578,6 +606,10 @@ nhiêu? Đó là câu hỏi của **khoảng tin cậy** cho trung bình.
   1 + 1. Số độc lập thì phương sai của tổng bằng tổng các phương sai (Phụ lục B, mục 11). Vậy tổng 4 đồng có phương sai 4, độ lệch chuẩn $\sqrt 4 = 2$ (không phải 4, vì lệch lên lệch xuống
   bù nhau một phần). Chia 4 ra trung bình: 2/4 = 0,5 = $1/\sqrt 4$. Tổng quát: $\sigma/\sqrt n$.
 
+![định lý giới hạn trung tâm (CLT)](hinh/kn-dinh-ly-gioi-han-trung-tam-clt.png)
+
+**Cách đọc hình.** Trái: từng giá trị lệch phải. Phải: trung bình của 30 giá trị, lặp nhiều lần, đã gần hình chuông.
+
 **Ví dụ số nhỏ — kiểm $1/\sqrt n$ bằng máy** (**mô phỏng**: cho máy rút ngẫu nhiên thật nhiều lần). Coi cả 17.379
 giờ là tổng thể (trung bình thật 189,5, $\sigma$ = 181,4). Rút **có hoàn lại** $n$ giờ, tính trung bình, lặp 20.000 lần (seed 5):
 
@@ -651,6 +683,10 @@ chỉ số ngẫu nhiên (`np.random.default_rng(3).integers(0, 5, size=(3, 5))`
 **Đọc bảng.** Lần 1 và 2 không rút trúng số 30 nên trung bình thấp hẳn; thứ tự ngày bị xáo trộn.
 
 **Block bootstrap** (Künsch 1989) rút cả **khối** $l$ ngày liền nhau. Ví dụ khối dài 2 (seed 2):
+
+![bootstrap, block bootstrap](hinh/kn-bootstrap-block-bootstrap.png)
+
+**Cách đọc hình.** Mỗi ô là một điểm dữ liệu, màu theo vị trí gốc. Rút từng điểm xáo tung thứ tự; rút khối 4 giữ các điểm liền nhau đi cùng nhau.
 
 - Rút 3 điểm bắt đầu (chỉ số 3, 1 và 0) → ba khối (30, 14), (15, 11), (12, 15).
 - Nối lại, cắt còn 5 số: 30, 14, 15, 11, 12 → trung bình (30 + 14 + 15 + 11 + 12)/5 = 16,4.
