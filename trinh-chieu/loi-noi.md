@@ -75,7 +75,7 @@ Trước khi mở dữ liệu, chúng ta điền phiếu 6 ô. Ví dụ là mộ
 Hai ô các bạn sẽ gặp lại ngay trong vài slide tới: ô 4, độ chi tiết, quyết định cách chấm; ô 6, chi phí sai hai chiều, thiếu mất khoảng 4 đồng mỗi kWh, thừa mất khoảng 1 đồng, quyết định nên báo con số nào.
 
 ## baseline
-Giả sử một mô hình báo sai số 0,38. Tốt hay xấu? Chưa nói được gì, vì không có gì để so. Baseline là cách dự báo đơn giản nhất làm mốc.
+Giả sử một mô hình báo sai số 0,38. Tốt hay xấu? Chưa nói được gì, vì không có gì để so. Giống như bạn được 7 điểm: cả lớp được 9 thì 7 là kém, cả lớp được 4 thì 7 là giỏi. Baseline là điểm của cả lớp: cách dự báo đơn giản nhất, ai cũng làm được, dùng làm mốc.
 Hình này là một chuỗi M4 theo ngày. Trên chuỗi này seasonal naive thắng vì bắt được nhịp tuần. Nhưng trên cả tập M4 theo ngày thì ngược lại: naive có MASE 0,835 và drift 0,810, cả hai đều thắng seasonal naive ở 1,077. Nên quy tắc của khoá là mô hình phải thắng cả bốn baseline trên backtest, và bảng kết quả luôn có seasonal naive.
 Thêm một điều: độ trễ của baseline phải ít nhất bằng tầm dự báo. Dự báo 7 ngày mà dùng "cùng giờ hôm qua" là đã dùng số chưa có tại gốc; phải dùng "cùng giờ tuần trước".
 
@@ -125,7 +125,7 @@ Quantile p là giá trị nhỏ nhất mà ít nhất tỷ lệ p số liệu n�
 Khi thiếu mất 4 đồng, thừa mất 1 đồng, ta đặt dự báo ở quantile 4 chia 4 cộng 1, bằng 0,8: chấp nhận thừa để ít khi thiếu. Ở buổi 1, làm vậy giảm chi phí 18,6% dù MAE lại tệ hơn. Vậy chọn mô hình theo MAE sẽ chọn sai khi hai chiều đắt khác nhau.
 
 ## newsvendor
-Bài toán này có tên: newsvendor, người bán báo. Mỗi sáng đặt số báo một lần; thiếu thì mất khách, thừa thì lỗ tiền in. Công ty mua điện ở buổi 1 cũng vậy: thiếu mất Cu đồng mỗi kWh, thừa mất Co đồng.
+Bài toán này có tên: newsvendor, người bán báo. Mỗi sáng đặt số báo một lần; thiếu thì mất khách, thừa thì lỗ tiền in. Tiệm bánh mì cũng thế: họ làm dư ra một chút, vì mất một khách đắt hơn lỗ chút tiền bột. Công ty mua điện ở buổi 1 cũng vậy: thiếu mất Cu đồng mỗi kWh, thừa mất Co đồng.
 Lượng nên đặt là quantile Cu chia tổng Cu cộng Co. Nhìn cột thang: hai chiều bằng nhau thì báo trung vị, thiếu đắt gấp 4 thì báo quantile 0,8. Trên 10 ngày mẫu: mua 8 kWh tốn 33 đồng, mua 9 tốn 28, ít nhất, mua 10 lại tốn 33.
 Dự báo kiểu này chấm bằng pinball loss mức tau: thiếu mỗi đơn vị phạt tau, thừa mỗi đơn vị phạt 1 trừ tau. Tau 0,8, thật 10, báo 8: thiếu 2, phạt 1,6. Cách phạt này có đáy đúng ở quantile tau.
 
@@ -185,8 +185,17 @@ Dòng 5 tính chênh lệch thật giữa hai nhóm ngày. Dòng 6 cố định 
 Kết quả: ngày làm việc hơn ngày nghỉ 456 lượt mỗi ngày, p bằng 0,025, bác bỏ H0. Thứ Bảy trừ Chủ nhật chênh tới 695 mà p lớn hơn 0,05. Chênh lớn chưa chắc là có ý nghĩa. Một lưu ý: phép này giả định các ngày độc lập, nên với chuỗi tự tương quan p thật thường lớn hơn.
 
 ## bootstrap
-Bootstrap ước lượng độ bấp bênh của một con số mà không cần công thức: rút lại từ chính mẫu, có hoàn lại, vài nghìn lần; mỗi lần tính trung bình; khoảng 95% là quantile 0,025 và 0,975 của các trung bình đó.
+Bootstrap ước lượng độ bấp bênh của một con số mà không cần công thức: rút lại từ chính mẫu nhiều lần và tính lại con số đó. Các bước cụ thể ở slide sau; slide này nói về chỗ chuỗi thời gian khác dữ liệu thường.
 Nhưng chuỗi thời gian có tự tương quan. Giờ này đông thì giờ sau gần như chắc cũng đông, nên giờ sau mang ít thông tin mới. Rút từng điểm làm mất điều đó, và khoảng hẹp giả. Nhìn hình: trục ngang là độ dài khối, trục dọc là tỷ lệ khoảng chứa trung bình thật trên mô phỏng AR(1). Rút từng điểm chỉ 60,3%, thay vì 95%. Block bootstrap rút cả khối liền nhau: khối 20 lên 89,3%. Nhưng khối 40 lại tụt còn 81,3%, nên hãy thử vài độ dài và báo độ nhạy.
+
+## bootstrap-buoc
+Đây là bootstrap đi từng bước, vì chỗ này rất hay nhớ nhầm.
+
+(chỉ vào hàng ô trên) Bước một, có một mẫu thật, ví dụ 5 ngày: 12, 15, 11, 30, 14, trung bình 16,4. Bước hai, rút lại đủ 5 số, có hoàn lại: một ngày có thể được rút hai lần, ngày khác không được rút lần nào. Bước ba, tính trung bình của mẫu vừa rút. Bước bốn, lặp như vậy vài nghìn lần, được vài nghìn trung bình. Bước năm, xếp chúng theo thứ tự và lấy quantile 0,025 và 0,975: đó là khoảng tin cậy 95%. (dừng) Không có chỗ nào nhân 1,96 cả: bootstrap lấy thẳng hai đầu của các trung bình.
+
+Bảng trái là ba lần rút đầu tiên. Lần 1 và 2 không trúng số 30 nên trung bình chỉ 13,0 và 12,6; lần 3 trúng thì lên 16,4. Chính sự dao động đó cho ta độ bấp bênh.
+
+Bên phải là rút khối dài 2: rút ba điểm bắt đầu, lấy cả khối hai ngày liền nhau, nối lại rồi cắt còn 5 số. Ngày 30 và ngày 14 ngay sau nó vẫn đi cùng nhau, nên mối liên hệ giữa hai ngày liền nhau được giữ. Dữ liệu có tự tương quan thì phải rút kiểu này.
 
 ## code-b02-block-bootstrap
 Code bootstrap với hai chế độ: từng điểm và theo khối.
@@ -235,7 +244,7 @@ Bắt đầu phần đọc biểu đồ, trước hết cần ba từ. Nhìn hì
 
 Chỗ phân biệt là con số m cố định. Lượt thuê xe đông lúc 8h và 17h mỗi ngày làm việc là mùa vụ với m bằng 24, nên biết trước giờ đỉnh. Kinh tế tăng rồi suy thoái là chu kỳ, không ai hẹn trước lúc nó đổi chiều. Vì vậy mùa vụ là phần dự báo được nhờ lịch, còn chu kỳ khó hơn nhiều.
 
-Nhớ gọn: mùa vụ lặp đều, chu kỳ không hẹn trước.
+Nhớ gọn: mùa vụ lặp đều, biết trước lúc lặp; chu kỳ lên xuống mà không biết khi nào lặp lại. Và “mùa” ở đây là mọi vòng lặp theo lịch: ngày, tuần, năm, không chỉ xuân, hạ, thu, đông.
 
 ## doc-hinh
 Có ba khái niệm rồi, giờ cần một cách đọc hình để thấy chúng. Năm bước, áp cho mọi biểu đồ. Thử ngay với heatmap này.
@@ -316,6 +325,8 @@ Có ba cách phân rã, khác nhau ở chỗ mùa vụ cố định hay được
 
 Nhìn hình: trục ngang là giờ New York, trục dọc là mùa vụ ngày tính bằng GW, mỗi đường một tháng. Tháng 1, xanh đậm, hai đỉnh sáng và tối; tháng 7, đỏ đậm, một đỉnh chiều, biên độ lớn hẳn vì điều hoà. Một khuôn cố định không chứa được cả hai.
 
+Nhớ gọn: cổ điển là một khuôn mùa vụ cho cả năm, STL là khuôn đổi dần, MSTL là nhiều khuôn, như 24 giờ và 168 giờ.
+
 Lưu ý: biên độ đổi theo mùa không phải lý do dùng phân rã nhân; nhân dành cho dao động tỷ lệ với mức. Và phần dư nhỏ bất thường thì nghi cửa sổ xu hướng quá ngắn.
 
 ## code-b06-co-dien
@@ -375,7 +386,7 @@ Cách đọc ACF hay gặp là đếm cột vượt dải. Slide này cho thấy
 
 Hình trái: nhiễu trắng 500 điểm, trục ngang là độ trễ tới 20, dải xám là cộng trừ 1,96 chia căn T; vẫn có cột chạm ra ngoài. Hình phải mô phỏng 1.000 chuỗi nhiễu trắng thuần: trục ngang là số cột vượt dải trong 20 trễ, trục dọc là số chuỗi. Trung bình mỗi chuỗi có 0,95 cột vượt, và 62% số chuỗi có ít nhất một cột vượt, dù chẳng có quy luật nào.
 
-Ljung-Box gộp nhiều trễ vào một kiểm định, H0 là chuỗi là nhiễu trắng. p nhỏ hơn 0,05 là còn quy luật chưa khai thác. Ta dùng nó để kiểm phần dư của mô hình đã sạch chưa, và khi đó nhớ truyền model_df, tức số tham số của mô hình.
+Ljung-Box gộp nhiều trễ vào một kiểm định. Câu hỏi của nó: các ACF từ trễ 1 tới trễ ℓ có cùng bằng 0 không? H0 là chuỗi là nhiễu trắng. p nhỏ hơn 0,05 là còn quy luật chưa khai thác. Ta dùng nó để kiểm phần dư của mô hình đã sạch chưa, và khi đó nhớ truyền model_df, tức số tham số của mô hình.
 
 ## code-b07-ljung-box
 Ljung-Box thay việc đếm cột bằng một con số Q sao và một p-value. Dòng 5 và 6 tính tay với 100 điểm, r1 bằng 0,2, r2 bằng 0,1: Q sao bằng T nhân T cộng 2, nhân với tổng của r_k bình phương chia T trừ k. Dòng 7 và 8 tra ngưỡng 5% của phân phối khi bình phương với 2 bậc tự do, và p-value bằng chi2.sf. Q sao bằng 5,16, nhỏ hơn ngưỡng 5,99, nên không bác bỏ: chưa thấy quy luật.
@@ -423,6 +434,15 @@ Thuốc cho random walk là sai phân. Sai phân thay mỗi giá trị bằng hi
 Nhìn hình: góc trên trái là log GDP thực của Mỹ theo quý, trôi lên mãi, và ACF ngay dưới giảm rất chậm. Góc trên phải là sai phân log, gần bằng phần trăm tăng mỗi quý: dao động quanh 0,76%, và ACF bên dưới chỉ còn vài trễ đầu. Chuỗi trôi đi đã thành chuỗi có mức để quay về.
 
 Khi nào dùng: random walk thì sai phân một lần; có mùa vụ thì sai phân mùa vụ trước; dừng quanh xu hướng thì khử xu hướng, sai phân thêm là thừa. Để ý cú sốc lớn quanh năm 2020 bên phải, chính là lý do ô mâu thuẫn ở slide trước.
+
+## quy-trinh-chuoi-la
+Toàn bộ buổi 7 gói lại thành bảy bước, dùng mỗi khi gặp một chuỗi lạ.
+
+Hàng trên là nhìn và kiểm. Một, nhìn ACF: quanh 0 là nhiễu trắng, giảm rất chậm là chưa dừng, có đỉnh đều là mùa vụ. Hai, nhìn PACF: cao ở vài trễ đầu rồi tắt hẳn sau trễ p thì giống AR bậc p. Ba, Ljung-Box để có một p-value cho nhiều trễ, thay vì đếm cột vượt dải. Bốn, chạy cả ADF lẫn KPSS, cùng một dạng: “c” nếu chuỗi quanh một mức, “ct” nếu quanh một đường.
+
+Hàng dưới là kết luận và chữa. Năm, đọc bảng 2 × 2: hai kiểm định cùng hướng thì tin, mâu thuẫn thì quay lại vẽ chuỗi tìm cú sốc. Sáu, chữa đúng loại: random walk thì sai phân, quanh xu hướng thì khử xu hướng, có mùa vụ thì sai phân mùa vụ trước. Bảy, kiểm xem có chữa quá tay không: sai phân xong mà r1 về gần âm 0,5 hoặc độ lệch chuẩn tăng lên thì bớt một lần.
+
+Nhìn trước, kiểm bằng số sau, chữa xong thì kiểm lại.
 
 ## scatter
 Buổi 8: quan hệ giữa hai biến. Pearson r đo quan hệ đường thẳng; Spearman đo hai biến có cùng tăng theo thứ hạng không.
@@ -487,6 +507,15 @@ Nhìn hình phải: tương quan chéo cao ở cả hai chiều, CDD trước t�
 
 Ba điều kiện khi dùng Granger: chạy cả hai chiều; chuỗi phải dừng, sai phân trước; và hỏi thêm lúc ra dự báo ta có biết giá trị tương lai của X không.
 
+## quy-trinh-tuong-quan
+Buổi 8 có nhiều công cụ. Slide này xếp chúng thành tám câu hỏi theo thứ tự nên hỏi.
+
+Một, quan hệ trông ra sao: luôn vẽ scatter trước khi tin một hệ số. Hai, thẳng hàng hay chỉ cùng tăng: Pearson hay Spearman. Ba, hai chuỗi có cùng trôi theo thời gian không: đo lại trên sai phân và xem Durbin–Watson; CPI với dân số Mỹ đi từ 0,97 xuống còn âm 0,21. Bốn, quan hệ cong hay đổi dấu: tách CDD, HDD, hoặc đo mutual information rồi kiểm bằng hoán vị theo khối.
+
+Hàng dưới. Năm, ai đi trước và trước bao lâu: prewhiten cả hai chuỗi bằng cùng một bộ lọc rồi mới đọc tương quan chéo. Sáu, quan hệ có giữ nguyên cả năm không: tương quan trượt; đổi dấu theo mùa thì tách riêng từng mùa. Bảy, quá khứ của x có giúp đoán y không: Granger, chạy cả hai chiều, và nhớ nó chỉ nói “giúp dự báo”. Tám, lúc dự báo thật đã có x trong tay chưa: nếu chưa, chỉ được dùng bản dự báo của x, chuyện của buổi 13.
+
+(dừng) Đừng tin hệ số tương quan ngay; đi qua đủ tám câu thì mới dùng x làm feature.
+
 ## code-b08-granger
 Dòng 5 và 6 là chỗ dễ sai nhất: grangercausalitytests hỏi cột 2 có giúp dự báo cột 1 không. Nên ta xếp kết quả vào cột 1, nguyên nhân nghi ngờ vào cột 2; đảo thứ tự là trả lời câu hỏi ngược. Dòng 7 lấy p nhỏ nhất của kiểm định F qua các độ trễ 1 tới 4.
 
@@ -520,6 +549,8 @@ Nhìn hình: trục ngang ở cả hai ô là entropy, đường cam nối trung
 
 Vì sao? MASE chia sai số cho sai số seasonal naive của chính chuỗi đó. Chuỗi khó thì mẫu số cũng lớn, nên độ khó tự triệt tiêu. Tương quan với entropy: sMAPE cộng 0,245, MASE chia seasonal naive chỉ âm 0,048, còn chia naive một bước thì ra âm 0,381. (dừng) Cùng dữ liệu, chỉ đổi mẫu số mà kết luận đi từ dương qua 0 tới âm.
 
+Có người giải thích việc đổi sang sMAPE là vì phần trăm dễ nói với người không chuyên. Lý do thật không phải vậy, mà là mẫu số: MASE đã chia mất độ khó.
+
 Nên nhớ: MASE để so mô hình trên cùng một chuỗi, sMAPE để xếp độ khó giữa các chuỗi dương.
 
 ## code-b09-smape-mase
@@ -546,7 +577,7 @@ Kết quả: PC1 giữ 41%, PC2 15%. 137 chuỗi dùng baseline có sMAPE trung 
 ## dtw
 PCA nhóm theo đặc trưng. Còn muốn gom các chuỗi cùng hình dạng thì dùng DTW.
 
-DTW đo hai chuỗi giống hình dạng tới đâu, cho phép lệch thời gian đôi chút, ví dụ đỉnh Tết năm sớm năm muộn. Nhưng DTW so giá trị, nên phải chuẩn hoá z-score từng chuỗi trước.
+DTW đo hai chuỗi giống hình dạng tới đâu, cho phép lệch thời gian đôi chút, ví dụ đỉnh Tết năm sớm năm muộn. Chuỗi “tăng, giảm, tăng” và cùng hình đó nhưng chậm vài bước thì DTW coi là giống nhau. Nhưng DTW so giá trị, nên phải chuẩn hoá z-score từng chuỗi trước.
 
 Nhìn hình: mỗi cột là một cụm. Hàng trên phân cụm sau chuẩn hoá, ra bốn hình dạng: giảm, tăng đều, bướu giữa, dao động quanh mức. Hàng dưới không chuẩn hoá: các đường trong mỗi ô na ná nhau, chỉ có thang trục dọc tăng dần từ trái sang phải. Mức trung vị bốn cụm là 1.585, 3.310, 6.835, 9.832, tức là đang xếp theo độ lớn, việc một phép sort cũng làm được.
 
@@ -1035,6 +1066,15 @@ Code này tách ba đoạn 48 giờ cuối của mỗi chuỗi. Dòng 3 tạo l�
 ## dm
 Hai mô hình chênh nhau vài phần trăm: thật, hay chỉ may? Kiểm định Diebold–Mariano lấy chênh lệch sai số trung bình chia cho sai số chuẩn của chính chênh lệch đó. p dưới 0,05 thì chênh có thật; từ 0,05 trở lên thì chưa có bằng chứng. (chỉ vào hình) Ô trái là chênh sai số trung bình từng ngày của 92 ngày hold-out: mô hình trộn thắng 53 ngày, thua nhiều ngày khác. Ô phải là ACF của chênh lệch từng giờ: trễ 1 tới 0,91 và còn vượt đường đứt tới khoảng trễ 18. Đó là chỗ cần cẩn thận: bỏ qua tự tương quan này thì p nhỏ giả tạo. Phải cộng tự hiệp phương sai tới trễ h trừ 1 và dùng bản hiệu chỉnh HLN. Thêm nữa, so 20 cặp mô hình thì trung bình khoảng một cặp p dưới 0,05 chỉ do may.
 
+## doc-kiem-dinh
+Qua 15 buổi chúng ta gặp bảy kiểm định. Tin vui là cả bảy đọc cùng một cách.
+
+(chỉ vào bốn ô trên) Đặt H0, giả định ban đầu, thường là “không có gì đặc biệt”. Tính một con số từ dữ liệu. Hỏi: nếu H0 đúng, gặp con số lệch cỡ này hoặc hơn hiếm tới đâu; đó là p. p nhỏ hơn 0,05 thì bác bỏ H0; p lớn hơn thì chỉ là chưa đủ bằng chứng, không có nghĩa H0 đúng.
+
+Bảng dưới chỉ cần nhớ cột H0. Hoán vị: hai nhóm như nhau. Ljung-Box: phần dư là nhiễu trắng, nên p nhỏ là còn quy luật. Granger: quá khứ x không giúp dự báo y. Jarque–Bera: phần dư hình chuông. Diebold–Mariano: hai mô hình chính xác như nhau.
+
+(chỉ vào hai dòng cam) Hai dòng cam là chỗ hay nhầm nhất. ADF đặt H0 là không dừng, nên p nhỏ là dừng. KPSS đặt ngược lại, H0 là dừng, nên p nhỏ là không dừng. Luôn đọc H0 trước khi đọc p.
+
 ## code-b15-dm
 Dòng 5 tính chênh độ lớn sai số của hai dự báo ở từng giờ. Dòng 8 đến 9 là phần mấu chốt: tính tự hiệp phương sai của chênh lệch ở các trễ từ 0 tới h trừ 1 rồi cộng vào phương sai, vì các giờ gần nhau dùng chung thông tin. Dòng 10 đến 11 là phòng hờ: phương sai ra âm thì lùi về h bằng 1. Dòng 12 lấy chênh trung bình chia sai số chuẩn. Dòng 13 đến 14 là bản ngây thơ, so với hình chuông chuẩn. Dòng 15 đến 16 là bản HLN: nhân hệ số sửa mẫu nhỏ rồi so với phân phối t. Kết quả, mô hình trộn so với seasonal naive trên 2.215 giờ: bản bỏ tự tương quan cho p bằng 0,0000012, trông rất chắc chắn; bản HLN với h bằng 24 cho p bằng 0,16, tức chưa có bằng chứng.
 
@@ -1141,6 +1181,17 @@ MASE lấy MAE trên kỳ chấm, chia cho MAE của seasonal naive trên phần
 Có hai chỗ hay nhầm. Một, mẫu số phải lấy trên phần học; lấy trên kỳ chấm là dùng thông tin tương lai, và MASE của naive trên M4 ra 0,972 thay vì 0,835. Hai, MASE dưới 1 chưa chắc thắng seasonal naive trên kỳ chấm, vì kỳ chấm thường khó hơn. Muốn biết thì chạy baseline trên cùng kỳ.
 
 (chỉ vào hình buổi 9) Vì mẫu số lớn lên theo độ khó của chuỗi, MASE của seasonal naive nằm ngang quanh 1. MASE dùng để so mô hình, không để đo độ khó.
+
+## bang-chi-so
+Tám chỉ số của buổi 14 trong một bảng, để tra lại khi phải chọn.
+
+Ba dòng đầu cùng đơn vị với dữ liệu. ME giữ dấu nên đo độ chệch, không đo độ chính xác: dương là dự báo thấp hơn thực tế. MAE ưa trung vị. RMSE ưa trung bình và phạt nặng sai số lớn.
+
+Ba dòng giữa là phần trăm. MAPE dễ đọc nhưng hỏng khi thực tế bằng 0 và kéo dự báo xuống thấp. sMAPE là chỉ số của cuộc thi M4, thang 0 tới 200, tên là đối xứng nhưng thật ra vẫn không đối xứng. WAPE chia tổng cho tổng nên sống được với số 0.
+
+Hai dòng cuối chia cho sai số của seasonal naive trên phần học, nên so được giữa các chuỗi. Phần học lặp hoàn hảo thì mẫu số bằng 0 và hàm phải trả NaN.
+
+(dừng) Chọn chỉ số theo quyết định trước khi xem kết quả, vì đổi chỉ số là đổi hạng.
 
 ## spearman
 Slide trước nói Pearson đo đường thẳng. Nhưng nhiều khi ta chỉ cần biết: x tăng thì y có tăng không, dù tăng theo đường cong.
@@ -1296,6 +1347,15 @@ Random walk là vị trí mới bằng vị trí cũ cộng một bước ngẫu
 
 Vì vậy random walk không dừng, phải sai phân, và dự báo tốt nhất cho nó là giá trị cuối cùng.
 
+## bon-chuoi
+Trước khi sang kiểm định, chúng ta đặt bốn chuỗi mẫu của buổi 7 cạnh nhau.
+
+Đọc từng dòng. Nhiễu trắng không nhớ gì, r1 gần 0: dừng. AR(1) với phi 0,7 nhớ bước trước nhưng bị kéo về mức: vẫn dừng, r1 0,71 nhưng tới trễ 30 đã về 0. Random walk nhớ mãi, không có mức để quay về: không dừng, phải sai phân. Chuỗi xu hướng không nhớ gì cả, nó chỉ bám một đường thẳng: dừng quanh đường xu hướng, nên chữa bằng cách trừ đường đó đi.
+
+(chỉ vào cột r1 / r30) Chỗ cần để ý: random walk và xu hướng có r1 đều khoảng 0,98, ACF giảm chậm như nhau. Nhìn ACF không tách được hai loại này; phải chạy ADF và KPSS dạng “ct”, ở slide sau.
+
+Chữa nhầm thì sao? Sai phân chuỗi quanh xu hướng là sai phân thừa, sinh tương quan âm giả. Trừ đường thẳng khỏi random walk thì phần còn lại vẫn lang thang. Mẹo nhớ: random walk thì sai phân, dừng quanh xu hướng thì khử xu hướng.
+
 ## entropy
 Chuỗi này có nhịp đều để khai thác, hay gần như ngẫu nhiên?
 
@@ -1387,6 +1447,13 @@ Savitzky–Golay khớp đa thức quanh mỗi điểm. Butterworth cắt tần 
 Trên tín hiệu mô phỏng, ba bộ lọc có sai số thấp nhất đều nhìn tương lai. Đổi 10 số cuối chuỗi thì sosfilt giữ nguyên quá khứ, còn filtfilt đổi quá khứ tới 23,615 và kéo ngược 274 bước. Bù lại, Butterworth nhân quả trễ 19 bước. Dùng được làm feature chỉ có trailing, EWMA, sosfilt và Kalman filter với tham số cố định từ phần học.
 
 Độ trơn luôn phải trả bằng trễ, hoặc bằng việc nhìn tương lai.
+
+## bang-bo-loc
+Sáu họ bộ lọc của buổi 12 gom vào một bảng để tra khi cần.
+
+Đọc theo cột “hiểu đơn giản” trước. Trailing lấy trung bình k điểm gần nhất. Centered lấy các điểm quanh nó, cả trước lẫn sau. EWMA cho điểm mới nặng hơn điểm cũ. Savitzky–Golay khớp một đa thức nhỏ quanh mỗi điểm nên giữ được chiều cao đỉnh. Butterworth cắt tần số cao theo ngưỡng. Kalman ước lượng một tín hiệu ẩn đổi dần, cộng nhiễu.
+
+(chỉ vào cột cuối) Cột quan trọng nhất là “nhân quả”. Làm feature dự báo thì chỉ chọn trong các dòng “có”. Hai dòng “có / không” tuỳ phiên bản: sosfilt và Kalman filter chạy một chiều thì nhân quả; sosfiltfilt và Kalman smoother chạy hai chiều thì nhìn tương lai. Riêng Kalman filter chỉ nhân quả khi tham số ước lượng trên phần học rồi cố định; khớp lại trên cả chuỗi thì quá khứ đổi tới 1,134.
 
 ## kiem-nhan-qua
 Tài liệu thư viện không nói bộ lọc có dùng số của giờ sau không. Kiểm thế nào? Đổi đuôi, xem đầu.

@@ -1,4 +1,4 @@
-"""Sinh bộ slide chia sẻ "Dữ liệu cho dự báo" (buổi 1–15) ra trinh-chieu/nen-mong-va-du-lieu.pptx.
+"""Sinh bộ slide chia sẻ "Dữ liệu cho dự báo" (buổi 1–15) ra trinh-chieu/nen-mong-va-du-lieu-v2.pptx.
 
 Chạy:  uv run --with python-pptx --with pillow --with matplotlib python trinh-chieu/sinh_slide_du_lieu.py [--muc-luc]
 
@@ -36,7 +36,8 @@ GOC = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from noi_dung_code import CODE  # noqa: E402, I001  (nội dung slide code, một slide mỗi mục 4.x)
 
-RA = GOC / "trinh-chieu" / "nen-mong-va-du-lieu.pptx"
+# Bản 2 (2026-09-29, tinh chỉnh theo ghi chú tự học Note.docx) ghi ra file mới; bản 1 nen-mong-va-du-lieu.pptx giữ nguyên.
+RA = GOC / "trinh-chieu" / "nen-mong-va-du-lieu-v2.pptx"
 DOC_KEM = GOC / "trinh-chieu" / "doc-kem.md"
 LOI_NOI = GOC / "trinh-chieu" / "loi-noi.md"  # lời thuyết trình → ghi chú người nói (khán giả không thấy)
 TAM = Path(tempfile.mkdtemp(prefix="cong-thuc-"))  # ảnh công thức sinh mỗi lần chạy, không vào git
@@ -203,7 +204,7 @@ PHU = {
     1: {"4.1": ["du-bao-la-gi", "goc-tam"], "4.2": ["phieu-6-o"], "4.3": ["baseline", "bon-baseline"], "4.4": ["sai-so-ao", "du-bao-cuon", "mo-hinh"],
         "4.5": ["do-chi-tiet"], "4.6": ["quantile", "newsvendor"]},
     2: {"4.1": ["quantile", "phan-phoi"], "4.2": ["con-so-bao", "do-lech-chuan", "he-so-lech"], "4.3": ["phan-phoi-chuan", "khoang", "khoang-tin-cay"], "4.4": ["scatter"],
-        "4.5": ["kiem-dinh", "hoan-vi"], "4.6": ["bootstrap", "khoang-tin-cay"]},
+        "4.5": ["kiem-dinh", "hoan-vi"], "4.6": ["bootstrap", "bootstrap-buoc", "khoang-tin-cay"]},
     3: {"4.1": ["utc"], "4.2": ["mui-gio"], "4.3": ["resample"], "4.4": ["merge-asof", "mui-gio"], "4.5": ["dang-dai"]},
     4: {"4.1": ["mua-vu", "doc-hinh"], "4.2": ["lam-tron", "thang-log", "gop", "bo-bieu-do"], "4.3": ["bo-bieu-do", "seasonal-subseries"], "4.4": ["boxplot"],
         "4.5": ["lag-plot", "acf"], "4.6": ["truc-y-cat", "tron-nam", "bieu-do-sai"]},
@@ -211,7 +212,7 @@ PHU = {
         "4.6": ["doi-nguoc"]},
     6: {"4.1": ["phan-ra", "phan-ra-cach"], "4.2": ["phan-ra", "phan-ra-cach"], "4.3": ["ty-le-mau-hinh", "chu-ky-sai"], "4.4": ["phan-ra-cach", "stl-loess"], "4.5": ["f-s"],
         "4.6": ["robust", "chu-ky-sai"]},
-    7: {"4.1": ["acf"], "4.2": ["pacf", "ar"], "4.3": ["ljung-box", "ljung-box-q"], "4.4": ["dung", "random-walk"], "4.5": ["adf-kpss-la-gi", "adf-kpss"], "4.6": ["sai-phan", "sai-phan-la-gi"]},
+    7: {"4.1": ["acf"], "4.2": ["pacf", "ar"], "4.3": ["ljung-box", "ljung-box-q"], "4.4": ["dung", "random-walk", "bon-chuoi"], "4.5": ["adf-kpss-la-gi", "adf-kpss"], "4.6": ["sai-phan", "sai-phan-la-gi", "quy-trinh-chuoi-la"]},
     8: {"4.1": ["scatter", "spearman"], "4.2": ["durbin-watson", "tuong-quan-gia"], "4.3": ["cdd-hdd", "mi", "hoan-vi-khoi", "chu-u"], "4.4": ["ccf", "prewhitening"], "4.5": ["truot"],
         "4.6": ["granger"]},
     9: {"4.1": ["dac-trung"], "4.2": ["entropy", "pho"], "4.3": ["do-kho"], "4.4": ["ban-do-pca"], "4.5": ["dtw"],
@@ -220,7 +221,7 @@ PHU = {
          "4.6": ["dien-nhan-qua", "dien"]},
     11: {"4.1": ["bon-loai"], "4.2": ["z-score-masking", "masking"], "4.3": ["mad-hampel", "hampel"], "4.4": ["xu-ly-bat-thuong", "tet"],
          "4.5": ["penalty", "pelt"], "4.6": ["covid"]},
-    12: {"4.1": ["khu-nhieu", "loc-tuong-lai"], "4.2": ["aliasing", "pho"], "4.3": ["nyquist", "aliasing"], "4.4": ["ewma", "sau-ho-loc", "bo-loc"],
+    12: {"4.1": ["khu-nhieu", "loc-tuong-lai"], "4.2": ["aliasing", "pho"], "4.3": ["nyquist", "aliasing"], "4.4": ["ewma", "sau-ho-loc", "bang-bo-loc", "bo-loc"],
          "4.5": ["kiem-nhan-qua", "loc-tuong-lai"], "4.6": ["loc-tuong-lai", "muc-tieu-lam-tron"]},
     13: {"4.1": ["biet-truoc"], "4.2": ["shift-rolling"], "4.3": ["feature-lich"], "4.4": ["ca-chuoi", "ro-ri"], "4.5": ["kiem-ro-ri", "ro-ri"],
          "4.6": ["ex-ante", "ngoai-sinh"]},
@@ -229,6 +230,8 @@ PHU = {
     15: {"4.1": ["chia-ngau-nhien"], "4.2": ["kfold", "rolling-origin"], "4.3": ["rolling-origin", "cua-so"], "4.4": ["ba-doan"],
          "4.5": ["dm"]},
 }
+# Slide tổng hợp không neo vào mục 4.x nào (neo sẽ kéo slide code tới sau nó), chỉ thêm vào bảng "Tra theo buổi".
+THEM_TRA = {"quy-trinh-tuong-quan": 8, "bang-chi-so": 14, "doc-kiem-dinh": 15}
 TRA_THEO_BUOI: list = []  # slide bảng/sơ đồ/nền tối: không đếm chữ
 MUC: list[tuple[str, str]] = []  # (mã, tiêu đề) theo thứ tự slide
 PHAN_CUA: dict[str, str] = {}  # mã slide → phần A–F
@@ -313,7 +316,7 @@ KN = {
         doc_tieu="So với baseline thế nào",
         thang=[("thấp hơn", "mô hình có giá trị"), ("ngang", "chưa đáng công"), ("cao hơn", "còn thua cách đơn giản nhất")],
         vi_du="Phải thắng cả bốn: trên M4 theo ngày, naive (MASE 0,835) và drift (0,810) còn thắng seasonal naive (1,077).",
-        dg="sai số 0,38 một mình không nói gì; phải so với cái gì đó."),
+        dg="được 7 điểm: cả lớp 9 thì là kém, cả lớp 4 thì là giỏi; baseline là điểm của cả lớp."),
     "sai-so-ao": dict(
         tieu="Nhìn trộm đáp án thì sai số đẹp giả", phan="A", buoi="Buổi 1", hinh=(1, "sai-so-ao"),
         muc="Đo đúng mô hình sẽ sai bao nhiêu khi dùng thật, chứ không phải lúc nó đã thấy đáp án.",
@@ -370,7 +373,7 @@ KN = {
         muc="Biết một con số như trung bình bấp bênh cỡ nào, mà không cần công thức.",
         la_gi="Bootstrap rút lại từ chính mẫu thật nhiều lần và tính lại con số mỗi lần. Block bootstrap rút cả khối điểm liền nhau.",
         doc_tieu="Nhận ra thế nào",
-        doc="Khoảng 95% lấy từ quantile 0,025 tới 0,975 của các lần tính. Dữ liệu tự tương quan mà rút từng điểm thì khoảng hẹp giả.",
+        doc="Dữ liệu tự tương quan mà rút từng điểm thì mất cách các điểm liền nhau đi cùng nhau, nên khoảng hẹp giả. Rút cả khối giữ được điều đó.",
         vi_du="Rút từng điểm, khoảng chỉ chứa trung bình thật 60,3% số lần. Rút khối dài 20 thì lên 89,3%."),
     "khoang-tin-cay": dict(
         tieu="Khoảng dự báo khác khoảng tin cậy", phan="A", buoi="Buổi 2", hinh=(2, "kn-dinh-ly-gioi-han-trung-tam-clt"),
@@ -382,17 +385,19 @@ KN = {
     "phan-ra-cach": dict(
         tieu="Cổ điển, STL, MSTL: mùa vụ cố định hay đổi dần", phan="A", buoi="Buổi 6", hinh=(6, "bien-do-ngay"),
         muc="Chọn cách phân rã khớp với việc mùa vụ có đổi theo thời gian hay không.",
-        la_gi="Cổ điển: xu hướng là trung bình trượt đúng một vòng, mùa vụ là trung bình theo vị trí trong vòng, cố định cả năm. STL làm trơn cục bộ nên mùa vụ đổi dần; MSTL tách nhiều chu kỳ.",
+        la_gi="Cổ điển: xu hướng là trung bình trượt đúng một vòng, mùa vụ là trung bình theo vị trí trong vòng. STL lấy trung bình cục bộ (LOESS).",
         doc_tieu="Chọn cách nào",
         doc="Hình dạng mùa vụ đổi theo mùa thì dùng STL/MSTL, không phải phân rã nhân. Phần dư nhỏ bất thường có thể do cửa sổ xu hướng quá ngắn.",
-        vi_du="Mùa vụ ngày của PJM: tháng 1 hai đỉnh sáng và tối, tháng 7 một đỉnh chiều. Một khuôn cố định không chứa được cả hai."),
+        vi_du="Mùa vụ ngày của PJM: tháng 1 hai đỉnh sáng và tối, tháng 7 một đỉnh chiều. Một khuôn cố định không chứa được cả hai.",
+        dg="cổ điển: một khuôn mùa vụ cho cả năm; STL: khuôn đổi dần; MSTL: nhiều khuôn, như 24 và 168 giờ."),
     "newsvendor": dict(
         tieu="Đặt hàng một lần: thiếu và thừa đều tốn tiền", phan="A", buoi="Buổi 1–2", hinh=(1, "kn-bai-toan-newsvendor"),
         muc="Biết vì sao nên báo cao hơn trung bình khi thiếu đắt hơn thừa, và chấm dự báo kiểu đó bằng gì.",
         la_gi="Newsvendor: đặt một lượng trước, thiếu mất Cu mỗi đơn vị, thừa mất Co. Pinball loss chấm dự báo quantile τ: thiếu phạt τ, thừa phạt 1 − τ mỗi đơn vị.",
         doc_tieu="Tỷ lệ chi phí nói gì",
         thang=[("Cu = Co", "báo trung vị (τ = 0,5)"), ("Cu = 4·Co", "báo quantile 0,8"), ("Cu ≫ Co", "báo rất cao, gần như không bao giờ thiếu")],
-        vi_du="10 ngày mẫu, thiếu 4 đồng, thừa 1 đồng: mua 8 kWh tốn 33 đồng, mua 9 kWh tốn 28 (ít nhất). Pinball τ = 0,8, thật 10, báo 8: phạt 1,6."),
+        vi_du="10 ngày mẫu, thiếu 4 đồng, thừa 1 đồng: mua 8 kWh tốn 33 đồng, mua 9 kWh tốn 28 (ít nhất). Pinball τ = 0,8, thật 10, báo 8: phạt 1,6.",
+        dg="như tiệm bánh mì làm dư ra: mất một khách đắt hơn lỗ chút tiền bột."),
     "do-lech-chuan": dict(
         tieu="Trung bình, độ lệch chuẩn, z-score", phan="A", buoi="Buổi 2, 9, 11", hinh=(2, "kn-phuong-sai-do-lech-chuan"),
         muc="Có thước đo chung cho “mức” và “độ tản” của số liệu, nền của 3σ, 1,96s, CV và chuẩn hoá.",
@@ -461,8 +466,9 @@ KN = {
         muc="Tách phần lặp lại biết trước, thứ dự báo được, khỏi phần lên xuống không hẹn trước.",
         la_gi="Xu hướng là mức chung đổi dần. Mùa vụ lặp lại sau một số bước cố định m. Chu kỳ lên xuống nhưng dài ngắn không đều.",
         doc_tieu="Nhận ra thế nào",
-        doc="Mùa vụ có m cố định (24 giờ, 7 ngày, 12 tháng) nên biết trước đỉnh. Chu kỳ không có m, khó đoán lúc nó đổi chiều.",
-        vi_du="Thuê xe đông lúc 8h và 17h mỗi ngày làm việc là mùa vụ (m = 24). Kinh tế tăng rồi suy giảm không hẹn trước là chu kỳ."),
+        doc="Hỏi: có lặp sau đúng m bước biết trước (24 giờ, 7 ngày, 12 tháng) không? “Mùa” là mọi vòng lặp theo lịch, không chỉ xuân, hạ, thu, đông.",
+        vi_du="Thuê xe đông lúc 8h và 17h mỗi ngày làm việc là mùa vụ (m = 24). Kinh tế tăng rồi suy giảm không hẹn trước là chu kỳ.",
+        dg="mùa vụ lặp đều, biết trước lúc lặp; chu kỳ lên xuống mà không biết khi nào lặp lại."),
     "doc-hinh": dict(
         tieu="Đọc mọi biểu đồ theo 5 bước", phan="A", buoi="Buổi 4", hinh=(4, "nhiet-gio-thu"),
         muc="Đọc ra một kết luận có bằng chứng từ biểu đồ, không đoán theo cảm giác.",
@@ -517,7 +523,8 @@ KN = {
         la_gi="Ljung-Box gộp ACF của nhiều trễ vào một kiểm định, với giả định ban đầu H0 là chuỗi chỉ là nhiễu trắng.",
         doc_tieu="p lớn hay nhỏ nghĩa là gì",
         thang=[("p < 0,05", "còn quy luật chưa khai thác"), ("p ≥ 0,05", "chưa thấy quy luật nào còn sót")],
-        vi_du="1.000 chuỗi nhiễu trắng thuần: 62% vẫn có ít nhất một cột ACF vượt dải. Vì vậy đừng đếm cột."),
+        vi_du="1.000 chuỗi nhiễu trắng thuần: 62% vẫn có ít nhất một cột ACF vượt dải. Vì vậy đừng đếm cột.",
+        dg="Ljung-Box hỏi: các ACF từ trễ 1 tới trễ ℓ có cùng bằng 0 không?"),
     "dung": dict(
         tieu="Chuỗi dừng: mức và dao động không đổi", phan="A", buoi="Buổi 7", hinh=(7, "kn-dung"),
         muc="Biết chuỗi có “mức để quay về” không, để chọn sai phân hay khử xu hướng.",
@@ -568,13 +575,14 @@ KN = {
         la_gi="MASE chia sai số cho sai số naive của chính chuỗi đó; sMAPE chia cho mức của chuỗi.",
         doc_tieu="Nhận ra thế nào",
         doc="Chuỗi khó thì mẫu số của MASE cũng lớn, nên MASE của seasonal naive nằm ngang quanh 1 dù chuỗi dễ hay khó. sMAPE mới tăng theo độ khó.",
-        vi_du="Tương quan với entropy: sMAPE +0,245, còn MASE chia seasonal naive chỉ −0,048."),
+        vi_du="Tương quan với entropy: sMAPE +0,245, còn MASE chia seasonal naive chỉ −0,048.",
+        dg="MASE so các mô hình trên cùng một chuỗi; muốn so độ khó giữa các chuỗi thì dùng sMAPE."),
     "ban-do-pca": dict(
         tieu="Bản đồ 4.000 chuỗi: vùng nào khó", phan="A", buoi="Buổi 9", hinh=(9, "khong-gian-dac-trung"),
         muc="Nhìn cả tập hàng nghìn chuỗi trên một hình, khoanh vùng chuỗi khó và chuỗi lạ.",
         la_gi="PCA chiếu nhiều đặc trưng xuống hai trục giữ được nhiều khác biệt nhất. Mỗi chuỗi thành một chấm.",
         doc_tieu="Nhận ra thế nào",
-        doc="Chấm lệch về bên phải là chuỗi lởm chởm, khó. Chấm đứng lẻ xa đám đông là chuỗi lạ, cần xem tận mắt.",
+        doc="Trục ngang (PC1) là độ lởm chởm: phải là chuỗi gần nhiễu, khó. Trục dọc (PC2) là mức xu hướng và mùa vụ. Chấm đứng lẻ là chuỗi lạ, cần xem tận mắt.",
         vi_du="4.000 chuỗi M4: trục ngang giữ 41% khác biệt. Entropy từ 0,666 trở lên và F_S dưới 0,4 thì chỉ cần baseline."),
     "dtw": dict(
         tieu="DTW: gom chuỗi theo hình dạng", phan="A", buoi="Buổi 9", hinh=(9, "phan-cum-dtw"),
@@ -582,7 +590,8 @@ KN = {
         la_gi="DTW đo khoảng cách hai chuỗi mà cho phép lệch thời gian đôi chút. Ward gộp dần các chuỗi gần nhau thành cụm.",
         doc_tieu="Nhận ra thế nào",
         doc="DTW nhỏ là cùng hình dạng. Mức trung vị của các cụm tăng đều nghĩa là đang gom theo độ lớn: đã quên chuẩn hoá.",
-        vi_du="Không chuẩn hoá, 4 cụm chỉ khác độ lớn (trung vị 1.585 lên tới 9.832). Chuẩn hoá z-score thì gom đúng theo hình dạng."),
+        vi_du="Không chuẩn hoá, 4 cụm chỉ khác độ lớn (trung vị 1.585 lên tới 9.832). Chuẩn hoá z-score thì gom đúng theo hình dạng.",
+        dg="chuỗi “tăng, giảm, tăng” và cùng hình đó nhưng chậm vài bước vẫn được coi là giống nhau."),
     "abc-xyz": dict(
         tieu="ABC hỏi quan trọng, XYZ hỏi dao động", phan="A", buoi="Buổi 9", hinh=(9, "abc-xyz"),
         muc="Chọn nơi đặt công sức: mã hàng nào đáng làm mô hình kỹ nhất.",
@@ -1942,6 +1951,23 @@ def mo_phan(prs, k: str, cau: str):
     ban_do(sl, 6.9, 1.95, s=0.5, sang=k, tren_nen_toi=True)
 
 
+def luoi_buoc(sl, x, y, w, h, buoc: list[tuple[str, str]], so_cot: int, mau: str, co=13):
+    """Các bước đánh số trong ô bo góc, xếp so_cot cột (đọc trái sang phải rồi xuống dòng); mũi tên nối hai ô cạnh nhau."""
+    so_hang = -(-len(buoc) // so_cot)
+    gx, gy = 0.32, 0.2
+    bw, bh = (w - gx * (so_cot - 1)) / so_cot, (h - gy * (so_hang - 1)) / so_hang
+    for i, (tieu, noi_dung) in enumerate(buoc):
+        r, c = divmod(i, so_cot)
+        bx, by = x + c * (bw + gx), y + r * (bh + gy)
+        hinh_khoi(sl, MSO_SHAPE.ROUNDED_RECTANGLE, bx, by, bw, bh, nen_mau=NHAT, bo_goc=0.08)
+        o = hinh_khoi(sl, MSO_SHAPE.OVAL, bx + 0.15, by + 0.15, 0.42, 0.42, nen_mau=mau)
+        chu_trong(o, str(i + 1), co=14, dam=True, mau=TRANG)
+        chu(sl, bx + 0.67, by + 0.1, bw - 0.77, 0.52, tieu, co=co + 1, dam=True, mau=mau, doc=MSO_ANCHOR.MIDDLE)
+        chu(sl, bx + 0.2, by + 0.72, bw - 0.4, bh - 0.8, noi_dung, co=co, cach_dong=2)
+        if c < so_cot - 1 and i < len(buoc) - 1:
+            noi(sl, bx + bw + 0.04, by + bh / 2, bx + bw + gx - 0.04, by + bh / 2, mau="9AA5B4", day=2, mui_ten=True)
+
+
 # ---------- nội dung ----------
 
 def xay() -> Presentation:
@@ -2144,6 +2170,35 @@ def xay() -> Presentation:
 
     khai_niem(prs, "bootstrap")
 
+    # Bản 2: sơ đồ từng bước (người học từng nhớ nhầm "lấy ±1,96"); số lấy từ buoi-02/tai-lieu.md mục 4.6.
+    sl = moi(prs, "bootstrap-buoc", "Bootstrap từng bước: rút lại, lấy hai đầu", "A", "Buổi 2",
+             "khoảng 95% là hai đầu của vài nghìn trung bình tính lại, không phải trung bình ± 1,96.")
+    KHONG_DEM.add(len(prs.slides))
+    mau = PHAN["A"][1]
+    yb = dau_than("bootstrap-buoc", True) + 0.05
+    luoi_buoc(sl, 0.6, yb, 12.13, 1.95, [
+        ("Mẫu thật", "n số đang có. Ví dụ 5 ngày: 12, 15, 11, 30, 14; trung bình 16,4."),
+        ("Rút lại n số", "Có hoàn lại: số có thể lặp, số có thể bị bỏ. Có tự tương quan thì rút cả khối."),
+        ("Tính lại", "Mỗi lần rút cho một trung bình mới."),
+        ("Lặp vài nghìn lần", "Được vài nghìn trung bình: thấy con số dao động cỡ nào."),
+        ("Lấy hai đầu", "Quantile 0,025 và 0,975 của các trung bình là khoảng tin cậy 95%.")], 5, mau, co=14)
+    y2 = yb + 2.25
+    chu(sl, 0.6, y2, 5.9, 0.35, "Rút từng điểm: ba lần đầu", co=15, dam=True, mau=mau)
+    o_bang(sl, 0.6, y2 + 0.45, [["Lần", "Mẫu lại", "Trung bình"], ["1", "14, 12, 12, 15, 12", "13,0"],
+                                ["2", "14, 14, 11, 12, 12", "12,6"], ["3", "15, 11, 30, 11, 15", "16,4"]],
+           [0.9, 3.3, 1.7], cao=0.5, co=14)
+    chu(sl, 0.6, y2 + 2.55, 5.9, 0.7, "Lần 1 và 2 không trúng số 30 nên trung bình thấp hẳn; thứ tự các ngày bị xáo tung.",
+        co=13, mau=MUTED)
+    chu(sl, 6.9, y2, 5.83, 0.35, "Rút khối dài 2: giữ các ngày liền nhau", co=15, dam=True, mau=mau)
+    for i, k in enumerate(["30, 14", "15, 11", "12, 15"]):
+        o = hinh_khoi(sl, MSO_SHAPE.ROUNDED_RECTANGLE, 6.9 + i * 1.95, y2 + 0.5, 1.75, 0.6, nen_mau=LAM_NHAT, vien=LAM,
+                      bo_goc=0.2)
+        chu_trong(o, f"({k})", co=16, dam=True, mau=LAM)
+    chu(sl, 6.9, y2 + 1.3, 5.83, 1.3, [[("Nối lại, cắt còn 5 số: ", 14, False, INK), ("30, 14, 15, 11, 12", 14, True, INK),
+                                        (" → trung bình 16,4.", 14, False, INK)],
+                                       [("Ngày 30 và ngày 14 ngay sau nó vẫn đi cùng nhau, nên mối liên hệ giữa hai ngày liền "
+                                         "nhau được giữ.", 13, False, MUTED)]], cach_dong=6)
+
     khai_niem(prs, "utc")
 
     khai_niem(prs, "resample")
@@ -2220,6 +2275,29 @@ def xay() -> Presentation:
     khai_niem(prs, "dung")
     khai_niem(prs, "random-walk")
 
+    # Bản 2: bảng so bốn chuỗi mẫu (người học tự lập bảng này khi học); số từ buoi-07/tai-lieu.md mục 4.2, seed 42.
+    sl = moi(prs, "bon-chuoi", "Bốn chuỗi mẫu: nhớ gì, có dừng không", "A", "Buổi 7",
+             "mẹo nhớ: random walk thì sai phân; dừng quanh xu hướng thì khử xu hướng.")
+    KHONG_DEM.add(len(prs.slides))
+    yb = dau_than("bon-chuoi", True) + 0.1
+    xanh_o, cam_o, do_o = (XANH_NHAT, XANH), ("FDF0E8", "B4541B"), (DO_NHAT, DO)
+    o_bang(sl, 0.6, yb, [["Chuỗi mẫu", "Công thức", "Nhớ quá khứ?", "Dừng?", "r1 / r30", "Chữa"],
+                         ["nhiễu trắng", "y_t = ε_t", "không nhớ gì", "có", "0,10 / −0,05", "không cần"],
+                         ["AR(1), φ = 0,7", "y_t = 0,7·y_(t−1) + ε_t", "nhớ, rồi kéo về mức", "có", "0,71 / −0,03", "không cần"],
+                         ["random walk", "y_t = y_(t−1) + ε_t", "nhớ mãi, không quay về", "không", "0,98 / 0,53", "sai phân"],
+                         ["xu hướng", "y_t = 0,05·t + ε_t", "không; bám một đường", "quanh đường xu hướng", "0,98 / 0,81",
+                          "khử xu hướng"]],
+           [2.1, 2.9, 2.4, 1.95, 1.4, 1.38], cao=0.68, co=14,
+           to={(1, 3): xanh_o, (2, 3): xanh_o, (3, 3): do_o, (4, 3): cam_o, (3, 5): do_o, (4, 5): cam_o})
+    y2 = yb + 3.6
+    the(sl, 0.6, y2, 5.95, 1.35, "ACF chưa đủ để tách",
+        "Random walk và xu hướng cùng có r1 ≈ 0,98 và ACF giảm chậm như nhau. Muốn tách phải chạy ADF và KPSS dạng “ct”.",
+        LAM, LAM_NHAT, co=14)
+    the(sl, 6.78, y2, 5.95, 1.35, "Chữa nhầm thì sao",
+        "Sai phân chuỗi quanh xu hướng là sai phân thừa, sinh tương quan âm giả. Trừ đường thẳng khỏi random walk thì phần còn lại "
+        "vẫn lang thang.", DO, DO_NHAT, co=14)
+    chu(sl, 0.6, 7.1, 12.13, 0.3, "Mô phỏng 500 điểm, seed 42. r1, r30: tự tương quan ở trễ 1 và trễ 30.", co=11, mau=MUTED)
+
     sl = moi(prs, "adf-kpss-la-gi", "ADF và KPSS là gì: hai câu hỏi ngược chiều", "A", "Buổi 7",
              "ADF hỏi ‘có lực kéo về không?’; KPSS hỏi ‘có trôi đi không?’")
     yk = dau_than("adf-kpss-la-gi", True)
@@ -2253,6 +2331,20 @@ def xay() -> Presentation:
         co=14)
 
     khai_niem(prs, "sai-phan-la-gi")
+
+    # Bản 2: gói buổi 7 thành một quy trình (người học ghi lại quy trình này khi học).
+    sl = moi(prs, "quy-trinh-chuoi-la", "Gặp một chuỗi lạ: bảy bước của buổi 7", "A", "Buổi 7",
+             "nhìn trước, kiểm bằng số sau; chữa xong thì kiểm xem có chữa quá tay không.")
+    KHONG_DEM.add(len(prs.slides))
+    yb = dau_than("quy-trinh-chuoi-la", True) + 0.05
+    luoi_buoc(sl, 0.6, yb, 12.13, 7.15 - yb, [
+        ("Nhìn ACF", "Quanh 0: nhiễu trắng. Giảm rất chậm: chưa dừng. Có đỉnh đều: mùa vụ."),
+        ("Nhìn PACF", "Cao ở vài trễ đầu rồi tắt hẳn sau trễ p: giống AR(p)."),
+        ("Ljung-Box", "Một p-value cho nhiều trễ. p < 0,05 là còn quy luật. Đừng đếm cột vượt dải."),
+        ("ADF và KPSS", "Chạy cả hai, cùng dạng: “c” nếu quanh một mức, “ct” nếu quanh một đường."),
+        ("Đọc bảng 2 × 2", "Hai kiểm định cùng hướng thì tin. Mâu thuẫn thì vẽ chuỗi, tìm cú sốc hay đổi mức."),
+        ("Chữa", "Random walk: sai phân. Quanh xu hướng: khử xu hướng. Có mùa vụ: sai phân mùa vụ trước."),
+        ("Kiểm chữa quá tay", "Sai phân xong mà r1 về gần −0,5, hoặc độ lệch chuẩn tăng: bớt một lần.")], 4, PHAN["A"][1], co=16)
     khai_niem(prs, "scatter")
     khai_niem(prs, "spearman")
     khai_niem(prs, "durbin-watson")
@@ -2281,6 +2373,21 @@ def xay() -> Presentation:
     khai_niem(prs, "truot")
 
     khai_niem(prs, "granger")
+
+    # Bản 2: "công thức ghi nhớ nhanh" người học tự viết cho buổi 8, mỗi bước thành một câu hỏi.
+    sl = moi(prs, "quy-trinh-tuong-quan", "Đo quan hệ hai chuỗi: tám câu hỏi của buổi 8", "A", "Buổi 8",
+             "đừng tin hệ số tương quan ngay: vẽ scatter trước, rồi đi qua từng câu hỏi.")
+    KHONG_DEM.add(len(prs.slides))
+    yb = dau_than("quy-trinh-tuong-quan", True) + 0.05
+    luoi_buoc(sl, 0.6, yb, 12.13, 7.15 - yb, [
+        ("Trông ra sao?", "Vẽ scatter: thẳng, cong, chữ U, hay có điểm lạ."),
+        ("Thẳng hàng hay chỉ cùng tăng?", "Pearson đo mức thẳng hàng; Spearman đo cùng tăng theo thứ hạng."),
+        ("Hai chuỗi cùng trôi?", "Đo lại trên sai phân, xem Durbin–Watson. CPI và dân số: r từ 0,97 còn −0,21."),
+        ("Cong, đổi dấu?", "Tách CDD / HDD, hoặc đo MI; kiểm MI bằng hoán vị theo khối."),
+        ("Ai đi trước, bao lâu?", "Prewhiten cả hai chuỗi bằng cùng một bộ lọc, rồi đọc tương quan chéo."),
+        ("Giữ nguyên cả năm?", "Tương quan trượt 30, 90 ngày; đổi dấu theo mùa thì tách riêng từng mùa."),
+        ("Quá khứ x giúp đoán y?", "Granger, chạy cả hai chiều. p nhỏ là “giúp dự báo”, chưa phải “gây ra”."),
+        ("Lúc dự báo có x chưa?", "Chỉ dùng bản có trong tay lúc đó, như nhiệt độ dự báo (buổi 13).")], 4, PHAN["A"][1], co=15)
 
     khai_niem(prs, "dac-trung")
 
@@ -2395,6 +2502,32 @@ def xay() -> Presentation:
 
     khai_niem(prs, "ewma")
     khai_niem(prs, "sau-ho-loc")
+
+    # Bản 2: bảng sáu họ bộ lọc (buoi-12/tai-lieu.md mục 4.4) thêm cột "hiểu đơn giản" như người học ghi.
+    sl = moi(prs, "bang-bo-loc", "Sáu họ bộ lọc trong một bảng", "B", "Buổi 12",
+             "làm feature dự báo thì chỉ chọn trong những dòng nhân quả “có”.")
+    KHONG_DEM.add(len(prs.slides))
+    yb = dau_than("bang-bo-loc", True) + 0.05
+    co_o, khong_o, nua_o = (XANH_NHAT, XANH), (DO_NHAT, DO), ("FDF0E8", "B4541B")
+    o_bang(sl, 0.6, yb, [["Họ bộ lọc", "Hiểu đơn giản", "Dùng khi", "Không dùng khi", "Nhân quả"],
+                         ["trung bình trượt trailing", "trung bình k điểm gần nhất", "feature dự báo, báo cáo vận hành",
+                          "cần biết đúng lúc đỉnh: trễ (k − 1) / 2", "có"],
+                         ["trung bình trượt centered", "trung bình các điểm quanh nó, cả trước lẫn sau", "mô tả, tách xu hướng",
+                          "mọi feature dự báo", "không"],
+                         ["EWMA", "điểm mới nặng hơn điểm cũ", "dữ liệu đang chảy về, cần trễ nhỏ", "cần cắt đúng một dải tần số",
+                          "có"],
+                         ["Savitzky–Golay", "khớp đa thức bậc thấp trên cửa sổ quanh điểm", "giữ chiều cao đỉnh",
+                          "feature dự báo, kể cả ở cuối chuỗi", "không"],
+                         ["Butterworth", "cắt tần số cao theo ngưỡng; sosfilt một chiều, sosfiltfilt xuôi rồi ngược",
+                          "cần bỏ đúng dải tần số cao", "bản hai chiều cho feature", "có / không"],
+                         ["Kalman filter / smoother", "ước lượng tín hiệu ẩn: mức đổi dần cộng nhiễu", "có mô hình hợp; dữ liệu có lỗ",
+                          "smoother cho feature", "có / không"]],
+           [2.35, 3.45, 2.55, 2.55, 1.23], cao=0.66, co=12,
+           to={(1, 4): co_o, (2, 4): khong_o, (3, 4): co_o, (4, 4): khong_o, (5, 4): nua_o, (6, 4): nua_o})
+    chu(sl, 0.6, yb + 4.75, 12.13, 0.7, "“Có / không”: bản một chiều (sosfilt, Kalman filter) nhân quả, bản hai chiều thì không. Kalman "
+        "filter chỉ nhân quả khi tham số ước lượng trên phần học rồi cố định; khớp lại trên cả chuỗi thì quá khứ đổi tới 1,134.",
+        co=12, mau=MUTED)
+
     van_de(prs, "bo-loc")
 
     khai_niem(prs, "kiem-nhan-qua")
@@ -2512,7 +2645,27 @@ def xay() -> Presentation:
     khai_niem(prs, "mape-lech")
     khai_niem(prs, "mase")
 
+    # Bản 2: tám chỉ số trong một bảng (buoi-14/tai-lieu.md mục 4.3–4.6), để tra lại khi chọn chỉ số.
+    sl = moi(prs, "bang-chi-so", "Tám chỉ số: đo gì, ưa gì, hỏng khi nào", "D", "Buổi 14",
+             "chọn chỉ số theo quyết định trước khi xem kết quả; đổi chỉ số là đổi hạng.")
+    KHONG_DEM.add(len(prs.slides))
+    yb = dau_than("bang-chi-so", True) + 0.05
+    o_bang(sl, 0.6, yb, [["Chỉ số", "Tính bằng lời", "Ưa gì, dùng để làm gì", "Hỏng hay lệch khi"],
+                         ["ME", "trung bình sai số, giữ dấu", "đo độ chệch: dương là dự báo thấp", "lệch lên, lệch xuống bù nhau"],
+                         ["MAE", "trung bình độ lớn sai số", "ưa trung vị", "so các chuỗi khác đơn vị"],
+                         ["RMSE", "căn của trung bình sai số bình phương", "ưa trung bình; phạt nặng sai số lớn",
+                          "vài sai số lớn chi phối; khác đơn vị"],
+                         ["MAPE", "trung bình |sai số| / thực tế × 100", "đọc bằng phần trăm", "thực tế bằng 0; kéo dự báo xuống thấp"],
+                         ["sMAPE", "chia cho trung bình |thực tế| và |dự báo|, thang 0–200", "chỉ số của cuộc thi M4",
+                          "cả hai gần 0; vẫn không đối xứng"],
+                         ["WAPE", "tổng |sai số| / tổng thực tế", "chuỗi có số 0; chuỗi lớn nặng hơn", "tổng thực tế gần 0"],
+                         ["MASE", "MAE chia MAE của seasonal naive trên phần học", "so giữa các chuỗi, chịu được số 0",
+                          "phần học lặp hoàn hảo: mẫu số 0, trả NaN"],
+                         ["RMSSE", "như MASE, nhưng dùng bình phương", "như MASE, ưa trung bình", "như MASE"]],
+           [1.4, 4.1, 3.4, 3.23], cao=0.58, co=13)
+
     van_de(prs, "chia-ngau-nhien")
+
 
     khai_niem(prs, "kfold")
 
@@ -2522,6 +2675,28 @@ def xay() -> Presentation:
     khai_niem(prs, "ba-doan")
 
     khai_niem(prs, "dm")
+
+    # Bản 2: gom mọi kiểm định của buổi 1–15 về một cách đọc (người học nhầm chiều ADF/KPSS, Ljung-Box, DM).
+    sl = moi(prs, "doc-kiem-dinh", "Bảy kiểm định, một cách đọc", "D", "Buổi 2–15")
+    KHONG_DEM.add(len(prs.slides))
+    yb = dau_than("doc-kiem-dinh", None) + 0.05
+    luoi_buoc(sl, 0.6, yb, 12.13, 1.45, [
+        ("Đặt H0", "Giả định ban đầu, thường là “không có gì đặc biệt”."),
+        ("Tính một con số", "Từ dữ liệu: chênh lệch, Q*, hệ số…"),
+        ("Hiếm cỡ nào?", "p: nếu H0 đúng, xác suất gặp con số lệch cỡ này hoặc hơn."),
+        ("Kết luận", "p < 0,05: bác bỏ H0. p ≥ 0,05: chưa đủ bằng chứng, không có nghĩa H0 đúng.")], 4, PHAN["D"][1], co=12)
+    cam_o = ("FDF0E8", "B4541B")
+    o_bang(sl, 0.6, yb + 1.65, [["Kiểm định", "H0: giả định ban đầu", "p < 0,05 nghĩa là", "Buổi"],
+                                ["hoán vị", "hai nhóm như nhau", "chênh lệch giữa hai nhóm có thật", "2, 8"],
+                                ["Ljung-Box", "chuỗi, hay phần dư, là nhiễu trắng", "còn quy luật chưa khai thác", "7, 14"],
+                                ["ADF", "có random walk: không dừng", "có bằng chứng chuỗi dừng", "7"],
+                                ["KPSS", "chuỗi dừng", "có bằng chứng chuỗi không dừng", "7"],
+                                ["Granger", "quá khứ x không giúp dự báo y", "quá khứ x giúp dự báo y, chưa phải “gây ra”", "8"],
+                                ["Jarque–Bera", "phần dư có hình chuông", "không hình chuông: khoảng theo phân phối chuẩn sai", "14"],
+                                ["Diebold–Mariano", "hai mô hình chính xác như nhau", "chênh lệch sai số có thật, không do may", "15"]],
+           [2.3, 4.0, 4.93, 0.9], cao=0.47, co=13, to={(3, 1): cam_o, (3, 2): cam_o, (4, 1): cam_o, (4, 2): cam_o})
+    chu(sl, 0.6, 7.05, 12.13, 0.35, "ADF và KPSS có H0 ngược nhau (hai dòng cam): đọc H0 trước khi đọc p.", co=12, dam=True,
+        mau=MUTED)
 
     # ===== E. Quy trình =====
     mo_phan(prs, "E", "Bước nào học từ dữ liệu thì phải làm lại ở mỗi cutoff.")
@@ -2696,7 +2871,8 @@ def kiem_phu() -> dict[int, list[int]]:
                 loi.append(f"buổi {b} mục {m} chưa có slide")
                 continue
             loi += [f"buổi {b} mục {m}: không có slide '{i}'" for i in ids if i not in so]
-        ra[b] = sorted({so[i] for ids in PHU.get(b, {}).values() for i in ids if i in so})
+        ra[b] = sorted({so[i] for ids in PHU.get(b, {}).values() for i in ids if i in so}
+                       | {so[m] for m, bb in THEM_TRA.items() if bb == b and m in so})
     if loi:
         sys.exit("Thiếu độ phủ:\n  " + "\n  ".join(loi))
     return ra
@@ -2710,8 +2886,8 @@ def ve_tra_theo_buoi(phu: dict[int, list[int]]) -> None:
     sl = TRA_THEO_BUOI[0]
     cot = [("Buổi", 0.75, PHAN["F"][1]), ("Chủ đề", 2.45, MUTED), ("Slide", 2.85, MUTED)]
     hang = [(str(b), ten[b], ", ".join(map(str, phu[b]))) for b in range(1, 16)]
-    bang(sl, 0.6, 1.4, cot, hang[:8], cao=0.62, co=14)
-    bang(sl, 6.68, 1.4, cot, hang[8:], cao=0.62, co=14)
+    bang(sl, 0.6, 1.4, cot, hang[:8], cao=0.62, co=13)
+    bang(sl, 6.68, 1.4, cot, hang[8:], cao=0.62, co=13)
 
 
 # ---------- ghi chú từ bài đọc kèm ----------
