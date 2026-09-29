@@ -1,4 +1,4 @@
-# Phase 31 — Notebook tự học + hình khái niệm · buổi 9–13 🔲
+# Phase 31 — Notebook tự học + hình khái niệm · buổi 9–13 ✅
 
 Quy ước: `todos/quy-uoc.md` (D14, KHỐI CHUNG V7, "Việc nền"). Cách làm: `tools/tu_hoc/HUONG-DAN.md`. Prompt: `todos.md` mục
 "Phase 31". Trạng thái ✅/🔲 ở tiêu đề khớp `todos.md`.
@@ -8,11 +8,11 @@ Một trong 7 phase (30–36, thêm 2026-09-28) làm notebook tự học `buoi-N
 
 | Buổi | Nội dung `buoi_NN.py` (đủ ý, hộp khái niệm) | Hình `HINH` (đã xem lại) | `--chay` 0 lỗi, số khớp | Tài liệu + PDF (≤ 22 trang, kiem_de_hieu không lỗi mới) |
 |---|---|---|---|---|
-| 9 | 🔲 | 🔲 | 🔲 | 🔲 |
-| 10 | 🔲 | 🔲 | 🔲 | 🔲 |
-| 11 | 🔲 | 🔲 | 🔲 | 🔲 |
-| 12 | 🔲 | 🔲 | 🔲 | 🔲 |
-| 13 | 🔲 | 🔲 | 🔲 | 🔲 |
+| 9 | ✅ | ✅ | ✅ | ✅ |
+| 10 | ✅ | ✅ | ✅ | ✅ |
+| 11 | ✅ | ✅ | ✅ | ✅ |
+| 12 | ✅ | ✅ | ✅ | ✅ |
+| 13 | ✅ | ✅ | ✅ | ✅ |
 
 Bắt buộc:
 - Môi trường theo hồ sơ (`moi_truong.py N` — xem `--liet-ke`), dựng một lần mỗi hồ sơ; `--chay` chạy dưới giới hạn RAM.

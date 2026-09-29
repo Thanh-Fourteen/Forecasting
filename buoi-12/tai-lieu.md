@@ -87,12 +87,20 @@ Sau `python lab.py up` (trong thư mục `lab/`):
 **Đọc bảng.** Giờ 3 kiểu trailing là (10 + 12 + 14) / 3 = 12; kiểu centered là (12 + 14 + 30) / 3 = 18,67, đã chứa số 30 của giờ 4. Đứng ở
 giờ 3, chưa ai biết giờ 4 là 30: kiểu centered đang nhìn tương lai.
 
+![bộ lọc nhân quả](hinh/kn-bo-loc-nhan-qua.png)
+
+**Cách đọc hình.** Cột là điện từng giờ, vạch chấm là giờ đang đứng. Cửa sổ trailing (xanh) chỉ phủ các giờ đã qua; cửa sổ centered (cam) phủ cả giờ sau — con số 30 lúc đó chưa ai biết.
+
 Thử đổi giờ cuối từ 16 thành 40. Kiểu centered ở giờ 4 đổi từ 20 thành (14 + 30 + 40) / 3 = **28**: một con số **quá khứ** bị sửa khi dữ liệu
 mới về. Kiểu trailing ở giờ 4 vẫn **18,67**. Đó là toàn bộ ý tưởng của bài kiểm nhân quả (mục 4.5).
 
 **Khi nào dùng, khi nào không.** Kiểu centered (và mọi bộ lọc nhìn tương lai) dùng để **mô tả** lịch sử, tách xu hướng (buổi 6), vẽ báo cáo.
 Không bao giờ dùng làm feature dự báo hay làm mục tiêu để chấm. Kiểu trailing dùng được cho dự báo, đổi lại nó **trễ**: giờ 4 tăng vọt lên 30
 mà đầu ra mới lên 18,67.
+
+![trễ (pha)](hinh/kn-tre-pha.png)
+
+**Cách đọc hình.** Đường đen là tín hiệu, đường xanh là trung bình 13 điểm gần nhất của nó. Đỉnh xanh đến sau đỉnh đen 6 bước — đúng (13 − 1) / 2.
 
 **Tóm lại.** **Bộ lọc nhân quả chỉ dùng quá khứ nên trễ; bộ lọc nhìn tương lai không trễ nhưng sửa cả quá khứ khi dữ liệu mới về. Câu hỏi đầu
 tiên với mọi bộ lọc: đầu ra tại $t$ có dùng $y_{t+1}, y_{t+2}, \dots$ không?**
@@ -121,6 +129,10 @@ Trailing: (4 + 8 + 6) / 3 = **6**. Centered: (8 + 6 + 10) / 3 = **8**, có dùng
 f, P = signal.welch(y - y.mean(), fs=6.0, nperseg=2048)   # fs = 6 mẫu/giờ; f tính bằng chu kỳ/giờ
 chu_ky_manh_nhat = 1 / f[np.argmax(P)]                    # giờ
 ```
+
+![periodogram, Welch](hinh/kn-periodogram-welch.png)
+
+**Cách đọc hình.** Chuỗi theo giờ gồm nhịp 24 giờ cộng nhiễu. Cả hai đường có đỉnh ở vạch 1/24; periodogram (xám) lởm chởm, Welch (xanh) mượt nên thấy rõ đâu là đỉnh, đâu là nền nhiễu.
 
 ![Cả hai cảm biến có nhịp ngày; điện còn nhiều năng lượng ở tần số cao](hinh/pho-cam-bien.png)
 
@@ -163,6 +175,10 @@ tần số của chuyển động.
 **Ví dụ số nhỏ — tự tính tay.** Sóng lặp mỗi 4 bước: $(0, 1, 0, -1, 0, 1, 0, -1, \dots)$. Lấy mỗi 3 bước một mẫu (vị trí 0, 3, 6, 9, 12, 15):
 ra $(0, -1, 0, 1, 0, -1)$. Chuỗi mẫu lặp mỗi 4 mẫu, tức mỗi 12 bước gốc: một sóng **chậm gấp ba** sóng thật, hoàn toàn giả.
 
+![aliasing](hinh/kn-aliasing.png)
+
+**Cách đọc hình.** Đường xám là sóng thật lặp mỗi 4 bước; chấm đỏ là mẫu lấy mỗi 3 bước. Nối các chấm lại được một sóng chậm lặp mỗi 12 bước (nét đứt) — sóng này không có thật.
+
 $$
 f_{\text{Nyquist}} = \frac{f_s}{2}, \qquad f_{\text{giả}} = \lvert f - k f_s \rvert, \quad k = \operatorname{round}(f / f_s)
 $$
@@ -194,6 +210,10 @@ nhất của tần số lấy mẫu. Ở ví dụ: sóng 1/4 mỗi bước, lấ
 `resample("h").mean()` đã là một bộ lọc trung bình, tốt hơn lấy một mẫu (`.first()`), nhưng cắt không sắc; khi dao động nhanh mạnh thì vẫn phải
 lọc tử tế. Bộ lọc chống aliasing trong code chạy hai chiều, nên chỉ dùng để tiền xử lý cả chuỗi lịch sử, không dùng trong feature.
 
+![lọc thông thấp](hinh/kn-loc-thong-thap.png)
+
+**Cách đọc hình.** Trục ngang là tần số (chu kỳ/giờ), trục dọc là phần biên độ được giữ lại. Dao động chậm (dưới khoảng 0,3) đi qua nguyên vẹn; từ Nyquist mới 0,5 trở lên gần như bị chặn hết, nên dao động 1,4 chu kỳ/giờ không còn để giả dạng.
+
 **Tóm lại.** **Lấy mẫu với tần số $f_s$ chỉ thấy đúng dao động chậm hơn $f_s/2$; dao động nhanh hơn giả dạng thành dao động chậm. Lọc thông thấp
 trước khi hạ mẫu.**
 
@@ -217,6 +237,10 @@ dạng thành dao động chậm.
 20 + 0,5 × 10 = 15; $z_3$ = 0,5 × 10 + 0,5 × 15 = 12,5. Mỗi đầu ra chỉ cần đầu ra trước và số mới: nhân quả, nhớ rất ít. (pandas mặc định
 `adjust=True` tính khác ở vài điểm đầu; về sau hai cách như nhau.)
 
+![EWMA](hinh/kn-ewma.png)
+
+**Cách đọc hình.** Trục ngang là số bước lùi về quá khứ, trục dọc là mức đóng góp của điểm đó vào đầu ra. Trung bình 13 điểm chia đều rồi cắt hẳn; EWMA dồn phần lớn vào vài điểm mới nhất nên trễ ít hơn.
+
 | Họ bộ lọc | Làm gì | Dùng khi | KHÔNG dùng khi | Nhân quả |
 |---|---|---|---|---|
 | trung bình trượt trailing | trung bình $k$ điểm gần nhất | feature dự báo, báo cáo vận hành | cần biết đúng lúc đỉnh xảy ra (trễ $(k-1)/2$) | có |
@@ -229,6 +253,14 @@ dạng thành dao động chậm.
 **Đọc bảng.** Cột cuối là cột quyết định. Bản hai chiều (`filtfilt`) "không trễ" vì chạy ngược thời gian; Savitzky–Golay ở cuối chuỗi vẫn khớp đa thức trên cửa
 sổ cuối, dùng cả điểm sau $t$ (tài liệu scipy nói rõ). Hamilton (2018) chỉ ra với bộ lọc Hodrick–Prescott (HP, hay dùng trong kinh tế học để tách xu hướng): giá trị lọc ở **cuối chuỗi** khác
 hẳn giá trị ở giữa. Mà cuối chuỗi chính là nơi dự báo bắt đầu.
+
+![Savitzky–Golay](hinh/kn-savitzky-golay.png)
+
+**Cách đọc hình.** Một đỉnh nhọn cao 10 (đen) qua hai bộ lọc cùng cửa sổ 13 điểm. Trung bình trượt (cam) san đỉnh xuống thấp hẳn; Savitzky–Golay (xanh) khớp đa thức nên giữ gần đủ chiều cao.
+
+![`sosfilt` / `sosfiltfilt`](hinh/kn-sosfilt-sosfiltfilt.png)
+
+**Cách đọc hình.** Tín hiệu nhảy từ 0 lên 1 tại vạch chấm. Bản chạy một chiều (xanh) chỉ lên sau vạch — trễ; bản xuôi rồi ngược (cam) đã lên trước vạch, tức đầu ra lúc đó dùng số của tương lai.
 
 ![Mười cấu hình bộ lọc: RMSE thấp nhất thuộc về các bộ lọc nhìn tương lai](hinh/bo-loc.png)
 

@@ -61,3 +61,6 @@ Note.docx
 note.txt
 .vscode/
 /uv.lock
+
+# file khoá của WPS/LibreOffice khi đang mở tài liệu
+.~*

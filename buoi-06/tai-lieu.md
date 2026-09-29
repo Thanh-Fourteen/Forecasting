@@ -74,6 +74,10 @@ Sau `python lab.py up` (trong thư mục `lab/`):
 tiêu. Trừ xu hướng khỏi dữ liệu, cái còn lại là mùa vụ + phần dư. Lấy trung bình theo từng vị trí trong vòng (mọi quý 1, mọi quý
 2…) thì phần dư lúc dương lúc âm triệt tiêu, còn lại mùa vụ.
 
+![phân rã](hinh/kn-phan-ra.png)
+
+**Cách đọc hình.** Bốn hàng cùng trục thời gian. Hàng trên là dữ liệu; ba hàng dưới là xu hướng, mùa vụ, phần dư — cộng ba hàng dưới lại ra đúng hàng trên.
+
 **Ví dụ số nhỏ — tự tính tay.** Doanh số 12 quý (3 năm), chu kỳ $m$ = 4:
 
 y = 22, 18, 15, 29 | 30, 22, 19, 33 | 30, 26, 23, 37
@@ -111,6 +115,10 @@ $$
 
 **Nói bằng lời.** Xu hướng tại $t$ là trung bình của $m + 1$ điểm quanh $t$, hai điểm ngoài cùng tính một nửa. Với $m$ = 4: 22/8 +
 (18 + 15 + 29)/4 + 30/8 = 22. Với $m$ = 24: 25 giờ, hai đầu mỗi bên 1/48, giữa mỗi giờ 1/24; 12 giờ đầu và 12 giờ cuối chuỗi mất xu hướng.
+
+![2×m-MA](hinh/kn-2-m-ma.png)
+
+**Cách đọc hình.** Năm cột là trọng số của năm quý quanh điểm cần tính (m = 4). Hai cột xanh cùng là quý 1 của hai năm liền nhau, mỗi cột một nửa: cộng lại mỗi quý đúng 1/4.
 
 **NumPy và thư viện.** Cả phân rã cổ điển trong vài dòng (chính ví dụ trên khi `x` là 12 quý và `m = 4`):
 
@@ -150,6 +158,10 @@ thứ hai sai.
 
 - **Cộng**: cao điểm luôn cao hơn mức 10 đơn vị: 100 + 10 = 110 và 200 + 10 = 210.
 - **Nhân**: cao điểm luôn gấp 1,1 lần mức: 100 × 1,1 = 110 và 200 × 1,1 = 220. Dao động lớn gấp đôi khi mức gấp đôi.
+
+![phân rã cộng / nhân](hinh/kn-phan-ra-cong-nhan.png)
+
+**Cách đọc hình.** Cùng một xu hướng đi lên. Trái (cộng): dao động mùa vụ cao như nhau ở mọi mức. Phải (nhân): mức càng cao, dao động càng lớn.
 
 Nếu dao động tỷ lệ với mức thì dùng phân rã nhân, hoặc lấy log rồi phân rã cộng, vì $\log(T \times S \times R) = \log T + \log S + \log R$
 (FPP §3.2; buổi 5).
@@ -277,6 +289,10 @@ nhìn quý 1 của vài năm gần nó, nên được đổi dần qua các năm
 - **Cục bộ** (trung bình 3 năm quanh mỗi năm; hai năm đầu cuối chỉ có 2 năm): (2 + 4)/2 = 3, (2 + 4 + 6)/3 = 4, 6, 8, (8 + 10)/2 = 9. Phần
   dư: −1, 0, 0, 0, 1. Gần như sạch.
 
+![STL, LOESS](hinh/kn-stl-loess.png)
+
+**Cách đọc hình.** Chấm là phần "dữ liệu trừ xu hướng" của quý 1 qua năm năm. Đường xám (cổ điển) phẳng ở trung bình; đường cam (trung bình cục bộ) đi theo chấm nên phần dư gần 0.
+
 STL làm đúng ý đó, nhưng dùng **LOESS** thay cho trung bình 3 điểm: ở mỗi điểm, vẽ một đường khớp nhất qua các điểm lân cận, điểm gần
 nặng hơn, lấy giá trị của đường tại điểm đó (Cleveland và cộng sự, 1990). STL lặp: ước lượng mùa vụ, trừ đi, ước lượng xu hướng, trừ đi,
 làm lại.
@@ -343,6 +359,10 @@ cho kết quả khác (hay tốt hơn) cổ điển.
 
 **Trực giác.** Nếu phần dư rất nhỏ so với mùa vụ, thì mùa vụ "mạnh": gần hết dao động quanh xu hướng là mùa vụ. Nếu phần dư to ngang
 mùa vụ thì mùa vụ yếu.
+
+![độ mạnh xu hướng / mùa vụ](hinh/kn-do-manh-xu-huong-mua-vu.png)
+
+**Cách đọc hình.** Cùng một mùa vụ, hai mức phần dư. Trái: phần dư nhỏ, sóng mùa vụ rõ, độ mạnh gần 1. Phải: phần dư to ngang mùa vụ, sóng khó thấy, độ mạnh thấp.
 
 **Ví dụ số nhỏ — tự tính tay.** Dùng 8 quý có xu hướng ở bảng mục 4.1.
 
@@ -413,6 +433,10 @@ $$
 
 **Nói bằng lời.** Chia độ lớn phần dư cho 6 lần phần dư điển hình (trung vị); lớn hơn hoặc bằng 1 thì trọng số 0, nhỏ hơn thì trọng số
 $(1 - u^2)^2$. Điểm 20 lớn hơn 6 × 1 nên bị bỏ qua hoàn toàn khi ước lượng mùa vụ.
+
+![robust](hinh/kn-robust.png)
+
+**Cách đọc hình.** Trục ngang là độ lớn phần dư so với 6 lần phần dư điển hình, trục dọc là trọng số ở lượt sau. Điểm vượt mốc 1 (chấm đỏ) bị bỏ qua hoàn toàn.
 
 ![Một giờ hỏng: không robust thì lỗi bị chia sang mùa vụ ngày của cả tuần; robust giữ lỗi trọn trong phần dư](hinh/robust.png)
 

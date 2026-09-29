@@ -123,6 +123,10 @@ cần tách: trễ 2 có **thêm** thông tin nào ngoài cái đã đi qua tr�
 **Trực giác.** Tin đồn truyền qua ba người A → B → C. C giống A chỉ vì cả hai nối qua B. Biết B rồi thì A không cho C thêm gì. PACF ở trễ 2
 đo đúng phần "thêm" đó.
 
+![PACF](hinh/kn-pacf.png)
+
+**Cách đọc hình.** Trục ngang là độ trễ, trục dọc là hệ số của một chuỗi AR bậc một. ACF (xanh) giảm dần qua các trễ; PACF (cam) chỉ khác không ở trễ đầu tiên.
+
 **Ví dụ số nhỏ — tự tính tay.** Ở trễ 2, PACF có công thức gọn:
 
 $$
@@ -210,6 +214,10 @@ $Q^*$ = 100 × 102 × (0,2² / 99 + 0,1² / 98) = 10.200 × (0,000404 + 0,000102
 
 5,16 < 5,99 nên không bác bỏ $H_0$ ở mức 5% (p ≈ 0,076): hai cột này chưa đủ bằng chứng có tự tương quan.
 
+![Ljung-Box](hinh/kn-ljung-box.png)
+
+**Cách đọc hình.** Đường cong là phân phối của Q* khi chuỗi là nhiễu trắng. Vùng đỏ là 5% giá trị lớn nhất; Q* của ví dụ (vạch xanh) chưa vào vùng đó nên không bác bỏ.
+
 $$
 Q^* = T(T+2) \sum_{k=1}^{\ell} \frac{r_k^2}{T-k}
 $$
@@ -258,6 +266,10 @@ luận "sai số là nhiễu trắng" khi chưa phải. Nhầm hay gặp: nghĩ 
 - **Người tung đồng xu rồi bước**: ngửa bước tới 1 bước, sấp lùi 1 bước. Không có vị trí nào để quay về; càng lâu càng có thể đi xa: **random
   walk**, không dừng.
 
+![dừng](hinh/kn-dung.png)
+
+**Cách đọc hình.** Ba chuỗi cùng một dãy nhiễu. Trên: dao động quanh một mức cố định. Giữa: dao động quanh một đường thẳng đi lên. Dưới: lang thang, không có mức nào để quay về.
+
 **Ví dụ số nhỏ — tự tính tay (random walk).** Sáu lần tung: +1, −1, +1, +1, −1, +1. Vị trí sau mỗi lần là tổng dồn: 0 + 1 = 1, 1 − 1 = 0,
 0 + 1 = 1, 1 + 1 = 2, 2 − 1 = 1, 1 + 1 = 2. Mỗi vị trí = vị trí trước + bước mới: $y_t = y_{t-1} + \varepsilon_t$.
 
@@ -267,6 +279,10 @@ luận "sai số là nhiễu trắng" khi chưa phải. Nhầm hay gặp: nghĩ 
 
 **Đọc bảng.** Số bước gấp 25 lần thì độ lệch chuẩn gấp 5 lần: nó tăng theo căn bậc hai của số bước. Độ dao động đổi theo thời gian, nên
 random walk không dừng.
+
+![random walk](hinh/kn-random-walk.png)
+
+**Cách đọc hình.** Trục ngang là số bước, trục dọc là vị trí; mỗi đường xám là một người tung đồng xu rồi bước. Đường cam đứt là ± một độ lệch chuẩn, nở ra theo căn bậc hai số bước.
 
 **Định nghĩa.** Chuỗi **dừng** khi các tính chất thống kê của nó không phụ thuộc vào thời điểm quan sát (FPP §9.1). Tức là mức trung bình
 không đổi, độ dao động không đổi, và tương quan giữa $y_t$ và $y_{t-k}$ chỉ phụ thuộc khoảng cách $k$. Có xu hướng, có mùa vụ, hay độ dao động
@@ -325,6 +341,10 @@ về một mức: dừng. Nếu độ cao hiện tại không nói gì về bư�
 **Đọc bảng.** Ở A, cứ cao hơn 5 là bước sau đi xuống: có lực kéo về, giống $\rho$ < 1. Ở B, độ cao không đoán được bước sau: giống
 $\rho = 1$. ADF làm việc này trên hàng trăm điểm: đo xem bước kế tiếp phụ thuộc độ cao hiện tại mạnh cỡ nào, và hỏi "càng cao thì càng
 bị kéo xuống" có rõ ràng không.
+
+![ADF, KPSS](hinh/kn-adf-kpss.png)
+
+**Cách đọc hình.** Mỗi chấm là một bước: trục ngang là chuỗi đang cao hơn (phải) hay thấp hơn (trái) mức thường, trục dọc là bước kế tiếp. Chuỗi dừng (trái) có đám chấm dốc xuống; random walk (phải) nằm ngang.
 
 **Hai kiểm định, hai giả thuyết:**
 

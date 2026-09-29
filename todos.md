@@ -426,7 +426,7 @@ naive + một mô hình thống kê + LightGBM, kể cả khi DL thua; model/che
 
 ---
 
-## Phase 30 — Notebook tự học + hình khái niệm · buổi 4–8 🔲
+## Phase 30 — Notebook tự học + hình khái niệm · buổi 4–8 ✅
 
 Chi tiết: [`todos/phase-30.md`](todos/phase-30.md)
 
@@ -441,7 +441,7 @@ mới, PDF ≤ 22 trang. Tick từng buổi trong phase-30.md ngay khi xong.
 
 ---
 
-## Phase 31 — Notebook tự học + hình khái niệm · buổi 9–13 🔲
+## Phase 31 — Notebook tự học + hình khái niệm · buổi 9–13 ✅
 
 Chi tiết: [`todos/phase-31.md`](todos/phase-31.md)
 

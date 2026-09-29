@@ -85,6 +85,10 @@ Buổi này đi qua **năm tình huống** (mục 4.2–4.6). Mỗi tình huốn
 Pearson đo quan hệ **đường thẳng**; Spearman đo quan hệ **cùng tăng (hoặc cùng giảm)**; cả hai bỏ sót chữ U (mục 4.3). Kendall cũng dùng
 thứ hạng như Spearman, ít bị ảnh hưởng bởi vài điểm lạ khi mẫu nhỏ.
 
+![Spearman](hinh/kn-spearman.png)
+
+**Cách đọc hình.** Trái: y luôn tăng theo x nhưng cong — Pearson chưa tới 1, Spearman bằng 1. Phải: hình chữ U — cả hai hệ số bằng 0 dù y hoàn toàn xác định bởi x.
+
 ![Bộ tứ Anscombe: bốn bộ dữ liệu rất khác nhau có cùng r = 0,82](hinh/anscombe.png)
 
 **Cách đọc hình.**
@@ -152,6 +156,10 @@ $$
 −1, −1: chỉ một bước nhảy cỡ 2, nên DW = 2² / 6 = 4 / 6 ≈ 0,67. Phần dư 1, −1, 1, −1, 1, −1: năm bước nhảy cỡ 2, nên DW = 5 × 4 / 6 =
 20 / 6 ≈ 3,33.
 
+![Durbin–Watson](hinh/kn-durbin-watson.png)
+
+**Cách đọc hình.** Hai dãy phần dư cùng độ lớn. Trái: đổi chậm, một tràng dương rồi một tràng âm — DW nhỏ. Phải: đổi dấu liên tục — DW lớn.
+
 ![Tương quan giả: r = 0,974 trên mức chỉ nói "cả hai cùng tăng theo thời gian"](hinh/tuong-quan-gia.png)
 
 **Cách đọc hình.**
@@ -196,6 +204,10 @@ nhau từ tháng này sang tháng khác. Nhầm hay gặp: thấy $r$ trên mứ
 **Ví dụ số nhỏ — tự tính tay (CDD, HDD).** Mốc 18,33 °C (65 °F, mốc của cơ quan năng lượng Mỹ EIA). Nhiệt độ 10; 18,33; 25; 30 °C cho:
 CDD = 0; 0; 25 − 18,33 = 6,67; 30 − 18,33 = 11,67 và HDD = 18,33 − 10 = 8,33; 0; 0; 0. Hai biến mới đều **tăng** khi đi xa mốc, nên hồi quy
 tải = $a + b \cdot \text{CDD} + c \cdot \text{HDD}$ (như hồi quy đơn, thêm một biến) vẽ được hình chữ V: phía nóng dốc $b$, phía lạnh dốc $c$.
+
+![CDD, HDD](hinh/kn-cdd-hdd.png)
+
+**Cách đọc hình.** Trục ngang là nhiệt độ, vạch xám là mốc 18,33 °C. Đường đỏ (CDD) tăng khi nóng hơn mốc, đường xanh (HDD) tăng khi lạnh hơn mốc; ở giữa cả hai bằng 0.
 
 ![Quan hệ nhiệt độ – tải hình chữ U lệch: lạnh thì sưởi, nóng thì điều hoà](hinh/chu-u.png)
 
@@ -251,6 +263,10 @@ Với dữ liệu liên tục (nhiệt độ, tải), scikit-learn ước lượ
 trộn dao động cỡ nào. Nhưng hai chuỗi trơn độc lập vẫn hay có những quãng dài tình cờ cùng cao hoặc cùng thấp,
 nên MI của chúng không nhỏ. Xáo từng điểm thì phá luôn độ trơn đó: dữ liệu xáo lộn xộn, MI rất nhỏ, và dữ liệu thật trông "đặc biệt"
 dù không có quan hệ. Phải xáo **cả khối** liền nhau (Gohil và cộng sự, 2025).
+
+![hoán vị theo khối](hinh/kn-hoan-vi-theo-khoi.png)
+
+**Cách đọc hình.** Trên: một chuỗi trơn. Giữa: xáo từng điểm — thành nhiễu lộn xộn, mất hẳn độ trơn. Dưới: xáo từng khối — thứ tự các khối đổi nhưng trong khối vẫn trơn như dữ liệu thật.
 
 ![Hai chuỗi độc lập: hoán vị từng điểm kết luận có quan hệ, hoán vị theo khối thì không](hinh/mi-khoi.png)
 
@@ -442,6 +458,10 @@ p = {k: kq[k][0]["ssr_ftest"][1] for k in kq}                   # p-value theo t
 "Tải điện gây ra nhiệt độ ngoài trời" là vô lý. Cả hai cùng bị một **biến gây nhiễu** điều khiển: nhịp ngày (mặt trời lên thì nóng, người thức
 dậy thì dùng điện). Khi $x$ và $y$ cùng bị một quá trình thứ ba điều khiển với độ trễ khác nhau, Granger có thể có ý nghĩa ở chiều bất kỳ
 (Maziarz, 2015). Thêm hai điều kiện: chuỗi phải **dừng** (sai phân trước), và kết luận luôn viết "quá khứ X giúp dự báo Y".
+
+![biến gây nhiễu](hinh/kn-bien-gay-nhieu.png)
+
+**Cách đọc hình.** Mũi tên là "điều khiển". Nhịp ngày điều khiển cả nhiệt độ lẫn tải; hai chuỗi trông như liên quan với nhau (nét đứt) dù không cái nào gây ra cái nào.
 
 **Biến có dùng được để dự báo không?** Tương quan cao chưa đủ. Một biến chỉ dùng được cho dự báo **ex-ante** nếu lúc ra dự báo ta biết,
 hoặc dự báo được, giá trị tương lai của nó (FPP §7.6). Nhiệt độ dùng được vì có dự báo thời tiết, nhưng phải dùng **dự báo** nhiệt độ, kèm sai

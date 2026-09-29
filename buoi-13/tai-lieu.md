@@ -128,6 +128,10 @@ loại (d) vì "thời tiết là tương lai"; bản dự báo thời tiết đ
 **Đọc bảng.** Ô in đậm là ô nhìn trộm: feature cho ngày $t$ đã chứa chính $y_t$ (cột giữa) hoặc cả ngày sau (cột có tâm). Chỉ cột cuối, cửa
 sổ kết thúc ở ngày $t - 1$, là hợp lệ: ngày 4 dùng $(10 + 12 + 8)/3 = 10$, toàn số đã biết tối ngày 3.
 
+![rolling](hinh/kn-rolling.png)
+
+**Cách đọc hình.** Mỗi hàng là cửa sổ 3 ngày mà một cách viết dùng cho ngày 4; vùng hồng là những ngày chưa có lúc ra dự báo. Hai cửa sổ đỏ chạm vùng hồng (nhìn trộm); chỉ cửa sổ xanh — shift rồi rolling — nằm trọn trong quá khứ.
+
 **Lag nhỏ hơn tầm dự báo.** Nếu dự báo trước **2** ngày ($h$ = 2), tối ngày 3 phải đoán ngày 5:
 
 | Ngày cần dự báo | $y$ | `lag_1` (= ngày trước đó) | `lag_2` |
@@ -139,6 +143,10 @@ sổ kết thúc ở ngày $t - 1$, là hợp lệ: ngày 4 dùng $(10 + 12 + 8)
 
 **Đọc bảng.** Lúc ra dự báo cho ngày 5 (tức ngày 3), chưa có số ngày 4: `lag_1` nhìn trộm. Quy tắc: lag nhỏ nhất ≥ $h$, và rolling tính trên
 `y.shift(h)`.
+
+![lag](hinh/kn-lag.png)
+
+**Cách đọc hình.** Trục ngang là ngày, ngôi sao là ngày cần dự báo ($h$ = 2); vùng hồng là những ngày chưa có lúc ra dự báo. Mũi tên đỏ `lag_1` trỏ vào vùng hồng (nhìn trộm); `lag_2`, `lag_3` trỏ vào ngày đã biết.
 
 ```python
 tre = y.shift(h)                  # đúng: mọi thứ tính từ chuỗi đã lùi h bước
@@ -188,6 +196,10 @@ số thứ tự là 6 và 0; Tết thì mỗi năm một ngày dương khác.
 **Đọc bảng.** Theo số thứ tự, Chủ nhật cách thứ Hai 6, cách thứ Bảy 1. Theo cặp (sin, cos), cả hai khoảng cách đều bằng 0,87: bảy ngày nằm đều
 trên một vòng tròn. Phải dùng **cả cặp**: chỉ sin thì hai thời điểm khác nhau có cùng giá trị.
 
+![mã hoá tuần hoàn](hinh/kn-ma-hoa-tuan-hoan.png)
+
+**Cách đọc hình.** Trái: theo số thứ tự, Chủ nhật (6) cách thứ Hai (0) tới 6 đơn vị. Phải: đặt lên vòng tròn bằng cặp (cos, sin), bảy ngày cách đều nhau và Chủ nhật nằm ngay cạnh thứ Hai.
+
 **Fourier term.** Mùa vụ năm trên dữ liệu ngày cần 365 biến giả; thay bằng $K$ cặp sin/cos chu kỳ 365,25 ngày:
 
 $$
@@ -198,6 +210,10 @@ $$
 
 **Nói bằng lời.** Mỗi cặp là một sóng lặp $i$ lần mỗi năm. Cộng vài sóng có trọng số thì vẽ được mọi hình dạng mùa vụ trơn. Ba cặp (6 cột)
 thay cho 365 biến giả; nhiều cặp hơn thì bắt được đỉnh hẹp nhưng dễ học thuộc nhiễu.
+
+![Fourier term](hinh/kn-fourier-term.png)
+
+**Cách đọc hình.** Trục ngang là ngày trong năm, xám là dữ liệu tự tạo có một đỉnh hẹp cuối năm. Một cặp (K = 1, xanh) chỉ vẽ được một sóng trơn và bỏ qua đỉnh; bốn cặp (cam, 8 cột) đã bám được đỉnh đó.
 
 **Tết âm lịch.** Tết mỗi năm rơi vào một ngày dương khác. Vì vậy biến giả ghi cứng một năm, như code đầu buổi, sai ngay năm sau.
 Hàm `tet` trong code tự tính lịch âm theo thuật toán thiên văn của Meeus: tìm các ngày sóc, xác định tháng 11 âm là tháng chứa đông chí, rồi đếm
@@ -333,6 +349,10 @@ Bốn chi tiết quyết định bài kiểm có tác dụng:
    tiêu** (`kiem_nhieu_muc_tieu`): cộng nhiễu lớn vào $y$ từ 70% chuỗi trở đi; dòng nào có thời điểm ra dự báo $t - h$ còn trước mốc đó thì
    feature không được đổi.
 
+![kiểm nhiễu mục tiêu](hinh/kn-kiem-nhieu-muc-tieu.png)
+
+**Cách đọc hình.** Trên: $y$ bị cộng nhiễu từ vạch đứt. Dưới: mỗi vạch là một dòng có feature đổi; vùng xanh là các dòng mà lúc ra dự báo ($t - h$, $h$ = 3) còn trước vạch. `lag_1` đổi ngay trong vùng xanh nên bị bắt, `lag_3` chỉ đổi sau vùng đó.
+
 | Bài kiểm | Bắt được | Bỏ sót |
 |---|---|---|
 | cắt tương lai | rolling không shift hay có tâm; chuẩn hoá, target encoding toàn chuỗi; điền hai phía | lag < tầm dự báo; dùng sai nguồn ngoại sinh |
@@ -419,6 +439,10 @@ ghep = pd.merge_asof(trai.sort_index(), phai.sort_index(), left_index=True, righ
 `direction="backward"` chỉ ghép với bản ghi có mốc **trước hoặc bằng**; `"nearest"` lấy cả bản ghi sau, tức rò rỉ. Không đặt `tolerance` thì khi
 nguồn phải thiếu một tuần, nó vẫn kéo số cũ xuống mà không báo. Và chú ý mốc: EIA-930 ghi mốc **cuối** giờ, Open-Meteo ghi mốc **đầu** giờ;
 lệch một giờ đủ biến "nhiệt độ cùng giờ" thành "nhiệt độ giờ sau".
+
+![`merge_asof`](hinh/kn-merge-asof.png)
+
+**Cách đọc hình.** Trục ngang là giờ trong ngày; hàng trên là mốc của bảng tải, hàng dưới là mốc bản tin nhiệt độ. Mũi tên xanh là `backward` (bản tin trước hoặc bằng); mũi tên đỏ là `nearest` lấy bản tin 15 giờ, tức tương lai; giờ 22 ở quá xa bản tin gần nhất nên có `tolerance` thì để trống.
 
 **Point-in-time.** Nhiều số liệu được **sửa lại** sau khi công bố (GDP, doanh số bán lẻ). Backtest bằng bản đã sửa là rò rỉ: năm 2019 bạn chưa có
 con số sửa năm 2021. Cách xử lý: dùng dữ liệu lưu theo từng lần công bố nếu có. Không có thì lùi mốc dùng số liệu đúng bằng độ trễ công bố. Tối

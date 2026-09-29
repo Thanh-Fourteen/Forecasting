@@ -100,6 +100,10 @@ Câu ở bước 5 cũng là **tiêu đề** nên đặt cho hình. "cnt" hay "L
   mùa vụ; độ dài mỗi lần một khác là chu kỳ. Hiểu lầm hay gặp: nghĩ "mùa" chỉ là xuân–hạ–thu–đông. "Mùa" ở đây là **bất kỳ**
   vòng lặp theo lịch nào: ngày, tuần, năm.
 
+![chu kỳ](hinh/kn-chu-ky.png)
+
+**Cách đọc hình.** Trục ngang là thời gian. Trên: mức chung đi lên. Giữa: sóng lặp đúng mỗi 12 bước. Dưới: sóng dài ngắn khác nhau, không đoán trước được lúc đổi chiều.
+
 **Ví dụ số nhỏ — tự tính tay.** Lượt thuê hai tuần, đơn vị trăm lượt mỗi ngày:
 
 | | T2 | T3 | T4 | T5 | T6 | T7 | CN | Trung bình tuần |
@@ -219,6 +223,10 @@ giống xếp riêng tất cả các thứ Hai vào một ngăn, tất cả th�
 - **Subseries plot**: 7 ô nhỏ. Ô T2 chứa hai điểm 10 rồi 12, vạch ngang ở trung bình (10 + 12) / 2 = 11. Vạch ngang của 7
   ô là 11, 13, 13, 13, 15, 7, 5: chính là **hình dạng mùa vụ tuần**. Trong mỗi ô, điểm sau cao hơn điểm trước: **xu hướng**.
 
+![subseries plot](hinh/kn-subseries-plot.png)
+
+**Cách đọc hình.** Cùng hai tuần số liệu. Trái: mỗi tuần một đường, hai đường song song. Phải: mỗi thứ một ô, vạch cam là trung bình của thứ đó; điểm sau cao hơn điểm trước.
+
 Với dữ liệu giờ, "vị trí trong tuần" là **giờ trong tuần**, từ 0 (T2 0h) tới 167 (CN 23h): giờ trong tuần = thứ × 24 + giờ.
 Ví dụ T3 8h là 1 × 24 + 8 = 32.
 
@@ -298,6 +306,10 @@ aggfunc="mean")`, rồi `ax.imshow(bang)`.
 
 (Hai **râu** thò ra hai đầu hộp chỉ tới giá trị thấp nhất và cao nhất còn "không quá xa" hộp: tối đa 1,5 × IQR tính từ mép
 hộp. Hình dưới tắt các điểm nằm ngoài râu cho dễ nhìn.)
+
+![boxplot](hinh/kn-boxplot.png)
+
+**Cách đọc hình.** Năm giá trị 8h thứ Hai (chấm). Hộp đi từ quantile 0,25 tới 0,75, vạch cam là trung vị; ngày lễ nằm xa ngoài hộp.
 
 ![Heatmap giờ × thứ: 8h và 17h chỉ sáng vào ngày làm việc](hinh/nhiet-gio-thu.png)
 
@@ -488,6 +500,10 @@ trục phải rộng (dòng 3), B gần như nằm ngang. Chỗ hai đường g�
 Nghiên cứu cảm nhận cho thấy trục y cắt làm người xem thấy chênh lệch lớn hơn thật, **kể cả khi** hình có ký hiệu báo trục bị
 cắt (Correll và cộng sự, 2020). Vì vậy quy ước của khoá: số đếm và tổng (cột, diện tích tô, lượt thuê) vẽ trục từ 0. Đại
 lượng như nhiệt độ thì không bắt buộc: chọn phạm vi theo độ lớn thay đổi có ý nghĩa, và ghi rõ trên trục.
+
+![trục y cắt](hinh/kn-truc-y-cat.png)
+
+**Cách đọc hình.** Cùng hai cột doanh thu. Trục cắt (trái) làm cột sau trông gấp ba; trục từ 0 (phải) cho thấy chỉ tăng khoảng 4%.
 
 ![Vẽ lại: tách hai hình, lượt thuê từ 0, scatter để nói về quan hệ](hinh/ve-lai.png)
 

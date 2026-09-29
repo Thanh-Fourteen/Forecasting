@@ -141,23 +141,28 @@ def ten_tep_hinh(ten: str) -> str:
     return "kn-" + re.sub(r"[^a-z0-9]+", "-", s).strip("-") + ".png"
 
 
-def ve_hinh(n: int, hinh: dict[str, dict], ho_so: str) -> dict[str, str]:
-    """Ghi buoi-NN/dap-an/ve_hinh_khai_niem.py từ HINH, chạy nó → buoi-NN/hinh/kn-*.png; trả {tên tệp: PNG base64}."""
+def ve_hinh(n: int, hinh: dict[str, dict], ho_so: str) -> tuple[dict[str, str], bool]:
+    """Ghi buoi-NN/dap-an/ve_hinh_khai_niem.py từ HINH, chạy nó → buoi-NN/hinh/kn-*.png.
+
+    Trả ({tên tệp: PNG base64}, có hình nằm trong tai-lieu.md vừa đổi ảnh — cần xuất lại PDF)."""
     if not hinh:
-        return {}
+        return {}, False
     import base64
     py = moi_truong.python_cua(ho_so)
     if not py.is_file():
         raise SystemExit(f"chưa có môi trường {ho_so} để vẽ hình — chạy: python tools/tu_hoc/moi_truong.py {n}")
     buoi = GOC / f"buoi-{n:02d}"
+    trong_tl = [buoi / "hinh" / ten_tep_hinh(ten) for ten, h in hinh.items() if h.get("sau")]
+    cu = {p: p.read_bytes() if p.is_file() else None for p in trong_tl}
     ve = "".join(f"    {ten_tep_hinh(ten)!r}: r'''{h['ve'].strip(chr(10))}\n''',\n" for ten, h in hinh.items())
     script = buoi / "dap-an" / "ve_hinh_khai_niem.py"
     script.write_text(KHUON_VE.format(n=n, ve=ve), encoding="utf-8")
     kq = subprocess.run([str(py), script.name], cwd=script.parent, capture_output=True, text=True)
     if kq.returncode:
         raise SystemExit("vẽ hình khái niệm lỗi:\n" + kq.stderr[-2000:])
-    return {ten_tep_hinh(ten): base64.b64encode((buoi / "hinh" / ten_tep_hinh(ten)).read_bytes()).decode()
-            for ten in hinh}
+    anh = {ten_tep_hinh(ten): base64.b64encode((buoi / "hinh" / ten_tep_hinh(ten)).read_bytes()).decode()
+           for ten in hinh}
+    return anh, any(p.read_bytes() != b for p, b in cu.items())
 
 
 KHOI_HINH = re.compile(r"\n!\[[^\]]*\]\(hinh/kn-[\w-]+\.png\)\n\n\*\*Cách đọc hình\.\*\* [^\n]*(?:\n[^\n]+)*\n")
@@ -176,7 +181,7 @@ def chen_tai_lieu(n: int, hinh: dict[str, dict]) -> bool:
         vi_tri = t.index(h["sau"])
         het = t.find("\n\n", vi_tri)
         het = len(t) if het < 0 else het
-        while (m := KHOI_HINH.match(t, het)):             # đã có hình chèn ở đây → đặt sau chúng, giữ thứ tự
+        while (m := KHOI_HINH.match(t, het + 1)):         # đã có hình chèn ở đây → đặt sau chúng, giữ thứ tự
             het = m.end() - 1
         khoi = f"\n![{ten}](hinh/{ten_tep_hinh(ten)})\n\n**Cách đọc hình.** {h['doc'].strip()}\n"
         t = t[:het + 1] + khoi + t[het + 1:]
@@ -193,6 +198,7 @@ class Soan:
         self.cho: list[str] = []
         self.hinh: dict[str, dict] = {}
         self.hinh_theo_ten: dict[str, dict] = {}
+        self.anh_doi = False                               # hình trong tai-lieu.md đổi ảnh → xuất lại PDF
         with open(GOC / f"buoi-{n:02d}" / "lab" / "nen.toml", "rb") as f:
             self.nen = tomllib.load(f)
         self.ho_so = moi_truong.ho_so(n)
@@ -258,7 +264,7 @@ class Soan:
 
     def ghi(self, dich: Path) -> None:
         self._xa_cho()
-        anh = ve_hinh(self.n, self.hinh, self.ho_so)
+        anh, self.anh_doi = ve_hinh(self.n, self.hinh, self.ho_so)
         cells = []
         for i, (kieu, nguon) in enumerate(self.o):
             c = {"cell_type": "markdown" if kieu == "md" else "code", "id": f"o{i:02d}", "metadata": {},
@@ -469,7 +475,7 @@ def main(argv: list[str] | None = None) -> int:
         nb.ghi(dich)
         print(f"ghi {dich.relative_to(GOC)}: {len(nb.o)} ô, kernel {moi_truong.ten_kernel(nb.ho_so)}; "
               f"{len(nb.hinh)} hình khái niệm → buoi-{n:02d}/hinh/kn-*.png")
-        if chen_tai_lieu(n, nb.hinh):
+        if chen_tai_lieu(n, nb.hinh) or nb.anh_doi:
             print(f"tai-lieu.md buổi {n} đổi hình khái niệm → xuất lại PDF")
             subprocess.run([sys.executable, str(GOC / "tools" / "xuat_pdf.py"), str(n)], check=True)
         if a.chay:

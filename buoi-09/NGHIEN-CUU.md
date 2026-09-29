@@ -134,7 +134,7 @@ Phiên bản PyPI (2026-09-18): `pycatch22` 0.5.0 (chỉ sdist, 2026-08-06), `ts
 1. Docstring nói "chỉ 2 đặc trưng phụ thuộc đơn vị", nhưng nhân chuỗi với 1.000 thì spike (×10¹²), độ dốc, độ cong (×1.000) cũng đổi. Sửa:
    STL chạy trên chuỗi đã z-score (như FPP/tsfeatures) ở cả `code/` và `dap-an/`; kiểm lại: 18/20 đặc trưng giữ nguyên khi nhân 1.000.
 2. `khong_gian_dac_trung` đưa **cả cột sai số** (`smape_snaive`, `mase_*`) và hai đặc trưng quy mô vào PCA, vì `bang` = đặc trưng join
-   sai số. Bản đồ tô màu theo sMAPE mà sMAPE lại là đầu vào. Sửa: hàm `cot_ban_do` chỉ lấy 18 đặc trưng không đơn vị.
+   sai số. Bản đồ tô màu theo sMAPE mà sMAPE lại là đầu vào. Sửa: hàm `cot_ban_do` chỉ lấy đặc trưng không đơn vị (18, trừ 3 cột có NaN vì một chuỗi hằng — hệ số lệch, độ nhọn, KPSS — còn 15 vào PCA; sửa 2026-09-28).
    PC1 + PC2: ~45% (bản cũ) → **56%** (41% + 15%). PC1 nặng ở số lần cắt trung bình (+0,39), $r_1$, tổng $r_k^2$, bất ổn định (−0,38…−0,39);
    PC2 ở độ dốc (+0,52), độ cong (−0,52), $F_S$ (−0,45).
 3. `ve_hinh.py` in "đặc trưng mạnh nhất PC1" lệch chỉ số cột → sửa; thêm hình `entropy-hai-chuoi.png` (seed 0: entropy 0,33 và 0,94).

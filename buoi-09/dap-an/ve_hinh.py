@@ -69,7 +69,7 @@ def hinh_khong_gian(bang: pd.DataFrame) -> dict:
         ax.set_title(ten, fontsize=9)
         ax.set_xlabel("PC1")
     truc[0].set_ylabel("PC2")
-    fig.suptitle(f"Bản đồ 4.000 chuỗi M4 tháng (18 đặc trưng không phụ thuộc đơn vị → PCA): vùng entropy cao cũng là vùng sMAPE cao "
+    fig.suptitle(f"Bản đồ 4.000 chuỗi M4 tháng ({len(dt.cot_ban_do(bang))} đặc trưng không phụ thuộc đơn vị → PCA): vùng entropy cao cũng là vùng sMAPE cao "
                  f"(PC1 + PC2 giữ {pca.explained_variance_ratio_.sum():.0%} phương sai)",
                  fontsize=10, fontweight="bold")
     fig.tight_layout()

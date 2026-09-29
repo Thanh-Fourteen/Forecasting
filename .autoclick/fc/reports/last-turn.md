@@ -1,29 +1,28 @@
 # lượt gần nhất
 
-_2026-09-28 13:44:40_
+_2026-09-29 13:22:44_
 
-Có, một phase cho 27 buổi là quá to. Nên chia nhỏ.
+Có code cho phần này, nhưng nó nằm xa slide khái niệm. Code CDD/HDD là slide 156 "Code: CDD, HDD và MI xáo theo khối", cách slide khái niệm (100) tới 56 slide:
+- Dòng 4 tính CDD và HDD.
+- Dòng 5–9 so R² khi hồi quy theo nhiệt độ và theo CDD + HDD.
+- Dòng 10–17 tính MI và kiểm bằng hoán vị theo khối.
 
-**Vì sao quá to:**
-- **Khối lượng.** Mỗi buổi phải đọc tài liệu và đáp án, viết 20–30 hộp khái niệm và 5–10 hình, chạy thật, so từng con số, rồi xem lại từng hình trong notebook lẫn PDF. Làm buổi 1–3 cho thấy mỗi buổi tốn một lượng làm việc gần bằng một buổi viết lại. 27 buổi vượt xa một phiên.
-- **Trái quy ước của khoá.** Vì không dùng subagent, khoá đã chốt mỗi phase soạn 1–2 buổi để một phiên làm trọn và tự kiểm kỹ. Phase 27 buổi thì phiên nào cũng dang dở, bị nén ngữ cảnh giữa chừng, và càng về sau càng dễ làm ẩu.
-- **Autoclick và theo dõi.** Autoclick gửi phase 🔲 đầu tiên. Một phase kéo dài nhiều phiên thì cứ bị gửi lại mãi, khó biết đã tới đâu.
-- **Môi trường.** Các buổi dùng ba hồ sơ khác nhau: `pandas3`, `nixtla` (lần đầu cần dựng), `autogluon`. Buổi 29–30 còn cần torch và chạy nặng. Gom chung thì rủi ro dồn vào cùng một phiên.
+Tôi không đề xuất làm thêm một slide code riêng cho CDD/HDD, vì sẽ trùng với slide 156.
 
-**Đề xuất:** vì nội dung đã có sẵn, việc này nhẹ hơn soạn mới, nên mỗi phase làm **4–5 buổi**. Chia theo cụm buổi và môi trường:
+Vấn đề này không chỉ ở buổi 8. Hiện mỗi slide code được xếp sau slide cuối cùng của mục lý thuyết tương ứng, thường là slide vấn đề ở phần B. Vì vậy có nhiều khái niệm ở phần A mà code cách xa 55–85 slide:
 
-| Phase | Buổi | Môi trường | Ghi chú |
-|---|---|---|---|
-| 30a | 4–8 | pandas3 | đọc dữ liệu, biểu đồ — nhiều hình |
-| 30b | 9–13 | pandas3 | chuẩn bị dữ liệu |
-| 30c | 14–17 | nixtla | dựng hồ sơ nixtla lần đầu |
-| 30d | 18–21 | nixtla / pandas3 | |
-| 30e | 22–24 | nixtla / autogluon | dựng hồ sơ autogluon |
-| 30f | 25–28 | pandas3 / nixtla | |
-| 30g | 29–30 | nixtla + torch | nặng, cấu hình rút gọn, giới hạn RAM |
+| Slide khái niệm (phần A) | Slide code | Cách nhau |
+|---|---|---|
+| 53–54 Làm trơn, Thang log | 138 | 85 slide |
+| 64–67 Trục y cắt, Trộn năm, Điều chỉnh, Log | 140–144 | khoảng 76 slide |
+| 71, 76, 81 exp ra trung vị, Tỷ lệ mẫu hình, Robust | 146, 149, 150 | khoảng 70 slide |
+| 99–102 Durbin–Watson, CDD/HDD, MI, Hoán vị theo khối | 154, 156 | khoảng 55 slide |
+| 129–131 Rò rỉ cả chuỗi, Kiểm rò rỉ, Ngoại sinh | 204–207 | khoảng 75 slide |
 
-Có hai cách đánh số:
-- **Đánh số thật 30–36.** Phase sau dời thành 37–55. Việc đổi số đã tự động hoá nên an toàn, nhưng số phase thay đổi thêm một lần nữa.
-- **Giữ Phase 30 làm phase cha, 7 phase con 30a–30g.** Không đổi số phase khác. Nhưng tôi chưa chắc autoclick đọc được tiêu đề kiểu "Phase 30a"; nó có thể chỉ nhận số.
+Các slide khái niệm còn lại đã có code đứng ngay sau, cách 1–3 slide.
 
-Tôi nghiêng về **đánh số thật 30–36** cho chắc với autoclick. Bạn muốn tôi chia theo cách nào?
+Tôi đề xuất đổi thứ tự để slide code đứng ngay sau slide khái niệm mà nó minh hoạ, theo nhịp lý thuyết rồi tới code. Việc này chỉ cần sửa một quy tắc trong script sinh slide; bài đọc kèm và ghi chú người nói sẽ tự đánh số lại.
+
+Đánh đổi là các slide vấn đề ở phần B, như "Lạnh cũng tăng, nóng cũng tăng", sẽ không còn slide code ngay phía sau. Để bù lại, tôi gắn thêm một nhãn nhỏ trên mỗi slide vấn đề, ví dụ "Code: slide 101", để khi thuyết trình anh nhảy về được ngay.
+
+Anh có muốn tôi làm theo cách này không?

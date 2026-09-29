@@ -216,6 +216,10 @@ trăm. Log biến "nhân" thành "cộng", nên cùng phần trăm thì cùng kh
 Quy tắc: $\log(a \times b) = \log a + \log b$, nên $\log(1{,}2 \times y) - \log y = \log 1{,}2$ với mọi $y$. Log chỉ dùng được
 cho số **dương**.
 
+![log, exp](hinh/kn-log-exp.png)
+
+**Cách đọc hình.** Trục ngang là giá trị gốc, trục dọc là log của nó. Hai cú tăng 20% (cam ở mức nhỏ, xanh lá ở mức lớn) rộng rất khác nhau theo chiều ngang nhưng cao bằng nhau theo chiều dọc.
+
 ![Năm bán nhiều thì dao động trong năm cũng lớn](hinh/dao-dong-theo-muc.png)
 
 **Cách đọc hình.**
@@ -263,6 +267,10 @@ $$
 
 **Nói bằng lời.** Nâng $y$ lên luỹ thừa $\lambda$, trừ 1, chia cho $\lambda$; riêng $\lambda = 0$ thì lấy log. Với $y = 100$:
 $\lambda = 1$ cho (100 − 1) / 1 = 99; $\lambda = 0{,}5$ cho (10 − 1) / 0,5 = 18; $\lambda = 0$ cho log 100 = 4,605.
+
+![biến đổi Box-Cox](hinh/kn-bien-doi-box-cox.png)
+
+**Cách đọc hình.** Trục ngang là giá trị gốc, trục dọc là giá trị sau biến đổi (quy về 0–1 để so hình dạng). λ càng nhỏ, đường càng cong: phần giá trị lớn bị ép lại nhiều hơn.
 
 **Ví dụ số nhỏ — tự tính tay (chọn λ theo Guerrero).** Chia chuỗi thành các khối, mỗi khối một năm ($m$ = 12 tháng). Giả sử
 có ba năm:
@@ -349,6 +357,10 @@ Vì sao: `exp` giữ nguyên thứ tự, nên số đứng giữa trên thang lo
 trên: bước từ 1 lên 2 trên thang log thành 7,39 − 2,72 = 4,67 trên thang gốc, còn bước từ 0 lên 1 chỉ thành 2,72 − 1 = 1,72.
 Số lớn bị đẩy xa, kéo trung bình lên trên trung vị. Kết quả trên thang gốc lệch phải.
 
+![đổi ngược](hinh/kn-doi-nguoc.png)
+
+**Cách đọc hình.** Trên: ba giá trị log cách đều, trung bình 1. Dưới: sau exp, khoảng cách phía trên giãn ra; số giữa vẫn là 2,72 (trung vị) nhưng trung bình bị kéo lên 3,70.
+
 **Công thức.** Nếu dự báo trên thang log có dạng hình chuông với tâm $\hat w$ và phương sai $\sigma^2$ thì:
 
 $$
@@ -420,6 +432,10 @@ trước gốc, tính hiệu "log tháng này − log cùng tháng năm trước
 là phương sai của chúng (các hiệu lệch khỏi drift cỡ nào thì dự báo cũng lệch cỡ đó). Backtest: gốc dự báo mỗi tháng
 từ 1/2012 tới 12/2018 (trước đại dịch), mỗi gốc dự báo 12 tháng, tổng cộng 84 × 12 = 1.008 dự báo. Đo: tổng dự báo chia tổng
 thực tế, trừ 1. Âm nghĩa là dự báo **thấp hơn** thực tế.
+
+![drift](hinh/kn-drift.png)
+
+**Cách đọc hình.** Trục ngang là tháng, đường liền là hai năm đã biết. Dự báo năm sau (nét đứt) là chép lại năm cuối rồi nâng lên đúng mức tăng trung bình mỗi năm.
 
 **Ví dụ số nhỏ — tự tính tay.** Ở gốc 1/2018, $\sigma^2$ = 0,00041. Hiệu chỉnh nhân dự báo với 1 + 0,00041 / 2 ≈ 1,0002, tức đẩy
 lên khoảng **0,02%**: dự báo tháng 1/2018 đi từ 433.240 lên 433.330 triệu USD.

@@ -70,3 +70,190 @@ tải với tuỳ chọn `timezone=UTC`, nên cột giờ là **giờ UTC** — 
 time = "giờ đo, **UTC**, không ghi hậu tố múi giờ"
 "temperature_2m (°C)" = "nhiệt độ ở độ cao 2 m"
 "precipitation (mm), rain (mm), snowfall (cm)" = "tổng mưa + tuyết quy ra nước; riêng mưa; riêng tuyết, trong giờ đó"
+
+["census-marts-ban-le"]
+ten = "Monthly Retail Trade Survey (MARTS)"
+gioi_thieu = """Cục Điều tra Dân số Mỹ (Census Bureau) khảo sát doanh số **bán lẻ và dịch vụ ăn uống** mỗi tháng, từ 1/1992 tới
+nay, cho tổng toàn nước Mỹ và từng ngành (trạm xăng, bách hoá, nhà sách…), đơn vị **triệu USD**. Tệp Excel có một sheet mỗi
+năm; mỗi sheet có hai khối: **NOT ADJUSTED** (số thật, chưa bỏ mùa vụ — số ta dùng) và **ADJUSTED** (đã bỏ mùa vụ, ngày lễ và
+chênh lệch số ngày bán hàng). Ô không công bố ghi `(S)` hoặc `(NA)`."""
+
+["census-marts-ban-le".cot]
+"cột B" = "tên chuỗi, ví dụ `Retail and food services sales, total`, `Gasoline stations`"
+"Jan. 2025 … Dec. 2025" = "doanh số của tháng đó (triệu USD); mỗi sheet 12 cột tháng"
+
+["bls-cpi-u"]
+ten = "Consumer Price Index for All Urban Consumers (CPI-U)"
+gioi_thieu = """Cục Thống kê Lao động Mỹ (BLS) theo dõi giá một giỏ hàng tiêu dùng mỗi tháng, từ 1913, quy về **1982–1984 = 100**.
+Tệp là bảng dài phân cách bằng tab: mỗi dòng là một tháng của một chuỗi CPI. Chuỗi `CUUR0000SA0` là CPI mọi mặt hàng,
+**chưa** điều chỉnh mùa vụ. Tháng 10/2025 BLS không công bố (ghi `-`)."""
+
+["bls-cpi-u".cot]
+series_id = "mã chuỗi (có khoảng trắng thừa ở cuối); `CUUR0000SA0` = CPI mọi mặt hàng, chưa điều chỉnh mùa vụ"
+"year, period" = "năm và tháng `M01`…`M12`; `M13` là trung bình năm — bỏ đi"
+value = "giá trị chỉ số (1982–1984 = 100)"
+
+["bea-nipa-thang"]
+ten = "BEA National Income and Product Accounts — monthly"
+gioi_thieu = """Cục Phân tích Kinh tế Mỹ (BEA) công bố hệ thống tài khoản quốc gia; tệp này gom **mọi chuỗi theo tháng** vào một
+bảng dài ba cột (khoảng 37 MB). Mỗi dòng là một tháng của một chuỗi. Chuỗi `B230RC` là **dân số giữa kỳ** của Mỹ, nghìn
+người; `B230RC` tăng đều, không có mùa vụ."""
+
+["bea-nipa-thang".cot]
+"%SeriesCode" = "mã chuỗi, ví dụ `B230RC` (dân số)"
+Period = "tháng, dạng `2024M03`"
+Value = "giá trị, có dấu phẩy ngăn nghìn"
+
+["bea-nipa-quy"]
+ten = "BEA National Income and Product Accounts — quarterly"
+gioi_thieu = """Như bảng tháng của BEA nhưng gom **mọi chuỗi theo quý**, từ 1947. Chuỗi `A191RX` là **GDP thực** của Mỹ (tỷ USD giá
+năm 2017, đã điều chỉnh mùa vụ, quy ra mức cả năm)."""
+
+["bea-nipa-quy".cot]
+"%SeriesCode" = "mã chuỗi, ví dụ `A191RX` (GDP thực)"
+Period = "quý, dạng `2024Q1`"
+Value = "giá trị, có dấu phẩy ngăn nghìn"
+
+["frb-g17-san-luong-cong-nghiep"]
+ten = "Federal Reserve G.17 — Industrial Production"
+gioi_thieu = """Cục Dự trữ Liên bang Mỹ đo **sản lượng công nghiệp** (nhà máy, mỏ, điện khí) mỗi tháng bằng một chỉ số, **2017 = 100**,
+đã điều chỉnh mùa vụ. Tệp CSV có 5 dòng mô tả (đơn vị, mã chuỗi) rồi mới tới bảng, từ 1/2000 tới 12/2024."""
+
+["frb-g17-san-luong-cong-nghiep".cot]
+"Series Description / Time Period" = "tháng, dạng `2024-03`"
+"Total index; s.a. IP" = "chỉ số sản lượng công nghiệp tổng hợp (mã IP.B50001.S)"
+
+["eia930-balance-*"]
+ten = "EIA-930 Hourly Electric Grid Monitor — BALANCE"
+gioi_thieu = """Cơ quan Thông tin Năng lượng Mỹ (EIA) thu từ mọi **vùng điều độ điện** (balancing authority — đơn vị giữ cân bằng cung
+cầu điện trong một vùng, ví dụ PJM ở miền Đông, ERCOT ở Texas) **nhu cầu điện mỗi giờ**, dự báo ngày hôm trước của chính họ,
+và sản lượng theo nguồn. Mỗi tệp là sáu tháng, mỗi dòng là **một giờ của một vùng**. Mốc giờ là **cuối giờ**: dòng 01:00 là
+lượng điện của giờ 00:00–01:00."""
+
+["eia930-balance-*".cot]
+"Balancing Authority" = "mã vùng điều độ, ví dụ `PJM`, `ERCO` (ERCOT)"
+"UTC Time at End of Hour" = "mốc giờ UTC, là **cuối** giờ đo"
+"Demand (MW)" = "nhu cầu điện trung bình trong giờ (MW) — thứ cần dự báo"
+"Demand Forecast (MW)" = "dự báo ngày hôm trước của chính vùng điều độ"
+
+["open-meteo-*-2024"]
+ten = "Open-Meteo Historical Weather (ERA5)"
+gioi_thieu = """Nhiệt độ **theo giờ** năm 2024 tại một điểm lưới ở thành phố, lấy từ Open-Meteo (dữ liệu tái phân tích ERA5 của châu
+Âu). Tệp CSV có 3 dòng đầu là thông tin điểm lưới (toạ độ, độ cao, múi giờ), rồi mới tới bảng. Giờ ghi theo **UTC**, là nhiệt
+độ tức thời đúng tại mốc giờ."""
+
+["open-meteo-*-2024".cot]
+time = "giờ đo, **UTC**"
+"temperature_2m (°C)" = "nhiệt độ ở độ cao 2 m"
+
+["monash-m4-monthly"]
+ten = "M4 Monthly (Monash Time Series Forecasting Archive)"
+gioi_thieu = """**48.000 chuỗi theo tháng** của cuộc thi dự báo M4 (2018): doanh số, sản lượng, chỉ số kinh tế, dân số… của sáu
+lĩnh vực (vi mô, vĩ mô, công nghiệp, tài chính, nhân khẩu, khác), dài từ 60 tới 2.812 tháng. Nhóm Monash gói lại thành một
+tệp `.tsf`: vài dòng đầu bắt đầu bằng `#` hoặc `@` là mô tả, sau dòng `@data` mỗi dòng là **một chuỗi**. Chuỗi đã bị ẩn
+danh: không biết chuỗi nào là của công ty hay ngành nào."""
+
+["monash-m4-monthly".cot]
+"tên chuỗi" = "mã như `T1`, `T2`… — phần trước dấu `:` đầu tiên"
+"mốc bắt đầu" = "ngày của tháng đầu tiên — phần giữa hai dấu `:`"
+"giá trị" = "các số của chuỗi theo thứ tự thời gian, cách nhau bằng dấu phẩy"
+
+["uci-online-retail-ii"]
+ten = "Online Retail II"
+gioi_thieu = """Mọi **dòng hoá đơn** của một cửa hàng bán quà tặng trực tuyến ở Anh từ 1/12/2009 tới 9/12/2011, khách chủ yếu là
+cửa hàng bán buôn — 1.067.371 dòng. Tệp Excel có hai trang tính (`Year 2009-2010`, `Year 2010-2011`), mỗi dòng là **một
+mã hàng trên một hoá đơn**. Hoá đơn huỷ có số bắt đầu bằng `C` và số lượng âm."""
+
+["uci-online-retail-ii".cot]
+Invoice = "số hoá đơn; bắt đầu bằng `C` là hoá đơn huỷ"
+StockCode = "mã hàng"
+Quantity = "số lượng trên dòng này (âm khi trả hàng)"
+InvoiceDate = "ngày giờ lập hoá đơn"
+Price = "đơn giá, bảng Anh (£)"
+"Customer ID, Country" = "mã khách (nhiều dòng để trống) và nước của khách"
+
+["uci-beijing-air"]
+ten = "Beijing Multi-Site Air Quality"
+gioi_thieu = """Nồng độ chất ô nhiễm **theo giờ** ở 12 trạm quan trắc Bắc Kinh từ 1/3/2013 tới 28/2/2017, ghép với thời tiết của
+trạm khí tượng gần nhất. Tệp tải về là một zip chứa một zip khác; bên trong là 12 tệp CSV, mỗi trạm một tệp, mỗi dòng là
+**một giờ** (35.064 dòng một trạm). Giờ bị mất đo để trống (NaN)."""
+
+["uci-beijing-air".cot]
+"year, month, day, hour" = "thời điểm đo, giờ Bắc Kinh"
+"PM2.5, PM10" = "nồng độ bụi mịn, µg/m³"
+"SO2, NO2, CO, O3" = "các khí ô nhiễm, µg/m³"
+"TEMP, PRES, DEWP" = "nhiệt độ (°C), áp suất (hPa), điểm sương (°C)"
+"RAIN, wd, WSPM" = "lượng mưa (mm), hướng gió, tốc độ gió (m/s)"
+station = "tên trạm"
+
+["ghcnh-noi-bai-2024"]
+ten = "NOAA GHCNh — trạm Nội Bài (VMI0000VVNB), 2024"
+gioi_thieu = """Bản tin quan trắc thời tiết **thô** của trạm sân bay Nội Bài năm 2024, do Cơ quan Khí quyển và Đại dương Mỹ (NOAA)
+gom từ mạng trao đổi quốc tế (GHCNh — Global Historical Climatology Network hourly). Trạm báo **mỗi 30 phút** nhưng có
+lúc thiếu, lúc báo thêm bản tin đặc biệt. Tệp Parquet 17.319 dòng, 329 cột: mỗi đại lượng đo có một cột giá trị và năm
+cột đi kèm (mã chất lượng, mã nguồn…). Giờ ghi theo **UTC**."""
+
+["ghcnh-noi-bai-2024".cot]
+DATE = "thời điểm bản tin, **UTC**"
+temperature = "nhiệt độ không khí, °C"
+"dew_point_temperature, relative_humidity" = "điểm sương (°C), độ ẩm tương đối (%)"
+"visibility, wind_speed" = "tầm nhìn (km), tốc độ gió (m/s)"
+"temperature_Quality_Code" = "mã chất lượng NOAA gắn cho giá trị: 2/6 đáng ngờ, 3/7 sai; mỗi cột đo có một cột `_Quality_Code` như vậy"
+
+["open-meteo-ha-noi-2023-2024"]
+ten = "Open-Meteo Historical Weather (ERA5) — Hà Nội"
+gioi_thieu = """Thời tiết **theo giờ** 2023–2024 tại điểm lưới trung tâm Hà Nội, lấy từ Open-Meteo (dữ liệu tái phân tích ERA5 của
+châu Âu — mô hình thời tiết "chạy lại quá khứ" có ghép số đo, nên không có lỗ hổng). Tệp CSV có 3 dòng đầu là thông tin
+điểm lưới, rồi mới tới bảng. Giờ ghi theo **UTC**."""
+
+["open-meteo-ha-noi-2023-2024".cot]
+time = "giờ, **UTC**"
+"temperature_2m (°C), relative_humidity_2m (%)" = "nhiệt độ và độ ẩm ở độ cao 2 m"
+"precipitation (mm), wind_speed_10m (km/h), wind_direction_10m (°)" = "lượng mưa, tốc độ và hướng gió ở độ cao 10 m"
+
+["wikipedia-vi-*"]
+ten = "Wikimedia Pageviews — Wikipedia tiếng Việt"
+gioi_thieu = """Số **lượt xem mỗi ngày** trên Wikipedia tiếng Việt 2016–2025, do Wikimedia đếm (chỉ người thật — `agent=user`, bỏ bot
+đã nhận diện). Hai tệp JSON: bài "Tết Nguyên Đán" (`wikipedia-vi-tet`) và tổng lượt xem cả trang tiếng Việt
+(`wikipedia-vi-tong`). Mỗi phần tử của danh sách `items` là **một ngày**."""
+
+["wikipedia-vi-*".cot]
+timestamp = "ngày, dạng `2016010100` (năm, tháng, ngày, giờ 00)"
+views = "số lượt xem trong ngày"
+
+["eurostat-hanh-khach-hang-khong"]
+ten = "Eurostat avia_paoc — hành khách hàng không EU27"
+gioi_thieu = """Số **hành khách đi máy bay mỗi tháng** của 27 nước EU cộng lại, từ 1/2008, do Eurostat (cơ quan thống kê EU) tổng hợp
+từ báo cáo của các sân bay. Tệp CSV, mỗi dòng là **một tháng**; các cột đầu lặp lại mã phân loại giống nhau ở mọi dòng. Tháng
+4/2020 số khách giảm gần 99% so với 4/2019 vì COVID-19."""
+
+["eurostat-hanh-khach-hang-khong".cot]
+TIME_PERIOD = "tháng, dạng `2008-01`"
+OBS_VALUE = "số hành khách trong tháng"
+"freq, unit, tra_meas, geo…" = "mã phân loại: tháng, đơn vị hành khách, hành khách chở có thu tiền, EU27"
+
+["uci-appliances-energy"]
+ten = "Appliances Energy Prediction"
+gioi_thieu = """Điện năng thiết bị của **một ngôi nhà** ở Stambruges (Bỉ) đo **mỗi 10 phút** trong khoảng 4,5 tháng (11/1 → 27/5/2016),
+kèm nhiệt độ, độ ẩm từ cảm biến không dây trong từng phòng và thời tiết của trạm sân bay gần đó. Một tệp CSV 19.735 dòng,
+mỗi dòng là **10 phút**."""
+
+["uci-appliances-energy".cot]
+date = "thời điểm đo (giờ địa phương)"
+Appliances = "điện năng thiết bị trong 10 phút, Wh — chuỗi của buổi"
+lights = "điện năng đèn, Wh"
+"T1…T9, RH_1…RH_9" = "nhiệt độ (°C) và độ ẩm (%) của từng phòng"
+"T_out, RH_out, Windspeed…" = "thời tiết ngoài trời từ trạm sân bay Chièvres"
+"rv1, rv2" = "hai cột số ngẫu nhiên nhóm tác giả thêm vào để thử cách chọn biến"
+
+["open-meteo-dallas-du-bao-luu-2024"]
+ten = "Open-Meteo Previous Runs — Dallas 2024"
+gioi_thieu = """Nhiệt độ **theo giờ** năm 2024 tại Dallas (Texas), đặt cạnh nhau: nhiệt độ **thật** và nhiệt độ mà mô hình thời tiết
+đã **dự báo** trước 1 ngày và trước 3 ngày cho đúng giờ đó (Open-Meteo lưu lại các lần chạy cũ). Đây là thứ một mô hình dự
+báo tải điện thật sự có trong tay lúc ra dự báo. Tệp CSV có 3 dòng đầu là thông tin điểm lưới; giờ theo **UTC**."""
+
+["open-meteo-dallas-du-bao-luu-2024".cot]
+time = "giờ, **UTC**"
+"temperature_2m (°C)" = "nhiệt độ thật ở độ cao 2 m"
+"temperature_2m_previous_day1 (°C)" = "nhiệt độ cho giờ này, dự báo từ **1 ngày trước**"
+"temperature_2m_previous_day3 (°C)" = "nhiệt độ cho giờ này, dự báo từ **3 ngày trước**"

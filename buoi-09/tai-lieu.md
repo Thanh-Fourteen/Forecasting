@@ -66,7 +66,7 @@ Dữ liệu chính:
 | sMAPE | Trung bình của 200 × \|sai số\| / (\|thực tế\| + \|dự báo\|), tính bằng %. | Thực tế 12, dự báo 11 → 200 × 1 / 23 = 8,7%. |
 | MASE | MAE của dự báo chia MAE của seasonal naive trên phần học; dưới 1 là tốt hơn seasonal naive. | MAE 6, MAE seasonal naive 8 → 0,75. |
 | ngũ phân vị (quintile) | Xếp tăng dần rồi chia 5 nhóm bằng nhau; Q1 là 20% nhỏ nhất. | 4.000 chuỗi → 5 nhóm 800 chuỗi. |
-| PCA, PC1, PC2 | Nén nhiều cột đặc trưng thành 2 cột mới giữ nhiều khác biệt nhất, để vẽ mỗi chuỗi thành một chấm. | 18 đặc trưng → (PC1, PC2). |
+| PCA, PC1, PC2 | Nén nhiều cột đặc trưng thành 2 cột mới giữ nhiều khác biệt nhất, để vẽ mỗi chuỗi thành một chấm. | 15 đặc trưng → (PC1, PC2). |
 | DTW (dynamic time warping) | Khoảng cách giữa hai chuỗi cho phép co giãn trục thời gian để khớp đỉnh với đỉnh. | Hai đỉnh lệch một bước: khoảng cách thường (trừ từng cặp cùng thời điểm) 1,41, DTW 0. |
 | cửa sổ Sakoe–Chiba | Giới hạn DTW chỉ được lệch tối đa $w$ bước. | $w$ = 10 tháng. |
 | phân cụm phân cấp Ward | Bắt đầu mỗi chuỗi một nhóm, gộp dần hai nhóm gần nhau nhất tới khi còn số nhóm muốn có. | 300 chuỗi → 4 cụm. |
@@ -104,6 +104,10 @@ Hai mươi đặc trưng của buổi, trong `dac_trung_mot_chuoi`:
 
 **Đọc bảng.** Chỉ hai đặc trưng quy mô đổi theo đơn vị. Nhóm STL cũng sẽ đổi nếu tính trên chuỗi gốc (xu hướng tính bằng USD thì độ dốc
 tính bằng USD mỗi tháng). Vì vậy code chạy STL trên chuỗi đã **chuẩn hoá z-score**, như sách FPP của Hyndman (Đọc thêm).
+
+![z-score (chuẩn hoá)](hinh/kn-z-score-chuan-hoa.png)
+
+**Cách đọc hình.** Trái: hai chuỗi cùng hình nhưng một chuỗi lớn gấp trăm lần. Phải: sau z-score, hai đường trùng khít — chỉ còn hình dạng.
 
 **Đặc trưng còn là máy dò chuỗi hỏng.** Trong 4.000 chuỗi mẫu:
 
@@ -147,6 +151,10 @@ vị; chỉ đặc trưng đo **độ lớn** mới đổi.
 > sóng tần số 1/12 lặp mỗi 12 tháng, sóng tần số 1/2 lặp mỗi 2 tháng (tháng lên, tháng xuống). **Phổ** cho biết mỗi sóng góp bao nhiêu phần vào dao
 > động của chuỗi ("năng lượng"). Chuỗi mùa vụ năm đều đặn dồn gần hết năng lượng vào tần số 1/12; nhiễu thuần thì chia đều cho mọi tần
 > số. Code tính phổ bằng cách Welch (trung bình phổ của nhiều đoạn chồng nhau cho đỡ nhiễu).
+
+![tần số](hinh/kn-tan-so.png)
+
+**Cách đọc hình.** Trục ngang là tháng. Sóng trên lặp chậm (mỗi năm một vòng), sóng dưới lặp nhanh nhất mà dữ liệu tháng thể hiện được (tháng lên, tháng xuống): chu kỳ càng ngắn, tần số càng cao.
 
 **Trực giác.** Chia năng lượng thành các phần $p_1, p_2, \dots$ cộng lại bằng 1, như chia một chiếc bánh. Cả chiếc bánh ở một đĩa thì
 biết ngay nó ở đâu: dễ đoán. Chia đều cho mọi đĩa thì không đĩa nào nổi bật: khó đoán. Entropy đo "chia đều tới đâu".
@@ -296,7 +304,7 @@ chuỗi khó hay dễ.
 
 ### 4.4 Bản đồ tập dữ liệu và chuỗi nào đáng đầu tư mô hình
 
-**Vấn đề.** 18 đặc trưng (bỏ hai đặc trưng quy mô) là 18 chiều, không vẽ được. Cần nén xuống 2 chiều để thấy cả tập trên một hình: vùng
+**Vấn đề.** Bỏ hai đặc trưng quy mô, và ba cột có NaN vì chuỗi hằng (hệ số lệch, độ nhọn, p của KPSS), còn 15 đặc trưng: 15 chiều, không vẽ được. Cần nén xuống 2 chiều để thấy cả tập trên một hình: vùng
 nào dễ, vùng nào khó, chấm nào lạc hẳn.
 
 **Trực giác.** Nhiều đặc trưng nói cùng một điều theo cách khác nhau. $r_1$ cao (tháng này giống tháng trước) thì số lần cắt trung bình
@@ -317,6 +325,10 @@ thứ hai, vuông góc với PC1.
   chục) lấn át cột $r_1$ (dưới 1) chỉ vì đơn vị.
 - Sau chuẩn hoá, hai cột luôn ngược dấu nhau: một trục chung đủ tả cả hai. PC1 = (z của $r_1$ − z của số lần cắt) / $\sqrt{2}$ cho ba
   chuỗi $1{,}73$; $0$; $-1{,}73$ và giữ **toàn bộ** khác biệt; PC2 bằng 0 ở cả ba.
+
+![PCA, PC1, PC2](hinh/kn-pca-pc1-pc2.png)
+
+**Cách đọc hình.** Mỗi chấm là một chuỗi, hai trục là hai đặc trưng đã chuẩn hoá. Các chấm nằm dọc một đường chéo, nên một trục mới (PC1, đường đỏ dài) giữ 98% khác biệt; PC2 vuông góc với nó, giữ 2% còn lại.
 
 **Thư viện.** `khong_gian_dac_trung`: `StandardScaler` (chuẩn hoá từng cột) rồi `PCA(n_components=2)` của scikit-learn;
 `explained_variance_ratio_` cho phần khác biệt mỗi trục giữ được.
@@ -391,6 +403,10 @@ su để đỉnh chạm đỉnh.
 
 **Đọc bảng.** Đường đi rẻ nhất khớp đỉnh $x_3$ với đỉnh $y_2$, rồi chỉ qua các ô 0. Ô cuối bằng 0, nên $\text{DTW} = \sqrt{0} = 0$:
 cùng hình dạng.
+
+![DTW (dynamic time warping)](hinh/kn-dtw-dynamic-time-warping.png)
+
+**Cách đọc hình.** Hai chuỗi cùng hình, đỉnh lệch nhau một bước; đường xám nối các cặp điểm được so. Trái: khoảng cách thường so cùng thời điểm, nên đỉnh bị so với đáy. Phải: DTW co giãn trục thời gian để đỉnh khớp đỉnh.
 
 Nhưng với $z = (0, 3, 0, 0)$, cùng hình và đỉnh cao gấp ba, thì $\text{DTW}(x, z) = 2$: DTW so **giá trị**, nên phải chuẩn hoá z-score
 trước. Sau z-score, $z$ thành $(-0{,}58;\ 1{,}73;\ -0{,}58;\ -0{,}58)$, đúng hình của $y$, và DTW về lại 0.
@@ -467,6 +483,10 @@ xuống ngẫu nhiên có CV thấp mà khó.
 
 **Đọc bảng.** XYZ xếp $P$ khó hơn $Q$. Nhưng $P$ lặp đúng mỗi 2 tháng: seasonal naive dự báo không sai chút nào. $Q$ lên xuống không theo
 nhịp nào: tháng sau có thể là 18 hay 22. Sai số dự báo nói ngược với XYZ.
+
+![phân loại ABC–XYZ (AX, CZ)](hinh/kn-phan-loai-abc-xyz-ax-cz.png)
+
+**Cách đọc hình.** Hai mã hàng cùng trung bình 20. P lặp đúng nhịp 2 tháng nhưng CV cao (nhóm Y); Q lên xuống không theo nhịp nhưng CV thấp (nhóm X). XYZ xếp ngược với độ khó thật.
 
 ![Phân loại ABC–XYZ trên Online Retail II: A chiếm phần lớn doanh thu](hinh/abc-xyz.png)
 

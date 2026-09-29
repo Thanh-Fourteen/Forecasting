@@ -86,6 +86,10 @@ phát hiện khác và cách xử lý khác (Chen & Liu, 1993).
 **Đọc bảng.** Nhìn điểm thứ tư thì ba dòng đầu giống nhau; chỉ **những điểm sau** cho biết loại. Vì vậy một ngưỡng nhìn từng điểm riêng lẻ
 chỉ bắt được AO; muốn thấy dịch mức và thay đổi tạm phải tìm điểm gãy (mục 4.5); muốn thấy đổi phương sai phải nhìn độ dao động của phần dư.
 
+![ngoại lai (outlier)](hinh/kn-ngoai-lai-outlier.png)
+
+**Cách đọc hình.** Bốn chuỗi 8 điểm, mức nền 10; điểm thứ tư (đỏ) lệch ở cả bốn. Chỉ các điểm sau nó cho biết loại: quay về ngay, ở lại, hồi dần, hay giữ mức mà dao động to hơn.
+
 ![Bốn loại bất thường cần bốn cách phát hiện](hinh/bon-loai-bat-thuong.png)
 
 **Cách đọc hình.**
@@ -162,6 +166,10 @@ xu hướng thì "trung bình cả chuỗi" không có ý nghĩa.
 **Trực giác.** Trung vị không quan tâm số lớn nhất lớn cỡ nào, chỉ quan tâm nó nằm ở nửa trên. Lấy trung vị cho cả mức lẫn độ dao động thì
 một nửa dữ liệu phải hỏng mới kéo lệch được.
 
+![MAD](hinh/kn-mad.png)
+
+**Cách đọc hình.** Trục ngang là giá trị của số lạ trong dãy 10 số (chín số còn lại quanh 12), trục dọc là độ dao động đo được. Độ lệch chuẩn tăng thẳng theo số lạ; MAD đứng yên ở 1,48.
+
 **Ví dụ số nhỏ — tự tính tay.** Cùng 10 số:
 
 - Trung vị: xếp tăng dần, hai số giữa là 12 và 12 → **12**.
@@ -187,6 +195,10 @@ co = (y - trung_vi).abs() / (1.4826 * mad) > 3
 
 Cửa sổ phải dài hơn các dao động bình thường và ngắn hơn các thay đổi cấu trúc. `center=True` nhìn cả hai phía. Vì vậy Hampel **không
 nhân quả** (buổi 12): dùng được để làm sạch lịch sử, không dùng được làm đặc trưng đầu vào cho dự báo.
+
+![bộ lọc Hampel](hinh/kn-bo-loc-hampel.png)
+
+**Cách đọc hình.** Trục ngang là thời gian, trục dọc là giá trị; dải xanh là trung vị ± 3·MAD của cửa sổ ±15 điểm, đi theo xu hướng. Điểm vọt khỏi dải bị gắn cờ (đỏ); ngưỡng 3σ toàn chuỗi (nét đứt) nằm cao hơn mọi điểm nên không bắt được gì.
 
 ![Ngưỡng toàn chuỗi dồn cờ vào vùng mức cao; Hampel rải cờ theo thời gian](hinh/nguong-toan-chuoi.png)
 
@@ -251,6 +263,10 @@ không được sửa (buổi 13 biến nó thành biến giả lịch âm).
 - **Winsorize**: $(12, 11, 13, 12, 12)$: giữ mốc, giá trị kéo về trung vị địa phương, cột `da_sua` = 1.
 - Nếu ngày đó có trong nhật ký sự kiện (Tết): **giữ nguyên 90**.
 
+![winsorize](hinh/kn-winsorize.png)
+
+**Cách đọc hình.** Trục ngang là mốc, trục dọc là giá trị; dấu × xám là số bị gắn cờ. Xoá để lại một lỗ; winsorize thay nó bằng trung vị địa phương 12 và giữ đủ mốc.
+
 Năm cách xử lý sau khi phát hiện, từ nhẹ tới nặng:
 
 | Cách | Làm gì | Hợp với | Rủi ro |
@@ -304,6 +320,10 @@ $$
 **Nói bằng lời.** Chọn số điểm gãy và vị trí sao cho tổng chi phí các đoạn cộng penalty nhỏ nhất. Ở ví dụ: một điểm gãy cho 4 + 6,9 = 10,9;
 không cắt cho 254; hai điểm gãy cho 3,17 + 13,8 = 17,0. Một điểm gãy thắng.
 
+![penalty (phạt)](hinh/kn-penalty-phat.png)
+
+**Cách đọc hình.** Trái: mười số và trung bình hai đoạn sau khi cắt một lần. Phải: chi phí (xanh) cộng phạt (cam) theo số điểm gãy K; một điểm gãy cho tổng nhỏ nhất, cột không cắt cao vượt khung.
+
 **PELT** (Killick và cộng sự, 2012) tìm đúng lời giải tốt nhất, nhưng bỏ sớm những vị trí chắc chắn không thắng, nên chạy gần tuyến tính theo
 độ dài chuỗi.
 
@@ -339,6 +359,10 @@ không cắt cho 254; hai điểm gãy cho 3,17 + 13,8 = 17,0. Một điểm gã
 > Nó báo động khi $S_t$ vượt ngưỡng $h$, và chạy được trong lúc dữ liệu đang về, nên hợp để theo dõi mô hình đang chạy (buổi 42). **Binary
 > Segmentation** tìm một điểm gãy tốt nhất, cắt đôi, lặp lại: nhanh nhưng tham lam. `ruptures` chưa có CROPS (thuật toán quét toàn bộ dải
 > penalty của Haynes và cộng sự, 2017), nên buổi này tự quét.
+
+![CUSUM, CROPS](hinh/kn-cusum-crops.png)
+
+**Cách đọc hình.** Trên: chuỗi, mức nhích lên nhẹ ở vạch xám. Dưới: tổng cộng dồn nằm sát 0, sau vạch xám leo đều và vượt ngưỡng h (nét đỏ) sau vài bước — báo động ngay khi dữ liệu đang về.
 
 **Tóm lại.** **Điểm gãy là mốc mà trước và sau khác nhau. PELT cắt chuỗi sao cho chi phí các đoạn cộng penalty nhỏ nhất: mỗi điểm gãy phải giảm
 chi phí nhiều hơn penalty. Lấy log trước với chuỗi tăng trưởng, và quét penalty.**
@@ -377,7 +401,7 @@ lượng trên **toàn bộ** phần học. Chỉ đổi cách xử lý giai đo
 | coi là thiếu, nội suy | 180 | 8,71% | +7,6 |
 | cắt, chỉ dùng sau hồi phục | 18 | 18,11% | −12,9 |
 
-**Đọc bảng.** Giữ nguyên: mười lăm tháng sụt kéo cả đường xu hướng xuống, dự báo thấp hơn thực tế gần 20 triệu mỗi tháng (sai số dương).
+**Đọc bảng.** Giữ nguyên: mười sáu tháng sụt kéo cả đường xu hướng xuống, dự báo thấp hơn thực tế gần 20 triệu mỗi tháng (sai số dương).
 Cắt: chỉ còn một năm rưỡi dữ liệu, hệ số mùa vụ ước lượng thô, và đà hồi phục bị kéo dài quá tay (sai số âm, dự báo cao hơn thực tế).
 Hyndman & Rostami-Tabar (2024) cũng khuyên coi giai đoạn gián đoạn là thiếu khi chỉ cần dự báo **sau** gián đoạn.
 

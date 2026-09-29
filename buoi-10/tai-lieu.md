@@ -85,6 +85,10 @@ tại thì nó không thấy.
 **Đọc bảng.** `isna()` báo 1 ô thiếu (02:00). Nhưng từ 00:00 tới 02:30 phải có 6 mốc: mốc 01:00 không có dòng nào. Dựng lưới 6 mốc rồi
 `reindex` thì mốc đó hiện ra thành NaN: thiếu thật là **2**.
 
+![thiếu mốc / thiếu giá trị](hinh/kn-thieu-moc-thieu-gia-tri.png)
+
+**Cách đọc hình.** Trục ngang là sáu mốc 30 phút. Chấm xanh là có số, dấu x đỏ là dòng có mặt nhưng ô rỗng (`isna()` thấy), khung cam là mốc không có dòng nào: chỉ dựng lưới rồi `reindex` mới thấy nó.
+
 ```python
 luoi = pd.date_range(bang.index.min(), bang.index.max(), freq="30min")
 day_du = bang.reindex(luoi)          # thiếu mốc → dòng NaN
@@ -135,6 +139,10 @@ tính cả mốc 00:00), hay chỉ tin `isna()`.
   lầm: không phải "ngẫu nhiên", mà là "ngẫu nhiên **sau khi** biết mùa". Điền được nếu cách điền dùng thông tin đó.
 - **MNAR** (thiếu không ngẫu nhiên): việc mất phụ thuộc **chính giá trị bị mất**. Cảm biến bụi quá tải và tắt khi ô nhiễm cực cao. Không
   cách điền nào dựa trên dữ liệu còn lại cứu được, vì phần còn lại đã bị lọc lệch.
+
+![MCAR / MAR / MNAR](hinh/kn-mcar-mar-mnar.png)
+
+**Cách đọc hình.** Chấm xanh là số còn lại, chấm đỏ là số bị mất (số minh hoạ). MCAR mất rải đều; MAR mất dồn trong vùng xám (mùa mưa, thứ đã đo được); MNAR mất đúng các đỉnh trên vạch đứt, nên phần còn lại thấp hơn thật.
 
 **Ví dụ số nhỏ — tự tính tay.** Bốn giờ PM2.5 thật $(10, 20, 30, 40)$, trung bình 25. Cảm biến tắt khi giá trị trên 30 (MNAR).
 
@@ -218,6 +226,10 @@ Chuỗi nhiệt độ có một đoạn **67 bước liên tiếp** (33,5 giờ)
 Nhưng đặt ngưỡng "đứng yên" 12 giờ thì có tới 24 đoạn, quá nhiều để đều là hỏng. Với độ phân giải một độ, một đêm nhiệt độ thật chỉ đổi
 vài phần mười độ vẫn hiện ra thành giá trị lặp. Quy tắc: **đo độ phân giải trước**, rồi mới đặt ngưỡng; buổi này dùng 18 giờ.
 
+![cảm biến đứng yên (stuck sensor)](hinh/kn-cam-bien-dung-yen-stuck-sensor.png)
+
+**Cách đọc hình.** Trục ngang là giờ; xanh là nhiệt độ thật, cam là số ghi được (số minh hoạ). Trái: thật đổi chưa tới 1 °C, ghi tới 1 °C nên đứng yên, không phải hỏng. Phải: thật đổi vài độ mà số ghi vẫn đứng yên: cảm biến kẹt.
+
 **Cờ chất lượng: đọc tài liệu nguồn, đừng đoán.** Theo tài liệu GHCNh (bảng 3):
 
 | Mã | Nghĩa |
@@ -280,6 +292,10 @@ Mùa vụ và hàng xóm mang thêm thông tin về **hình dạng** của đo�
 trung bình cùng giờ của mọi ngày trong chuỗi; Kalman smoother khớp một mô hình (mức đổi dần + nhịp ngày) rồi ước lượng ô thiếu từ cả hai
 phía.
 
+![điền dữ liệu (imputation)](hinh/kn-dien-du-lieu-imputation.png)
+
+**Cách đọc hình.** Trục ngang là sáu giờ liền, đường đen là giá trị thật, hai ô giữa bị thiếu. `ffill` giữ 23, tuyến tính nối thẳng; mùa vụ và hàng xóm mang theo hình dạng nên bám sát đỉnh thật.
+
 | Cách | Dùng khi | KHÔNG dùng khi | Nhân quả |
 |---|---|---|---|
 | `ffill` | lỗ rất ngắn; dữ liệu bậc thang (giá niêm yết, tồn kho) | lỗ dài: tạo đoạn phẳng giả | có |
@@ -317,6 +333,10 @@ thật. Nhưng che thế nào?
 
 **Trực giác.** Kiểu che phải giống cách dữ liệu thật bị mất. Che rải rác từng điểm là thi "lỗ một bước", nơi hai điểm hai bên gần như luôn
 đủ để đoán. Cảm biến chết hai ngày là bài thi khác hẳn.
+
+![che nhân tạo](hinh/kn-che-nhan-tao.png)
+
+**Cách đọc hình.** Cùng một chuỗi (số minh hoạ), chấm đỏ là ô bị che rồi điền lại để chấm. Trên: che rải từng điểm, ô nào cũng còn số ngay hai bên. Dưới: che một khối, mất cả một chu kỳ ngày, bài thi khó hơn hẳn.
 
 **Ví dụ số nhỏ — tự tính tay.** Một ngày nhiệt độ: 20, 21, 23, 25, 26, 25, 23, 21; ngày hôm trước y hệt.
 
@@ -388,6 +408,10 @@ kiểm đã chảy vào tập học.
 - `ffill` điền **20**, cắt hay không cắt đều ra 20: nhân quả.
 - Tuyến tính điền **25** khi có số 30 phía sau. Cắt dữ liệu tại mốc thứ hai thì không còn 30, nó không điền được (hoặc điền khác). Kết quả
   trước mốc cắt **đổi** khi thêm tương lai: rò rỉ.
+
+![nhân quả (cách điền)](hinh/kn-nhan-qua-cach-dien.png)
+
+**Cách đọc hình.** Vạch đứt là mốc cắt: bên trái đã biết, bên phải là tương lai. `ffill` (vuông xanh) chỉ nhìn quá khứ; tuyến tính (thoi đỏ) điền 25 nhờ số 30 bên phải vạch, tức là dùng tương lai.
 
 **Bài kiểm tự động** (khung `tv.ro_ri`, buổi 12 dựng kỹ): chạy hàm làm sạch trên dữ liệu đầy đủ và trên dữ liệu bị cắt tại một mốc, rồi so
 phần trước mốc cắt. Khác nhau là rò rỉ. **Mốc cắt phải nằm trong một lỗ**: cắt ở chỗ dữ liệu liền thì cách điền dùng tương lai vẫn cho kết
