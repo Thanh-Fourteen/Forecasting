@@ -21,6 +21,7 @@ import tempfile
 from pathlib import Path
 
 import matplotlib
+import numpy as np
 from matplotlib.font_manager import FontProperties
 from matplotlib.mathtext import math_to_image
 from PIL import Image
@@ -212,7 +213,7 @@ PHU = {
         "4.6": ["doi-nguoc"]},
     6: {"4.1": ["phan-ra", "phan-ra-cach"], "4.2": ["phan-ra", "phan-ra-cach"], "4.3": ["ty-le-mau-hinh", "chu-ky-sai"], "4.4": ["phan-ra-cach", "stl-loess"], "4.5": ["f-s"],
         "4.6": ["robust", "chu-ky-sai"]},
-    7: {"4.1": ["acf"], "4.2": ["pacf", "ar"], "4.3": ["ljung-box", "ljung-box-q"], "4.4": ["dung", "random-walk", "bon-chuoi"], "4.5": ["adf-kpss-la-gi", "adf-kpss"], "4.6": ["sai-phan", "sai-phan-la-gi", "quy-trinh-chuoi-la"]},
+    7: {"4.1": ["acf", "acf-ba-hinh"], "4.2": ["pacf", "ar"], "4.3": ["ljung-box", "ljung-box-q"], "4.4": ["dung", "random-walk", "bon-chuoi"], "4.5": ["adf-kpss-la-gi", "adf-kpss", "adf-kpss-bon-chuoi"], "4.6": ["sai-phan", "sai-phan-la-gi", "sai-phan-bao-nhieu", "quy-trinh-chuoi-la"]},
     8: {"4.1": ["scatter", "spearman"], "4.2": ["durbin-watson", "tuong-quan-gia"], "4.3": ["cdd-hdd", "mi", "hoan-vi-khoi", "chu-u"], "4.4": ["ccf", "prewhitening"], "4.5": ["truot"],
         "4.6": ["granger"]},
     9: {"4.1": ["dac-trung"], "4.2": ["entropy", "pho"], "4.3": ["do-kho"], "4.4": ["ban-do-pca"], "4.5": ["dtw"],
@@ -512,28 +513,28 @@ KN = {
     "pacf": dict(
         tieu="PACF: trễ xa còn thêm gì sau trễ gần?", phan="A", buoi="Buổi 7", hinh=(7, "bon-chuoi"),
         muc="Biết cần bao nhiêu bước quá khứ để dự báo, tức bậc AR.",
-        la_gi="PACF ở trễ k là phần tương quan còn lại sau khi đã bỏ phần mà các trễ ngắn hơn giải thích.",
+        la_gi="Như tin đồn A → B → C: biết B rồi thì A không cho C thêm gì. PACF trễ k là phần tương quan còn lại sau khi bỏ phần các trễ ngắn hơn đã giải thích.",
         doc_tieu="Nhận ra thế nào",
         doc="PACF cao ở trễ 1 rồi tắt hẳn: chỉ cần hôm qua, tức AR(1). ACF giảm rất chậm qua nhiều trễ: chuỗi chưa dừng.",
-        vi_du="Chuỗi AR(1) với φ = 0,7: ACF giảm dần; PACF ở trễ 1 là 0,713, ở trễ 2 chỉ còn −0,110.",
+        vi_du="AR(1), φ = 0,7: r₁ = 0,7, r₂ = 0,49, PACF(2) = (0,49 − 0,49) / (1 − 0,49) = 0. Chuỗi có r₁ = 0,5, r₂ = 0,4: (0,4 − 0,25) / 0,75 = 0,2, trễ 2 có thông tin riêng.",
         dg="sau khi biết quá khứ gần, quá khứ xa còn thông tin gì?"),
     "ljung-box": dict(
         tieu="Đừng đếm cột vượt dải: dùng Ljung-Box", phan="A", buoi="Buổi 7, 14", hinh=(7, "nhieu-trang"),
         muc="Kiểm một chuỗi, hay phần dư của mô hình, đã hết quy luật chưa, bằng một con số.",
-        la_gi="Ljung-Box gộp ACF của nhiều trễ vào một kiểm định, với giả định ban đầu H0 là chuỗi chỉ là nhiễu trắng.",
+        la_gi="Nhiễu trắng: mọi r_k thật đều bằng 0. Ljung-Box gộp ACF của nhiều trễ vào một kiểm định, H0: chuỗi là nhiễu trắng.",
         doc_tieu="p lớn hay nhỏ nghĩa là gì",
         thang=[("p < 0,05", "còn quy luật chưa khai thác"), ("p ≥ 0,05", "chưa thấy quy luật nào còn sót")],
-        vi_du="1.000 chuỗi nhiễu trắng thuần: 62% vẫn có ít nhất một cột ACF vượt dải. Vì vậy đừng đếm cột.",
+        vi_du="Mỗi cột có 5% khả năng vượt dải dù là nhiễu, nên 20 trễ có trung bình 1 cột vượt; 62% chuỗi nhiễu có ít nhất một cột.",
         dg="Ljung-Box hỏi: các ACF từ trễ 1 tới trễ ℓ có cùng bằng 0 không?"),
     "dung": dict(
         tieu="Chuỗi dừng: mức và dao động không đổi", phan="A", buoi="Buổi 7", hinh=(7, "kn-dung"),
         muc="Biết chuỗi có “mức để quay về” không, để chọn sai phân hay khử xu hướng.",
-        la_gi="Chuỗi có trung bình và độ dao động giữ nguyên theo thời gian, như luôn có một mức để quay về.",
+        la_gi="Mức trung bình, độ dao động và tự tương quan (chỉ phụ thuộc khoảng cách k) không đổi theo thời gian. Chu kỳ dài ngắn không đều vẫn có thể dừng.",
         doc_tieu="Nhận ra thế nào",
         doc="Dừng thì dao động quanh một mức. Dừng quanh xu hướng thì bám một đường. Random walk thì trôi đi, không quay "
             "về. Kiểm lại bằng ADF và KPSS.",
-        vi_du="Phòng máy lạnh 25 °C là dừng; chiều cao một đứa trẻ là dừng quanh xu hướng; tung đồng xu rồi bước là random walk.",
-        dg="nhiễu trắng là khi quá khứ không có “ký ức” gì về tương lai."),
+        vi_du="Chiều cao một đứa trẻ: dừng quanh xu hướng. Số dư tài khoản tiêu lương tuỳ ý: random walk. Đầu tháng luôn đưa về đúng 10 triệu: số dư cuối tháng dừng.",
+        dg="như phòng máy lạnh đặt 25 °C: lúc 24,5, lúc 25,8, nhưng luôn bị kéo về 25."),
     "scatter": dict(
         tieu="Vẽ scatter trước khi tin r", phan="A", buoi="Buổi 2, 8", hinh=(8, "anscombe"),
         muc="Đo hai đại lượng đi cùng nhau tới đâu, sau khi đã nhìn hình dạng của quan hệ.",
@@ -1592,6 +1593,36 @@ def anh(slide, b: int, ten: str, x, y, w, h, nhan: str | None = None):
 
 
 matplotlib.rcParams["mathtext.fontset"] = "dejavusans"
+
+
+def ve_ba_hinh_acf() -> Path:
+    """Hình minh hoạ ba hình dạng ACF: chuỗi mô phỏng (seed 7) ở hàng trên, ACF của nó ở hàng dưới."""
+    import matplotlib.pyplot as plt
+    rng = np.random.default_rng(7)
+    t = np.arange(480)
+    e = rng.normal(size=480)
+    ba = [("Nhiễu trắng: quanh 0", e), ("Random walk: giảm rất chậm", e.cumsum()),
+          ("Mùa vụ 24 giờ: đỉnh ở 24, 48", 2 * np.sin(2 * np.pi * t / 24) + e)]
+    fig, truc = plt.subplots(2, 3, figsize=(12.13, 3.9), gridspec_kw={"height_ratios": [1, 1.6]})
+    for j, (ten, y) in enumerate(ba):
+        truc[0, j].plot(y[:200], lw=0.8, color="#5B6778")
+        truc[0, j].set_title(ten, fontsize=12, fontweight="bold", color="#1B2A41")
+        truc[0, j].set_yticks([])
+        lech = y - y.mean()
+        r = np.array([np.sum(lech[k:] * lech[:len(y) - k]) / np.sum(lech**2) for k in range(1, 61)])
+        truc[1, j].bar(np.arange(1, 61), r, width=0.7, color="#0F8B8D", zorder=2)
+        truc[1, j].axhspan(-1.96 / np.sqrt(len(y)), 1.96 / np.sqrt(len(y)), color="0.85", zorder=0)
+        truc[1, j].set(ylim=(-1, 1), xticks=[0, 12, 24, 36, 48, 60])
+        truc[1, j].set_xlabel("độ trễ k", fontsize=10)
+    truc[0, 0].set_ylabel("chuỗi", fontsize=10)
+    truc[1, 0].set_ylabel("ACF r_k", fontsize=10)
+    for ax in truc.flat:
+        ax.spines[["top", "right"]].set_visible(False)
+    fig.tight_layout()
+    ra = TAM / "ba-hinh-acf.png"
+    fig.savefig(ra, dpi=200)
+    plt.close(fig)
+    return ra
 DPI_CT = 300
 
 
@@ -2266,6 +2297,19 @@ def xay() -> Presentation:
     khai_niem(prs, "f-s")
     khai_niem(prs, "robust")
 
+    # Bản 2: ba hình dạng ACF (buoi-07/tai-lieu.md mục 4.1), hình minh hoạ vẽ lúc chạy (ve_ba_hinh_acf).
+    sl = moi(prs, "acf-ba-hinh", "Ba hình dạng ACF cần nhận ra", "A", "Buổi 7",
+             "ACF quanh 0 là nhiễu trắng, giảm rất chậm là chưa dừng, có đỉnh đều là mùa vụ.")
+    KHONG_DEM.add(len(prs.slides))
+    mau = PHAN["A"][1]
+    yb = dau_than("acf-ba-hinh", True) + 0.05
+    sl.shapes.add_picture(str(ve_ba_hinh_acf()), Inches(0.6), Inches(yb), Inches(12.13), Inches(5.3 - yb))
+    ba = [("Nhiễu trắng", "Quá khứ không có “ký ức” về tương lai: mọi r_k quanh 0, trong dải xám ±1,96/√T."),
+          ("Xu hướng, random walk", "r₁ gần 1 và r_k giảm rất chậm khi k tăng: chuỗi chưa dừng. Nhìn ACF chưa tách được hai loại này."),
+          ("Mùa vụ", "r_k có đỉnh ở bội số của chu kỳ: 24, 48… với dữ liệu giờ; thêm đỉnh cao hơn ở 168 nếu có nhịp tuần.")]
+    for i, (t, v) in enumerate(ba):
+        the(sl, 0.6 + i * 4.11, 5.45, 3.91, 1.65, t, v, mau, NHAT, co=13)
+
     khai_niem(prs, "ar")
     khai_niem(prs, "pacf")
 
@@ -2330,7 +2374,54 @@ def xay() -> Presentation:
         "“c” hỏi dừng quanh một mức; “ct” hỏi dừng quanh một đường xu hướng. Khai sai dạng là kết luận sai.", PHAN["A"][1], NHAT,
         co=14)
 
+    # Bản 2: bảng ADF/KPSS dạng "c" và "ct" trên bốn chuỗi mô phỏng (buoi-07/tai-lieu.md mục 4.5, seed 42).
+    sl = moi(prs, "adf-kpss-bon-chuoi", "ADF, KPSS trên bốn chuỗi: “c” hay “ct”", "A", "Buổi 7",
+             "không bác bỏ chưa phải là chứng minh: kiểm định là bằng chứng, không phải phán quyết.")
+    KHONG_DEM.add(len(prs.slides))
+    yb = dau_than("adf-kpss-bon-chuoi", True) + 0.1
+    xanh_o, cam_o, do_o = (XANH_NHAT, XANH), ("FDF0E8", "B4541B"), (DO_NHAT, DO)
+    o_bang(sl, 0.6, yb, [["Chuỗi (500 điểm)", "ADF c", "KPSS c", "ADF ct", "KPSS ct", "Kết luận"],
+                         ["nhiễu trắng", "0,000", "≥ 0,10", "0,000", "≥ 0,10", "dừng"],
+                         ["AR(1), φ = 0,7", "0,000", "≥ 0,10", "0,000", "≥ 0,10", "dừng"],
+                         ["random walk", "0,073", "≤ 0,01", "0,214", "≤ 0,01", "không dừng: sai phân"],
+                         ["xu hướng 0,05t", "0,906", "≤ 0,01", "0,000", "≥ 0,10", "dừng quanh xu hướng: khử xu hướng"]],
+           [2.3, 1.3, 1.3, 1.3, 1.3, 4.63], cao=0.62, co=14,
+           to={(1, 5): xanh_o, (2, 5): xanh_o, (3, 5): do_o, (4, 5): cam_o, (4, 1): cam_o, (4, 2): cam_o, (3, 1): do_o})
+    the(sl, 0.6, yb + 3.35, 3.91, 1.75, "Đọc dòng 4",
+        "Dạng “c” nói không dừng, bảo sai phân. Dạng “ct” mới thấy chuỗi dừng quanh một đường: chỉ cần khử xu hướng.",
+        "B4541B", "FDF0E8", co=13)
+    the(sl, 4.71, yb + 3.35, 3.91, 1.75, "Đọc dòng 3",
+        "Random walk có ADF p = 0,073: dùng mức 10% sẽ gọi nhầm là dừng. KPSS bắt được (≤ 0,01).", DO, DO_NHAT, co=13)
+    the(sl, 8.82, yb + 3.35, 3.91, 1.75, "Hai lời nhắc",
+        "ADF hay bỏ sót chuỗi dừng mà rất gần random walk. p của KPSS bị cắt ở 0,01 và 0,1: “0,10” nghĩa là ≥ 0,1.",
+        LAM, LAM_NHAT, co=13)
+
     khai_niem(prs, "sai-phan-la-gi")
+
+    # Bản 2: sai phân bao nhiêu lần là đủ (buoi-07/tai-lieu.md mục 4.6).
+    sl = moi(prs, "sai-phan-bao-nhieu", "Sai phân bao nhiêu lần là đủ", "A", "Buổi 7",
+             "sai phân tới khi KPSS thôi bác bỏ, nhưng dừng tay nếu r₁ về gần −0,5 hoặc độ lệch chuẩn tăng.")
+    KHONG_DEM.add(len(prs.slides))
+    mau = PHAN["A"][1]
+    yb = dau_than("sai-phan-bao-nhieu", True) + 0.05
+    chu(sl, 0.6, yb, 5.9, 0.35, "Tính tay: sai phân một chuỗi đã dừng", co=15, dam=True, mau=mau)
+    o_bang(sl, 0.6, yb + 0.42, [["", "Các số", "Độ lệch chuẩn"], ["chuỗi đã dừng", "2, −1, 0, 1, −2, 0", "1,41"],
+                                ["sau sai phân", "−3, 1, 1, −3, 2", "2,41"]],
+           [1.8, 2.6, 1.5], cao=0.5, co=14, to={(2, 2): (DO_NHAT, DO)})
+    chu(sl, 0.6, yb + 2.05, 5.9, 1.0, "Độ lệch chuẩn tăng gấp 1,7 và r₁ ≈ −0,50: mỗi số gốc có mặt trong hai hiệu liền nhau với hai dấu "
+        "ngược nhau, nên lên thì lần sau xuống.", co=13)
+    the(sl, 0.6, yb + 3.15, 5.9, 1.7, "Dữ liệu thật: GDP Mỹ",
+        "Log GDP chưa dừng, sai phân một lần ra tăng trưởng. Theo KPSS máy móc thì sai phân lần hai, nhưng lần hai cho r₁ = −0,488 và "
+        "độ lệch chuẩn 1,105 → 1,455: thừa. Dừng ở một lần.", LAM, LAM_NHAT, co=13)
+    chu(sl, 6.9, yb, 5.83, 0.35, "Có mùa vụ: sai phân mùa vụ trước", co=15, dam=True, mau=mau)
+    o_bang(sl, 6.9, yb + 0.42, [["Lượt thuê, log, m = 168", "r₁", "r₂₄", "r₁₆₈", "Độ lệch chuẩn"],
+                                ["chưa sai phân", "0,898", "0,863", "0,896", "1,430"],
+                                ["sai phân thường", "0,493", "0,676", "0,767", "0,643"],
+                                ["sai phân mùa vụ 168", "0,732", "0,161", "−0,465", "0,589"],
+                                ["168 rồi thường", "−0,249", "0,028", "−0,498", "0,427"]],
+           [2.23, 0.85, 0.85, 0.85, 1.05], cao=0.52, co=13, to={(2, 2): (DO_NHAT, DO), (2, 3): (DO_NHAT, DO)})
+    chu(sl, 6.9, yb + 3.15, 5.83, 1.7, "Chỉ sai phân thường thì r₂₄, r₁₆₈ vẫn lớn: mùa vụ còn nguyên. Sai phân mùa vụ bỏ được nhịp ngày "
+        "và tuần; thêm sai phân thường thì độ lệch chuẩn giảm tiếp và r₁ chưa tới −0,5, nên cả hai lần đều đáng.", co=13)
 
     # Bản 2: gói buổi 7 thành một quy trình (người học ghi lại quy trình này khi học).
     sl = moi(prs, "quy-trinh-chuoi-la", "Gặp một chuỗi lạ: bảy bước của buổi 7", "A", "Buổi 7",

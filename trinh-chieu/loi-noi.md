@@ -293,6 +293,15 @@ Nhìn hình: trục ngang là độ trễ k tính bằng giờ, tới 336; trụ
 
 Còn ở trễ 12, tức nửa vòng ngày, đỉnh ghép với đáy nên r chỉ là âm 0,143. Cho nên đọc ACF theo vòng lặp, đừng đọc theo dấu của từng cột.
 
+## acf-ba-hinh
+Trước khi đi tiếp, chúng ta cần nhận ra ngay ba hình dạng của ACF, vì cả buổi 7 dựa vào đó.
+
+(chỉ vào hình) Hàng trên là ba chuỗi mô phỏng, hàng dưới là ACF của từng chuỗi; dải xám là cộng trừ 1,96 chia căn T, vùng coi như bằng 0.
+
+Cột trái là nhiễu trắng: quá khứ không có ký ức gì về tương lai, nên mọi cột nằm quanh 0, trong dải xám. Thỉnh thoảng một cột chạm ra ngoài là bình thường; slide Ljung-Box sẽ nói vì sao. Cột giữa là random walk: r1 gần 1 và các cột giảm rất chậm, dấu hiệu chuỗi chưa dừng. Chuỗi có xu hướng cũng cho hình như vậy, nên nhìn ACF chưa tách được hai loại này. Cột phải là chuỗi có mùa vụ 24 giờ: ACF có đỉnh đều ở 24, 48, xuống âm ở 12, 36, là lúc đỉnh ghép với đáy.
+
+(dừng) Quanh 0 là nhiễu trắng, giảm rất chậm là chưa dừng, có đỉnh đều là mùa vụ.
+
 ## code-b04-acf
 Tự viết ACF để thấy nó không có gì bí ẩn. Dòng 6 và 7 lấy độ lệch của từng điểm khỏi trung bình; mẫu số là tổng bình phương độ lệch trên cả chuỗi. Dòng 8 và 9: với mỗi trễ k, cộng tích độ lệch bây giờ với độ lệch k bước trước, rồi chia cho mẫu số đó. nansum để ô trống không biến cả phép cộng thành NaN.
 
@@ -368,7 +377,9 @@ Nhìn hình: đường xám có tự tương quan gần 0, lộn xộn; đườn
 AR(p) dùng p bước trước. Mấy slide tới đều dựa vào mô hình này: PACF chỉ ra p, ADF kiểm ρ có bằng 1 không, prewhitening dùng AR để lọc.
 
 ## pacf
-ACF ở trễ 2 lớn có thể chỉ vì hôm nay giống hôm qua và hôm qua giống hôm kia. PACF tách phần đó ra: PACF trễ k là phần tương quan còn lại sau khi bỏ những gì các trễ ngắn hơn đã giải thích.
+ACF ở trễ 2 lớn có thể chỉ vì hôm nay giống hôm qua và hôm qua giống hôm kia. Giống tin đồn truyền qua ba người A, B, C: C giống A chỉ vì cả hai nối qua B; biết B rồi thì A không cho C thêm gì. PACF đo đúng phần “thêm” đó: phần tương quan còn lại sau khi bỏ những gì các trễ ngắn hơn đã giải thích.
+
+Ở trễ 2 có công thức gọn trên slide: lấy r2 trừ phần đi qua trễ 1 là r1 bình phương, rồi chia cho 1 trừ r1 bình phương. AR(1) với phi 0,7: r1 là 0,7, r2 là 0,49, tử số bằng 0, nên PACF trễ 2 bằng 0. Một chuỗi có r1 0,5 và r2 0,4 thì ra 0,2: trễ 2 có thông tin riêng.
 
 Nhìn hình: bốn hàng là bốn chuỗi dựng từ cùng một dãy nhiễu; cột giữa là ACF, cột phải là PACF, dải xám là vùng coi như 0. Hàng AR(1) φ bằng 0,7: ACF giảm dần qua vài trễ, còn PACF trễ 1 là 0,713 rồi trễ 2 chỉ còn âm 0,110. PACF cắt sau trễ 1 nghĩa là chỉ cần hôm qua, tức AR(1).
 
@@ -382,7 +393,7 @@ Dòng 14 đến 16 tính ACF, PACF 30 trễ và giữ vài con số. Để ý d�
 Kết quả: AR(1) có ACF giảm nhanh, PACF cắt sau trễ 1. Random walk và xu hướng đều có r1 gần 0,98, không phân biệt được bằng ACF.
 
 ## ljung-box
-Cách đọc ACF hay gặp là đếm cột vượt dải. Slide này cho thấy vì sao không nên.
+Nhiễu trắng là chuỗi mà mọi tự tương quan thật đều bằng 0. Cách đọc ACF hay gặp là đếm cột vượt dải. Slide này cho thấy vì sao không nên: mỗi cột giống một lần tung đồng xu có 5% khả năng vượt dải dù chuỗi là nhiễu thuần, nên nhìn 20 trễ thì trung bình có 1 cột vượt.
 
 Hình trái: nhiễu trắng 500 điểm, trục ngang là độ trễ tới 20, dải xám là cộng trừ 1,96 chia căn T; vẫn có cột chạm ra ngoài. Hình phải mô phỏng 1.000 chuỗi nhiễu trắng thuần: trục ngang là số cột vượt dải trong 20 trễ, trục dọc là số chuỗi. Trung bình mỗi chuỗi có 0,95 cột vượt, và 62% số chuỗi có ít nhất một cột vượt, dù chẳng có quy luật nào.
 
@@ -394,11 +405,13 @@ Ljung-Box thay việc đếm cột bằng một con số Q sao và một p-value
 Dòng 10 đến 12 dùng acorr_ljungbox kiểm 10 trễ trên ba chuỗi nhiễu trắng: p từ 0,081 tới 0,885, đều không bác bỏ, đúng như mong đợi. Dòng 14 thêm model_df bằng 2, như khi kiểm sai số của một mô hình hai tham số: bậc tự do giảm, p nhỏ đi. Quên model_df thì dễ tin nhầm phần dư đã sạch.
 
 ## dung
-Giờ là khái niệm trung tâm của buổi 7: chuỗi dừng, tức mức trung bình và độ dao động ổn định theo thời gian.
+Giờ là khái niệm trung tâm của buổi 7: chuỗi dừng. Định nghĩa đủ gồm ba điều: mức trung bình không đổi, độ dao động không đổi, và tương quan giữa hai điểm chỉ phụ thuộc chúng cách nhau bao xa, không phụ thuộc đang ở thời điểm nào.
 
 Nhìn hình, ba hàng. Hàng trên là dừng: như nhiệt độ phòng máy lạnh đặt 25 độ, lúc 24,5, lúc 25,8, nhưng luôn bị kéo về 25. Hàng giữa là dừng quanh xu hướng: như chiều cao một đứa trẻ, bám theo một đường; bỏ đường đó đi thì phần còn lại dừng. Hàng dưới là random walk: như tung đồng xu rồi bước tới hoặc lùi, không có chỗ nào để quay về.
 
 Hai loại không dừng cần hai cách chữa: random walk thì sai phân, dừng quanh xu hướng thì khử xu hướng. Nhìn hình rất khó phân biệt, nên phải kiểm bằng ADF và KPSS. Thêm hai ý: chuỗi có chu kỳ lên xuống không đều vẫn có thể dừng; và với random walk, dự báo tốt nhất là naive, lấy giá trị cuối.
+
+Thử với số dư tài khoản: nhận lương rồi tiêu tuỳ ý, không có mức nào phải quay về, đó là random walk. Nhưng nếu đầu tháng nào cũng đưa số dư về đúng 10 triệu, chuyển phần dư sang tiết kiệm, thì số dư cuối tháng dao động quanh 10 triệu: dừng.
 
 ## code-b07-random-walk
 Code này cho thấy random walk khác chuỗi dừng ở đâu, và vì sao mỗi loại cần thuốc riêng. Dòng 4 đến 6 mô phỏng 10.000 người tung đồng xu, mỗi người 100 bước, cumsum ra vị trí. Dòng 7 đo độ lệch chuẩn vị trí sau 4, 25 và 100 bước. Kết quả: số bước gấp 25 lần thì độ lệch chuẩn gấp 5 lần, từ 2,0 lên 10,1. Dao động lớn dần theo thời gian, nên random walk không dừng.
@@ -421,6 +434,15 @@ Ví dụ thật bên phải: tăng trưởng GDP Mỹ theo quý 1947 đến 2026
 
 Hai điều nữa: khai cùng một dạng cho cả hai, c là quanh một mức, ct là quanh một đường xu hướng; và p của KPSS bị cắt ở 0,01 và 0,1, nên "p bằng 0,10" nghĩa là từ 0,1 trở lên, không phải "rất dừng".
 
+## adf-kpss-bon-chuoi
+Chạy ADF và KPSS trên bốn chuỗi mẫu, cả hai dạng “c” và “ct”, để thấy vì sao phải khai dạng cho đúng.
+
+Hai dòng đầu, nhiễu trắng và AR(1), cả bốn cột đều nói dừng. Dòng ba, random walk: KPSS bác bỏ mạnh, ADF p bằng 0,073. Nếu ai đó dùng mức 10% thì sẽ gọi nhầm random walk là dừng; KPSS bắt được chỗ này.
+
+(chỉ vào dòng cam) Dòng bốn là chuỗi xu hướng. Dạng “c” hỏi có dừng quanh một mức cố định không, nên cả hai nói không dừng và bảo sai phân. Dạng “ct” hỏi quanh một đường thẳng, thì cả hai nói dừng. Kết luận đúng là dừng quanh xu hướng: chỉ cần khử xu hướng, sai phân là thừa.
+
+Hai lời nhắc: ADF hay bỏ sót chuỗi dừng mà rất gần random walk, nên không bác bỏ chưa phải là chứng minh. Và p của KPSS trong statsmodels bị cắt ở 0,01 và 0,1: thấy 0,10 thì đọc là lớn hơn hoặc bằng 0,1, không phải “rất dừng”.
+
 ## code-b07-adf-kpss
 Gói bảng 2 nhân 2 thành hai hàm. Dòng 4: tham số dang là c hoặc ct, dùng chung cho cả hai kiểm định. Dòng 6 và 7: adfuller với autolag AIC tự chọn số trễ; p nhỏ là có bằng chứng dừng. Dòng 8 và 9: kpss với nlags auto; p nhỏ là có bằng chứng không dừng. Dòng 11 đến 14: o_bang đổi cặp câu hỏi "ADF có bác bỏ, KPSS có bác bỏ" thành một trong bốn kết luận.
 
@@ -434,6 +456,17 @@ Thuốc cho random walk là sai phân. Sai phân thay mỗi giá trị bằng hi
 Nhìn hình: góc trên trái là log GDP thực của Mỹ theo quý, trôi lên mãi, và ACF ngay dưới giảm rất chậm. Góc trên phải là sai phân log, gần bằng phần trăm tăng mỗi quý: dao động quanh 0,76%, và ACF bên dưới chỉ còn vài trễ đầu. Chuỗi trôi đi đã thành chuỗi có mức để quay về.
 
 Khi nào dùng: random walk thì sai phân một lần; có mùa vụ thì sai phân mùa vụ trước; dừng quanh xu hướng thì khử xu hướng, sai phân thêm là thừa. Để ý cú sốc lớn quanh năm 2020 bên phải, chính là lý do ô mâu thuẫn ở slide trước.
+
+## sai-phan-bao-nhieu
+Sai phân chữa random walk, nhưng sai phân thêm một chuỗi đã dừng lại làm hỏng nó. Vậy dừng tay ở đâu?
+
+(chỉ vào bảng trái) Chuỗi 2, âm 1, 0, 1, âm 2, 0 đã dừng, độ lệch chuẩn 1,41. Sai phân nó ra âm 3, 1, 1, âm 3, 2: độ lệch chuẩn tăng lên 2,41, và r1 khoảng âm 0,5. Lý do là mỗi số gốc có mặt trong hai hiệu liền nhau với hai dấu ngược nhau, nên lên thì lần sau xuống. Đó là hai dấu hiệu sai phân thừa: r1 về gần âm 0,5, và độ lệch chuẩn tăng.
+
+GDP Mỹ là ví dụ thật: log GDP chưa dừng, sai phân một lần ra tăng trưởng. Theo KPSS máy móc thì phải sai phân thêm lần nữa, nhưng lần hai cho r1 âm 0,488 và độ lệch chuẩn tăng từ 1,105 lên 1,455. Dừng ở một lần.
+
+Bảng phải: chuỗi có mùa vụ thì sai phân mùa vụ trước. Lượt thuê theo giờ, thang log. Chỉ sai phân thường thì r24, r168 vẫn lớn, mùa vụ còn nguyên. Sai phân mùa vụ 168 bỏ được nhịp ngày và tuần. Thêm một lần sai phân thường nữa thì độ lệch chuẩn giảm tiếp và r1 chưa tới âm 0,5, nên cả hai lần đều đáng.
+
+Quy tắc: sai phân tới khi KPSS thôi bác bỏ, nhưng dừng tay nếu thấy hai dấu hiệu thừa.
 
 ## quy-trinh-chuoi-la
 Toàn bộ buổi 7 gói lại thành bảy bước, dùng mỗi khi gặp một chuỗi lạ.

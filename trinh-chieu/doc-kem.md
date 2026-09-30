@@ -1477,48 +1477,7 @@ for k in (1, 12, 24, 168):               # r của từng lag plot
 
 **Kết quả:** Chuỗi nhỏ: r₂ = −0,75, r₄ = 0,5. Dữ liệu thật: r₁₆₈ = 0,864 cao hơn r₁₄₄ = 0,786; lag plot trễ 168 cho r = 0,876.
 
-## 64. Code: ACF tự viết và ba hình dạng
-<!-- ma: code-b07-acf -->
-
-Tự tính ACF bằng vài dòng NumPy, khớp với thư viện, rồi nhìn ba hình dạng cần nhớ.
-
-```python
-import numpy as np
-from statsmodels.tsa.stattools import acf
-
-def acf_tu_viet(y, so_tre):
-    y = np.asarray(y, dtype=float)
-    lech = y - np.nanmean(y)                  # độ lệch khỏi trung bình
-    mau = np.nansum(lech**2)                  # mẫu: tính trên CẢ chuỗi
-    return np.array([1.0] + [np.nansum(lech[k:] * lech[:-k]) / mau
-                             for k in range(1, so_tre + 1)])
-
-y = [2, 3, 5, 6, 5, 3]
-print(acf_tu_viet(y, 2)[1:])                  # tự viết
-print(acf(y, nlags=2, adjusted=False)[1:])    # thư viện, phải ra y hệt
-e = np.random.default_rng(42).normal(size=500)
-ba = {"nhiễu trắng": e, "random walk": e.cumsum()}
-r = {ten: acf_tu_viet(v, 30) for ten, v in ba.items()}
-```
-
-*Rút gọn từ buoi-07/tu-hoc.ipynb, phần 1.*
-
-**Thư viện và hàm:**
-
-- `acf_tu_viet` (tự viết): Hệ số tự tương quan r_k cho các trễ 0 tới so_tre, trễ 0 luôn là 1.
-- `acf(y, nlags, adjusted=False)` (statsmodels): Cùng phép tính đó; adjusted=False để chia cho tổng của cả chuỗi.
-- `cumsum()` (numpy): Cộng dồn: biến dãy nhiễu thành đường đi của random walk.
-
-**Từng bước:**
-
-- Dòng 6–7: Lấy độ lệch, mẫu số chung cho mọi trễ.
-- Dòng 8–9: Mỗi trễ k: cộng tích hai độ lệch cách k bước.
-- Dòng 11–13: Ví dụ tay sáu số, so với statsmodels.
-- Dòng 14–16: Tính ACF cho nhiễu trắng và random walk.
-
-**Kết quả:** r1 = 0,333 và r2 = −0,417 như tính tay. Nhiễu trắng quanh 0; random walk giảm rất chậm; lượt thuê có đỉnh ở trễ 24, 48.
-
-## 65. Trục y cắt, trục kép: thang do người vẽ chọn
+## 64. Trục y cắt, trục kép: thang do người vẽ chọn
 <!-- ma: truc-y-cat -->
 
 *Tiếng Anh: truncated y-axis · dual axis · index to 100*
@@ -1542,7 +1501,7 @@ thật, kể cả khi có ký hiệu báo trục bị cắt.
 Quy ước của khoá: số đếm và tổng (cột, lượt thuê, doanh thu) vẽ trục từ 0. Hai chuỗi khác đơn vị thì tách thành hai hình, hoặc **đánh
 chỉ số**: chia mỗi chuỗi cho giá trị tháng đầu rồi nhân 100, để cả hai cùng bắt đầu ở 100.
 
-## 66. Trộn nhiều năm vào một scatter làm r yếu đi
+## 65. Trộn nhiều năm vào một scatter làm r yếu đi
 <!-- ma: tron-nam -->
 
 *Tiếng Anh: pooling years · level shift · colour by time*
@@ -1564,7 +1523,7 @@ dời lên theo năm. Trục ngang chỉ nên đọc vị trí tương đối, v
 Cách nhận ra: tô màu scatter theo năm (hay theo thời gian). Thấy các đám mây song song thì tính $r$ riêng từng năm, và nhớ rằng phần dời
 mức cần mô hình xử lý riêng, nhiệt độ không giải thích được nó.
 
-## 67. Điều chỉnh lịch, lạm phát, dân số
+## 66. Điều chỉnh lịch, lạm phát, dân số
 <!-- ma: dieu-chinh -->
 
 *Tiếng Anh: calendar adjustment · CPI deflation (real value) · per capita*
@@ -1584,7 +1543,7 @@ Hình: theo tổng tháng, tháng 2/2023 giảm 3,4% so với tháng 1; chia s�
 với tháng 2/2023: so thẳng +14,15%, chia ngày lịch +3,11%, chia ngày không phải Chủ nhật +1,47%, chuỗi đã điều chỉnh của Census
 −1,05%. Không cột nào sai; mỗi cột trả lời một câu hỏi, và báo cáo phải nói đã bỏ những gì.
 
-## 68. Log: cùng % thành cùng khoảng cách
+## 67. Log: cùng % thành cùng khoảng cách
 <!-- ma: log -->
 
 *Tiếng Anh: log transformation · multiplicative → additive*
@@ -1596,7 +1555,7 @@ bên chênh 200. Log chỉ dùng cho số dương.
 Log hợp nhất khi dao động tỷ lệ **đúng** với mức. Bán lẻ Mỹ 1992 → 2019: mức gấp khoảng 3,1 lần mà độ lệch chuẩn trong năm chỉ
 gấp khoảng 2,4. Dao động tăng chậm hơn mức nên log ép quá tay; Box-Cox (slide sau) cho vặn giữa giữ nguyên và log.
 
-## 69. Box-Cox: núm vặn giữa giữ nguyên và log
+## 68. Box-Cox: núm vặn giữa giữ nguyên và log
 <!-- ma: box-cox -->
 
 *Tiếng Anh: Box-Cox transformation · λ (lambda) · Guerrero method · Yeo-Johnson*
@@ -1610,7 +1569,7 @@ chọn λ làm dao động giữa các năm đều nhau nhất. Với bán lẻ 
 
 Box-Cox và log cần số dương. Gặp số 0 hay số âm thì dùng Yeo-Johnson. λ là tham số của mô hình, nên tính lại ở mỗi gốc dự báo.
 
-## 70. Guerrero chọn λ làm dao động các năm đều
+## 69. Guerrero chọn λ làm dao động các năm đều
 <!-- ma: guerrero -->
 
 *Tiếng Anh: Guerrero method · coefficient of variation (CV) · Box-Cox λ*
@@ -1640,7 +1599,7 @@ Trên bán lẻ Mỹ, ô trái của hình vẽ CV theo $\lambda$ từ −1 tớ
 với năm 1992: năm 2019 không biến đổi gấp 2,45 lần, $\lambda$ = 0,34 gấp 1,21, log chỉ 0,84. Lưu ý: `scipy.stats.boxcox` chọn 0,595
 theo tiêu chí khác (giống hình chuông nhất). Trong backtest, $\lambda$ là tham số của mô hình, chỉ được tính từ dữ liệu trước gốc dự báo.
 
-## 71. Code: chọn λ Box-Cox bằng Guerrero
+## 70. Code: chọn λ Box-Cox bằng Guerrero
 <!-- ma: code-b05-guerrero -->
 
 Chọn λ bằng số để dao động mỗi năm đều nhau, rồi so với cách chọn của scipy.
@@ -1683,7 +1642,7 @@ lam_yj = stats.yeojohnson(tang.to_numpy())[1]
 
 **Kết quả:** λ Guerrero 0,34: dao động 2019 so 1992 còn 1,21 (log ép còn 0,84). scipy chọn 0,595; Yeo-Johnson trên % tăng ra khoảng 1,02.
 
-## 72. Vì sao exp của dự báo log ra trung vị
+## 71. Vì sao exp của dự báo log ra trung vị
 <!-- ma: exp-trung-vi -->
 
 *Tiếng Anh: back-transformation · median vs mean · bias adjustment*
@@ -1707,7 +1666,7 @@ Hụt bao nhiêu tuỳ độ lệch chuẩn $\sigma$ trên thang log: $\sigma$ =
 
 Hiệu chỉnh chỉ sửa phần hụt do đổi ngược, không sửa lệch do mô hình. Trên bán lẻ Mỹ theo tháng nó chỉ đẩy dự báo lên cỡ 0,11% tới 1,27%.
 
-## 73. Chuỗi = xu hướng + mùa vụ + phần dư
+## 72. Chuỗi = xu hướng + mùa vụ + phần dư
 <!-- ma: phan-ra -->
 
 *Tiếng Anh: decomposition (additive / multiplicative) · residual · STL / MSTL*
@@ -1720,7 +1679,7 @@ Hiệu chỉnh chỉ sửa phần hụt do đổi ngược, không sửa lệch 
 Tải điện có hai mùa vụ lồng nhau: nhịp 24 giờ và nhịp 168 giờ (một tuần). **MSTL(24, 168)** tách cả hai. Hình là tháng
 7/2024 của vùng PJM: xu hướng trơn, nhịp cuối tuần nằm gọn trong hàng mùa vụ tuần, phần dư chủ yếu là thời tiết.
 
-## 74. Cổ điển, STL, MSTL: mùa vụ cố định hay đổi dần
+## 73. Cổ điển, STL, MSTL: mùa vụ cố định hay đổi dần
 <!-- ma: phan-ra-cach -->
 
 *Tiếng Anh: classical decomposition · STL · MSTL · LOESS*
@@ -1736,7 +1695,7 @@ biên độ mùa hè lớn hẳn vì điều hoà. Biên độ đổi theo *mùa
 tỷ lệ với *mức*. Hai lỗi hay gặp: cửa sổ xu hướng quá ngắn làm xu hướng nuốt cả mùa vụ và thời tiết, nên phần dư nhỏ giả tạo; và
 đầu vào còn NaN thì mọi thành phần ra NaN mà không báo lỗi.
 
-## 75. Code: phân rã cổ điển bằng NumPy
+## 74. Code: phân rã cổ điển bằng NumPy
 <!-- ma: code-b06-co-dien -->
 
 Tự viết phân rã cổ điển trong mười dòng và kiểm nó khớp statsmodels tới từng số.
@@ -1778,7 +1737,7 @@ sm = seasonal_decompose(x, period=4)              # phải khớp T và S
 
 **Kết quả:** Quý 3 có xu hướng 22. Mùa vụ bốn quý 4, −3, −7, 6; phần dư chỉ ±0,5 và ±1,5; khớp seasonal_decompose.
 
-## 76. Code: biên độ trong ngày theo tháng
+## 75. Code: biên độ trong ngày theo tháng
 <!-- ma: code-b06-bien-do -->
 
 Đo biên độ mỗi ngày để biết mùa vụ đổi theo mùa, và bắt một giờ số liệu hỏng.
@@ -1813,7 +1772,7 @@ print(y_goc[t0 - pd.Timedelta("1h"):t0 + pd.Timedelta("1h")])
 
 **Kết quả:** Biên độ trong ngày tháng 7 trung bình 44 GW, tháng 1 chỉ 17 GW. 17:00 UTC 21/11 báo 56.260 MW giữa hai giờ khoảng 95.000 MW.
 
-## 77. Tỷ lệ mẫu hình: phần dư còn nhịp lịch không
+## 76. Tỷ lệ mẫu hình: phần dư còn nhịp lịch không
 <!-- ma: ty-le-mau-hinh -->
 
 *Tiếng Anh: residual pattern ratio · calendar grouping*
@@ -1839,7 +1798,7 @@ Hình tô trung bình phần dư theo tháng (trục dọc) × giờ (trục nga
 sáng đông, cột MSTL gần như trắng. Lưu ý: phân rã chu kỳ 24 còn đẩy nhịp tuần vào xu hướng, nên cần kiểm cả xu hướng theo thứ, không chỉ
 phần dư.
 
-## 78. STL: mùa vụ lấy trung bình cục bộ, đổi dần
+## 77. STL: mùa vụ lấy trung bình cục bộ, đổi dần
 <!-- ma: stl-loess -->
 
 *Tiếng Anh: STL · LOESS (local regression) · trend window*
@@ -1858,7 +1817,7 @@ Lưu ý cửa sổ xu hướng: quá ngắn thì xu hướng mềm tới mức �
 hướng 47 giờ) để lại phương sai phần dư chỉ 2,8 GW², nhỏ hơn MSTL (16,5 GW²). Phần dư nhỏ ở đây là nhỏ giả tạo, không phải phân rã tốt
 hơn.
 
-## 79. Code: STL, MSTL và hai lỗi hay gặp
+## 78. Code: STL, MSTL và hai lỗi hay gặp
 <!-- ma: code-b06-stl-mstl -->
 
 Chạy STL và MSTL, xem hai lỗi hay gặp, rồi đo mùa vụ ngày đổi theo mùa thế nào.
@@ -1898,7 +1857,7 @@ print(ho.loc[1].idxmax(), ho.loc[7].idxmax())        # giờ đỉnh
 
 **Kết quả:** Phần dư STL mặc định 2,8 GW², MSTL 16,5 GW². Biên độ mùa vụ ngày tháng 7 là 43,3 GW, tháng 1 là 14,4 GW.
 
-## 80. F_S: mùa vụ mạnh tới đâu so với nhiễu
+## 79. F_S: mùa vụ mạnh tới đâu so với nhiễu
 <!-- ma: f-s -->
 
 *Tiếng Anh: strength of trend F_T · strength of seasonality F_S*
@@ -1910,7 +1869,7 @@ tính tương tự cho xu hướng.
 F phụ thuộc cách phân rã. Trên PJM 2024, F_S của mùa vụ 24 giờ là 0,618 với phân rã cổ điển nhưng 0,829 với MSTL. Vì vậy luôn
 ghi kèm tên phương pháp.
 
-## 81. Code: độ mạnh xu hướng và mùa vụ
+## 80. Code: độ mạnh xu hướng và mùa vụ
 <!-- ma: code-b06-do-manh -->
 
 Tính F_T và F_S từ phương sai, cho mọi thành phần mùa vụ của một phân rã.
@@ -1950,7 +1909,7 @@ print(do_manh(ms))                   # so với cùng hàm trên cổ điển
 
 **Kết quả:** F_S của mùa vụ ngày: cổ điển 0,618, MSTL 0,829; mùa vụ tuần của MSTL 0,415. Cùng chuỗi, khác phân rã, khác số.
 
-## 82. Robust: bớt tin điểm có phần dư quá lớn
+## 81. Robust: bớt tin điểm có phần dư quá lớn
 <!-- ma: robust -->
 
 *Tiếng Anh: robust decomposition · robustness weights (bisquare)*
@@ -1969,7 +1928,62 @@ Hình (PJM, giờ 17:00 UTC ngày 21/11/2024 báo 56.260 MW): không robust thì
 lỗi, là −4.051 MW; robust là +2.117 MW. Robust cứu được một giờ hỏng, không tách được đợt nắng nóng kéo dài nhiều ngày: muốn tách
 thì cần thêm biến nhiệt độ.
 
-## 83. Mô hình AR: một phần hôm qua cộng nhiễu
+## 82. Ba hình dạng ACF cần nhận ra
+<!-- ma: acf-ba-hinh -->
+
+*Tiếng Anh: autocorrelation function (ACF) · white noise · ±1,96/√T band*
+
+Hình minh hoạ vẽ từ ba chuỗi mô phỏng (seed 7, 480 điểm): hàng trên là chuỗi, hàng dưới là ACF; dải xám là ±1,96/√T.
+
+- **Nhiễu trắng**: quá khứ không có "ký ức" về tương lai; mọi $r_k$ ($k \ge 1$) quanh 0, trong dải. Thỉnh thoảng một cột chạm ra ngoài
+  là bình thường (xem slide Ljung-Box).
+- **Xu hướng hoặc random walk**: $r_1$ gần 1, $r_k$ giảm rất chậm khi $k$ tăng: chuỗi chưa dừng. ACF không tách được hai loại này.
+- **Mùa vụ**: $r_k$ có đỉnh ở bội số của chu kỳ ($k$ = 24, 48… với dữ liệu giờ), âm ở nửa chu kỳ, khi đỉnh ghép với đáy.
+
+Theo FPP §2.8 và buổi 7, mục 4.1.
+
+## 83. Code: ACF tự viết và ba hình dạng
+<!-- ma: code-b07-acf -->
+
+Tự tính ACF bằng vài dòng NumPy, khớp với thư viện, rồi nhìn ba hình dạng cần nhớ.
+
+```python
+import numpy as np
+from statsmodels.tsa.stattools import acf
+
+def acf_tu_viet(y, so_tre):
+    y = np.asarray(y, dtype=float)
+    lech = y - np.nanmean(y)                  # độ lệch khỏi trung bình
+    mau = np.nansum(lech**2)                  # mẫu: tính trên CẢ chuỗi
+    return np.array([1.0] + [np.nansum(lech[k:] * lech[:-k]) / mau
+                             for k in range(1, so_tre + 1)])
+
+y = [2, 3, 5, 6, 5, 3]
+print(acf_tu_viet(y, 2)[1:])                  # tự viết
+print(acf(y, nlags=2, adjusted=False)[1:])    # thư viện, phải ra y hệt
+e = np.random.default_rng(42).normal(size=500)
+ba = {"nhiễu trắng": e, "random walk": e.cumsum()}
+r = {ten: acf_tu_viet(v, 30) for ten, v in ba.items()}
+```
+
+*Rút gọn từ buoi-07/tu-hoc.ipynb, phần 1.*
+
+**Thư viện và hàm:**
+
+- `acf_tu_viet` (tự viết): Hệ số tự tương quan r_k cho các trễ 0 tới so_tre, trễ 0 luôn là 1.
+- `acf(y, nlags, adjusted=False)` (statsmodels): Cùng phép tính đó; adjusted=False để chia cho tổng của cả chuỗi.
+- `cumsum()` (numpy): Cộng dồn: biến dãy nhiễu thành đường đi của random walk.
+
+**Từng bước:**
+
+- Dòng 6–7: Lấy độ lệch, mẫu số chung cho mọi trễ.
+- Dòng 8–9: Mỗi trễ k: cộng tích hai độ lệch cách k bước.
+- Dòng 11–13: Ví dụ tay sáu số, so với statsmodels.
+- Dòng 14–16: Tính ACF cho nhiễu trắng và random walk.
+
+**Kết quả:** r1 = 0,333 và r2 = −0,417 như tính tay. Nhiễu trắng quanh 0; random walk giảm rất chậm; lượt thuê có đỉnh ở trễ 24, 48.
+
+## 84. Mô hình AR: một phần hôm qua cộng nhiễu
 <!-- ma: ar -->
 
 *Tiếng Anh: autoregressive model AR(1) · coefficient ρ (φ)*
@@ -1984,7 +1998,7 @@ từ −1 tới 1:
 Ví dụ trung bình 0, đang ở 10, ρ = 0,7: kỳ vọng bước sau là 7, rồi 4,9, dần về 0. Với ρ = 1, kỳ vọng mãi là 10. **AR(p)** dùng p bước
 trước. PACF (slide sau) chỉ ra p; ADF kiểm xem ρ có bằng 1 không; prewhitening dùng mô hình AR để lọc.
 
-## 84. PACF: trễ xa còn thêm gì sau trễ gần?
+## 85. PACF: trễ xa còn thêm gì sau trễ gần?
 <!-- ma: pacf -->
 
 *Tiếng Anh: partial autocorrelation function (PACF) · AR(1)*
@@ -1998,7 +2012,7 @@ Trong hình có bốn chuỗi dựng từ cùng một dãy nhiễu:
 - **Random walk** và **chuỗi có xu hướng**: ACF giảm rất chậm và trông gần như nhau. Chỉ nhìn ACF thì không phân biệt được hai
   loại này, nên cần kiểm định (ADF, KPSS).
 
-## 85. Code: ACF và PACF của bốn chuỗi
+## 86. Code: ACF và PACF của bốn chuỗi
 <!-- ma: code-b07-pacf -->
 
 Thấy PACF tách được AR(1), còn ACF không phân biệt random walk với xu hướng.
@@ -2040,7 +2054,7 @@ for ten, y in bon.items():
 
 **Kết quả:** AR(1): ACF giảm nhanh, PACF cắt sau trễ 1. Random walk và xu hướng đều có r1 gần 0,98: chỉ nhìn ACF không phân biệt được.
 
-## 86. Đừng đếm cột vượt dải: dùng Ljung-Box
+## 87. Đừng đếm cột vượt dải: dùng Ljung-Box
 <!-- ma: ljung-box -->
 
 *Tiếng Anh: Ljung–Box test · white noise · model_df*
@@ -2050,7 +2064,7 @@ có 0,95 cột vượt dải trong 20 trễ, và 62% số chuỗi có ít nhất
 chuỗi là nhiễu trắng. Dùng nó để kiểm phần dư của mô hình đã "sạch" chưa. Nhớ truyền `model_df` (số tham số của mô hình) khi kiểm
 sai số của mô hình.
 
-## 87. Q* vượt ngưỡng χ² mới là còn quy luật
+## 88. Q* vượt ngưỡng χ² mới là còn quy luật
 <!-- ma: ljung-box-q -->
 
 *Tiếng Anh: Ljung–Box Q* · χ² distribution · degrees of freedom (model_df)*
@@ -2080,7 +2094,7 @@ từ 5,99, và vạch xanh $Q^*$ = 5,16 chưa chạm vào đó.
 Lưu ý: kiểm 10 trễ trên sai số của mô hình có 2 tham số thì còn 8 bậc tự do, truyền `model_df=2` cho `acorr_ljungbox`. Quên trừ thì so
 với ngưỡng 18,31 thay vì 15,51, p-value lớn hơn thật và dễ kết luận nhầm là sai số đã sạch.
 
-## 88. Code: gộp nhiều r_k bằng Ljung-Box
+## 89. Code: gộp nhiều r_k bằng Ljung-Box
 <!-- ma: code-b07-ljung-box -->
 
 Thay việc đếm cột vượt dải bằng một con số Q* và một p-value.
@@ -2120,7 +2134,7 @@ for s in (1, 2, 3):
 
 **Kết quả:** Ví dụ tay Q* = 5,16 < 5,99: không bác bỏ. Ba chuỗi nhiễu cho p từ 0,081 tới 0,885; model_df=2 làm p nhỏ đi.
 
-## 89. Chuỗi dừng: mức và dao động không đổi
+## 90. Chuỗi dừng: mức và dao động không đổi
 <!-- ma: dung -->
 
 *Tiếng Anh: stationarity · white noise · random walk · trend-stationary*
@@ -2137,7 +2151,7 @@ phân biệt hai loại này, nên phải kiểm bằng hai kiểm định ADF v
 
 Hai điều hay bị bỏ qua: chuỗi có chu kỳ (lên xuống không đều) vẫn có thể dừng; và với random walk, dự báo tốt nhất đơn giản là naive (giá trị cuối).
 
-## 90. Random walk: càng lâu càng có thể đi xa
+## 91. Random walk: càng lâu càng có thể đi xa
 <!-- ma: random-walk -->
 
 *Tiếng Anh: random walk · variance grows with √n · naive forecast*
@@ -2167,7 +2181,7 @@ Vì độ dao động đổi theo thời gian, random walk **không dừng** (c�
 phân: $y_t - y_{t-1}$ ra lại chính các bước ngẫu nhiên. Dự báo tốt nhất cho random walk là giá trị cuối cùng (dự báo naive). Trừ một
 đường thẳng khỏi nó thì phần còn lại vẫn lang thang.
 
-## 91. Bốn chuỗi mẫu: nhớ gì, có dừng không
+## 92. Bốn chuỗi mẫu: nhớ gì, có dừng không
 <!-- ma: bon-chuoi -->
 
 *Tiếng Anh: white noise · AR(1) · random walk · trend-stationary*
@@ -2184,7 +2198,7 @@ tách được hai loại; phải chạy ADF và KPSS dạng "ct". Chữa nhầm
 giả; trừ đường thẳng khỏi random walk thì phần còn lại vẫn lang thang. Mẹo nhớ: random walk thì sai phân, dừng quanh xu hướng thì
 khử xu hướng.
 
-## 92. Code: hai loại không dừng, hai thuốc
+## 93. Code: hai loại không dừng, hai thuốc
 <!-- ma: code-b07-random-walk -->
 
 Thấy random walk dao động to dần, và mỗi loại không dừng cần một cách chữa riêng.
@@ -2224,7 +2238,7 @@ for y in (e.cumsum(), 0.05 * t + e):             # random walk, xu hướng
 
 **Kết quả:** Số bước gấp 25 lần thì độ lệch chuẩn gấp 5 lần (2,0 lên 10,1). Khử xu hướng random walk: r1 vẫn rất lớn; sai phân chuỗi xu hướng: r1 âm rõ.
 
-## 93. ADF và KPSS là gì: hai câu hỏi ngược chiều
+## 94. ADF và KPSS là gì: hai câu hỏi ngược chiều
 <!-- ma: adf-kpss-la-gi -->
 
 *Tiếng Anh: augmented Dickey–Fuller (ADF) · KPSS · unit root · null hypothesis H0*
@@ -2247,7 +2261,7 @@ Ví dụ tính tay:
 Tên gọi "nghiệm đơn vị" đến từ công thức y_t = ρ·y_(t−1) + nhiễu. ρ = 1 là random walk; ρ nhỏ hơn 1 thì mỗi bước kéo chuỗi một phần
 về trung bình.
 
-## 94. Chạy cả ADF và KPSS, rồi đọc bảng 2 × 2
+## 95. Chạy cả ADF và KPSS, rồi đọc bảng 2 × 2
 <!-- ma: adf-kpss -->
 
 *Tiếng Anh: ADF · KPSS · regression="c" / "ct"*
@@ -2270,7 +2284,21 @@ Dữ liệu thật: tăng trưởng GDP Mỹ theo quý. Cả giai đoạn 1947�
 1985–2019 (bỏ giai đoạn dao động mạnh và cú sốc đại dịch) thì hai kiểm định đồng ý "dừng". p-value của KPSS bị cắt ở 0,01 và 0,1:
 "p = 0,10" nghĩa là "p ≥ 0,1", không phải "rất dừng".
 
-## 95. Code: ADF + KPSS và bảng 2 × 2
+## 96. ADF, KPSS trên bốn chuỗi: “c” hay “ct”
+<!-- ma: adf-kpss-bon-chuoi -->
+
+| Chuỗi (500 điểm, seed 42) | ADF c | KPSS c | ADF ct | KPSS ct | Kết luận |
+|---|---|---|---|---|---|
+| nhiễu trắng | 0,000 | ≥ 0,10 | 0,000 | ≥ 0,10 | dừng |
+| AR(1) φ = 0,7 | 0,000 | ≥ 0,10 | 0,000 | ≥ 0,10 | dừng |
+| random walk | 0,073 | ≤ 0,01 | 0,214 | ≤ 0,01 | không dừng → sai phân |
+| xu hướng 0,05t | 0,906 | ≤ 0,01 | 0,000 | ≥ 0,10 | dừng quanh xu hướng → khử xu hướng |
+
+Dòng 4: dạng "c" bảo sai phân; chỉ dạng "ct" mới thấy đúng bản chất. Dòng 3: ADF p = 0,073, dùng mức 10% sẽ gọi nhầm là dừng;
+KPSS bắt được. ADF hay bỏ sót chuỗi dừng mà rất gần random walk, nên "không bác bỏ" chưa phải là chứng minh. p của KPSS bị cắt ở
+0,01 và 0,1 (statsmodels báo `InterpolationWarning`): "p = 0,10" nghĩa là "p ≥ 0,1". Số liệu: buổi 7, mục 4.5.
+
+## 97. Code: ADF + KPSS và bảng 2 × 2
 <!-- ma: code-b07-adf-kpss -->
 
 Chạy hai kiểm định có giả thuyết ngược nhau, cùng dạng, rồi đọc kết luận từ bảng.
@@ -2312,7 +2340,7 @@ kq = {d: o_bang(*kiem_dinh(y, d)) for d in ("c", "ct")}   # hai dạng
 
 **Kết quả:** Xu hướng 0,05t: dạng c nói không dừng, chỉ dạng ct cho thấy chuỗi dừng quanh xu hướng. Random walk có ADF p = 0,073; KPSS bắt được.
 
-## 96. Sai phân: nhìn vào thay đổi thay vì mức
+## 98. Sai phân: nhìn vào thay đổi thay vì mức
 <!-- ma: sai-phan-la-gi -->
 
 *Tiếng Anh: differencing · seasonal differencing · detrending*
@@ -2330,7 +2358,27 @@ Khi nào dùng:
 - **Chuỗi dừng quanh một đường xu hướng**: khử xu hướng (lấy chuỗi trừ đường xu hướng), không sai phân. Sai phân thêm thì thừa, xem
   slide "Sai phân thừa".
 
-## 97. Gặp một chuỗi lạ: bảy bước của buổi 7
+## 99. Sai phân bao nhiêu lần là đủ
+<!-- ma: sai-phan-bao-nhieu -->
+
+Chuỗi đã dừng 2, −1, 0, 1, −2, 0 (độ lệch chuẩn ≈ 1,41), sai phân ra −3, 1, 1, −3, 2: độ lệch chuẩn ≈ 2,41 và $r_1$ ≈ −0,50.
+Mỗi số gốc có mặt trong hai hiệu liền nhau với hai dấu ngược nhau. **Hai dấu hiệu sai phân thừa**: $r_1$ của chuỗi đã sai phân gần
+−0,5; độ lệch chuẩn tăng. Quy tắc FPP: sai phân tiếp chừng nào KPSS còn bác bỏ, rồi kiểm hai dấu hiệu.
+
+GDP Mỹ: sai phân log một lần ra tăng trưởng; lần hai cho $r_1$ = −0,488 và độ lệch chuẩn 1,105 → 1,455, nên dừng ở một lần.
+
+Có mùa vụ thì sai phân mùa vụ $y_t - y_{t-m}$ trước. Lượt thuê theo giờ, thang log, $m$ = 168:
+
+| Chuỗi | $r_1$ | $r_{24}$ | $r_{168}$ | Độ lệch chuẩn |
+|---|---|---|---|---|
+| log | 0,898 | 0,863 | 0,896 | 1,430 |
+| sai phân thường | 0,493 | 0,676 | 0,767 | 0,643 |
+| sai phân mùa vụ 168 | 0,732 | 0,161 | −0,465 | 0,589 |
+| 168 rồi sai phân thường | −0,249 | 0,028 | −0,498 | 0,427 |
+
+Chỉ sai phân thường thì mùa vụ còn nguyên; sai phân mùa vụ bỏ được nhịp ngày và tuần. Số liệu: buổi 7, mục 4.6.
+
+## 100. Gặp một chuỗi lạ: bảy bước của buổi 7
 <!-- ma: quy-trinh-chuoi-la -->
 
 1. **Nhìn ACF**: quanh 0 là nhiễu trắng; giảm rất chậm là chưa dừng; có đỉnh đều là mùa vụ.
@@ -2341,7 +2389,7 @@ Khi nào dùng:
 6. **Chữa**: random walk thì sai phân; quanh xu hướng thì khử xu hướng; có mùa vụ thì sai phân mùa vụ trước.
 7. **Kiểm chữa quá tay**: sai phân xong mà $r_1$ về gần −0,5, hoặc độ lệch chuẩn tăng, thì bớt một lần.
 
-## 98. Vẽ scatter trước khi tin r
+## 101. Vẽ scatter trước khi tin r
 <!-- ma: scatter -->
 
 *Tiếng Anh: scatter plot · Pearson / Spearman correlation · Anscombe's quartet*
@@ -2358,7 +2406,7 @@ quy, nhưng là bốn câu chuyện khác nhau:
 Quy tắc: luôn vẽ scatter trước khi tin r. Tương quan không phải nhân quả. Kiểm định Granger chỉ nói một chuỗi "giúp dự báo"
 chuỗi kia, không nói "gây ra".
 
-## 99. Code: hệ số r và tự tương quan
+## 102. Code: hệ số r và tự tương quan
 <!-- ma: code-b02-tuong-quan -->
 
 Đo r bằng NumPy, thấy r bỏ sót quan hệ cong, và cao giả khi có biến gây nhiễu.
@@ -2395,7 +2443,7 @@ tu_tq = (dc[1:] * dc[:-1]).sum() / (dc**2).sum()   # giờ này, giờ trước
 
 **Kết quả:** y = x² cho r = 0. Nhiệt độ: mọi giờ r = 0,405, chỉ 17h r = 0,588. Giờ trong ngày r = 0,394. Tự tương quan trễ 1: 0,844.
 
-## 100. Spearman: cùng tăng là đủ, không cần thẳng
+## 103. Spearman: cùng tăng là đủ, không cần thẳng
 <!-- ma: spearman -->
 
 *Tiếng Anh: Spearman rank correlation · Kendall τ · Pearson r*
@@ -2410,7 +2458,7 @@ hạng, nhưng đếm số cặp điểm cùng chiều; khi mẫu nhỏ nó ít 
 
 Vậy Spearman bắt được quan hệ cong mà vẫn cùng chiều, nhưng cũng bỏ sót chữ U. Cả hai chỉ là một con số, nên luôn vẽ scatter trước.
 
-## 101. Code: Pearson, Spearman và Anscombe
+## 104. Code: Pearson, Spearman và Anscombe
 <!-- ma: code-b08-anscombe -->
 
 Thấy một hệ số tương quan giấu được cả hình dạng, nên luôn phải vẽ trước.
@@ -2449,7 +2497,7 @@ for ten, (x, y) in ANSCOMBE.items():
 
 **Kết quả:** Với x từ −2 tới 2, y = x²: Pearson 0. Bốn bộ Anscombe cùng Pearson 0,82 nhưng Spearman từ 0,5 tới 0,99: bốn câu chuyện khác nhau.
 
-## 102. Durbin–Watson: phần dư đổi chậm là đáng ngờ
+## 105. Durbin–Watson: phần dư đổi chậm là đáng ngờ
 <!-- ma: durbin-watson -->
 
 *Tiếng Anh: Durbin–Watson statistic · regression residuals · spurious regression*
@@ -2469,7 +2517,7 @@ CPI theo dân số Mỹ 1990–2024: $R^2$ = 0,9495, $t$ = 88,6, trông như qua
 độc lập" bị vi phạm, nên $t$ và p-value ở trên không đáng tin. $R^2$ cao đi cùng DW thấp là dấu hiệu của hồi quy giả (Granger và Newbold,
 1974). Kiểm lại bằng tương quan sau sai phân (slide "r = 0,97 chưa chắc là quan hệ thật").
 
-## 103. CDD, HDD: tách chữ U thành hai nhánh thẳng
+## 106. CDD, HDD: tách chữ U thành hai nhánh thẳng
 <!-- ma: cdd-hdd -->
 
 *Tiếng Anh: cooling / heating degree days (CDD / HDD) · base temperature 65 °F*
@@ -2488,7 +2536,7 @@ phía nóng dốc $b$, phía lạnh dốc $c$. Không cần chia dữ liệu là
 Tải điện ERCOT 2024: $R^2$ của hồi quy theo nhiệt độ là 0,379; theo CDD + HDD là 0,812, gấp đôi. Mốc 65 °F là quy ước; mốc tốt nhất trên
 dữ liệu này là 19,5 °C, rất gần.
 
-## 104. Mutual information: biết x có giúp đoán y?
+## 107. Mutual information: biết x có giúp đoán y?
 <!-- ma: mi -->
 
 *Tiếng Anh: mutual information (MI) · nat · nonlinear dependence*
@@ -2514,7 +2562,7 @@ Nếu độc lập thì mọi tỷ số bằng 1, $\ln 1 = 0$, MI = 0. Với d�
 (`mutual_info_regression`, nhớ đặt `random_state`). Nhiệt độ × tải ERCOT: MI = 0,862 nat. MI chỉ nói "có phụ thuộc", không nói hình dạng
 hay chiều của quan hệ; muốn biết hình dạng vẫn phải vẽ scatter.
 
-## 105. Hoán vị theo khối: MI có lớn thật không?
+## 108. Hoán vị theo khối: MI có lớn thật không?
 <!-- ma: hoan-vi-khoi -->
 
 *Tiếng Anh: block permutation test · autocorrelation · null distribution*
@@ -2530,7 +2578,7 @@ không có quan hệ. Phải xáo **cả khối** liền nhau, để trong mỗi
 Hai chuỗi AR độc lập, rất trơn, 2.000 điểm: xáo từng điểm cho p = 0,005, kết luận sai là có quan hệ; xáo theo khối 200 điểm cho p = 0,055,
 không bác bỏ. Nhiệt độ × tải ERCOT, xáo theo khối một tuần: MI thật 0,862 vượt xa ngưỡng 95% của dữ liệu xáo (0,124), nên quan hệ có thật.
 
-## 106. Ai đi trước? Prewhiten rồi mới đọc CCF
+## 109. Ai đi trước? Prewhiten rồi mới đọc CCF
 <!-- ma: ccf -->
 
 *Tiếng Anh: cross-correlation function (CCF) · prewhitening · lead / lag*
@@ -2542,7 +2590,7 @@ Giữa CDD (độ nóng) và tải điện, CCF thô là 0,848 ở trễ 0 và v
 ở trễ 0, tắt dần sau vài giờ. Kết luận: tải phản ứng với trời nóng gần như ngay trong giờ. Quy ước hướng của `ccf` khác nhau giữa các
 thư viện, nên thử trên chuỗi giả trước khi tin.
 
-## 107. Prewhitening: lọc nhịp riêng rồi mới đo
+## 110. Prewhitening: lọc nhịp riêng rồi mới đo
 <!-- ma: prewhitening -->
 
 *Tiếng Anh: prewhitening · AR filter · cross-correlation*
@@ -2557,7 +2605,7 @@ ai đi trước ai thì phải bỏ nhịp riêng đó trước:
 
 Sau lọc, tương quan chỉ còn đỉnh ở trễ 0 (0,205) và gần như tắt ở trễ 24 (0,061): tải phản ứng với trời nóng gần như ngay trong giờ.
 
-## 108. Code: tương quan chéo sau prewhitening
+## 111. Code: tương quan chéo sau prewhitening
 <!-- ma: code-b08-prewhiten -->
 
 Lọc bỏ độ trơn của x trước, rồi mới đọc độ trễ mà x báo trước y.
@@ -2598,7 +2646,7 @@ sach = ccf_tu_viet(*loc_prewhiten(cdd, taiv), 48) # sau lọc: sắc
 
 **Kết quả:** Thô: trễ 24 (0,828) cao gần bằng trễ 0, là nhịp ngày của CDD. Sau lọc chỉ còn đỉnh ở trễ 0 (0,205), tắt sau vài giờ.
 
-## 109. Một hệ số cho cả năm che mất các mùa
+## 112. Một hệ số cho cả năm che mất các mùa
 <!-- ma: truot -->
 
 *Tiếng Anh: rolling correlation · regime*
@@ -2613,7 +2661,7 @@ gian. Với nhiệt độ và tải điện:
 Quan hệ đổi dấu theo mùa thì tách thành từng chế độ, hoặc dùng CDD/HDD. Lưu ý kỹ thuật: `rolling("90D")` mặc định chỉ cần 1 điểm,
 nên vài giá trị đầu là ±1 giả. Đặt `min_periods` rõ ràng.
 
-## 110. Code: tương quan trượt 30 và 90 ngày
+## 113. Code: tương quan trượt 30 và 90 ngày
 <!-- ma: code-b08-tuong-quan-truot -->
 
 Thấy quan hệ nhiệt độ và tải đổi dấu theo mùa, thay vì tin một con số cả năm.
@@ -2649,7 +2697,7 @@ print(r90["2024-03-31"], r90["2024-10-14"], r30.min())
 
 **Kết quả:** Gộp sáu ngày ra r = 0,48. Cửa sổ 90 ngày: −0,801 (31/3), +0,968 (14/10); 30 ngày xuống tới −0,971. Cả năm 0,616.
 
-## 111. Granger: “giúp dự báo”, không phải “gây ra”
+## 114. Granger: “giúp dự báo”, không phải “gây ra”
 <!-- ma: granger -->
 
 *Tiếng Anh: Granger causality test · confounder*
@@ -2664,7 +2712,7 @@ Ba điều kiện khi dùng:
 - Chuỗi phải dừng (sai phân trước).
 - Hỏi thêm: lúc ra dự báo có biết giá trị tương lai của X không?
 
-## 112. Code: Granger chạy cả hai chiều
+## 115. Code: Granger chạy cả hai chiều
 <!-- ma: code-b08-granger -->
 
 Chạy Granger hai chiều để thấy dấu hiệu của biến gây nhiễu, thay vì đọc thành nhân quả.
@@ -2704,7 +2752,7 @@ ho = (ho - ho.mean()) / ho.std()                  # cùng một nhịp 24 giờ
 
 **Kết quả:** Cả hai chiều p gần 0, kể cả "tải giúp dự báo nhiệt độ": vô lý, vì cả hai cùng chạy theo nhịp ngày.
 
-## 113. Đo quan hệ hai chuỗi: tám câu hỏi của buổi 8
+## 116. Đo quan hệ hai chuỗi: tám câu hỏi của buổi 8
 <!-- ma: quy-trinh-tuong-quan -->
 
 1. **Trông ra sao?** Vẽ scatter trước: thẳng, cong, chữ U, hay có điểm lạ.
@@ -2716,7 +2764,7 @@ ho = (ho - ho.mean()) / ho.std()                  # cùng một nhịp 24 giờ
 7. **Quá khứ x giúp đoán y?** Granger, chạy cả hai chiều. p nhỏ là "giúp dự báo", chưa phải "gây ra".
 8. **Lúc dự báo có x chưa?** Chỉ dùng bản có trong tay lúc đó, như nhiệt độ dự báo (buổi 13).
 
-## 114. Đặc trưng: tóm cả chuỗi thành vài con số
+## 117. Đặc trưng: tóm cả chuỗi thành vài con số
 <!-- ma: dac-trung -->
 
 *Tiếng Anh: time series features · scale-free · feature table*
@@ -2742,7 +2790,7 @@ chuẩn. Hình ô trái là hai chuỗi cùng hình, một chuỗi lớn gấp 1
 Yêu cầu thứ hai: tính trên **cùng độ dài**, nên chuỗi M4 dài ngắn khác nhau được cắt về cùng độ dài trước. Đặc trưng còn dò được chuỗi
 hỏng: trong 4.000 chuỗi mẫu có 1 chuỗi hằng và 50 chuỗi bậc thang.
 
-## 115. Code: mỗi chuỗi thành một hàng số
+## 118. Code: mỗi chuỗi thành một hàng số
 <!-- ma: code-b09-dac-trung -->
 
 Tóm mỗi chuỗi thành các đặc trưng không đổi theo đơn vị, để so hàng nghìn chuỗi.
@@ -2783,7 +2831,7 @@ bang = pd.DataFrame({t: dac_trung(v[:-18]) for t, v in chuoi.items()}).T
 
 **Kết quả:** Nhân chuỗi với 1.000: chỉ trung_binh và do_lech_chuan đổi, 18 đặc trưng giữ nguyên. Bảng còn cho thấy 1 chuỗi hằng và 50 chuỗi bậc thang.
 
-## 116. Tần số và phổ: chuỗi rung ở nhịp nào
+## 119. Tần số và phổ: chuỗi rung ở nhịp nào
 <!-- ma: pho -->
 
 *Tiếng Anh: frequency · spectrum · periodogram · energy*
@@ -2801,7 +2849,7 @@ tháng thể hiện được (tần số cao).
 Phổ điện thiết bị ở buổi 12 có đỉnh ở một vòng mỗi ngày, và 17,8% năng lượng nằm ở dao động nhanh hơn một giờ; nhiệt độ phòng gần như
 không có. Spectral entropy (buổi 9) đo năng lượng dồn vào ít tần số hay trải đều.
 
-## 117. Spectral entropy: năng lượng dồn hay trải đều
+## 120. Spectral entropy: năng lượng dồn hay trải đều
 <!-- ma: entropy -->
 
 *Tiếng Anh: spectral entropy · normalized power spectrum*
@@ -2831,7 +2879,7 @@ Dùng để xếp hạng độ khó hàng nghìn chuỗi mà chưa chạy mô h�
 năng lượng vào tần số thấp nên entropy thấp mà vẫn có thể khó. Nixtla `tsfeatures` tính phổ theo cách khác, nên không so thẳng hai con
 số.
 
-## 118. Code: spectral entropy từ phổ Welch
+## 121. Code: spectral entropy từ phổ Welch
 <!-- ma: code-b09-entropy -->
 
 Một con số từ 0 tới 1 nói chuỗi có nhịp rõ hay giống nhiễu, không cần mô hình.
@@ -2873,7 +2921,7 @@ print(e.median(), e.quantile(0.8))
 
 **Kết quả:** Chuỗi mùa vụ entropy 0,33, nhiễu thuần 0,94. Trên M4 trung vị 0,462; một phần năm số chuỗi từ 0,666 trở lên.
 
-## 119. Đo độ khó bằng sMAPE, không bằng MASE
+## 122. Đo độ khó bằng sMAPE, không bằng MASE
 <!-- ma: do-kho -->
 
 *Tiếng Anh: forecastability · sMAPE · MASE · scale-free error*
@@ -2891,7 +2939,7 @@ cho sai số seasonal naive của chính chuỗi đó: chuỗi khó thì mẫu s
 Cùng dữ liệu, cùng dự báo, chỉ đổi mẫu số mà kết luận đi từ dương qua 0 tới âm. MASE dùng để so mô hình trên cùng một chuỗi. sMAPE
 dùng để xếp độ khó giữa các chuỗi dương, không dùng để chấm mô hình.
 
-## 120. Code: đo độ khó bằng sMAPE và MASE
+## 123. Code: đo độ khó bằng sMAPE và MASE
 <!-- ma: code-b09-smape-mase -->
 
 Thấy chỉ đổi mẫu số của thước đo là kết luận về entropy đổi hẳn.
@@ -2932,7 +2980,7 @@ r = stats.pearsonr(bang["entropy_pho"], pd.DataFrame(kho).T["smape"])[0]
 
 **Kết quả:** Ví dụ tay: MASE nói B dễ hơn A (0,92 so với 1,00), sMAPE nói B khó hơn (76,2% so với 6,7%). Với entropy: sMAPE +0,245, MASE −0,048.
 
-## 121. Bản đồ 4.000 chuỗi: vùng nào khó
+## 124. Bản đồ 4.000 chuỗi: vùng nào khó
 <!-- ma: ban-do-pca -->
 
 *Tiếng Anh: PCA · principal component (PC1, PC2) · feature space*
@@ -2946,7 +2994,7 @@ biệt nhất) để vẽ cả tập trên hai trục. Mỗi chuỗi là một c
 Vùng entropy cao bên phải cũng là vùng sMAPE cao: chuỗi lởm chởm, mùa vụ yếu là chuỗi khó. Quy tắc thực hành: entropy ≥ 0,666 và
 F_S < 0,4 thì chỉ cần baseline. Mấy chấm lẻ ở góc là chuỗi lạ, cần xem tận mắt.
 
-## 122. Code: bản đồ PCA và nhóm dùng baseline
+## 125. Code: bản đồ PCA và nhóm dùng baseline
 <!-- ma: code-b09-pca -->
 
 Nén 15 đặc trưng về hai trục để thấy cả tập, rồi tách chuỗi chỉ cần baseline.
@@ -2987,7 +3035,7 @@ print(bang.groupby(nhom)["smape_snaive"].agg(["size", "median"]))
 
 **Kết quả:** PC1 giữ 41%, PC2 15%. 137 chuỗi dùng baseline có sMAPE trung vị 18,11%, gấp ba nhóm 3.863 chuỗi còn lại (6,05%).
 
-## 123. DTW: gom chuỗi theo hình dạng
+## 126. DTW: gom chuỗi theo hình dạng
 <!-- ma: dtw -->
 
 *Tiếng Anh: dynamic time warping (DTW) · z-score normalization · Ward clustering*
@@ -2997,7 +3045,7 @@ nên phải chuẩn hoá z-score từng chuỗi trước. Không chuẩn hoá th
 6.835 → 9.832, việc mà một phép sắp xếp cũng làm được. Chuẩn hoá thì cụm theo hình dạng: giảm, tăng đều, bướu giữa, dao động quanh
 mức. Kiểm nhanh: nếu mức trung vị các cụm tăng đều thì bạn đang phân cụm theo độ lớn.
 
-## 124. Code: phân cụm DTW sau z-score
+## 127. Code: phân cụm DTW sau z-score
 <!-- ma: code-b09-dtw -->
 
 Gom chuỗi theo hình dạng, và thấy vì sao phải chuẩn hoá từng chuỗi trước DTW.
@@ -3039,7 +3087,7 @@ def phan_cum(mau, chuan_hoa, so_cum=4, cua_so=10):
 
 **Kết quả:** Không chuẩn hoá: mức trung vị các cụm tăng đều từ 1.585 tới 9.832, chỉ xếp theo độ lớn. Chuẩn hoá: bốn cụm là bốn hình dạng.
 
-## 125. ABC hỏi quan trọng, XYZ hỏi dao động
+## 128. ABC hỏi quan trọng, XYZ hỏi dao động
 <!-- ma: abc-xyz -->
 
 *Tiếng Anh: ABC–XYZ classification · coefficient of variation (CV)*
@@ -3053,7 +3101,7 @@ def phan_cum(mau, chuan_hoa, so_cum=4, cua_so=10):
 Chuỗi mùa vụ đều như 10, 30, 10, 30 có CV cao mà rất dễ đoán. Đo độ khó bằng sai số thật của một baseline. Cách nhớ: ABC hỏi "cái
 nào quan trọng?", CV hỏi "cái nào dao động?", sai số baseline mới hỏi "cái nào khó?".
 
-## 126. Code: bảng ABC–XYZ cho mã hàng
+## 129. Code: bảng ABC–XYZ cho mã hàng
 <!-- ma: code-b09-abc-xyz -->
 
 Xếp mã hàng theo doanh thu và theo CV, rồi kiểm CV có đo được độ khó không.
@@ -3094,7 +3142,7 @@ r = stats.spearmanr(cv, bang["smape_snaive"])[0]
 
 **Kết quả:** 2.773 mã hàng; nhóm A mang 74,7% doanh thu; ô CZ đông gần gấp bốn ô AX. Trên M4, Spearman CV × sMAPE 0,765 nhưng CV xếp sai chuỗi mùa vụ đều.
 
-## 127. Mỗi feature: biết trước bao lâu?
+## 130. Mỗi feature: biết trước bao lâu?
 <!-- ma: biet-truoc -->
 
 *Tiếng Anh: feature · calendar feature · lag feature*
@@ -3109,7 +3157,7 @@ Bộ feature của buổi 13 có 41 cột: 23 là lịch, 18 lấy từ quá kh�
 
 Bảng "biết trước bao lâu" nộp kèm mô hình, để người xem lại phát hiện rò rỉ mà không cần đọc code.
 
-## 128. Code: feature nào đã có lúc dự báo
+## 131. Code: feature nào đã có lúc dự báo
 <!-- ma: code-b13-biet-truoc -->
 
 Hỏi từng feature "lúc ra dự báo tôi có nó chưa?" rồi xếp vào đúng nhóm.
@@ -3151,7 +3199,7 @@ def bang_biet_truoc(cot):                   # xếp theo TÊN cột
 
 **Kết quả:** Trung bình 189 ngày đã biết là 27.701, cả chuỗi là 33.454 vì gồm 550 ngày chưa xảy ra. z_score lọt vào nhóm "vô hạn": tên sai thì bảng sai.
 
-## 129. Dự báo trước h bước: shift h trước, rolling sau
+## 132. Dự báo trước h bước: shift h trước, rolling sau
 <!-- ma: shift-rolling -->
 
 *Tiếng Anh: lag feature · rolling feature · shift*
@@ -3165,7 +3213,7 @@ Ví dụ trong bảng, h = 3, chuỗi 10, 20, …, 60:
 - **Quên shift**: rolling(2) cho ngày 6 giá trị 55, là trung bình ngày 5–6. Lúc ra dự báo (ngày 3) chưa có hai ngày đó:
   đây là rò rỉ.
 
-## 130. Code: shift trước, rolling sau
+## 133. Code: shift trước, rolling sau
 <!-- ma: code-b13-shift -->
 
 Thấy bằng số vì sao phải shift trước rolling, rồi gói thành hàm tạo feature.
@@ -3207,7 +3255,7 @@ def feature_tre(y, tam=1, cac_lag=(1, 2, 3, 7, 14, 28),
 
 **Kết quả:** Ngày 4: có tâm ra 14, không shift ra 11,33, shift ra 10. Cắt dữ liệu rồi tính lại: bản shift lệch 0, bản có tâm lệch tới 5.113.
 
-## 131. Feature lịch: sin/cos, Fourier, Tết âm lịch
+## 134. Feature lịch: sin/cos, Fourier, Tết âm lịch
 <!-- ma: feature-lich -->
 
 *Tiếng Anh: cyclical encoding (sin/cos) · Fourier terms · moving holiday*
@@ -3223,7 +3271,7 @@ Xếp theo "số ngày tới Tết" thì hiệu ứng hiện rõ: lượt xem Wi
 
 Báo phần cải thiện ở đúng vùng feature có tác dụng: feature Tết chỉ giảm sai số 1,9% cả năm nhưng 16,9% quanh Tết; báo trung bình cả năm sẽ loại oan nó.
 
-## 132. Code: sin/cos, Fourier và Tết
+## 135. Code: sin/cos, Fourier và Tết
 <!-- ma: code-b13-lich -->
 
 Mã hoá lịch sao cho Chủ nhật nằm sát thứ Hai và mùa vụ năm chỉ tốn vài cột.
@@ -3265,7 +3313,7 @@ d = so_ngay_toi_tet(wiki.index)             # Tết tính từ lịch âm UTC+7
 
 **Kết quả:** Chủ nhật cách thứ Hai 0,868, đúng bằng cách thứ Bảy. Thêm 5 feature Tết: cả năm chỉ tốt hơn 1,9%, quanh Tết tốt hơn 16,9%.
 
-## 133. Số tính trên cả chuỗi mang tương lai vào
+## 136. Số tính trên cả chuỗi mang tương lai vào
 <!-- ma: ca-chuoi -->
 
 *Tiếng Anh: full-sample leakage · scaler fit · target encoding*
@@ -3292,7 +3340,7 @@ chỉ thấy ở mép lỗ; những ngày không thiếu thì hai cách giống 
 Chuẩn hoá và target encoding vẫn dùng được nếu tham số chỉ học từ phần học hoặc từ quá khứ của từng dòng. Không bao giờ `fit` trên cả tập rồi
 mới chia học và kiểm.
 
-## 134. Kiểm rò rỉ: cắt tương lai và nhiễu mục tiêu
+## 137. Kiểm rò rỉ: cắt tương lai và nhiễu mục tiêu
 <!-- ma: kiem-ro-ri -->
 
 *Tiếng Anh: leakage test · truncation test · target perturbation*
@@ -3317,7 +3365,7 @@ Trong hình, ô trên là $y$ bị cộng nhiễu từ vạch đứt. Ô dưới
 
 Chọn nhiều mốc cắt có chủ đích (điền hai phía chỉ thấy khi mốc rơi vào lỗ). Bài kiểm xanh chỉ nói không thấy rò rỉ ở những mốc đã cắt.
 
-## 135. Ngoại sinh: dùng bản dự báo, không số thật
+## 138. Ngoại sinh: dùng bản dự báo, không số thật
 <!-- ma: ex-ante -->
 
 *Tiếng Anh: exogenous variable · ex-ante vs ex-post · point-in-time*
@@ -3343,7 +3391,7 @@ báo trước 3 ngày cũng tệ đi 2,20%.
 Với từng biến, hỏi: lúc ra dự báo đã có con số này chưa? Số liệu bị sửa sau khi công bố (GDP, doanh số bán lẻ) thì dùng bản **point-in-time**,
 tức đúng con số đã công bố lúc đó. Khi ghép, dùng `merge_asof(direction="backward", tolerance=...)`.
 
-## 136. Phần B: Vấn đề dữ liệu
+## 139. Phần B: Vấn đề dữ liệu
 <!-- ma: phan-b -->
 
 Phần B đi theo thứ tự buổi 3 → 13. Mỗi slide vấn đề có ba thẻ:
@@ -3352,7 +3400,7 @@ Phần B đi theo thứ tự buổi 3 → 13. Mỗi slide vấn đề có ba th�
 - **Kiểm bằng**: con số hoặc lệnh nào xác nhận nghi ngờ.
 - **Cách sửa**: xử lý thế nào.
 
-## 137. Rò rỉ tương lai gặp ở 8 buổi
+## 140. Rò rỉ tương lai gặp ở 8 buổi
 <!-- ma: ma-tran -->
 
 *Tiếng Anh: data leakage · look-ahead bias*
@@ -3369,7 +3417,7 @@ gặp nhiều nhất, ở 8 buổi:
 - Feature không shift (13).
 - Chia dữ liệu ngẫu nhiên (15).
 
-## 138. Sai múi giờ: giờ giả, nóng lúc 20h
+## 141. Sai múi giờ: giờ giả, nóng lúc 20h
 <!-- ma: mui-gio -->
 
 *Tiếng Anh: time zone · DST transition · UTC conversion*
@@ -3384,7 +3432,7 @@ Ghép taxi (giờ địa phương) với thời tiết (UTC) thì New York "nón
 
 Ghép lệch múi giờ không báo lỗi mà dời dữ liệu, có thể làm tương quan mưa và số chuyến đổi dấu. Thêm ba lỗi hay gặp: giờ lặp tháng 11 không tách được thì để NaN; chuyến có thời lượng âm là dấu của giờ naive; bỏ dòng trùng trên dữ liệu sự kiện (từng chuyến) sẽ xoá mất chuyến thật.
 
-## 139. Code: đếm chuyến trên giờ naive
+## 142. Code: đếm chuyến trên giờ naive
 <!-- ma: code-b03-dem-naive -->
 
 Đếm thẳng trên giờ không múi giờ để thấy giờ 0 chuyến giả và giờ gấp đôi.
@@ -3424,7 +3472,7 @@ am = t11["tpep_dropoff_datetime"] < t11["tpep_pickup_datetime"]
 
 **Kết quả:** Giờ 02:00 ngày 10/3 có 0 chuyến; giờ 01:00 ngày 3/11 có 9.869 chuyến, gần gấp đôi tuần sau (5.318).
 
-## 140. Code: ghép hai nguồn trên cùng UTC
+## 143. Code: ghép hai nguồn trên cùng UTC
 <!-- ma: code-b03-ghep-utc -->
 
 Đưa cả hai bảng về UTC rồi mới ghép; ghép gần nhất thì chỉ nhìn về quá khứ.
@@ -3466,7 +3514,7 @@ pd.merge_asof(trai, phai, on="t")              # backward: nhìn quá khứ
 
 **Kết quả:** Giờ nóng nhất: ghép sai 20h, ghép đúng 16h. Tương quan mưa–số chuyến: sai −0,100, đúng +0,136. merge_asof lấy giá 9.
 
-## 141. Gộp thô quá thì mất mùa vụ
+## 144. Gộp thô quá thì mất mùa vụ
 <!-- ma: gop -->
 
 *Tiếng Anh: aggregation · resample · missing values as zero*
@@ -3480,7 +3528,7 @@ Cùng dữ liệu thuê xe vẽ ở ba mức gộp:
 Kết luận "không có mùa vụ tuần" thường đến từ việc chỉ nhìn một hình như vậy. Kiểm bằng heatmap giờ × thứ và ACF tới trễ
 168. Lỗi thứ hai hay gặp: `resample().sum()` biến giờ thiếu thành 0. Đếm NaN trên lưới đầy đủ, và dùng `min_count=1` để giữ NaN.
 
-## 142. Code: làm trơn và tăng theo phần trăm
+## 145. Code: làm trơn và tăng theo phần trăm
 <!-- ma: code-b04-lam-tron-log -->
 
 Thấy bằng số làm trơn xoá mất ngày bão, và thang log đo tăng theo phần trăm.
@@ -3519,7 +3567,7 @@ print(bang.loc["2011-04":"2011-05"].round(1))
 
 **Kết quả:** Ngày bão chỉ còn 1 giờ số liệu mà đường trơn vẫn hơn 4.600 lượt. T4 so T3 +48,1%, T5 so T4 +43,2% dù T5 thêm nhiều lượt nhất (+40.951).
 
-## 143. Hai đường trùng khít vì chọn thang
+## 146. Hai đường trùng khít vì chọn thang
 <!-- ma: bieu-do-sai -->
 
 *Tiếng Anh: dual axis · truncated y-axis · misleading chart*
@@ -3531,7 +3579,7 @@ tháng) nhưng không tăng mãi: tháng 9 mát hơn tháng 7 khoảng 5 °C mà
 
 Một lỗi nữa: gộp nhiều năm vào một scatter. Nhiệt độ và lượt thuê có r = 0,771 năm 2011 và 0,714 năm 2012, nhưng gộp hai năm chỉ còn 0,627 vì cả đám chấm dời lên theo năm. Tô màu theo thời gian. Muốn đặt hai chuỗi khác đơn vị lên cùng trục thì đánh chỉ số về 100.
 
-## 144. Code: r từng nhóm thay cho trục kép
+## 147. Code: r từng nhóm thay cho trục kép
 <!-- ma: code-b04-tron-nam -->
 
 Đo quan hệ nhiệt độ và lượt thuê bằng số, và thấy trộn hai năm làm quan hệ trông yếu đi.
@@ -3571,7 +3619,7 @@ chi_so = th12 / th12.iloc[0] * 100
 
 **Kết quả:** 12 tháng 2012: r = 0,91. Theo ngày: 2011 r = 0,771, 2012 r = 0,714, nhưng gộp hai năm chỉ còn 0,627.
 
-## 145. Doanh thu tăng chưa chắc bán nhiều hơn
+## 148. Doanh thu tăng chưa chắc bán nhiều hơn
 <!-- ma: dao-dong -->
 
 *Tiếng Anh: nominal vs real value · inflation adjustment · per capita · Box-Cox*
@@ -3586,7 +3634,7 @@ trong tháng để tháng 2 không "sụt" giả mỗi năm.
 
 Khi báo "tăng bao nhiêu", nói rõ là danh nghĩa, thực, hay thực trên đầu người. Đừng dùng chuỗi đã điều chỉnh (ADJUSTED) rồi lại chia số ngày: chênh lệch số ngày bị bỏ hai lần.
 
-## 146. Code: chia số ngày của tháng
+## 149. Code: chia số ngày của tháng
 <!-- ma: code-b05-lich -->
 
 Thấy chia số ngày có thể đảo dấu kết luận khi so hai tháng liền nhau.
@@ -3623,7 +3671,7 @@ thay_doi = bang.pct_change() * 100             # % so với tháng trước
 
 **Kết quả:** T2 so T1: tổng −3,4% nhưng mỗi ngày +7,0%. T3 so T2: +14,15% thẳng, +3,11% chia ngày, +1,47% bỏ CN, −1,05% ADJUSTED.
 
-## 147. Code: giá thực và trên đầu người
+## 150. Code: giá thực và trên đầu người
 <!-- ma: code-b05-gia-thuc -->
 
 Bóc lạm phát và dân số khỏi doanh số để biết mỗi người thật sự mua thêm bao nhiêu.
@@ -3660,7 +3708,7 @@ chi_so = nam / nam.iloc[0] * 100               # 1993 bằng 100
 
 **Kết quả:** Chỉ số 2025: danh nghĩa 416, giá thực 187, thực trên đầu người 142. Giá chung tăng 2,23 lần, dân số 1,31 lần.
 
-## 148. Code: log và dao động theo mức
+## 151. Code: log và dao động theo mức
 <!-- ma: code-b05-log -->
 
 Thấy log biến cùng phần trăm thành cùng khoảng cách, rồi kiểm dao động lớn lên ra sao.
@@ -3697,7 +3745,7 @@ print(tb[-1] / tb[0], sd[-1] / sd[0])
 
 **Kết quả:** Hai cặp 100, 120 và 1.000, 1.200 cùng cách nhau 0,182 trên thang log. 1992 tới 2019: mức gấp 3,1 lần, dao động gấp 2,4 lần.
 
-## 149. Log rồi exp ngược thì ra trung vị
+## 152. Log rồi exp ngược thì ra trung vị
 <!-- ma: doi-nguoc -->
 
 *Tiếng Anh: back-transformation bias · bias adjustment*
@@ -3709,7 +3757,7 @@ trung bình bị kéo lên cao hơn trung vị. Trong hình, đổi ngược th�
 
 Công thức hiệu chỉnh: nhân dự báo đổi ngược với 1 + σ²/2, với σ là độ lệch chuẩn của sai số trên thang log. Khoảng hụt nhỏ khi σ nhỏ, rất lớn khi σ gần 1. Hiệu chỉnh chỉ sửa lệch do đổi ngược, không sửa lệch do mô hình; nếu mô hình đang dự báo cao thì hiệu chỉnh còn làm sai số tăng. Chỉ bật khi cần trung bình và σ đủ lớn.
 
-## 150. Code: đổi ngược ra trung vị
+## 153. Code: đổi ngược ra trung vị
 <!-- ma: code-b05-doi-nguoc -->
 
 Thấy bằng mô phỏng exp của dự báo log hụt trung bình, và hiệu chỉnh bias bù lại.
@@ -3745,7 +3793,7 @@ print(trung_vi / x.mean() - 1, tb_fpp / x.mean() - 1)
 
 **Kết quả:** exp(trung bình log) = 2,72, trung bình thật 3,70. Mô phỏng: đổi ngược thẳng hụt 11,9%, có hiệu chỉnh gần khớp.
 
-## 151. Code: seasonal naive có drift trên log
+## 154. Code: seasonal naive có drift trên log
 <!-- ma: code-b05-backtest-log -->
 
 Dự báo trên thang log chỉ bằng dữ liệu trước gốc, đổi ngược cả trung vị lẫn trung bình.
@@ -3787,7 +3835,7 @@ bang = pd.concat([du_bao_log(y, g) for g in goc])
 
 **Kết quả:** 1.008 dự báo. Hiệu chỉnh đẩy tổng dự báo lên đúng cỡ σ²/2, chỉ giúp khi dự báo đang thấp; bách hoá vốn đã lệch gần +10%.
 
-## 152. Khai sai chu kỳ: nhịp tuần chui vào xu hướng
+## 155. Khai sai chu kỳ: nhịp tuần chui vào xu hướng
 <!-- ma: chu-ky-sai -->
 
 *Tiếng Anh: classical decomposition · MSTL · robust decomposition*
@@ -3799,7 +3847,7 @@ thay vì chia nó vào mùa vụ của cả tuần.
 
 Kiểm cả chỗ thứ hai: tính trung bình phần dư theo tháng × giờ. Còn mẫu hình rõ nghĩa là mùa vụ ngày đổi theo mùa đang nằm lại trong phần dư. Robust cứu được một giờ hỏng nhưng không tách được sự kiện kéo dài nhiều ngày như đợt nắng nóng: nó chạy vào xu hướng và mùa vụ, cần thêm biến nhiệt độ. Đầu vào còn NaN thì STL/MSTL trả toàn NaN mà không báo lỗi.
 
-## 153. Code: mùa vụ trốn trong xu hướng, phần dư
+## 156. Code: mùa vụ trốn trong xu hướng, phần dư
 <!-- ma: code-b06-mau-hinh -->
 
 Kiểm hai chỗ mùa vụ trốn: xu hướng theo thứ, và phần dư theo tháng và giờ.
@@ -3840,7 +3888,7 @@ print(ty_le_mau_hinh(sm24.resid, y), ty_le_mau_hinh(ms.resid, y))
 
 **Kết quả:** Xu hướng T7, CN thấp hơn giữa tuần khoảng 5.500–6.600 MW. Tỷ lệ mẫu hình tháng × giờ: cổ điển 0,102, MSTL 0,0006.
 
-## 154. Code: MSTL robust với một giờ hỏng
+## 157. Code: MSTL robust với một giờ hỏng
 <!-- ma: code-b06-robust -->
 
 Tính trọng số robust tay, rồi thấy robust giữ lỗi một giờ trong phần dư.
@@ -3881,7 +3929,7 @@ print(ms.resid[t0], rb.resid[t0])                # lỗi nằm ở đâu
 
 **Kết quả:** Ví dụ tay: điểm 20 trọng số 0, điểm −2 là 0,79. Không robust, mùa vụ ngày 20/11 lệch khoảng 6.200 MW; robust giữ lỗi trong phần dư.
 
-## 155. Sai phân thừa làm chuỗi tệ hơn
+## 158. Sai phân thừa làm chuỗi tệ hơn
 <!-- ma: sai-phan -->
 
 *Tiếng Anh: over-differencing · ADF / KPSS test*
@@ -3896,7 +3944,7 @@ xu hướng thay vì sai phân.
 
 Quy tắc dừng tay: sai phân tới khi KPSS thôi bác bỏ, nhưng dừng nếu r₁ về gần −0,5 hoặc độ lệch chuẩn tăng. Chuỗi có mùa vụ thì sai phân mùa vụ (y_t − y_(t−m)) trước, vì sai phân thường không bỏ được mùa vụ.
 
-## 156. Code: hai dấu hiệu sai phân thừa
+## 159. Code: hai dấu hiệu sai phân thừa
 <!-- ma: code-b07-sai-phan -->
 
 Biết khi nào dừng sai phân: r1 gần −0,5 hoặc độ lệch chuẩn tăng lên.
@@ -3938,7 +3986,7 @@ for s in (g.diff(), g.diff(168), g.diff(168).diff()):
 
 **Kết quả:** Nhiễu trắng: r1 = −0,447, độ lệch chuẩn 0,96 lên 1,29 (thừa). Random walk: 4,55 xuống 0,96. Lượt thuê: 168 rồi thường giảm 0,589 xuống 0,427.
 
-## 157. r = 0,97 chưa chắc là quan hệ thật
+## 160. r = 0,97 chưa chắc là quan hệ thật
 <!-- ma: tuong-quan-gia -->
 
 *Tiếng Anh: spurious correlation · Durbin–Watson statistic*
@@ -3954,7 +4002,7 @@ Khi viết kết luận: nói "đi cùng", không nói "gây ra".
 
 R² cao, t lớn mà Durbin–Watson gần 0 là bộ ba dấu hiệu của hồi quy giả.
 
-## 158. Code: hồi quy giả và Durbin–Watson
+## 161. Code: hồi quy giả và Durbin–Watson
 <!-- ma: code-b08-tuong-quan-gia -->
 
 Bắt tương quan giả bằng hai phép kiểm: DW của phần dư và tương quan sau sai phân.
@@ -3996,7 +4044,7 @@ r_sai_phan = d["cpi"].corr(d["dan_so"])
 
 **Kết quả:** Trên mức: r 0,974, R² 0,95, t 88,6. Nhưng DW 0,0051 và r sau sai phân −0,207: tương quan giả.
 
-## 159. Lạnh cũng tăng, nóng cũng tăng: hình chữ U
+## 162. Lạnh cũng tăng, nóng cũng tăng: hình chữ U
 <!-- ma: chu-u -->
 
 *Tiếng Anh: nonlinear relationship · CDD / HDD (degree days) · mutual information*
@@ -4012,7 +4060,7 @@ Ví dụ 25 °C cho CDD 6,67 và HDD 0. Mốc 18,33 °C (65 °F) là quy ước,
 
 Muốn kiểm mutual information có ý nghĩa trên chuỗi thời gian thì hoán vị theo khối. Hoán vị từng điểm phá mất tự tương quan, nên hai chuỗi độc lập cũng bị kết luận là "có quan hệ".
 
-## 160. Code: CDD, HDD và MI xáo theo khối
+## 163. Code: CDD, HDD và MI xáo theo khối
 <!-- ma: code-b08-cdd-mi -->
 
 Tách quan hệ chữ U thành hai nhánh, và kiểm MI có thật bằng cách xáo cả tuần.
@@ -4054,7 +4102,7 @@ nguong = np.quantile([mi(t, v) for v in xao], 0.95)      # so với mi(t, y)
 
 **Kết quả:** R² tăng từ 0,379 lên 0,812. Nhánh lạnh r = −0,649, nhánh nóng +0,910. MI thật 0,862 vượt xa ngưỡng xáo khối 0,124.
 
-## 161. isna() không thấy dòng bị mất
+## 164. isna() không thấy dòng bị mất
 <!-- ma: thieu-moc -->
 
 *Tiếng Anh: missing timestamps vs missing values · reindex*
@@ -4068,7 +4116,7 @@ Có hai loại thiếu:
 thiếu (02:00), nhưng mốc 01:00 mất cả dòng. Trên dữ liệu trạm thật có 249 mốc bị mất, dồn vào vài tháng, và phần lớn lỗ
 chỉ dài một bước. Sửa: `reindex` lên lưới đầy đủ trước mọi việc khác.
 
-## 162. Code: dựng lưới rồi mới đếm thiếu
+## 165. Code: dựng lưới rồi mới đếm thiếu
 <!-- ma: code-b10-luoi -->
 
 isna() chỉ thấy ô rỗng; dựng lưới đủ mốc mới thấy cả những dòng không tồn tại.
@@ -4107,7 +4155,7 @@ def do_dai_lo(y):                      # độ dài từng đoạn NaN liền nh
 
 **Kết quả:** Ví dụ: isna() báo 1, lên lưới ra 2. Nội Bài 2024: lưới 17.568 mốc, tệp 17.319 dòng, thiếu 249 mốc mà isna() chỉ thấy 2 ô.
 
-## 163. Vì sao số bị mất quyết định có điền được không
+## 166. Vì sao số bị mất quyết định có điền được không
 <!-- ma: mcar -->
 
 *Tiếng Anh: missing data mechanism · MCAR / MAR / MNAR*
@@ -4123,7 +4171,7 @@ def do_dai_lo(y):                      # độ dài từng đoạn NaN liền nh
 Ví dụ: bốn giờ PM2.5 thật 10, 20, 30, 40 (trung bình 25). Cảm biến tắt khi trên 30, chỉ còn 10, 20, 30, trung bình 20: đã lệch 5 trước
 khi điền bất cứ gì.
 
-## 164. Thiếu vì chính giá trị: điền kiểu gì cũng lệch
+## 167. Thiếu vì chính giá trị: điền kiểu gì cũng lệch
 <!-- ma: mnar -->
 
 *Tiếng Anh: missing data mechanism · MCAR / MAR / MNAR*
@@ -4141,7 +4189,7 @@ Kiểm MNAR trên dữ liệu thật bằng cách so các trạm hàng xóm lúc
 trạm khác còn thấp hơn 3%: không có bằng chứng MNAR. Phải đo, đừng giả định. Báo tỷ lệ thiếu theo trạm, theo tháng, không chỉ một
 con số chung.
 
-## 165. Code: MNAR làm lệch, kiểm bằng số
+## 168. Code: MNAR làm lệch, kiểm bằng số
 <!-- ma: code-b10-mnar -->
 
 Thấy bằng mô phỏng vì sao MNAR điền kiểu gì cũng lệch, rồi kiểm cơ chế trên dữ liệu thật.
@@ -4182,7 +4230,7 @@ def bang_chung_mnar(bang, tram):        # bang: PM2.5 của 12 trạm
 
 **Kết quả:** Mô phỏng: MNAR mất 16,2%, điền xong trung bình −0,30 thay vì −0,005; MCAR gần như không lệch. Dongsi thiếu thì trạm khác thấp hơn 3,0%.
 
-## 166. 9,999 km không phải số đo
+## 169. 9,999 km không phải số đo
 <!-- ma: tra-hinh -->
 
 *Tiếng Anh: sentinel value · flag column · quality flag*
@@ -4194,7 +4242,7 @@ chỉ có giá trị nguyên. Kiểm bằng `value_counts().head()` và đọc t
 
 Hai việc nữa trước khi tin một con số. Đo độ phân giải trước khi gọi một đoạn lặp là cảm biến đứng yên: nhiệt độ ghi số nguyên thì lặp vài giờ là bình thường. Và đọc bảng cờ chất lượng của nguồn: ở GHCNh, mã 4 không phải lỗi, chỉ loại 2, 3, 6, 7, o, f. Số 0 do hết hàng cũng là thiếu, không phải số đo; nếu không đánh dấu, mô hình dự báo thấp, cửa hàng nhập ít, lại hết hàng, và vòng lặp tự củng cố.
 
-## 167. Đo độ phân giải trước khi gọi cảm biến kẹt
+## 170. Đo độ phân giải trước khi gọi cảm biến kẹt
 <!-- ma: do-phan-giai -->
 
 *Tiếng Anh: measurement resolution · stuck sensor · flat-line detection*
@@ -4213,7 +4261,7 @@ Dữ liệu thật ở Nội Bài 2024 ghi tới 1 °C và có một đoạn 67 
 Quy tắc: đo độ phân giải trước, rồi mới đặt ngưỡng. Cùng một đoạn lặp 20 giờ cả ngày lẫn đêm, cảm biến ghi tới 0,1 °C đáng ngờ hơn nhiều so
 với cảm biến ghi tới 1 °C. Không dùng một ngưỡng chung cho mọi cảm biến.
 
-## 168. Code: tìm số trông như số đo
+## 171. Code: tìm số trông như số đo
 <!-- ma: code-b10-tra-hinh -->
 
 Mã, trần, độ phân giải và đoạn kẹt không để lại NaN; phải đo từng dấu vết mới thấy.
@@ -4255,7 +4303,7 @@ def doan_mac_ket(y, toi_thieu):     # đoạn lặp dài từ toi_thieu bước
 
 **Kết quả:** Độ ẩm dạng chữ: min '100', max '94'. Hơn 1/3 dòng tầm nhìn là mã 9,999; 5,7% độ ẩm chạm trần. Ngưỡng 18 giờ: 2 đoạn kẹt, dài nhất 33,5 giờ.
 
-## 169. Bảy cách điền: lỗ dài cần giữ hình dạng
+## 172. Bảy cách điền: lỗ dài cần giữ hình dạng
 <!-- ma: cach-dien -->
 
 *Tiếng Anh: imputation · forward fill · linear / spline interpolation · seasonal · neighbour station*
@@ -4277,7 +4325,7 @@ lại: spline (đường cong trơn qua hai đầu), trung bình theo giờ, Kal
 Lỗ ngắn: ffill hay tuyến tính đều ổn. Lỗ dài: cần cách mang theo hình dạng. Luôn biết cách điền có dùng tương lai không: tuyến
 tính, spline, Kalman smoother đều dùng.
 
-## 170. Chấm cách điền: che thử, và che hai kiểu
+## 173. Chấm cách điền: che thử, và che hai kiểu
 <!-- ma: so-sanh-dien -->
 
 *Tiếng Anh: imputation evaluation · artificial masking · point vs block masking*
@@ -4293,7 +4341,7 @@ lẫn lỗ dài, nên phải che hai kiểu:
 Cùng 7 cách, cùng chuỗi, chỉ đổi kiểu che mà thứ hạng đảo. Lỗ ngắn thì tuyến tính hay `ffill` đều ổn. Lỗ dài cần cách mang theo hình
 dạng (trạm hàng xóm, mùa vụ hôm trước), hoặc để trống. Che kiểu nào thì phải chấm bằng đúng kiểu đó.
 
-## 171. Code: các cách điền một lỗ
+## 174. Code: các cách điền một lỗ
 <!-- ma: code-b10-dien -->
 
 Đặt các cách điền cạnh nhau trên một lỗ nhỏ để thấy cách nào biết hình dạng đoạn mất.
@@ -4334,7 +4382,7 @@ def dien_kalman(y, chu_ky=48):          # mức + nhịp ngày, nhìn hai phía
 
 **Kết quả:** ffill sai nhiều nhất (3 và 5), tuyến tính 1,67 và 2,33, mùa vụ 1 và 1, hàng xóm trúng cả hai. Nội Bài với Open-Meteo có r = 0,976.
 
-## 172. Code: che điểm và che khối
+## 175. Code: che điểm và che khối
 <!-- ma: code-b10-che -->
 
 Tự xoá số đang có rồi điền lại để có đáp án, và che theo đúng hai kiểu lỗ thật.
@@ -4374,7 +4422,7 @@ cham = lambda that, z, dien: (dien(z) - that)[z.isna()].abs().mean()
 
 **Kết quả:** Tuyến tính hạng 1 ở lỗ ngắn (MAE 0,291 °C) nhưng hạng 5 ở lỗ 48 giờ (2,171); hàng xóm đi ngược lại, hạng 5 lên hạng 1.
 
-## 173. Điền nhân quả: có số mới, số cũ không đổi
+## 176. Điền nhân quả: có số mới, số cũ không đổi
 <!-- ma: dien-nhan-qua -->
 
 *Tiếng Anh: causal imputation · two-sided interpolation · cutoff test*
@@ -4395,7 +4443,7 @@ rò rỉ.
 
 Pipeline đúng: chia tập trước, chỉ điền lỗ ngắn bằng cách nhân quả (buổi 10: ≤ 6 bước = 3 giờ), lỗ dài để trống, và xuất cột cờ `da_dien`.
 
-## 174. Lỗ dài: đừng lấp bằng đường phẳng
+## 177. Lỗ dài: đừng lấp bằng đường phẳng
 <!-- ma: dien -->
 
 *Tiếng Anh: imputation · forward fill · causal imputation · MNAR*
@@ -4416,7 +4464,7 @@ gì cũng lệch.
 
 Cột cờ `da_dien` đi theo dữ liệu, để về sau giảm trọng số hoặc bỏ các ô đã điền khỏi tập chấm. Kalman smoother và nội suy tuyến tính đều dùng điểm phía sau, tức không nhân quả; ffill hợp với chuỗi bậc thang như giá niêm yết.
 
-## 175. Code: chỉ điền lỗ ngắn, kiểm rò rỉ
+## 178. Code: chỉ điền lỗ ngắn, kiểm rò rỉ
 <!-- ma: code-b10-lam-sach -->
 
 Gói làm sạch thành hàm chỉ điền lỗ ngắn kèm cột cờ, rồi dùng máy kiểm có rò rỉ không.
@@ -4458,7 +4506,7 @@ def kiem_ro_ri(ham, bang, moc_cat):        # moc_cat nằm TRONG một lỗ
 
 **Kết quả:** Nội Bài: 130 ô bị loại vì nghi ngờ, 198 ô được điền, 181 ô để trống. Điền mọi lỗ bằng tuyến tính bị bắt khi cắt trong lỗ.
 
-## 176. Bốn kiểu bất thường, bốn cách bắt
+## 179. Bốn kiểu bất thường, bốn cách bắt
 <!-- ma: bon-loai -->
 
 *Tiếng Anh: additive outlier (AO) · level shift (LS) · temporary change (TC) · variance change*
@@ -4473,7 +4521,7 @@ def kiem_ro_ri(ham, bang, moc_cat):        # moc_cat nằm TRONG một lỗ
 Loại quyết định cách phát hiện và cách xử lý, không phải độ lớn: Hampel cho điểm đơn, tìm điểm gãy cho dịch mức, MAD trên phần dư STL
 cho đổi phương sai. Câu hỏi đầu tiên với một điểm lạ: đây là lỗi, giai đoạn tạm thời, hay một trạng thái mới?
 
-## 177. Code: nhận loại bất thường
+## 180. Code: nhận loại bất thường
 <!-- ma: code-b11-bon-loai -->
 
 Bốn loại bất thường giống nhau ở mốc lạ; chỉ các điểm sau mốc đó mới tách được chúng.
@@ -4510,7 +4558,7 @@ bang = pd.DataFrame({ten: {
 
 **Kết quả:** Điểm 4 không tách được ba loại đầu; bốn điểm sau thì tách: AO về 10, dịch mức ở lại 20, thay đổi tạm hồi dần. Đổi phương sai: độ lệch chuẩn 4,08.
 
-## 178. z-score: ngoại lai kéo cả ngưỡng lên theo
+## 181. z-score: ngoại lai kéo cả ngưỡng lên theo
 <!-- ma: z-score-masking -->
 
 *Tiếng Anh: z-score · 3σ rule · masking / swamping*
@@ -4533,7 +4581,7 @@ vạch lên gần 76. Vạch xanh lá (trung vị + 3·MAD) đứng yên sát d�
 Trên 3.653 ngày lượt xem Wikipedia tiếng Việt, 3σ gắn cờ 16 ngày; thêm một ngày giả thật lớn thì còn 5. Chiều ngược lại, ngoại lai làm điểm
 bình thường bị gắn cờ oan, gọi là **swamping**. Vì vậy "không vượt 3σ" không có nghĩa là "dữ liệu sạch".
 
-## 179. 3σ bỏ sót chính ngoại lai
+## 182. 3σ bỏ sót chính ngoại lai
 <!-- ma: masking -->
 
 *Tiếng Anh: outlier · z-score · masking · MAD · Hampel filter*
@@ -4545,7 +4593,7 @@ Sửa bằng **MAD** (dùng trung vị thay trung bình) và **Hampel** (MAD tr�
 
 Với mẫu nhỏ, |z| không bao giờ vượt quá (n − 1)/√n. Mười số thì tối đa 2,85, nên ngưỡng 3 không bao giờ gắn cờ được điểm nào.
 
-## 180. Code: ngưỡng 3σ bỏ sót ngoại lai
+## 183. Code: ngưỡng 3σ bỏ sót ngoại lai
 <!-- ma: code-b11-masking -->
 
 Thấy bằng số vì sao ngoại lai lớn kéo chính trung bình và độ lệch chuẩn dùng để bắt nó.
@@ -4582,7 +4630,7 @@ z_score(tong).sum(), z_score(them).sum()    # số ngày bị gắn cờ
 
 **Kết quả:** z của 50 chỉ 2,84, dưới trần 2,85 nên không bị bắt. Wikipedia: thêm một ngày giả, số ngày bị gắn cờ tụt từ 16 xuống 5.
 
-## 181. MAD và Hampel: đo bằng trung vị, so tại chỗ
+## 184. MAD và Hampel: đo bằng trung vị, so tại chỗ
 <!-- ma: mad-hampel -->
 
 *Tiếng Anh: median absolute deviation (MAD) · 1.4826 · Hampel filter*
@@ -4605,7 +4653,7 @@ nằm cao hơn mọi điểm. Trên lượt xem Wikipedia, Hampel ±15 ngày g�
 
 Lưu ý: cửa sổ có tâm nhìn cả hai phía, nên Hampel dùng để làm sạch lịch sử, không dùng làm feature dự báo.
 
-## 182. Hampel: so với mức địa phương
+## 185. Hampel: so với mức địa phương
 <!-- ma: hampel -->
 
 *Tiếng Anh: MAD · Hampel filter · winsorize · IQR rule*
@@ -4622,7 +4670,7 @@ vị và MAD của cửa sổ quanh nó, nên xu hướng không làm nó mù. T
 3σ toàn chuỗi chỉ gắn cờ những ngày mức cao; Hampel rải cờ đều mười năm. Trước khi tin một ngưỡng, xem nó gắn cờ bao nhiêu phần
 trăm dữ liệu. Sửa bằng **winsorize** (kéo điểm về trung vị địa phương) hoặc biến giả, không xoá mốc.
 
-## 183. Code: MAD và bộ lọc Hampel
+## 186. Code: MAD và bộ lọc Hampel
 <!-- ma: code-b11-hampel -->
 
 Đổi trung bình thành trung vị để ngoại lai không kéo được thước đo, rồi trượt theo cửa sổ.
@@ -4663,7 +4711,7 @@ def hampel(y, cua_so=15, nguong=3.0):     # cửa sổ ±15 ngày quanh điểm
 
 **Kết quả:** Điểm MAD của 50 là 25,6, bắt ngay. Wikipedia: Hampel gắn cờ 121 ngày rải đều mười năm, thêm ngày giả chỉ thành 123.
 
-## 184. Gắn cờ xong: giữ, winsorize hay biến giả
+## 187. Gắn cờ xong: giữ, winsorize hay biến giả
 <!-- ma: xu-ly-bat-thuong -->
 
 *Tiếng Anh: winsorizing · event log · dummy variable*
@@ -4688,7 +4736,7 @@ cờ, xoá để lại một lỗ, winsorize thay bằng 12.
 Chọn theo **loại** bất thường: lỗi đo thì winsorize; sự kiện thật thì giữ và ghi nhật ký; dịch mức thì thêm biến giả, vì nó ảnh hưởng mọi dự
 báo về sau. Một đỉnh Black Friday lặp mỗi năm mà winsorize đi là xoá chính cái cửa hàng cần dự báo.
 
-## 185. Tết không phải ngoại lai
+## 188. Tết không phải ngoại lai
 <!-- ma: tet -->
 
 *Tiếng Anh: event log · dummy variable · moving holiday*
@@ -4700,7 +4748,7 @@ không đồng nghĩa với lỗi.
 
 Chọn cách sửa theo loại bất thường: điểm đơn thì winsorize, dịch mức hay thay đổi tạm thì biến giả. Không xoá mốc, vì xoá làm thủng lưới thời gian.
 
-## 186. Code: giữ Tết, winsorize lỗi đo
+## 189. Code: giữ Tết, winsorize lỗi đo
 <!-- ma: code-b11-tet -->
 
 Ngưỡng nào cũng gắn cờ Tết; nhật ký sự kiện giữ nó lại, còn lỗi đo thì thay chứ không xoá.
@@ -4741,7 +4789,7 @@ xl = xu_ly_ngoai_lai(tet, bo_qua_su_kien=dinh)
 
 **Kết quả:** Năm cách gắn cờ đều bắt 10/10 đỉnh Tết. Xoá theo 3σ mất 54 mốc, cả mười đỉnh; winsorize cộng nhật ký giữ đủ 3.653 mốc.
 
-## 187. PELT: mỗi điểm gãy phải trả một penalty
+## 190. PELT: mỗi điểm gãy phải trả một penalty
 <!-- ma: penalty -->
 
 *Tiếng Anh: changepoint · cost function · PELT · penalty β*
@@ -4769,7 +4817,7 @@ mà chạy gần tuyến tính theo độ dài chuỗi.
 Penalty nhỏ thì cắt nhiều, dễ ra điểm gãy giả; lớn thì không còn điểm gãy nào. Đừng tin một con số: quét nhiều mức và giữ kết quả ổn định.
 Chuỗi tăng trưởng thì lấy log trước: số hành khách mức gốc cho 43 điểm gãy, trên log chỉ 2 (2/2020 và 5/2021).
 
-## 188. Lấy log trước: 43 điểm gãy còn 2
+## 191. Lấy log trước: 43 điểm gãy còn 2
 <!-- ma: pelt -->
 
 *Tiếng Anh: changepoint detection · PELT · penalty*
@@ -4786,7 +4834,7 @@ toàn bộ lịch sử, không hợp để báo động theo thời gian thực.
 
 Kiểm nhanh khi gọi thư viện: số điểm gãy phải giảm dần khi penalty tăng. Quy ước hay dùng là penalty khoảng 2–3·ln n.
 
-## 189. Code: PELT, lấy log, quét penalty
+## 192. Code: PELT, lấy log, quét penalty
 <!-- ma: code-b11-pelt -->
 
 Tìm mốc chuỗi đổi hẳn bằng PELT, và chỉ tin điểm gãy không đổi khi penalty đổi.
@@ -4828,7 +4876,7 @@ for he_so in (0.5, 1, 2, 3, 4, 6, 10):     # quét penalty
 
 **Kết quả:** Ví dụ: ruptures trả [5, 10]. Hàng không EU: mức gốc ra 43 điểm gãy, log ra 2, ổn định từ 1 tới 4 ln n: 2/2020 (−78,7%) và 5/2021.
 
-## 190. COVID: cách xử lý đổi sai số gần 3 lần
+## 193. COVID: cách xử lý đổi sai số gần 3 lần
 <!-- ma: covid -->
 
 *Tiếng Anh: structural break · changepoint · PELT*
@@ -4851,7 +4899,7 @@ dùng **PELT**, chạy trên log: trên mức gốc nó báo 43 điểm gãy, tr
 
 Nội suy qua đoạn COVID chỉ hợp khi hành vi quay về như cũ. Nếu sau cú sốc là một mức mới kéo dài, dùng biến giả hoặc chỉ học phần sau (nhưng cần đủ dài để học mùa vụ).
 
-## 191. Code: ba cách xử lý COVID
+## 194. Code: ba cách xử lý COVID
 <!-- ma: code-b11-covid -->
 
 Giữ mô hình cố định, chỉ đổi cách xử lý COVID, để thấy lựa chọn đó đổi dự báo ra sao.
@@ -4893,7 +4941,7 @@ cach = {"giữ nguyên": hoc, "coi là thiếu": hoc.mask(covid).interpolate(),
 
 **Kết quả:** MAPE 2023: coi là thiếu 8,71%, giữ nguyên 24,01%. Giữ nguyên thì 16 tháng sụt kéo xu hướng xuống, dự báo thấp gần 20 triệu khách/tháng.
 
-## 192. Khử nhiễu: trailing nhân quả nhưng trễ
+## 195. Khử nhiễu: trailing nhân quả nhưng trễ
 <!-- ma: khu-nhieu -->
 
 *Tiếng Anh: signal + noise · trailing / centered moving average · causal filter*
@@ -4910,7 +4958,7 @@ bị sửa khi dữ liệu mới về.
 Centered dùng để mô tả, vẽ, tách xu hướng; không bao giờ làm feature dự báo. Trailing dùng được, đổi lại nó trễ: trung bình 13
 điểm có đỉnh đến sau tín hiệu 6 bước, đúng (13 − 1) / 2.
 
-## 193. Nyquist: lấy mẫu thưa thì sinh nhịp giả
+## 196. Nyquist: lấy mẫu thưa thì sinh nhịp giả
 <!-- ma: nyquist -->
 
 *Tiếng Anh: Nyquist frequency · sampling frequency f_s · aliasing*
@@ -4934,7 +4982,7 @@ Trên tín hiệu mô phỏng 10 phút một mẫu, dao động 43 phút (1,4 ch
 Cách tránh: **lọc thông thấp** (bỏ dao động nhanh) trước khi hạ mẫu, ở khoảng 0,8 lần Nyquist mới. Bộ lọc này chạy hai chiều, nên chỉ dùng
 tiền xử lý lịch sử, không dùng trong feature.
 
-## 194. Đọc phổ trước khi lọc và hạ mẫu
+## 197. Đọc phổ trước khi lọc và hạ mẫu
 <!-- ma: aliasing -->
 
 *Tiếng Anh: periodogram · aliasing · Nyquist frequency · low-pass filter · downsampling*
@@ -4950,7 +4998,7 @@ phim cũ. Giới hạn **Nyquist** là một nửa tần số lấy mẫu; dao �
 
 Tính được chu kỳ giả: f_giả = |f − k·f_s|, với f_s là tần số lấy mẫu và k là số nguyên gần f/f_s nhất. Dao động 1,4 vòng mỗi giờ lấy mẫu mỗi giờ (f_s = 1) gập xuống thành 0,4 vòng mỗi giờ, tức chu kỳ giả 2,5 giờ.
 
-## 195. Code: đọc phổ bằng Welch
+## 198. Code: đọc phổ bằng Welch
 <!-- ma: code-b12-pho -->
 
 Trước khi lọc, đo xem dao động nhanh chiếm bao nhiêu năng lượng và nhịp nào mạnh nhất.
@@ -4991,7 +5039,7 @@ nhanh = P[f > 1].sum() / P[1:].sum()      # phần năng lượng dưới 1 gi�
 
 **Kết quả:** Ví dụ tay: đỉnh ở 0,5 và 1/6. Cả hai cảm biến có đỉnh 24,38 giờ; điện thiết bị có 17,8% năng lượng dưới 1 giờ, nhiệt độ phòng 0,0.
 
-## 196. Code: lọc thông thấp rồi mới hạ mẫu
+## 199. Code: lọc thông thấp rồi mới hạ mẫu
 <!-- ma: code-b12-aliasing -->
 
 Hạ mẫu thô làm dao động nhanh gập thành chu kỳ giả; lọc trước thì chu kỳ đó biến mất.
@@ -5033,7 +5081,7 @@ y = 20 + 2 * np.sin(2 * np.pi * t / 24) + 0.5 * np.sin(2 * np.pi * 1.4 * t)
 
 **Kết quả:** 1,4 chu kỳ/giờ lấy mẫu mỗi giờ gập thành 0,4: chu kỳ giả 2,5 giờ, công suất 64,0 khi hạ mẫu thô và 0,0 khi lọc trước.
 
-## 197. EWMA: điểm mới nặng hơn, trễ ít hơn
+## 200. EWMA: điểm mới nặng hơn, trễ ít hơn
 <!-- ma: ewma -->
 
 *Tiếng Anh: exponentially weighted moving average (EWMA) · α, span, com · phase lag*
@@ -5049,7 +5097,7 @@ Hình: trung bình trượt 13 điểm chia đều trọng số rồi cắt hẳ
 Đo được: trung bình 13 điểm trễ 6 bước; EWMA $\alpha$ = 0,15 trễ 4. Luôn ghi đã khai $\alpha$, span hay com: `com=9` cho $\alpha$
 = 0,1, khác hẳn `span=9` ($\alpha$ = 0,2).
 
-## 198. Lọc hai chiều không trễ vì nhìn tương lai
+## 201. Lọc hai chiều không trễ vì nhìn tương lai
 <!-- ma: sau-ho-loc -->
 
 *Tiếng Anh: Savitzky–Golay · Butterworth sosfilt / sosfiltfilt · Kalman filter / smoother*
@@ -5073,7 +5121,7 @@ Butterworth nhân quả trễ 19 bước nên RMSE tệ nhất nhóm (2,419); Ka
 
 Khi xếp hạng bộ lọc cho dự báo, chỉ so các bộ lọc nhân quả với nhau.
 
-## 199. Sáu họ bộ lọc trong một bảng
+## 202. Sáu họ bộ lọc trong một bảng
 <!-- ma: bang-bo-loc -->
 
 | Họ bộ lọc | Hiểu đơn giản | Dùng khi | Không dùng khi | Nhân quả |
@@ -5088,7 +5136,7 @@ Khi xếp hạng bộ lọc cho dự báo, chỉ so các bộ lọc nhân quả 
 Làm feature dự báo thì chỉ chọn trong những dòng nhân quả. Kalman filter chỉ nhân quả khi tham số ước lượng trên phần học rồi cố
 định; khớp lại trên cả chuỗi thì quá khứ đổi tới 1,134 (buổi 12, mục 4.5).
 
-## 200. Bộ lọc trơn nhất lại là bộ lọc nhìn tương lai
+## 203. Bộ lọc trơn nhất lại là bộ lọc nhìn tương lai
 <!-- ma: bo-loc -->
 
 *Tiếng Anh: moving average · EWMA · Savitzky–Golay · Butterworth · Kalman filter · phase lag*
@@ -5105,7 +5153,7 @@ bước. Bảng xếp hạng bộ lọc cho dự báo luôn cần một cột "n
 
 Khử nhiễu còn bôi nhoè bước nhảy, nên tìm điểm gãy trước (buổi 11) rồi mới lọc.
 
-## 201. Code: sáu họ bộ lọc
+## 204. Code: sáu họ bộ lọc
 <!-- ma: code-b12-bo-loc -->
 
 Chạy các họ bộ lọc trên cùng chuỗi mô phỏng để so độ trơn, độ trễ và việc nhìn tương lai.
@@ -5147,7 +5195,7 @@ ra = {"MA trailing 13": s.rolling(13, min_periods=1).mean(),
 
 **Kết quả:** Ba RMSE thấp nhất (centered 0,357, Kalman smoother, Savitzky–Golay) đều nhìn tương lai. Nhân quả tốt nhất: Kalman filter 0,584, trễ 1.
 
-## 202. Đổi số cuối: nhân quả thì quá khứ đứng yên
+## 205. Đổi số cuối: nhân quả thì quá khứ đứng yên
 <!-- ma: kiem-nhan-qua -->
 
 *Tiếng Anh: causality test · perturb the tail · tolerance*
@@ -5169,7 +5217,7 @@ Ba chỗ hay làm sai:
 
 Bài kiểm này không bắt rò rỉ qua cách chia tập (buổi 13).
 
-## 203. Đổi số cuối mà số cũ đổi theo: đã nhìn tương lai
+## 206. Đổi số cuối mà số cũ đổi theo: đã nhìn tương lai
 <!-- ma: loc-tuong-lai -->
 
 *Tiếng Anh: causal filter · trailing / centered moving average · EWMA*
@@ -5186,7 +5234,7 @@ Cái giá của rò rỉ: feature làm trơn kiểu centered hay `filtfilt` hứ
 
 Bộ lọc nhân quả vẫn rò rỉ nếu tham số của nó được ước lượng trên cả chuỗi, ví dụ Kalman filter với phương sai nhiễu ước lượng từ toàn bộ dữ liệu. Ước lượng trên phần học rồi cố định. Làm trơn mục tiêu dùng để chấm còn tệ hơn: MAE trên mục tiêu đã làm trơn là 35,78, trên chuỗi gốc là 46,84.
 
-## 204. Code: trailing và centered
+## 207. Code: trailing và centered
 <!-- ma: code-b12-trailing -->
 
 Thấy bằng số kiểu centered viết lại quá khứ khi có số mới, còn trailing thì không.
@@ -5220,7 +5268,7 @@ y2.rolling(3, center=True).mean()[4]          # giờ 4 bị viết lại
 
 **Kết quả:** Giờ 3 kiểu centered ra 18,67 vì đã cộng số 30 của giờ 4. Đổi giờ 5 thành 40: centered giờ 4 nhảy từ 20 lên 28, trailing vẫn 18,67.
 
-## 205. Code: đổi đuôi, xem đầu
+## 208. Code: đổi đuôi, xem đầu
 <!-- ma: code-b12-kiem-nhan-qua -->
 
 Một phép thử chạy được cho mọi bộ lọc: đổi đuôi chuỗi, xem quá khứ có bị đổi theo không.
@@ -5260,7 +5308,7 @@ def kiem_nhan_qua(ham_loc, y, so_diem_doi=10, thay_doi=50.0):
 
 **Kết quả:** 6/10 cấu hình nhìn tương lai. Centered 13 đổi quá khứ 23,077; Kalman khớp lại cả chuỗi đổi 1,134; filtfilt làm bẩn ngược 274 bước.
 
-## 206. Làm trơn mục tiêu là chấm trên đề dễ hơn
+## 209. Làm trơn mục tiêu là chấm trên đề dễ hơn
 <!-- ma: muc-tieu-lam-tron -->
 
 *Tiếng Anh: target smoothing · evaluation on the raw series*
@@ -5278,7 +5326,7 @@ chồng lên nhau: đường làm trơn cắt mất các đỉnh nhọn, đúng 
 Được làm trơn feature bằng bộ lọc nhân quả; không bao giờ làm trơn mục tiêu dùng để chấm. Nếu cần "điện trung bình 3 giờ tới" thì
 định nghĩa lại mục tiêu thành đúng đại lượng đó và ghi rõ trong báo cáo.
 
-## 207. Code: đo cái giá của rò rỉ
+## 210. Code: đo cái giá của rò rỉ
 <!-- ma: code-b12-gia-ro-ri -->
 
 Đo feature nhìn tương lai làm sai số đẹp giả bao nhiêu, khi chấm trên chuỗi gốc.
@@ -5320,7 +5368,7 @@ trailing = danh_gia_feature(dien, ma_truoc)   # nhân quả
 
 **Kết quả:** Không lọc MAE 46,84 Wh. Centered giảm 27,7%, filtfilt 24,5%, đều giả; feature nhân quả chỉ giúp 0,9–5,9%.
 
-## 208. Rò rỉ: backtest đẹp, dùng thật tệ
+## 211. Rò rỉ: backtest đẹp, dùng thật tệ
 <!-- ma: ro-ri -->
 
 *Tiếng Anh: data leakage · target encoding · fit on training data only*
@@ -5346,7 +5394,7 @@ Cách sửa chung: chỉ `fit` trên phần học.
 
 Bài kiểm thứ hai là **kiểm nhiễu mục tiêu**: cộng nhiễu lớn vào mục tiêu từ 70% chuỗi trở đi, rồi xem feature của những dòng có thời điểm ra dự báo còn trước đó có đổi không. Nó bắt được lag nhỏ hơn tầm dự báo, thứ bài cắt tương lai bỏ sót. Chi tiết của `kiem_ro_ri`: so mọi dòng trước mốc, coi NaN khác số, chọn cả mốc cắt rơi vào lỗ dữ liệu. Kiểm xanh không chứng minh là sạch; nó chỉ không tìm thấy rò rỉ.
 
-## 209. Code: ba kiểu rò rỉ cả chuỗi
+## 212. Code: ba kiểu rò rỉ cả chuỗi
 <!-- ma: code-b13-ca-chuoi -->
 
 Đặt bản sai cạnh bản đúng để thấy số tương lai lọt vào quá khứ ở đâu.
@@ -5385,7 +5433,7 @@ dien_dung = co_lo.ffill()                          # lấy hôm trước
 
 **Kết quả:** Mọi ô z dùng trung bình 13,33 có cả hai ngày cuối. Ngày 1 mang trung bình nhóm A 12,67 có số 20 của ngày 5. Điền hai phía ra 13, ffill ra 12.
 
-## 210. Code: bài kiểm cắt tương lai
+## 213. Code: bài kiểm cắt tương lai
 <!-- ma: code-b13-kiem-ro-ri -->
 
 Để máy tự tìm rò rỉ: cắt dữ liệu, tính lại feature, so từng dòng trước mốc.
@@ -5427,7 +5475,7 @@ def kiem_ro_ri(ham_feature, y, cac_moc=None, bo_cuoi=0):
 
 **Kết quả:** Bản ẩu (một mốc, bỏ 10 dòng cuối) bắt 4 cột, lọt tb_7. Bản đúng bắt đủ 5 cột. Bộ 41 cột đã sửa qua sạch cả hai bài kiểm.
 
-## 211. Học bằng nhiệt độ thật, chạy thật lại tệ hơn
+## 214. Học bằng nhiệt độ thật, chạy thật lại tệ hơn
 <!-- ma: ngoai-sinh -->
 
 *Tiếng Anh: exogenous variable · ex-ante vs ex-post · archived forecasts*
@@ -5444,7 +5492,7 @@ Quy tắc: huấn luyện bằng bản dự báo lưu trữ thì lúc chạy cũ
 
 Point-in-time còn có nghĩa là dùng đúng con số *lúc đó*: số liệu kinh tế hay bị sửa lại về sau (các bản vintage), và backtest phải dùng bản đã có tại gốc. Dự báo nhiệt độ trước 3 ngày kém tới mức huấn luyện bằng chính nó vẫn làm sai số tăng 2,92%, nên bỏ hẳn feature này.
 
-## 212. Code: nhiệt độ thật hay dự báo
+## 215. Code: nhiệt độ thật hay dự báo
 <!-- ma: code-b13-ngoai-sinh -->
 
 Đo cái giá của rò rỉ: học bằng nhiệt độ thật, chạy bằng bản dự báo nhiệt độ.
@@ -5485,19 +5533,19 @@ ghep = pd.merge_asof(trai, phai, left_index=True, right_index=True,
 
 **Kết quả:** Nhiệt độ thật hứa giảm 3,85% sai số. Học bằng thật, chạy bằng dự báo trước 3 ngày thì sai số tăng 2,20%, tệ hơn không dùng nhiệt độ.
 
-## 213. Phần C: Bảng tra & từ điển
+## 216. Phần C: Bảng tra & từ điển
 <!-- ma: phan-c -->
 
 Phần C gom 24 lỗi hay gặp vào ba bảng. Cách dùng: thấy dấu hiệu ở cột trái → chạy phép kiểm ở cột giữa → sửa theo cột phải.
 Sau đó là mười chỗ người mới hay hiểu nhầm, và từ điển Việt – Anh 100 thuật ngữ để tra tài liệu tiếng Anh.
 
-## 214. Bảng tra 1/3: thời gian, biểu đồ, biến đổi
+## 217. Bảng tra 1/3: thời gian, biểu đồ, biến đổi
 <!-- ma: bang-tra-1 -->
 
 Tám lỗi của buổi 3–6: múi giờ và đổi giờ, gộp tần suất, điều chỉnh lịch, biến đổi và đổi ngược, phân rã. "Data must be
 positive" là lỗi Box-Cox khi gặp số 0 hay số âm. Khi đó dùng Yeo-Johnson, bản biến đổi nhận cả số 0 và số âm.
 
-## 215. Bảng tra 2/3: dừng, tương quan, thiếu
+## 218. Bảng tra 2/3: dừng, tương quan, thiếu
 <!-- ma: bang-tra-2 -->
 
 Tám lỗi của buổi 7–10:
@@ -5509,14 +5557,14 @@ Tám lỗi của buổi 7–10:
 - Cột số lưu dạng chữ (dấu hiệu: min lớn hơn max).
 - Mã trá hình.
 
-## 216. Bảng tra 3/3: ngoại lai, nhiễu, rò rỉ, đánh giá
+## 219. Bảng tra 3/3: ngoại lai, nhiễu, rò rỉ, đánh giá
 <!-- ma: bang-tra-3 -->
 
 Tám lỗi của buổi 10–15: lỗ dài bị lấp phẳng, masking, PELT trên mức gốc, aliasing, rò rỉ, MAPE với số 0, chia ngẫu nhiên, và
 quên gap. **gap** là số bước bỏ trống giữa mốc cắt và đoạn dự báo khi dữ liệu về trễ. Ví dụ số liệu về trễ 1 ngày thì gap =
 24 giờ.
 
-## 217. Mười chỗ hay hiểu nhầm
+## 220. Mười chỗ hay hiểu nhầm
 <!-- ma: hay-nham -->
 
 1. **Outlier là lỗi.** Tết là bất thường thật: giữ lại, ghi vào nhật ký sự kiện.
@@ -5538,7 +5586,7 @@ quên gap. **gap** là số bước bỏ trống giữa mốc cắt và đoạn 
 10. **Chỉ cần thắng seasonal naive.** Phải thắng cả bốn baseline. Trên M4 theo ngày, naive (0,835) và drift (0,810) còn thắng
     seasonal naive (1,077).
 
-## 218. Từ điển Việt – Anh 1/5: nền móng, hiểu dữ liệu
+## 221. Từ điển Việt – Anh 1/5: nền móng, hiểu dữ liệu
 <!-- ma: tu-dien-1 -->
 
 Tên tiếng Anh dùng thống nhất theo Phụ lục E của khoá; tra tên tiếng Anh khi đọc tài liệu gốc (FPP, statsmodels, Nixtla).
@@ -5566,7 +5614,7 @@ Tên tiếng Anh dùng thống nhất theo Phụ lục E của khoá; tra tên t
 | hiệu chỉnh bias | bias adjustment (back-transform) | 5 |
 | phân rã cộng / nhân | additive / multiplicative decomposition | 6 |
 
-## 219. Từ điển Việt – Anh 2/5: dừng, làm sạch
+## 222. Từ điển Việt – Anh 2/5: dừng, làm sạch
 <!-- ma: tu-dien-2 -->
 
 | Tiếng Việt | English | Buổi |
@@ -5615,7 +5663,7 @@ Tên tiếng Anh dùng thống nhất theo Phụ lục E của khoá; tra tên t
 | thiếu MCAR / MAR / MNAR | missing completely at random / at random / not at random | 10 |
 | ngoại lai | outlier | 11 |
 
-## 220. Từ điển Việt – Anh 3/5: rò rỉ, đánh giá
+## 223. Từ điển Việt – Anh 3/5: rò rỉ, đánh giá
 <!-- ma: tu-dien-3 -->
 
 | Tiếng Việt | English | Buổi |
@@ -5664,7 +5712,7 @@ Tên tiếng Anh dùng thống nhất theo Phụ lục E của khoá; tra tên t
 | tập giữ lại | hold-out set | 15 |
 | kiểm định Diebold–Mariano | Diebold–Mariano test | 15 |
 
-## 221. Từ điển Việt – Anh 4/5: xác suất, biểu đồ, biến đổi
+## 224. Từ điển Việt – Anh 4/5: xác suất, biểu đồ, biến đổi
 <!-- ma: tu-dien-4 -->
 
 Các thuật ngữ nền về xác suất, biểu đồ và biến đổi, lấy từ bảng "Từ mới" của buổi 1–6.
@@ -5692,7 +5740,7 @@ Các thuật ngữ nền về xác suất, biểu đồ và biến đổi, lấy
 | trung bình trượt 2×m | 2×m moving average (2×m-MA) | 6 |
 | độ mạnh mùa vụ | strength of seasonality F_S | 6 |
 
-## 222. Từ điển Việt – Anh 5/5: tương quan, làm sạch, bộ lọc
+## 225. Từ điển Việt – Anh 5/5: tương quan, làm sạch, bộ lọc
 <!-- ma: tu-dien-5 -->
 
 Các thuật ngữ về tương quan, làm sạch và bộ lọc, lấy từ bảng "Từ mới" của buổi 8–15. Tên tiếng Anh thống nhất theo Phụ lục E của khoá.
@@ -5720,23 +5768,23 @@ Các thuật ngữ về tương quan, làm sạch và bộ lọc, lấy từ b�
 | tự hiệp phương sai | autocovariance | 15 |
 | phân phối t | Student's t-distribution | 15 |
 
-## 223. Thư viện dùng trong 15 buổi
+## 226. Thư viện dùng trong 15 buổi
 <!-- ma: thu-vien -->
 
 Tám nhóm thư viện dùng trong 15 buổi đầu. **pandas** lo bảng dữ liệu theo thời gian, **NumPy** lo tính toán trên mảng số; hai thư viện này có mặt ở mọi buổi. **statsmodels** là thư viện thống kê: kiểm định, tự tương quan, phân rã. **SciPy** có phân phối xác suất (Box-Cox, tương quan) và bộ lọc tín hiệu (buổi 12). **scikit-learn** là thư viện học máy, ở đây dùng để chuẩn hoá, nén chiều bằng PCA và chia tập. **ruptures** tìm điểm gãy. **statsforecast** và **utilsforecast** của Nixtla chạy baseline, backtest và chỉ số nhanh cho hàng nghìn chuỗi. Nhiều hàm khoá tự viết (như `du_bao_cuon`, `kiem_ro_ri`) để thấy rõ từng bước trước khi dùng thư viện.
 
-## 224. Lý thuyết nào, hàm nào
+## 227. Lý thuyết nào, hàm nào
 <!-- ma: ly-thuyet-ham -->
 
 Bảng tra ngược: đang học lý thuyết nào thì tìm hàm và thư viện tương ứng ở đây, rồi mở slide code của buổi đó để xem cách dùng.
 
-## 225. Phần D: Đánh giá trung thực
+## 228. Phần D: Đánh giá trung thực
 <!-- ma: phan-d -->
 
 Mọi bước tiền xử lý đều phải trả lời một câu: dự báo có tốt hơn thật không. Phần D là cách đo trung thực: chẩn đoán phần dư,
 chọn chỉ số, chia dữ liệu theo thời gian, backtest rolling origin, tách ba đoạn dữ liệu, và kiểm định Diebold–Mariano.
 
-## 226. Phần dư sạch: không còn gì để khai thác
+## 229. Phần dư sạch: không còn gì để khai thác
 <!-- ma: phan-du -->
 
 *Tiếng Anh: residual diagnostics · fitted values · Ljung–Box · Jarque–Bera*
@@ -5752,7 +5800,7 @@ tính trên kỳ chấm. Phần dư dùng để chẩn đoán. Phần dư "sạc
 Hình: phần dư của seasonal naive trên một chuỗi M4 tự tương quan mạnh (Ljung-Box p = 0,000) và có một cú rơi lớn. Vì vậy không nên tin
 khoảng dự báo của baseline.
 
-## 227. Code: chẩn đoán phần dư
+## 230. Code: chẩn đoán phần dư
 <!-- ma: code-b14-phan-du -->
 
 Kiểm xem phần dư còn quy luật không, để biết mô hình tốt hơn có chỗ để thắng.
@@ -5794,7 +5842,7 @@ p_jb = stats.jarque_bera(e).pvalue                 # có hình chuông không
 
 **Kết quả:** Trên 1.000 chuỗi M4: 99,8% còn tự tương quan (Ljung–Box p < 0,05), 92,5% không hình chuông, 46,4% phương sai đổi hơn 2 lần.
 
-## 228. Mỗi chỉ số thưởng một kiểu dự báo
+## 231. Mỗi chỉ số thưởng một kiểu dự báo
 <!-- ma: chi-so -->
 
 *Tiếng Anh: MAE · RMSE · mean error (bias)*
@@ -5814,7 +5862,7 @@ thấy. Đừng báo phần dư như sai số dự báo.
 
 Đọc quy ước của thư viện trước khi dán số vào báo cáo: có thư viện ghi MAPE và sMAPE ở thang 0–1 (lệch 100 hoặc 200 lần), và `utilsforecast.bias` tính ME = dự báo − thực tế, ngược dấu với khoá.
 
-## 229. Code: MAE, RMSE, ME
+## 232. Code: MAE, RMSE, ME
 <!-- ma: code-b14-mae-rmse -->
 
 Viết ba chỉ số rồi thấy mỗi chỉ số ưa một con số dự báo khác nhau.
@@ -5856,7 +5904,7 @@ c_mae, c_rmse = luoi[np.argmin(mae_theo)], luoi[np.argmin(rmse_theo)]
 
 **Kết quả:** Năm ngày: MAE 1,6; RMSE 2,10; ME 0,8. Trên số lệch phải, MAE đáy ở 20,0 (trung vị), RMSE đáy ở 30,1 (trung bình).
 
-## 230. Có số 0 thì MAPE hỏng
+## 233. Có số 0 thì MAPE hỏng
 <!-- ma: phan-tram -->
 
 *Tiếng Anh: MAPE · sMAPE · WAPE (weighted absolute percentage error)*
@@ -5879,7 +5927,7 @@ có thể thắng MAE mà vô dụng cho việc nhập hàng.
 
 Khi gộp nhiều chuỗi, nói rõ gộp bằng trung vị hay trung bình (vài chuỗi cực đoan kéo trung bình), và đếm, báo số chuỗi không tính được chỉ số, đừng âm thầm bỏ. Chọn chỉ số theo quyết định trước khi xem kết quả.
 
-## 231. MAPE phạt dự báo cao nặng hơn dự báo thấp
+## 234. MAPE phạt dự báo cao nặng hơn dự báo thấp
 <!-- ma: mape-lech -->
 
 *Tiếng Anh: MAPE asymmetry · under-forecast bias · sMAPE*
@@ -5903,7 +5951,7 @@ nhỏ nhất của chính nó. Nhìn đáy ba đường: MAE đáy ở 20,0 (tru
 hay đặt hàng theo MAPE là nghiêng về dự báo thấp; chuỗi có số 0 thì MAPE còn thành vô hạn. Khi đó dùng WAPE (tổng |sai số| / tổng thực tế)
 hoặc chỉ số chia thang.
 
-## 232. Code: MAPE, sMAPE, WAPE
+## 235. Code: MAPE, sMAPE, WAPE
 <!-- ma: code-b14-phan-tram -->
 
 Ba chỉ số phần trăm và cách mỗi cái xử lý ngày có thực tế bằng 0.
@@ -5944,7 +5992,7 @@ def wape(y, d):                                    # tổng chia tổng
 
 **Kết quả:** Bảng năm ngày: MAPE 12,8%, sMAPE 13,6, WAPE 13,3%. Thêm một ngày thực tế 0 thì MAPE thành vô hạn; trên 300 mã bán lẻ MAPE không tính được.
 
-## 233. MASE: chia cho sai số baseline phần học
+## 236. MASE: chia cho sai số baseline phần học
 <!-- ma: mase -->
 
 *Tiếng Anh: MASE (mean absolute scaled error) · RMSSE · in-sample scaling*
@@ -5963,7 +6011,7 @@ Có hai chỗ hay nhầm. Lấy mẫu số trên đoạn đang chấm là sai đ
 trên cùng kỳ. Hình (buổi 9): vì mẫu số lớn lên theo độ khó của chính chuỗi, MASE của seasonal naive nằm ngang quanh 1 dù chuỗi dễ
 hay khó, nên MASE so mô hình, không đo độ khó.
 
-## 234. Code: MASE, RMSSE
+## 237. Code: MASE, RMSSE
 <!-- ma: code-b14-mase -->
 
 Chia sai số cho mức sai quen thuộc của baseline để so được giữa các chuỗi.
@@ -6004,7 +6052,7 @@ def rmsse(y, d, hoc, m=7):
 
 **Kết quả:** Ví dụ tay: MASE 1,6 / 1,5 ≈ 1,07, RMSSE ≈ 1,33. Lấy mẫu số trên đoạn chấm (code đầu buổi) thì MASE của naive trên M4 ra 0,972 thay vì 0,835.
 
-## 235. Code: gộp, xếp hạng, đối chiếu
+## 238. Code: gộp, xếp hạng, đối chiếu
 <!-- ma: code-b14-doi-hang -->
 
 Gộp chỉ số qua nhiều chuỗi mà không giấu ô vô hạn, rồi soát thang của thư viện.
@@ -6045,7 +6093,7 @@ smape_m4 = tl * 200                               # về thang 0–200 của M4
 
 **Kết quả:** Bán lẻ 300 mã: hạng nhất đổi theo chỉ số (naive theo MAE, seasonal naive theo sMAPE). sMAPE tự viết 3,59, utilsforecast 0,0179: lệch 200 lần.
 
-## 236. Tám chỉ số: đo gì, ưa gì, hỏng khi nào
+## 239. Tám chỉ số: đo gì, ưa gì, hỏng khi nào
 <!-- ma: bang-chi-so -->
 
 | Chỉ số | Tính bằng lời | Ưa gì, dùng để làm gì | Hỏng hay lệch khi |
@@ -6061,7 +6109,7 @@ smape_m4 = tl * 200                               # về thang 0–200 của M4
 
 Chọn chỉ số theo quyết định trước khi xem kết quả; đổi chỉ số là đổi hạng (buổi 14, mục 4.6).
 
-## 237. Chia ngẫu nhiên là nhìn trộm tương lai
+## 240. Chia ngẫu nhiên là nhìn trộm tương lai
 <!-- ma: chia-ngau-nhien -->
 
 *Tiếng Anh: random split · K-fold · hold-out · rolling origin*
@@ -6073,7 +6121,7 @@ trên tương lai:
 - **Hold-out**: một mốc cắt, kiểm một lần.
 - **Rolling origin**: nhiều mốc cắt, mỗi lần học quá khứ rồi kiểm đoạn ngay sau.
 
-## 238. Code: K-fold xáo trộn so với hold-out
+## 241. Code: K-fold xáo trộn so với hold-out
 <!-- ma: code-b15-kfold -->
 
 Đo bằng số xem chia ngẫu nhiên hứa sai số thấp hơn thật bao nhiêu.
@@ -6113,7 +6161,7 @@ mae_that = _mae(mo_hinh.predict(kiem.drop(columns="y")), kiem["y"])
 
 **Kết quả:** Rừng ngẫu nhiên: K-fold hứa 1.639 MW, hold-out thật 2.129 MW, lệch −23,0%. Hồi quy tuyến tính lệch −11,8%.
 
-## 239. K-fold xáo trộn hứa thấp hơn thật 23%
+## 242. K-fold xáo trộn hứa thấp hơn thật 23%
 <!-- ma: kfold -->
 
 *Tiếng Anh: K-fold cross-validation · hold-out set*
@@ -6129,7 +6177,7 @@ chạy thật: cùng tầm, cùng bước, cùng độ trễ dữ liệu.
 
 K-fold không phải lúc nào cũng sai. Bergmeir, Hyndman và Koo (2018) chứng minh: nếu mô hình chỉ dùng lag làm đầu vào và phần dư không còn tự tương quan, K-fold cho ước lượng dùng được. Mô hình càng giỏi nhớ (như rừng ngẫu nhiên) thì K-fold càng lạc quan.
 
-## 240. Rolling origin: backtest như chạy thật
+## 243. Rolling origin: backtest như chạy thật
 <!-- ma: rolling-origin -->
 
 *Tiếng Anh: rolling origin · cutoff · expanding / sliding window · gap*
@@ -6148,7 +6196,7 @@ Mọi bước tiền xử lý có học từ dữ liệu phải làm lại bên 
 
 Tính cutoff bằng tay: cutoff cuối = n − 1 − gap − h, rồi lùi đều theo bước `buoc`. Ví dụ 30 mốc (0 tới 29), h = 4, gap = 2, 3 cửa sổ, buoc = 4: cutoff là 23, 19, 15; cửa sổ cuối học tới 23, bỏ trống 24 và 25, dự báo 26 tới 29. Đặt buoc = h: nếu các cửa sổ cách nhau đúng 7 ngày thì cửa sổ nào cũng rơi cùng một thứ trong tuần.
 
-## 241. Code: bộ backtest rolling origin
+## 244. Code: bộ backtest rolling origin
 <!-- ma: code-b15-rolling-origin -->
 
 Tự viết bộ backtest: nhiều cutoff, mỗi lần chỉ học trên quá khứ rồi dự báo.
@@ -6190,7 +6238,7 @@ def backtest(df, ham_du_bao, h, so_cua_so, buoc=None, gap=0):
 
 **Kết quả:** Tải ERCOT, 28 cửa sổ 24 giờ: rừng ngẫu nhiên 1.944 MW so với hold-out 2.129 MW (−8,7%). Seasonal naive khớp statsforecast, chênh 0,0.
 
-## 242. Cửa sổ học: expanding, sliding, gap
+## 245. Cửa sổ học: expanding, sliding, gap
 <!-- ma: cua-so -->
 
 *Tiếng Anh: expanding window · sliding window · gap · refit*
@@ -6205,7 +6253,7 @@ Rolling origin có bốn lựa chọn phải khớp với cách mô hình chạy
 
 Trong hình, mỗi hàng là một cutoff: phần xám là dữ liệu được học (dài dần, tức expanding), ô xanh là đoạn được dự báo và chấm.
 
-## 243. Code: sai số theo cửa sổ và theo h
+## 246. Code: sai số theo cửa sổ và theo h
 <!-- ma: code-b15-theo-cua-so -->
 
 Tách một MAE gộp ra từng cửa sổ và từng bước h để thấy nó dao động cỡ nào.
@@ -6245,7 +6293,7 @@ def sai_so_theo_h(kq, cot):
 
 **Kết quả:** MAE một ngày của rừng ngẫu nhiên đi từ 583 tới 4.328 MW, gấp bảy lần. Trên M4, seasonal naive 24 giờ nhảy lên từ bước 25.
 
-## 244. Luyện, thi thử, thi thật: ba đoạn riêng
+## 247. Luyện, thi thử, thi thật: ba đoạn riêng
 <!-- ma: ba-doan -->
 
 *Tiếng Anh: train / validation / test · hold-out*
@@ -6261,7 +6309,7 @@ Học sinh luyện đúng đề thi thật thì điểm cao mà không biết g�
 
 Chọn trên tập kiểm cũng là rò rỉ. Đã mở hold-out rồi quay lại chỉnh mô hình thì hold-out đó hết giá trị; cần một hold-out mới.
 
-## 245. Code: tune, chọn, báo cáo ba đoạn
+## 248. Code: tune, chọn, báo cáo ba đoạn
 <!-- ma: code-b15-ba-tap -->
 
 Tách ba đoạn riêng để con số báo cáo không được hưởng phần may lúc chọn.
@@ -6303,7 +6351,7 @@ def chon_va_bao_cao(chuoi, h=48):
 
 **Kết quả:** 414 chuỗi M4 theo giờ: tune, chọn, báo cáo cùng đoạn B cho MASE trung vị 0,775; ba đoạn riêng cho 1,039, lạc quan 25%.
 
-## 246. Diebold–Mariano: chênh lệch có thật hay may rủi
+## 249. Diebold–Mariano: chênh lệch có thật hay may rủi
 <!-- ma: dm -->
 
 *Tiếng Anh: Diebold–Mariano test · loss differential · HLN correction*
@@ -6315,7 +6363,7 @@ có bằng chứng mô hình nào hơn.
 
 Con số của buổi 15: bản bỏ qua tự tương quan cho p = 0,0000012, bản HLN với h = 24 cho p = 0,16, tức chưa có bằng chứng. Và so 20 cặp mô hình thì trung bình có khoảng một cặp p < 0,05 chỉ do may.
 
-## 247. Code: kiểm định Diebold–Mariano
+## 250. Code: kiểm định Diebold–Mariano
 <!-- ma: code-b15-dm -->
 
 Hỏi chênh sai số giữa hai dự báo là thật hay chỉ là may trên đoạn này.
@@ -6357,7 +6405,7 @@ def diebold_mariano(e1, e2, h=1, hieu_chinh=True):
 
 **Kết quả:** Trộn so với seasonal naive trên 2.215 giờ: bỏ tự tương quan ra p = 0,0000012; bản HLN h = 24 ra −1,41, p = 0,16: chưa có bằng chứng.
 
-## 248. Bảy kiểm định, một cách đọc
+## 251. Bảy kiểm định, một cách đọc
 <!-- ma: doc-kiem-dinh -->
 
 Mọi kiểm định trong khoá đi cùng bốn bước: đặt H0 (giả định ban đầu) → tính một con số từ dữ liệu → hỏi nếu H0 đúng thì
@@ -6375,13 +6423,13 @@ con số lệch cỡ này hiếm tới đâu (p) → p < 0,05 thì bác bỏ H0;
 
 ADF và KPSS có H0 ngược nhau: đọc H0 trước khi đọc p.
 
-## 249. Phần E: Quy trình tiền xử lý
+## 252. Phần E: Quy trình tiền xử lý
 <!-- ma: phan-e -->
 
 Phần E ghép mọi thứ thành một quy trình. Câu hỏi phân loại mỗi bước: bước này có học gì từ dữ liệu không? Có thì phải làm
 lại ở mỗi cutoff.
 
-## 250. Quy trình tiền xử lý: ba tầng
+## 253. Quy trình tiền xử lý: ba tầng
 <!-- ma: quy-trinh -->
 
 *Tiếng Anh: preprocessing pipeline · point-in-time*
@@ -6403,7 +6451,7 @@ backtest là đã để tương lai rò vào quá khứ.
 **Tầng 3, kiểm.** Chạy rolling origin với gap bằng độ trễ dữ liệu. Chấm bằng MASE hoặc WAPE trên chuỗi gốc, so với seasonal
 naive. Cuối cùng chạy bài kiểm rò rỉ tự động.
 
-## 251. Ba nguyên tắc cho mọi bước
+## 254. Ba nguyên tắc cho mọi bước
 <!-- ma: nguyen-tac -->
 
 1. **Chỉ dùng thông tin có trước cutoff.** Áp cho feature, cho giá trị điền, cho tham số biến đổi, và cho biến ngoại sinh
@@ -6411,13 +6459,13 @@ naive. Cuối cùng chạy bài kiểm rò rỉ tự động.
 2. **Giữ dữ liệu gốc, gắn cờ thay vì xoá.** Xoá làm thủng lưới thời gian và mất dấu vết. Cột cờ cho biết chỗ nào đã sửa.
 3. **Phải thắng các baseline trên backtest, luôn có seasonal naive.** Bước tiền xử lý nào không làm sai số trung thực tốt lên thì bỏ.
 
-## 252. Phần F: Dữ liệu & phía trước
+## 255. Phần F: Dữ liệu & phía trước
 <!-- ma: phan-f -->
 
 Dữ liệu trong khoá là dữ liệu thật, bẩn thật, có giấy phép mở đã xác minh. Phần này còn có bảng tra mỗi buổi nằm ở
 slide nào, và phần tiền xử lý các buổi sau sẽ dạy.
 
-## 253. 14 bộ dữ liệu thật, mỗi bộ bẩn một kiểu
+## 256. 14 bộ dữ liệu thật, mỗi bộ bẩn một kiểu
 <!-- ma: du-lieu -->
 
 Mỗi bộ được chọn vì nó dạy một kiểu bẩn:
@@ -6434,13 +6482,13 @@ Mỗi bộ được chọn vì nó dạy một kiểu bẩn:
 Mọi bộ đều có giấy phép đã xác minh và được tải về kèm kiểm sha256 (dấu vân tay của tệp). Khoá không dùng FRED vì điều
 khoản cấm dùng cho machine learning; chuỗi kinh tế lấy từ cơ quan gốc (BLS, BEA, Census, Fed).
 
-## 254. Tra theo buổi: mỗi buổi ở slide nào
+## 257. Tra theo buổi: mỗi buổi ở slide nào
 <!-- ma: tra-theo-buoi -->
 
 Bảng cho biết mỗi buổi được tóm ở những slide nào; script kiểm để mọi mục lý thuyết 4.x của buổi 1–15 đều có ít nhất một slide. Muốn
 ôn một buổi, mở các slide đó cùng mục tương ứng trong bài đọc này, rồi đọc tài liệu gốc của buổi.
 
-## 255. Tiền xử lý còn tiếp, theo từng bài toán
+## 258. Tiền xử lý còn tiếp, theo từng bài toán
 <!-- ma: phia-truoc -->
 
 Buổi 1–15 cho quy trình chung. Các buổi sau thêm phần riêng cho từng loại bài toán:
@@ -6456,7 +6504,7 @@ Buổi 1–15 cho quy trình chung. Các buổi sau thêm phần riêng cho từ
 | 41 | Pipeline point-in-time chạy lại ra đúng kết quả |
 | 43 | Giám sát dữ liệu mới: đổi đơn vị, drift |
 
-## 256. Năm điều mang về
+## 259. Năm điều mang về
 <!-- ma: tong-ket -->
 
 1. Nhìn trước, xử lý sau.
